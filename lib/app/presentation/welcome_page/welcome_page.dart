@@ -103,6 +103,7 @@ class WelcomePage extends StatelessWidget {
                   continueButtonColor,
                   () {},
                   continueButtonTextStyle,
+                  padding: 32.0,
                 ),
               ),
             ),
