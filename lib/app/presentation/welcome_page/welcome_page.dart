@@ -3,7 +3,7 @@ import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_button.dart';
 
-import 'immage_picker.dart';
+import 'language_picker.dart';
 
 class WelcomePage extends StatelessWidget {
   @override
@@ -26,7 +26,7 @@ class WelcomePage extends StatelessWidget {
             _buildHeader(),
             _buildLine(context),
             _buildWelcomeText(),
-            buildLanguagePicker(context),
+            LanguagePicker(),
             _buildDOBPicker(),
             _buildContinueButton(context),
           ],
@@ -91,7 +91,7 @@ class WelcomePage extends StatelessWidget {
             child: buildCustomButton(
               'Continue',
               continueButtonColor,
-                  () {},
+              () {},
               continueButtonTextStyle,
             ),
           ),
