@@ -65,7 +65,7 @@ class WelcomePage extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 8.0, bottom: 12.0),
+          padding: const EdgeInsets.only(top: 8.0, bottom: 16.0),
           child: Text(
             Globals.instance.getLanguage().selectDateOfBirth,
             style: radioButtonTextStyle,
@@ -89,21 +89,26 @@ class WelcomePage extends StatelessWidget {
   }
 
   _buildContinueButton(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Container(
-            child: buildCustomButton(
-              Globals.instance.getLanguage().continueText,
-              continueButtonColor,
-              () {},
-              continueButtonTextStyle,
+    return Expanded(
+      child: Align(
+        alignment: Alignment.bottomCenter,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 32.0),
+              child: Container(
+                child: buildCustomButton(
+                  Globals.instance.getLanguage().continueText,
+                  continueButtonColor,
+                  () {},
+                  continueButtonTextStyle,
+                ),
+              ),
             ),
-          ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

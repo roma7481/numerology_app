@@ -29,7 +29,7 @@ class _LanguagePickerState extends State<LanguagePicker> {
 
   Padding _buildHeader() {
     return Padding(
-      padding: const EdgeInsets.only(top: 36.0, bottom: 8.0),
+      padding: const EdgeInsets.only(top: 24.0, bottom: 8.0),
       child: Text(
         Globals.instance.getLanguage().selectLanguage,
         style: radioButtonTextStyle,
