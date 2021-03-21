@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:numerology/app/business_logic/cubit/language/language_cubit.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/text_styles.dart';
@@ -9,7 +11,9 @@ import 'language_picker.dart';
 class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return _buildPageContent(context);
+    return BlocBuilder<LanguageCubit, LanguageState>(builder: (context, state) {
+      return _buildPageContent(context);
+    });
   }
 
   SafeArea _buildPageContent(BuildContext context) {
