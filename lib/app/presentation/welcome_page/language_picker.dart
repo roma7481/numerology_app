@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:numerology/app/business_logic/cubit/language/language_cubit.dart';
+import 'package:numerology/app/business_logic/globals/globals.dart';
+import 'package:numerology/app/constants/strings.dart';
 import 'package:numerology/app/constants/text_styles.dart';
+import 'package:numerology/app/localization/locale_utils.dart';
+import 'package:provider/provider.dart';
 
 class LanguagePicker extends StatefulWidget {
   @override
@@ -11,12 +16,13 @@ class _LanguagePickerState extends State<LanguagePicker> {
 
   @override
   Widget build(BuildContext context) {
+    _selected = context.watch<LanguageCubit>().state.buttonId;
     return new Column(
       children: [
         _buildHeader(),
-        _buildRadioButton(1, 'English'),
-        _buildRadioButton(2, 'Russian'),
-        _buildRadioButton(3, 'Spanish'),
+        _buildRadioButton(0, english),
+        _buildRadioButton(1, russian),
+        _buildRadioButton(2, spanish),
       ],
     );
   }
@@ -25,7 +31,7 @@ class _LanguagePickerState extends State<LanguagePicker> {
     return Padding(
       padding: const EdgeInsets.only(top: 36.0, bottom: 8.0),
       child: Text(
-        'Please chose language',
+        Globals.instance.getLanguage().selectLanguage,
         style: radioButtonTextStyle,
       ),
     );
@@ -50,11 +56,12 @@ class _LanguagePickerState extends State<LanguagePicker> {
     );
   }
 
-  void onChanged(int value) {
+  void onChanged(int index) {
+    var languageItem =
+        LocaleUtils.allLanguages[index] ??= LanguageItem(en, english);
     setState(() {
-      _selected = value;
+      _selected = index;
+      context.read<LanguageCubit>().emitLocale(languageItem.locale, index);
     });
-
-    print('Value = $value');
   }
 }

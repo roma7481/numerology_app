@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_button.dart';
@@ -8,6 +9,10 @@ import 'language_picker.dart';
 class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    return _buildPageContent(context);
+  }
+
+  SafeArea _buildPageContent(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: _buildContent(context),
@@ -39,7 +44,7 @@ class WelcomePage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 32.0, bottom: 16.0),
       child: Text(
-        'Welcome to numerology',
+        Globals.instance.getLanguage().welcomeToNumerology,
         style: headerTextStyle,
       ),
     );
@@ -49,7 +54,7 @@ class WelcomePage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 16.0),
       child: Text(
-        'Let\'s start by setting your language and date of birth. Date of birth is required for Numerological calculations.',
+        Globals.instance.getLanguage().welcomeText,
         style: contentTextStyle,
       ),
     );
@@ -61,7 +66,7 @@ class WelcomePage extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 8.0, bottom: 12.0),
           child: Text(
-            'Please enter date of birth',
+            Globals.instance.getLanguage().selectDateOfBirth,
             style: radioButtonTextStyle,
           ),
         ),
