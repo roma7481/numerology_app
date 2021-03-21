@@ -25,21 +25,18 @@ class WelcomePage extends StatelessWidget {
   }
 
   Widget _buildContent(BuildContext context) {
-    return Align(
-      alignment: Alignment.center,
-      child: Container(
-        color: backgroundColor,
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            _buildHeader(),
-            _buildLine(context),
-            _buildWelcomeText(),
-            LanguagePicker(),
-            _buildDOBPicker(),
-            _buildContinueButton(context),
-          ],
-        ),
+    return Container(
+      color: backgroundColor,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          _buildHeader(),
+          _buildLine(context),
+          _buildWelcomeText(),
+          LanguagePicker(),
+          _buildDOBPicker(),
+          _buildContinueButton(context),
+        ],
       ),
     );
   }
@@ -93,12 +90,13 @@ class WelcomePage extends StatelessWidget {
 
   _buildContinueButton(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: Container(
             child: buildCustomButton(
-              'Continue',
+              Globals.instance.getLanguage().continueText,
               continueButtonColor,
               () {},
               continueButtonTextStyle,
