@@ -21,4 +21,7 @@ class LanguageEn extends Languages {
 
   @override
   String get dateOfBirth => 'Date of birth';
+
+  @override
+  String get enterBirthdayWarning => 'Please enter date of birth';
 }

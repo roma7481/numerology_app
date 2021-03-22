@@ -5,11 +5,14 @@ import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_button.dart';
+import 'package:numerology/app/presentation/common_widgets/toast.dart';
 
 import 'birthday_picker.dart';
 import 'language_picker.dart';
 
 class WelcomePage extends StatelessWidget {
+  static bool isBirthdaySet = false;
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LanguageCubit, LanguageState>(builder: (context, state) {
@@ -63,7 +66,7 @@ class WelcomePage extends StatelessWidget {
   }
 
   _buildDOBPicker(BuildContext context) {
-    return BirthdayPicker();
+    return BirthdayPicker(onClick: updateBirthday);
   }
 
   Padding _buildLine(BuildContext context) {
@@ -85,12 +88,16 @@ class WelcomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Padding(
-              padding: const EdgeInsets.only(bottom: 32.0),
+              padding: const EdgeInsets.only(bottom: 8.0),
               child: Container(
                 child: buildCustomButton(
                   Globals.instance.getLanguage().continueText,
                   continueButtonColor,
-                  () {},
+                  () {
+                    if(!isBirthdaySet){
+                      showToast(Globals.instance.language.enterBirthdayWarning);
+                    }
+                  },
                   continueButtonTextStyle,
                   padding: 32.0,
                 ),
@@ -100,5 +107,9 @@ class WelcomePage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void updateBirthday(){
+    isBirthdaySet = true;
   }
 }

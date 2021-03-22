@@ -12,4 +12,6 @@ abstract class Languages {
   String get welcomeToNumerology;
 
   String get selectLanguage;
+
+  String get enterBirthdayWarning;
 }

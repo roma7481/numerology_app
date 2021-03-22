@@ -9,6 +9,9 @@ import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_button.dart';
 
 class BirthdayPicker extends StatefulWidget {
+  const BirthdayPicker({Key key, this.onClick}) : super(key: key);
+  final Function onClick;
+
   @override
   _BirthdayPickerState createState() => _BirthdayPickerState();
 }
@@ -36,6 +39,7 @@ class _BirthdayPickerState extends State<BirthdayPicker> {
                 onConfirm: (date) {
                   setState(() {
                     _selectedDate = date;
+                    widget.onClick();
                   });
                 },
                 locale: Globals.instance.getLocaleType(),

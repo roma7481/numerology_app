@@ -18,4 +18,7 @@ class LanguageRu extends Languages {
 
   @override
   String get dateOfBirth => 'dateOfBirth RU';
+
+  @override
+  String get enterBirthdayWarning => 'enterBirthdayWarning RU';
 }
