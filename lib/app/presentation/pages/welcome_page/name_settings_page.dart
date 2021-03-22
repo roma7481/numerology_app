@@ -35,13 +35,14 @@ class NameSettingsPage extends StatelessWidget {
           buildLine(context),
           _buildNameSettingsText(),
           _buildNameDialog(),
+          _buildNotice(),
           _buildContinueButton(context),
         ],
       ),
     );
   }
 
-  _buildHeader() {
+  Widget _buildHeader() {
     return Padding(
       padding: const EdgeInsets.only(top: 32.0, bottom: 16.0),
       child: Text(
@@ -51,9 +52,9 @@ class NameSettingsPage extends StatelessWidget {
     );
   }
 
-  _buildNameSettingsText() {
+  Widget _buildNameSettingsText() {
     return Padding(
-      padding: const EdgeInsets.only(left: 16.0),
+      padding: const EdgeInsets.only(left: 16.0, right: 16.0),
       child: Text(
         Globals.instance.getLanguage().nameSettingsText,
         style: contentTextStyle,
@@ -61,7 +62,7 @@ class NameSettingsPage extends StatelessWidget {
     );
   }
 
-  _buildContinueButton(BuildContext context) {
+  Widget _buildContinueButton(BuildContext context) {
     return Expanded(
       child: Align(
         alignment: Alignment.bottomCenter,
@@ -86,7 +87,17 @@ class NameSettingsPage extends StatelessWidget {
     );
   }
 
-  _buildNameDialog() {
+  Widget _buildNameDialog() {
     return NameDialog();
+  }
+
+  Widget _buildNotice() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+      child: Text(
+        Globals.instance.language.nameSettingsNotice,
+        style: noticeTextStyle,
+      ),
+    );
   }
 }

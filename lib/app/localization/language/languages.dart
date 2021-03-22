@@ -26,4 +26,6 @@ abstract class Languages {
   String get lastName;
 
   String get middleName;
+
+  String get nameSettingsNotice;
 }

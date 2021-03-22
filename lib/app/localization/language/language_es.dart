@@ -39,4 +39,7 @@ class LanguageEs extends Languages {
 
   @override
   String get middleName => 'middleName ES';
+
+  @override
+  String get nameSettingsNotice => 'nameSettingsNotice ES';
 }

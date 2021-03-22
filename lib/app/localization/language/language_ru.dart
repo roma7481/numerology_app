@@ -39,4 +39,7 @@ class LanguageRu extends Languages {
 
   @override
   String get middleName => 'middleName RU';
+
+  @override
+  String get nameSettingsNotice => 'nameSettingsNotice RU';
 }

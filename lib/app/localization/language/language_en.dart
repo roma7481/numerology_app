@@ -30,7 +30,7 @@ class LanguageEn extends Languages {
 
   @override
   String get nameSettingsText =>
-      'Some categories require Name and Last Name. You can skip this step by clicking Continue and set it later';
+      'Some categories require Name and Last Name. You can skip this step by clicking Continue and set it later.';
 
   @override
   String get enterName => 'Please enter your name';
@@ -43,4 +43,8 @@ class LanguageEn extends Languages {
 
   @override
   String get middleName => 'Middle name';
+
+  @override
+  String get nameSettingsNotice => 'If you have more then one Middle name, please enter all '
+      'of them inside the Middle name field with space between them.';
 }

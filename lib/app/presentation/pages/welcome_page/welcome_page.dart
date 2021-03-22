@@ -59,7 +59,7 @@ class WelcomePage extends StatelessWidget {
 
   _buildWelcomeText() {
     return Padding(
-      padding: const EdgeInsets.only(left: 16.0),
+      padding: const EdgeInsets.only(left: 16.0, right: 16.0),
       child: Text(
         Globals.instance.getLanguage().welcomeText,
         style: contentTextStyle,

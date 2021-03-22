@@ -55,3 +55,11 @@ TextStyle datePickerTextStyle = GoogleFonts.philosopher(
         fontSize: 19.0,
         color: Colors.black,
         fontWeight: FontWeight.bold));
+
+/// NAME SETTINGS PAGE ///
+
+var noticeTextStyle = GoogleFonts.sourceSansPro(
+    textStyle: TextStyle(
+      fontSize: 16.0,
+      color: pickerHeaderColor,
+    ));
