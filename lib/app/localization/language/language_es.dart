@@ -11,7 +11,7 @@ class LanguageEs extends Languages {
   String get continueText => 'continue ES';
 
   @override
-  String get selectDateOfBirth => 'selectDateOfBirth';
+  String get selectDateOfBirth => 'selectDateOfBirth ES';
 
   @override
   String get welcomeText => 'welcomeText ES';
