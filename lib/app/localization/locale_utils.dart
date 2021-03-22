@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:numerology/app/constants/strings.dart';
 
@@ -17,6 +18,13 @@ class LanguageItem {
 }
 
 class LocaleUtils {
+
+  static List<TextInputFormatter> keyboardInputFormatter() {
+    /// Need to add a keyboard formatter for every language we add ///
+    var formatter = new FilteringTextInputFormatter.allow(RegExp(r"[a-zA-Z]+|[А-Яа-я]+|\s"));
+    return [formatter];
+  }
+
   static Map<int, LanguageItem> allLanguages = {
     0: LanguageItem(en, english),
     1: LanguageItem(ru, russian),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/text_styles.dart';
+import 'package:numerology/app/localization/locale_utils.dart';
 
 class NameDialog extends StatefulWidget {
   @override
@@ -44,6 +45,7 @@ class _NameDialogState extends State<NameDialog> {
           child: Padding(
             padding: EdgeInsets.only(left: padding, right: padding),
             child: TextField(
+              inputFormatters: LocaleUtils.keyboardInputFormatter(),
               style: TextStyle(color: inputTextColor),
               decoration: InputDecoration(
                 hintStyle: TextStyle(fontSize: 20.0, color: hintColor),
@@ -66,4 +68,6 @@ class _NameDialogState extends State<NameDialog> {
           style: radioButtonTextStyle,
         );
   }
+
+
 }
