@@ -47,3 +47,11 @@ var continueButtonTextStyle = GoogleFonts.philosopher(
     ));
 
 var radioButtonColor = MaterialStateColor.resolveWith((states) => Colors.white);
+
+/// TIME PICKER ///
+
+TextStyle datePickerTextStyle = GoogleFonts.philosopher(
+    textStyle: TextStyle(
+        fontSize: 19.0,
+        color: Colors.black,
+        fontWeight: FontWeight.bold));

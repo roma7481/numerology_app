@@ -6,9 +6,9 @@ class LanguageState {
   bool firsTimeAppVisit;
 
   LanguageState({
-    required this.buttonId,
-    required this.locale,
-    required this.firsTimeAppVisit,
+    @required this.buttonId,
+    @required this.locale,
+    @required this.firsTimeAppVisit,
   });
 
   factory LanguageState.fromJson(Map<String, dynamic> json) {

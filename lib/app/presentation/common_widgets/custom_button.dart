@@ -15,7 +15,7 @@ Widget buildCustomButton(
               text,
               style: textStyle,
             ),
-            onPressed: onPressed()),
+            onPressed: onPressed),
       ),
     ),
   );

@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/constants/strings.dart';

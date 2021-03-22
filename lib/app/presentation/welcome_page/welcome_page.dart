@@ -6,6 +6,7 @@ import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_button.dart';
 
+import 'birthday_picker.dart';
 import 'language_picker.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -34,7 +35,7 @@ class WelcomePage extends StatelessWidget {
           _buildLine(context),
           _buildWelcomeText(),
           LanguagePicker(),
-          _buildDOBPicker(),
+          _buildDOBPicker(context),
           _buildContinueButton(context),
         ],
       ),
@@ -61,20 +62,8 @@ class WelcomePage extends StatelessWidget {
     );
   }
 
-  _buildDOBPicker() {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 8.0, bottom: 16.0),
-          child: Text(
-            Globals.instance.getLanguage().selectDateOfBirth,
-            style: radioButtonTextStyle,
-          ),
-        ),
-        buildCustomButton('January 21, 2021', dateOfBirthButtonColor, () {},
-            dateOfBirthButtonTextStyle),
-      ],
-    );
+  _buildDOBPicker(BuildContext context) {
+    return BirthdayPicker();
   }
 
   Padding _buildLine(BuildContext context) {
