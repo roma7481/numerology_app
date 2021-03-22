@@ -6,15 +6,8 @@ import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_button.dart';
 import 'package:numerology/app/presentation/common_widgets/line_widget.dart';
-import 'package:numerology/app/presentation/common_widgets/toast.dart';
-import 'package:numerology/app/presentation/navigators/navigator.dart';
 
-import 'birthday_picker.dart';
-import 'language_picker.dart';
-
-class WelcomePage extends StatelessWidget {
-  static bool isBirthdaySet = false;
-
+class NameSettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LanguageCubit, LanguageState>(builder: (context, state) {
@@ -38,9 +31,8 @@ class WelcomePage extends StatelessWidget {
         children: [
           _buildHeader(),
           buildLine(context),
-          _buildWelcomeText(),
-          LanguagePicker(),
-          _buildDOBPicker(context),
+          _buildNameSettingsText(),
+          _buildNameDialog(),
           _buildContinueButton(context),
         ],
       ),
@@ -51,24 +43,20 @@ class WelcomePage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 32.0, bottom: 16.0),
       child: Text(
-        Globals.instance.getLanguage().welcomeToNumerology,
+        Globals.instance.getLanguage().nameSettings,
         style: headerTextStyle,
       ),
     );
   }
 
-  _buildWelcomeText() {
+  _buildNameSettingsText() {
     return Padding(
       padding: const EdgeInsets.only(left: 16.0),
       child: Text(
-        Globals.instance.getLanguage().welcomeText,
+        Globals.instance.getLanguage().nameSettingsText,
         style: contentTextStyle,
       ),
     );
-  }
-
-  _buildDOBPicker(BuildContext context) {
-    return BirthdayPicker(onClick: updateBirthday);
   }
 
   _buildContinueButton(BuildContext context) {
@@ -84,13 +72,7 @@ class WelcomePage extends StatelessWidget {
                 child: buildCustomButton(
                   Globals.instance.getLanguage().continueText,
                   continueButtonColor,
-                  () {
-                    if (!isBirthdaySet) {
-                      showToast(Globals.instance.language.enterBirthdayWarning);
-                    } else {
-                      navigateToNameSettings(context);
-                    }
-                  },
+                  () {},
                   continueButtonTextStyle,
                   padding: 32.0,
                 ),
@@ -102,7 +84,13 @@ class WelcomePage extends StatelessWidget {
     );
   }
 
-  void updateBirthday() {
-    isBirthdaySet = true;
+  _buildNameDialog() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 24.0, bottom: 8.0),
+      child: Text(
+        Globals.instance.language.enterName,
+        style: radioButtonTextStyle,
+      ),
+    );
   }
 }

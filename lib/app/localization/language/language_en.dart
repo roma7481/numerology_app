@@ -24,4 +24,14 @@ class LanguageEn extends Languages {
 
   @override
   String get enterBirthdayWarning => 'Please enter date of birth';
+
+  @override
+  String get nameSettings => 'Name Settings';
+
+  @override
+  String get nameSettingsText =>
+      'Some categories require Name and Last Name. You can skip this step by clicking Continue and set it later';
+
+  @override
+  String get enterName => 'Please enter your name';
 }

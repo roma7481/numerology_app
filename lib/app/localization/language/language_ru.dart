@@ -21,4 +21,13 @@ class LanguageRu extends Languages {
 
   @override
   String get enterBirthdayWarning => 'enterBirthdayWarning RU';
+
+  @override
+  String get nameSettings => 'nameSettings RU';
+
+  @override
+  String get nameSettingsText => 'nameSettingsText RU';
+
+  @override
+  String get enterName => 'enterName RU';
 }

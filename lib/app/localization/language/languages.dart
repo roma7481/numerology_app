@@ -14,4 +14,10 @@ abstract class Languages {
   String get selectLanguage;
 
   String get enterBirthdayWarning;
+
+  String get nameSettings;
+
+  String get nameSettingsText;
+
+  String get enterName;
 }

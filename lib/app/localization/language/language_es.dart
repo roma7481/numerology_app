@@ -20,5 +20,14 @@ class LanguageEs extends Languages {
   String get dateOfBirth => 'dateOfBirth ES';
 
   @override
-  String get enterBirthdayWarning => 'enterBirthdayWarning';
+  String get enterBirthdayWarning => 'enterBirthdayWarning ES';
+
+  @override
+  String get nameSettings => 'nameSettings ES';
+
+  @override
+  String get nameSettingsText => 'nameSettingsText ES';
+
+  @override
+  String get enterName => 'enterName ES';
 }
