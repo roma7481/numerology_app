@@ -38,7 +38,7 @@ class _BirthdayPickerState extends State<BirthdayPicker> {
                     _selectedDate = date;
                   });
                 },
-                locale: LocaleType.en,
+                locale: Globals.instance.getLocaleType(),
                 currentTime: DateService.getDateTimeMinusNumYear(25),
               );
             }, dateOfBirthButtonTextStyle),

@@ -1,3 +1,4 @@
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:numerology/app/constants/strings.dart';
 
 import 'language/language_en.dart';
@@ -16,6 +17,12 @@ class LanguageItem {
 }
 
 class LocaleUtils {
+  static Map<int, LanguageItem> allLanguages = {
+    0: LanguageItem(en, english),
+    1: LanguageItem(ru, russian),
+    2: LanguageItem(es, spanish),
+  };
+
   static Languages selectLanguage(String localeCode) {
     switch (localeCode) {
       case en:
@@ -29,9 +36,19 @@ class LocaleUtils {
     }
   }
 
-  static Map<int, LanguageItem> allLanguages = {
-    0: LanguageItem(en, english),
-    1: LanguageItem(ru, russian),
-    2: LanguageItem(es, spanish),
-  };
+  static LocaleType getTimePickerLocale(String localeCode) {
+    switch (localeCode) {
+      case en:
+        return LocaleType.en;
+        break;
+      case ru:
+        return LocaleType.ru;
+        break;
+      case es:
+        return LocaleType.es;
+        break;
+      default:
+        return LocaleType.en;
+    }
+  }
 }
