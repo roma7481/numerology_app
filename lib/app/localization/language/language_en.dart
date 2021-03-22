@@ -34,4 +34,13 @@ class LanguageEn extends Languages {
 
   @override
   String get enterName => 'Please enter your name';
+
+  @override
+  String get firstName => 'First name';
+
+  @override
+  String get lastName => 'Last name';
+
+  @override
+  String get middleName => 'Middle name';
 }

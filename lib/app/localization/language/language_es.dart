@@ -30,4 +30,13 @@ class LanguageEs extends Languages {
 
   @override
   String get enterName => 'enterName ES';
+
+  @override
+  String get firstName => 'firstName ES';
+
+  @override
+  String get lastName => 'lastName ES';
+
+  @override
+  String get middleName => 'middleName ES';
 }

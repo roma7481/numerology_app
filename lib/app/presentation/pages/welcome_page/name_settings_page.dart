@@ -7,6 +7,8 @@ import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_button.dart';
 import 'package:numerology/app/presentation/common_widgets/line_widget.dart';
 
+import 'name_dialog.dart';
+
 class NameSettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -85,12 +87,6 @@ class NameSettingsPage extends StatelessWidget {
   }
 
   _buildNameDialog() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 24.0, bottom: 8.0),
-      child: Text(
-        Globals.instance.language.enterName,
-        style: radioButtonTextStyle,
-      ),
-    );
+    return NameDialog();
   }
 }

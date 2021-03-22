@@ -20,4 +20,10 @@ abstract class Languages {
   String get nameSettingsText;
 
   String get enterName;
+
+  String get firstName;
+
+  String get lastName;
+
+  String get middleName;
 }
