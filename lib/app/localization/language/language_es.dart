@@ -15,4 +15,7 @@ class LanguageEs extends Languages {
 
   @override
   String get welcomeText => 'welcomeText ES';
+
+  @override
+  String get dateOfBirth => 'dateOfBirth ES';
 }

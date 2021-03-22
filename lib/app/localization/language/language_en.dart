@@ -18,4 +18,7 @@ class LanguageEn extends Languages {
   @override
   String get welcomeText =>
       'Let\'s start by setting your language and date of birth. Date of birth is required for Numerological calculations.';
+
+  @override
+  String get dateOfBirth => 'Date of birth';
 }

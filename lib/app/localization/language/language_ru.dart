@@ -15,4 +15,7 @@ class LanguageRu extends Languages {
 
   @override
   String get welcomeText => 'welcomeText RU';
+
+  @override
+  String get dateOfBirth => 'dateOfBirth RU';
 }
