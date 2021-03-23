@@ -75,7 +75,7 @@ class NameSettingsPage extends StatelessWidget {
                 child: buildCustomButton(
                   Globals.instance.getLanguage().continueText,
                   continueButtonColor,
-                  () {},
+                  () => _onNextPressed(),
                   continueButtonTextStyle,
                   padding: 32.0,
                 ),
@@ -100,4 +100,6 @@ class NameSettingsPage extends StatelessWidget {
       ),
     );
   }
+
+  Future<void> _onNextPressed() async {}
 }
