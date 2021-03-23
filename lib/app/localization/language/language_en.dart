@@ -47,4 +47,16 @@ class LanguageEn extends Languages {
   @override
   String get nameSettingsNotice => 'If you have more then one Middle name, please enter all '
       'of them inside the Middle name field with space between them.';
+
+  @override
+  String get forecastTabText => 'Forecast';
+
+  @override
+  String get homeTabText => 'Home';
+
+  @override
+  String get profileTabText => 'Profile';
+
+  @override
+  String get settingsTabText => 'Settings';
 }

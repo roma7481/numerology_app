@@ -11,3 +11,8 @@ const Color inputTextUnfocused = Color.fromRGBO(140, 140, 140, 0.7);
 const Color inputTextFocused = Color.fromRGBO(75, 161, 222, 0.7);
 const Color inputTextColor = Color.fromRGBO(128, 202, 255, 0.7);
 const Color welcomeScreenTextColor = Colors.white;
+
+/// BOTTOM NAVIGATION ///
+const Color bottomNavBarColor = Color.fromRGBO(43, 43, 43, 1);
+const Color itemTapPressedColor = Color.fromRGBO(128, 202, 255, 0.7);
+const Color itemTapDefaultColor = Color.fromRGBO(27, 74, 105, 0.7);

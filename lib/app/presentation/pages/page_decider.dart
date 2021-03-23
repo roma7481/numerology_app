@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.dart';
 import 'package:numerology/app/presentation/pages/welcome_page/welcome_page.dart';
 
-import 'main/main_page.dart';
+import 'bottom_navigator/main_page.dart';
 
 class PageDecider extends StatelessWidget {
   @override

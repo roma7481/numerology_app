@@ -42,4 +42,16 @@ class LanguageEs extends Languages {
 
   @override
   String get nameSettingsNotice => 'nameSettingsNotice ES';
+
+  @override
+  String get forecastTabText => 'forecastTabText ES';
+
+  @override
+  String get homeTabText => 'homeTabText ES';
+
+  @override
+  String get profileTabText => 'profileTabText ES';
+
+  @override
+  String get settingsTabText => 'settingsTabText ES';
 }

@@ -3,9 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:numerology/app/business_logic/cubit/language/language_cubit.dart';
 import 'package:numerology/app/constants/colors.dart';
 
-class MainPage extends StatelessWidget {
-  static bool isBirthdaySet = false;
-
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LanguageCubit, LanguageState>(builder: (context, state) {
@@ -24,6 +22,9 @@ class MainPage extends StatelessWidget {
   Widget _buildContent(BuildContext context) {
     return Container(
       color: backgroundColor,
+      child: Column(
+        children: [Container()],
+      ),
     );
   }
 }

@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:numerology/app/business_logic/cubit/language/language_cubit.dart';
-import 'package:numerology/app/business_logic/cubit/profiles/profiles_cubit.dart';
-import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/business_logic/services/date_service.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/text_styles.dart';
-import 'package:numerology/app/data/models/profile.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_button.dart';
 import 'package:numerology/app/presentation/common_widgets/line_widget.dart';
 import 'package:numerology/app/presentation/common_widgets/toast.dart';
+import 'package:numerology/app/presentation/navigators/navigator.dart';
 
 import 'birthday_picker.dart';
 import 'language_picker.dart';
@@ -21,15 +19,9 @@ class WelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<ProfilesCubit, ProfilesState>(listener:
-        (context, state) {
-      if (state is ProfilesInit) {
-        context.read<UserDataCubit>().emitPrimaryUserUpdate(state.profileId);
-      }
-    }, child:
-        BlocBuilder<LanguageCubit, LanguageState>(builder: (context, state) {
+    return BlocBuilder<LanguageCubit, LanguageState>(builder: (context, state) {
       return _buildPageContent(context);
-    }));
+    });
   }
 
   SafeArea _buildPageContent(BuildContext context) {
@@ -112,7 +104,7 @@ class WelcomePage extends StatelessWidget {
     if (!isBirthdaySet) {
       showToast(Globals.instance.language.enterBirthdayWarning);
     } else {
-      context.read<ProfilesCubit>().emitInitProfile(Profile(dob: dob));
+      navigateToNameSettings(context, dob);
     }
   }
 

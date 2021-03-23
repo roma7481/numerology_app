@@ -28,4 +28,12 @@ abstract class Languages {
   String get middleName;
 
   String get nameSettingsNotice;
+
+  String get homeTabText;
+
+  String get forecastTabText;
+
+  String get profileTabText;
+
+  String get settingsTabText;
 }

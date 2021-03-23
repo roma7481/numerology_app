@@ -42,4 +42,16 @@ class LanguageRu extends Languages {
 
   @override
   String get nameSettingsNotice => 'nameSettingsNotice RU';
+
+  @override
+  String get forecastTabText => 'forecastTabText RU';
+
+  @override
+  String get homeTabText => 'homeTabText RU';
+
+  @override
+  String get profileTabText => 'profileTabText RU';
+
+  @override
+  String get settingsTabText => 'settingsTabText RU';
 }
