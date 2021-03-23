@@ -18,10 +18,10 @@ class LanguageItem {
 }
 
 class LocaleUtils {
-
   static List<TextInputFormatter> keyboardInputFormatter() {
     /// Need to add a keyboard formatter for every language we add ///
-    var formatter = new FilteringTextInputFormatter.allow(RegExp(r"[a-zA-Z]+|[А-Яа-я]+|\s"));
+    var formatter = new FilteringTextInputFormatter.allow(
+        RegExp(r"[a-zA-Z]+|[А-Яа-я]+|[Ñ]+|[ñ]+|\s"));
     return [formatter];
   }
 
