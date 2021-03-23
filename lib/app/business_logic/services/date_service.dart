@@ -10,7 +10,7 @@ class DateService {
     return DateTime.now();
   }
 
-  static DateTime getDateTimeMinusNumYear(int numYears){
+  static DateTime getDateTimeMinusNumYear(int numYears) {
     var date = new DateTime.now();
     return DateTime(date.year - numYears, date.month, date.day);
   }
@@ -19,5 +19,9 @@ class DateService {
     return (Globals.instance.getLanguage() is LanguageEn)
         ? formatDate(date, usFormat)
         : formatDate(date, standardFormat);
+  }
+
+  static int getTimeInMilli(DateTime date) {
+    return date.millisecondsSinceEpoch;
   }
 }

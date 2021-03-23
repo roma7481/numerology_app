@@ -50,4 +50,41 @@ class Profile {
       'isSelected': this.isSelected,
     } as Map<String, dynamic>;
   }
+
+  Profile copyWith({
+    int profileId,
+    String profileName,
+    String firstName,
+    String lastName,
+    String middleName,
+    int dob,
+    int wedPartnerDate,
+    int partnerDate,
+    int isSelected,
+  }) {
+    if ((profileId == null || identical(profileId, this.profileId)) &&
+        (profileName == null || identical(profileName, this.profileName)) &&
+        (firstName == null || identical(firstName, this.firstName)) &&
+        (lastName == null || identical(lastName, this.lastName)) &&
+        (middleName == null || identical(middleName, this.middleName)) &&
+        (dob == null || identical(dob, this.dob)) &&
+        (wedPartnerDate == null ||
+            identical(wedPartnerDate, this.wedPartnerDate)) &&
+        (partnerDate == null || identical(partnerDate, this.partnerDate)) &&
+        (isSelected == null || identical(isSelected, this.isSelected))) {
+      return this;
+    }
+
+    return new Profile(
+      profileId: profileId ?? this.profileId,
+      profileName: profileName ?? this.profileName,
+      firstName: firstName ?? this.firstName,
+      lastName: lastName ?? this.lastName,
+      middleName: middleName ?? this.middleName,
+      dob: dob ?? this.dob,
+      wedPartnerDate: wedPartnerDate ?? this.wedPartnerDate,
+      partnerDate: partnerDate ?? this.partnerDate,
+      isSelected: isSelected ?? this.isSelected,
+    );
+  }
 }

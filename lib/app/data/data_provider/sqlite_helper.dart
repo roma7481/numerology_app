@@ -17,7 +17,7 @@ class DBProvider {
     });
   }
 
-  Future<List<Profile>> getAll() async {
+  Future<List<Profile>> getAllProfiles() async {
     return _lock.synchronized(() async {
       var db = DBRepository.instance;
       var profiles = await db.getAllEntities((map) => Profile.fromMap(map));
@@ -26,12 +26,13 @@ class DBProvider {
     });
   }
 
-  Future<List<Profile>> getProfile() async {
+  Future<Profile> getProfile(Profile profile) async {
     return _lock.synchronized(() async {
       var db = DBRepository.instance;
-      var profiles = await db.getAllEntities((map) => Profile.fromMap(map));
+      var retrievedProfile =
+          await db.getEntity(profile.profileId, (map) => Profile.fromMap(map));
       await db.closeDB();
-      return profiles;
+      return retrievedProfile;
     });
   }
 
