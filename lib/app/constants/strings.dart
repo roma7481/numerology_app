@@ -7,3 +7,5 @@ const String russian = 'Русский';
 const String spanish = 'Español';
 
 const String numerology = 'Numerology';
+
+const String defaultProfileName = 'Profile1';

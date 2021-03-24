@@ -5,6 +5,7 @@ import 'package:numerology/app/business_logic/cubit/profiles/profiles_cubit.dart
 import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/constants/colors.dart';
+import 'package:numerology/app/constants/strings.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/data/models/profile.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_button.dart';
@@ -13,10 +14,27 @@ import 'package:numerology/app/presentation/navigators/navigator.dart';
 
 import 'name_dialog.dart';
 
-class NameSettingsPage extends StatelessWidget {
+class NameSettingsPage extends StatefulWidget {
   final int dob;
 
   const NameSettingsPage({Key key, this.dob}) : super(key: key);
+
+  @override
+  _NameSettingsPageState createState() => _NameSettingsPageState();
+}
+
+class _NameSettingsPageState extends State<NameSettingsPage> {
+  final controllerFirstName = TextEditingController();
+  final controllerLastName = TextEditingController();
+  final controllerMiddleName = TextEditingController();
+
+  @override
+  void dispose() {
+    controllerFirstName.dispose();
+    controllerLastName.dispose();
+    controllerMiddleName.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +45,9 @@ class NameSettingsPage extends StatelessWidget {
         navigateToMainPage(context);
       }
     }, child:
-      BlocBuilder<LanguageCubit, LanguageState>(builder: (context, state) {
-        return _buildPageContent(context);
-      }));
+        BlocBuilder<LanguageCubit, LanguageState>(builder: (context, state) {
+      return _buildPageContent(context);
+    }));
   }
 
   SafeArea _buildPageContent(BuildContext context) {
@@ -103,7 +121,25 @@ class NameSettingsPage extends StatelessWidget {
   }
 
   Widget _buildNameDialog() {
-    return NameDialog();
+    var lang = Globals.instance.language;
+    return Padding(
+      padding: const EdgeInsets.only(top: 24.0, bottom: 8.0),
+      child: Column(
+        children: [
+          _buildTextInputHeader(),
+          buildTextInputTile(context, lang.firstName, controllerFirstName),
+          buildTextInputTile(context, lang.lastName, controllerLastName),
+          buildTextInputTile(context, lang.middleName, controllerMiddleName),
+        ],
+      ),
+    );
+  }
+
+  Text _buildTextInputHeader() {
+    return Text(
+      Globals.instance.language.enterName,
+      style: radioButtonTextStyle,
+    );
   }
 
   Widget _buildNotice() {
@@ -116,7 +152,15 @@ class NameSettingsPage extends StatelessWidget {
     );
   }
 
-  Future<void> _onNextPressed(BuildContext context,) async {
-    context.read<ProfilesCubit>().emitInitProfile(Profile(dob: this.dob));
+  Future<void> _onNextPressed(
+    BuildContext context,
+  ) async {
+    context.read<ProfilesCubit>().emitInitProfile(Profile(
+          dob: widget.dob,
+          profileName: defaultProfileName,
+          middleName: controllerMiddleName.text,
+          firstName: controllerFirstName.text,
+          lastName: controllerLastName.text,
+        ));
   }
 }

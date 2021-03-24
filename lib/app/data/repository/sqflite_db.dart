@@ -17,7 +17,7 @@ class DBRepository {
           "dob INTEGER,"
           "wedPartnerDate INTEGER,"
           "partnerDate INTEGER,"
-          "isSelected BOOLEAN"
+          "isSelected INTEGER"
           ")";
 
   DBRepository._privateConstructor();
