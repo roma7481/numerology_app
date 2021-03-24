@@ -12,7 +12,7 @@ import 'package:numerology/app/presentation/common_widgets/custom_button.dart';
 import 'package:numerology/app/presentation/common_widgets/line_widget.dart';
 import 'package:numerology/app/presentation/navigators/navigator.dart';
 
-import 'name_dialog.dart';
+import 'input_text_tile.dart';
 
 class NameSettingsPage extends StatefulWidget {
   final int dob;
