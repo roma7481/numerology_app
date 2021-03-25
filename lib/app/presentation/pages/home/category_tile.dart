@@ -17,7 +17,7 @@ Widget buildCategoryTile(
           right: -4.0,
           child: SvgPicture.asset(
             'assets/category_images/masks.svg',
-            height: 130.0,
+            height: 100.0,
           ),
         ),
         Positioned(
