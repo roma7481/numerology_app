@@ -6,18 +6,18 @@ import 'package:numerology/app/constants/text_styles.dart';
 import 'custom_raised_button.dart';
 
 Widget buildCategoryTile(
-    {@required String text, @required Function onPressed}) {
+    {@required String text, @required Function onPressed, @required String imagePath}) {
   return CustomButton(
     onPressed: onPressed,
     child: Stack(
       alignment: Alignment.bottomRight,
       children: [
         Positioned(
-          bottom: -4.0,
+          bottom: -1.0,
           right: -4.0,
           child: SvgPicture.asset(
-            'assets/category_images/masks.svg',
-            height: 100.0,
+            imagePath,
+            height: 70.0,
           ),
         ),
         Positioned(

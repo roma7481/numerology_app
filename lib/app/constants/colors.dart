@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-const Color backgroundColor = Color.fromRGBO(56, 56, 56, 1);
+const Color backgroundColor = Color.fromRGBO(0, 32, 59, 1);
 const Color pickerHeaderColor = Color.fromRGBO(128, 202, 255, 1);
 const Color dateOfBirthButtonColor = Color.fromRGBO(75, 161, 222, 1);
 const Color continueButtonColor = Color.fromRGBO(255, 228, 92, 1);
@@ -13,9 +13,10 @@ const Color inputTextColor = Color.fromRGBO(128, 202, 255, 0.7);
 const Color welcomeScreenTextColor = Colors.white;
 
 /// BOTTOM NAVIGATION ///
-const Color bottomNavBarColor = Color.fromRGBO(43, 43, 43, 1);
-const Color itemTapPressedColor = Color.fromRGBO(128, 202, 255, 0.7);
-const Color itemTapDefaultColor = Color.fromRGBO(27, 74, 105, 0.7);
+const Color bottomNavBarColor = Color.fromRGBO(0, 21, 38, 1);
+const Color itemTapPressedColor = Color.fromRGBO(128, 202, 255, 1);
+const Color itemTapDefaultColor = Color.fromRGBO(65, 112, 150, 1);
 
 /// HOME PAGE ///
 const Color categoryTileText = Colors.white;
+const Color tileColor = Color.fromRGBO(0, 63, 115, 1);

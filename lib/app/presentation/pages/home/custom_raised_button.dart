@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:numerology/app/constants/colors.dart';
 
 class CustomButton extends StatelessWidget {
   CustomButton({
@@ -19,7 +20,7 @@ class CustomButton extends StatelessWidget {
         child: GestureDetector(
           onTap: onPressed,
           child: Container(
-            color: Colors.blueGrey,
+            color: tileColor,
             child: child,
           ),
         ),
