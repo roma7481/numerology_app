@@ -63,3 +63,13 @@ var noticeTextStyle = GoogleFonts.sourceSansPro(
       fontSize: 16.0,
       color: pickerHeaderColor,
     ));
+
+/// HOME PAGE ///
+
+var categoryTileHeader = GoogleFonts.nanumMyeongjo(
+  textStyle: TextStyle(
+    fontSize: 19.0,
+    color: categoryTileText,
+    fontWeight: FontWeight.bold,
+  ),
+);

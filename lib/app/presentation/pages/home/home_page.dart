@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:numerology/app/business_logic/cubit/language/language_cubit.dart';
+import 'package:numerology/app/constants/colors.dart';
 
 import 'category_tile.dart';
 
@@ -22,14 +23,22 @@ class HomePage extends StatelessWidget {
 
   Widget _buildContent(BuildContext context) {
     List<Widget> categories = [];
-    categories.add(Text('category 1'));
-    categories.add(Text('category 2'));
-    categories.add(Text('category 3'));
-    categories.add(Text('category 4'));
+    categories.add(Text('Category 1'));
+    categories.add(Text('Category 2'));
+    categories.add(Text('Category 3'));
+    categories.add(Text('Category 4'));
+    categories.add(Text('Category 4'));
+    categories.add(Text('Category 4'));
+    categories.add(Text('Category 4'));
+    categories.add(Text('Category 4'));
+    categories.add(Text('Category 4'));
+    categories.add(Text('Category 4'));
+    categories.add(Text('Category 4'));
+    categories.add(Text('Category 4'));
+    categories.add(Text('Category 4'));
 
     return Container(
-      // color: backgroundColor,
-      color: Colors.white,
+      color: backgroundColor,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: CustomScrollView(

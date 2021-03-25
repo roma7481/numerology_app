@@ -19,7 +19,7 @@ class CustomButton extends StatelessWidget {
         child: GestureDetector(
           onTap: onPressed,
           child: Container(
-            color: Colors.grey,
+            color: Colors.blueGrey,
             child: child,
           ),
         ),
