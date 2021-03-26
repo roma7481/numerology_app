@@ -1,6 +1,10 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:numerology/app/constants/strings.dart';
+import 'package:numerology/app/data/language/data_parser.dart';
+import 'package:numerology/app/data/language/data_parser_en.dart';
+import 'package:numerology/app/data/language/data_parser_es.dart';
+import 'package:numerology/app/data/language/data_parser_ru.dart';
 
 import 'language/language_en.dart';
 import 'language/language_es.dart';
@@ -57,6 +61,22 @@ class LocaleUtils {
         break;
       default:
         return LocaleType.en;
+    }
+  }
+
+  static DataParser getDataParser(String localeCode) {
+    switch (localeCode) {
+      case en:
+        return DataParserEn();
+        break;
+      case ru:
+        return DataParserRu();
+        break;
+      case es:
+        return DataParserEs();
+        break;
+      default:
+        return DataParserEn();
     }
   }
 }

@@ -18,9 +18,9 @@ class ProfilesUpdate extends ProfilesState {
 }
 
 class ProfilesInit extends ProfilesState {
-  final int profileId;
+  final Profile profile;
 
-  ProfilesInit(this.profileId);
+  ProfilesInit(this.profile);
 }
 
 class ProfilesError extends ProfilesState {

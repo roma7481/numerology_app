@@ -36,4 +36,8 @@ abstract class Languages {
   String get profileTabText;
 
   String get settingsTabText;
+
+  String get errorMessageHeader;
+
+  String get errorMessageContent;
 }

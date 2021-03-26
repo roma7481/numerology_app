@@ -45,7 +45,8 @@ class LanguageEn extends Languages {
   String get middleName => 'Middle name';
 
   @override
-  String get nameSettingsNotice => 'If you have more then one Middle name, please enter all '
+  String get nameSettingsNotice =>
+      'If you have more then one Middle name, please enter all '
       'of them inside the Middle name field with space between them.';
 
   @override
@@ -59,4 +60,11 @@ class LanguageEn extends Languages {
 
   @override
   String get settingsTabText => 'Settings';
+
+  @override
+  String get errorMessageContent => 'Nothing here';
+
+  @override
+  String get errorMessageHeader =>
+      'Something went wrong please try again later';
 }

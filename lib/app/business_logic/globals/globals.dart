@@ -2,6 +2,8 @@ library app.globals;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:numerology/app/data/language/data_parser.dart';
+import 'package:numerology/app/data/language/data_parser_en.dart';
 import 'package:numerology/app/localization/language/language_en.dart';
 import 'package:numerology/app/localization/language/languages.dart';
 import 'package:numerology/app/localization/locale_utils.dart';
@@ -10,16 +12,19 @@ class Globals {
   Globals._({
     this.language = const LanguageEn(),
     this.localeType = LocaleType.en,
+    this.dataParser = const DataParserEn(),
   });
 
   static final instance = Globals._();
 
   Languages language;
   LocaleType localeType;
+  DataParser dataParser;
 
   void setLocale({@required String localeCode}) {
     this.language = LocaleUtils.selectLanguage(localeCode);
     this.localeType = LocaleUtils.getTimePickerLocale(localeCode);
+    this.dataParser = LocaleUtils.getDataParser(localeCode);
   }
 
   Languages getLanguage() {
@@ -28,5 +33,9 @@ class Globals {
 
   LocaleType getLocaleType() {
     return this.localeType;
+  }
+
+  DataParser getDataParser() {
+    return this.dataParser;
   }
 }

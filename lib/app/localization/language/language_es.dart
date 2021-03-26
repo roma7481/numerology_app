@@ -54,4 +54,10 @@ class LanguageEs extends Languages {
 
   @override
   String get settingsTabText => 'settingsTabText ES';
+
+  @override
+  String get errorMessageContent => 'errorMessageContent ES';
+
+  @override
+  String get errorMessageHeader => 'errorMessageHeader ES';
 }

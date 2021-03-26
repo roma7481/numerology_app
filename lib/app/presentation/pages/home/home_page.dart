@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:numerology/app/business_logic/cubit/language/language_cubit.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/icon_path.dart';
-import 'package:numerology/app/presentation/pages/home/category_model.dart';
+import 'package:numerology/app/data/models/category_model.dart';
 
 import 'category_tile.dart';
 
@@ -29,12 +29,14 @@ class HomePage extends StatelessWidget {
     List<CategoryModel> categories = [];
     categories.add(CategoryModel(imagePath: achievement, text: 'Work number'));
     categories.add(CategoryModel(imagePath: balance, text: 'Work number'));
-    categories.add(CategoryModel(imagePath: bioCompatibility, text: 'Work number'));
+    categories
+        .add(CategoryModel(imagePath: bioCompatibility, text: 'Work number'));
     categories.add(CategoryModel(imagePath: birthdayCode, text: 'Work number'));
     categories.add(CategoryModel(imagePath: birthdayNum, text: 'Work number'));
     categories.add(CategoryModel(imagePath: challenge, text: 'Work number'));
     categories.add(CategoryModel(imagePath: character, text: 'Work number'));
-    categories.add(CategoryModel(imagePath: compatibility, text: 'Work number'));
+    categories
+        .add(CategoryModel(imagePath: compatibility, text: 'Work number'));
     categories.add(CategoryModel(imagePath: day, text: 'Work number'));
     categories.add(CategoryModel(imagePath: desire, text: 'Work number'));
     categories.add(CategoryModel(imagePath: expression, text: 'Work number'));
@@ -57,7 +59,6 @@ class HomePage extends StatelessWidget {
     categories.add(CategoryModel(imagePath: soul, text: 'Work number'));
     categories.add(CategoryModel(imagePath: work, text: 'Work number'));
     categories.add(CategoryModel(imagePath: year, text: 'Work number'));
-
 
     return Container(
       color: backgroundColor,

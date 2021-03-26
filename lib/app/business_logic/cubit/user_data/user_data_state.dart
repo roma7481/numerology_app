@@ -1,20 +1,18 @@
 part of 'user_data_cubit.dart';
 
-class UserDataState {
-  int primaryProfileId;
+abstract class UserDataState {}
 
-  UserDataState({this.primaryProfileId});
+class UserDataLoading extends UserDataState {}
 
-  factory UserDataState.fromMap(Map<String, dynamic> map) {
-    return new UserDataState(
-      primaryProfileId: map['primaryProfileId'] as int,
-    );
-  }
+class UserDataReady extends UserDataState {
+  final Profile profile;
+  final List<CategoryModel> categories;
 
-  Map<String, dynamic> toMap() {
-    // ignore: unnecessary_cast
-    return {
-      'primaryProfileId': this.primaryProfileId,
-    } as Map<String, dynamic>;
-  }
+  UserDataReady({@required this.profile, @required this.categories});
+}
+
+class UserDataError extends UserDataState {
+  final Exception exception;
+
+  UserDataError({@required this.exception});
 }

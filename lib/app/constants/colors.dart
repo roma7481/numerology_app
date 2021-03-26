@@ -20,3 +20,7 @@ const Color itemTapDefaultColor = Color.fromRGBO(65, 112, 150, 1);
 /// HOME PAGE ///
 const Color categoryTileText = Colors.white;
 const Color tileColor = Color.fromRGBO(0, 63, 115, 1);
+
+/// PROGRESS BAR ///
+const Color activeProgress = Color.fromRGBO(128, 202, 255, 1);
+const Color inactiveProgress = Color.fromRGBO(0, 63, 115, 1);

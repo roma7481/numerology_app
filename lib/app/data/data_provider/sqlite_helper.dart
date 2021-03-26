@@ -26,11 +26,11 @@ class DBProvider {
     });
   }
 
-  Future<Profile> getProfile(Profile profile) async {
+  Future<Profile> getProfile(int profileId) async {
     return _lock.synchronized(() async {
       var db = DBRepository.instance;
       var retrievedProfile =
-          await db.getEntity(profile.profileId, (map) => Profile.fromMap(map));
+          await db.getEntity(profileId, (map) => Profile.fromMap(map));
       await db.closeDB();
       return retrievedProfile;
     });

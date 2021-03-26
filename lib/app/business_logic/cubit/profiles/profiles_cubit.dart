@@ -37,7 +37,7 @@ class ProfilesCubit extends Cubit<ProfilesState> {
     try {
       await DBProvider.instance.insertProfile(profile);
       var profiles = await DBProvider.instance.getAllProfiles();
-      emit(ProfilesInit(profiles.first.profileId));
+      emit(ProfilesInit(profiles.first));
     } catch (e) {
       emitProfilesException(e);
     }

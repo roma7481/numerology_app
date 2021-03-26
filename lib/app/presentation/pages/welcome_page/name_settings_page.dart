@@ -41,7 +41,7 @@ class _NameSettingsPageState extends State<NameSettingsPage> {
     return BlocListener<ProfilesCubit, ProfilesState>(listener:
         (context, state) {
       if (state is ProfilesInit) {
-        context.read<UserDataCubit>().emitPrimaryUserUpdate(state.profileId);
+        context.read<UserDataCubit>().emitPrimaryUserUpdate(state.profile);
         navigateToMainPage(context);
       }
     }, child:
