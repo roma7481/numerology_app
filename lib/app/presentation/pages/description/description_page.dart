@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:numerology/app/constants/colors.dart';
+import 'package:numerology/app/constants/text_styles.dart';
 
 class DescriptionPage extends StatelessWidget {
   @override
@@ -58,18 +59,20 @@ class OpenPainter extends CustomPainter {
       ..color = circleColor
       ..strokeWidth = 4.0
       ..style = PaintingStyle.stroke;
-    var radius = 65.0;
-    var center = Offset((width)* 0.5, 100);
+    var radius = 50.0;
+    var center = Offset((width) * 0.5, 100);
     canvas.drawCircle(center, radius, paint);
 
     final TextPainter textPainter = TextPainter(
         text: TextSpan(
-          text: '23',
+          text: '7',
+          style: calcNumber,
         ),
         textAlign: TextAlign.center,
         textDirection: TextDirection.ltr)
       ..layout(maxWidth: size.width - 12.0 - 12.0);
-    textPainter.paint(canvas, Offset((size.width - textPainter.width) * 0.5, 95));
+    textPainter.paint(
+        canvas, Offset((size.width - textPainter.width) * 0.5, 100 - textPainter.height * 0.6));
   }
 
   @override

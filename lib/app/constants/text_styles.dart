@@ -73,3 +73,13 @@ var categoryTileHeader = GoogleFonts.philosopher(
     fontWeight: FontWeight.bold,
   ),
 );
+
+/// DESCRIPTION PAGE ///
+
+var calcNumber = GoogleFonts.arefRuqaa(
+  textStyle: TextStyle(
+    fontSize: 50.0,
+    color: Colors.white,
+    fontWeight: FontWeight.bold,
+  ),
+);
