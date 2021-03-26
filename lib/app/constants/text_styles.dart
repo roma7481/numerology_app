@@ -17,34 +17,34 @@ var headerTextStyle = GoogleFonts.philosopher(
 
 var contentTextStyle = GoogleFonts.sourceSansPro(
     textStyle: TextStyle(
-      fontSize: 18.0,
-      color: Colors.white,
+  fontSize: 18.0,
+  color: Colors.white,
 ));
 
 var radioButtonTextStyle = GoogleFonts.philosopher(
     textStyle: TextStyle(
-      fontSize: 17.0,
-      fontWeight: FontWeight.bold,
-      color: pickerHeaderColor,
+  fontSize: 17.0,
+  fontWeight: FontWeight.bold,
+  color: pickerHeaderColor,
 ));
 
 var languageTextStyle = GoogleFonts.philosopher(
     textStyle: TextStyle(
-      fontSize: 17.0,
-      color: Colors.white,
+  fontSize: 17.0,
+  color: Colors.white,
 ));
 
 var dateOfBirthButtonTextStyle = GoogleFonts.philosopher(
     textStyle: TextStyle(
-      fontSize: 17.0,
-      color: Colors.white,
-    ));
+  fontSize: 17.0,
+  color: Colors.white,
+));
 
 var continueButtonTextStyle = GoogleFonts.philosopher(
     textStyle: TextStyle(
-      fontSize: 17.0,
-      color: Colors.black,
-    ));
+  fontSize: 17.0,
+  color: Colors.black,
+));
 
 var radioButtonColor = MaterialStateColor.resolveWith((states) => Colors.white);
 
@@ -52,17 +52,15 @@ var radioButtonColor = MaterialStateColor.resolveWith((states) => Colors.white);
 
 TextStyle datePickerTextStyle = GoogleFonts.philosopher(
     textStyle: TextStyle(
-        fontSize: 19.0,
-        color: Colors.black,
-        fontWeight: FontWeight.bold));
+        fontSize: 19.0, color: Colors.black, fontWeight: FontWeight.bold));
 
 /// NAME SETTINGS PAGE ///
 
 var noticeTextStyle = GoogleFonts.sourceSansPro(
     textStyle: TextStyle(
-      fontSize: 16.0,
-      color: pickerHeaderColor,
-    ));
+  fontSize: 16.0,
+  color: pickerHeaderColor,
+));
 
 /// HOME PAGE ///
 
@@ -83,3 +81,15 @@ var calcNumber = GoogleFonts.arefRuqaa(
     fontWeight: FontWeight.bold,
   ),
 );
+
+var descriptionContentStyle = GoogleFonts.sourceSansPro(
+    textStyle: TextStyle(
+  fontSize: 18.0,
+  color: Colors.white,
+));
+
+var descriptionHeaderStyle = GoogleFonts.philosopher(
+    textStyle: TextStyle(
+  fontSize: 18.0,
+  color: Colors.white,
+));

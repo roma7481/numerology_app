@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:numerology/app/constants/colors.dart';
+import 'package:numerology/app/presentation/common_widgets/castom_category_card.dart';
+import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
 
 import 'circle_widget.dart';
 
@@ -25,6 +27,7 @@ class DescriptionPage extends StatelessWidget {
       child: CustomScrollView(
         slivers: [
           _buildNumberIcon(context),
+          _buildDescriptionCard(),
         ],
       ),
     );
@@ -39,6 +42,17 @@ class DescriptionPage extends StatelessWidget {
           painter: OpenPainter(context, '11'),
         ),
       ),
+    );
+  }
+
+  Widget _buildDescriptionCard() {
+    return SliverToBoxAdapter(
+      child: CustomCard(
+          child: CustomCategoryCard(
+        header: 'wew',
+        content: 'weqewqewq',
+        icon: null,
+      )),
     );
   }
 }
