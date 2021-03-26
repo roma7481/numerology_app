@@ -9,6 +9,7 @@ import 'package:numerology/app/presentation/common_widgets/error_dialog.dart';
 import 'package:numerology/app/presentation/common_widgets/progress_bar.dart';
 
 import 'category_tile.dart';
+import 'day_category.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -42,6 +43,7 @@ class HomePage extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: CustomScrollView(
           slivers: [
+            _buildDailyCategory(context),
             SliverGrid(
               delegate: _buildList(categories),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -52,6 +54,17 @@ class HomePage extends StatelessWidget {
             )
           ],
         ),
+      ),
+    );
+  }
+
+  SliverToBoxAdapter _buildDailyCategory(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: buildDayCategory(
+        context: context,
+        text: 'Personal Day number',
+        onPressed: () {},
+        imagePath: day,
       ),
     );
   }

@@ -5,8 +5,11 @@ import 'package:numerology/app/constants/text_styles.dart';
 
 import 'custom_raised_button.dart';
 
-Widget buildCategoryTile(
-    {@required String text, @required Function onPressed, @required String imagePath}) {
+Widget buildCategoryTile({
+  @required String text,
+  @required Function onPressed,
+  @required String imagePath,
+}) {
   return CustomButton(
     onPressed: onPressed,
     child: Stack(
