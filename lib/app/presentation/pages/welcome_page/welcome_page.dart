@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:numerology/app/business_logic/cubit/language/language_cubit.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/business_logic/services/date_service.dart';
@@ -10,12 +11,17 @@ import 'package:numerology/app/presentation/common_widgets/line_widget.dart';
 import 'package:numerology/app/presentation/common_widgets/toast.dart';
 import 'package:numerology/app/presentation/navigators/navigator.dart';
 
-import 'birthday_picker.dart';
 import 'language_picker.dart';
 
-class WelcomePage extends StatelessWidget {
-  static bool isBirthdaySet = false;
-  static int dob = DateService.getTimeInMilli(DateService.getCurrentDate());
+class WelcomePage extends StatefulWidget {
+  @override
+  _WelcomePageState createState() => _WelcomePageState();
+}
+
+class _WelcomePageState extends State<WelcomePage> {
+  bool isBirthdaySet = false;
+  var _selectedDate;
+  int dob;
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +76,40 @@ class WelcomePage extends StatelessWidget {
   }
 
   _buildDOBPicker(BuildContext context) {
-    return BirthdayPicker(onClick: updateBirthday);
+    return BlocListener<LanguageCubit, LanguageState>(
+        listener: (context, state) {},
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0, bottom: 16.0),
+              child: Text(
+                Globals.instance.getLanguage().selectDateOfBirth,
+                style: radioButtonTextStyle,
+              ),
+            ),
+            buildCustomButton(_getButtonText(), dateOfBirthButtonColor, () {
+              DatePicker.showDatePicker(
+                context,
+                showTitleActions: true,
+                onConfirm: (date) {
+                  setState(() {
+                    _selectedDate = date;
+                    updateBirthday(date);
+                  });
+                },
+                locale: Globals.instance.getLocaleType(),
+                currentTime: DateService.getDateTimeMinusNumYear(25),
+              );
+            }, dateOfBirthButtonTextStyle),
+          ],
+        ));
+  }
+
+  String _getButtonText() {
+    if (_selectedDate == null) {
+      return Globals.instance.language.dateOfBirth;
+    }
+    return DateService.getFormattedDate(_selectedDate);
   }
 
   _buildContinueButton(BuildContext context) {
@@ -108,7 +147,10 @@ class WelcomePage extends StatelessWidget {
     }
   }
 
-  void updateBirthday() {
-    isBirthdaySet = true;
+  void updateBirthday(DateTime date) {
+    setState(() {
+      dob = DateService.toTimestamp(date);
+      isBirthdaySet = true;
+    });
   }
 }

@@ -21,7 +21,11 @@ class DateService {
         : formatDate(date, standardFormat);
   }
 
-  static int getTimeInMilli(DateTime date) {
+  static int toTimestamp(DateTime date) {
     return date.millisecondsSinceEpoch;
+  }
+
+  static DateTime fromTimestamp(int timestamp) {
+    return new DateTime.fromMillisecondsSinceEpoch(timestamp);
   }
 }

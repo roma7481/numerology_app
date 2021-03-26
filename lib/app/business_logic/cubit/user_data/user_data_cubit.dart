@@ -20,7 +20,7 @@ class UserDataCubit extends Cubit<UserDataState> {
       var primaryProfileId =
           await SharedPref.instance.getValue(key: primaryUserKey);
       if (primaryProfileId == null) {
-        emit(UserDataReady(profile: null, categories: []));
+        emit(UserDataReady(profile: null, categories: [], dayNumber: null));
       } else {
         var profile = await DBProvider.instance.getProfile(primaryProfileId);
         emitPrimaryUserUpdate(profile);
@@ -35,7 +35,10 @@ class UserDataCubit extends Cubit<UserDataState> {
       await SharedPref.instance
           .setValue(key: primaryUserKey, value: profile.profileId);
       var dataParser = Globals.instance.getDataParser();
-      emit(UserDataReady(profile: profile, categories: dataParser.getCategories()));
+      emit(UserDataReady(
+          profile: profile,
+          categories: dataParser.getCategories(),
+          dayNumber: null));
     } catch (e) {
       emitPrimaryUserError(e);
     }

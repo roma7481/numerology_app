@@ -7,8 +7,13 @@ class UserDataLoading extends UserDataState {}
 class UserDataReady extends UserDataState {
   final Profile profile;
   final List<CategoryModel> categories;
+  final CategoryModel dayNumber;
 
-  UserDataReady({@required this.profile, @required this.categories});
+  UserDataReady({
+    @required this.dayNumber,
+    @required this.profile,
+    @required this.categories,
+  });
 }
 
 class UserDataError extends UserDataState {
