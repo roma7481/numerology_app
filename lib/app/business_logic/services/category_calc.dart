@@ -7,6 +7,18 @@ class CategoryCalc {
 
   static final instance = CategoryCalc._();
 
+  int calcPersonalDay(Profile profile) {
+    var personalMonth = calcPersonalMonth(profile);
+    var currentDay = DateService.getCurrentDate().day;
+    return _calcToSingleDigit(personalMonth + currentDay);
+  }
+
+  int calcPersonalMonth(Profile profile) {
+    var personalYear = calcPersonalYear(profile);
+    var currentMonth = DateService.getCurrentDate().month;
+    return _calcToSingleDigit(personalYear + currentMonth);
+  }
+
   int calcPersonalYear(Profile profile) {
     var birthday = DateService.fromTimestamp(profile.dob);
     var currentYear = DateService.getCurrentDate().year;
