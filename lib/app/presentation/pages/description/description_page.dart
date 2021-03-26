@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:numerology/app/constants/colors.dart';
 
@@ -13,26 +15,31 @@ class DescriptionPage extends StatelessWidget {
         title: Text('Daily Number'),
         backgroundColor: backgroundColor,
       ),
-      body: _buildContext(),
+      body: _buildContext(context),
     );
   }
 
-  Widget _buildContext() {
-    return CustomScrollView(
-      slivers: [
-        _buildNumberIcon(),
-      ],
+  Widget _buildContext(BuildContext context) {
+    return Container(
+      color: backgroundColor,
+      child: CustomScrollView(
+        slivers: [
+          _buildNumberIcon(context),
+        ],
+      ),
     );
   }
 
-  Widget _buildNumberIcon() {
+  Widget _buildNumberIcon(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+
     return SliverToBoxAdapter(
       child: Container(
-        color: backgroundColor,
         width: 400,
-        height: 400,
+        height: 200,
         child: CustomPaint(
-          painter: OpenPainter(),
+          painter: OpenPainter(width, height),
         ),
       ),
     );
@@ -40,14 +47,29 @@ class DescriptionPage extends StatelessWidget {
 }
 
 class OpenPainter extends CustomPainter {
+  final double width;
+  final double height;
+
+  OpenPainter(this.width, this.height);
+
   @override
   void paint(Canvas canvas, Size size) {
-    var paint1 = Paint()
+    var paint = Paint()
       ..color = circleColor
-      ..strokeWidth = 5.0
+      ..strokeWidth = 4.0
       ..style = PaintingStyle.stroke;
-    //a circle
-    canvas.drawCircle(Offset(200, 200), 65, paint1);
+    var radius = 65.0;
+    var center = Offset((width)* 0.5, 100);
+    canvas.drawCircle(center, radius, paint);
+
+    final TextPainter textPainter = TextPainter(
+        text: TextSpan(
+          text: '23',
+        ),
+        textAlign: TextAlign.center,
+        textDirection: TextDirection.ltr)
+      ..layout(maxWidth: size.width - 12.0 - 12.0);
+    textPainter.paint(canvas, Offset((size.width - textPainter.width) * 0.5, 95));
   }
 
   @override
