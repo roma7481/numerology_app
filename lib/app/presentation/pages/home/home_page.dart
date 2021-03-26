@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:numerology/app/business_logic/cubit/language/language_cubit.dart';
+import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/icon_path.dart';
 import 'package:numerology/app/data/models/category_model.dart';
+import 'package:numerology/app/presentation/common_widgets/error_dialog.dart';
+import 'package:numerology/app/presentation/common_widgets/progress_bar.dart';
 
 import 'category_tile.dart';
 
@@ -15,50 +18,23 @@ class HomePage extends StatelessWidget {
     });
   }
 
-  SafeArea _buildPageContent(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: _buildContent(context),
-      ),
-    );
+  Widget _buildPageContent(BuildContext context) {
+    return BlocBuilder<UserDataCubit, UserDataState>(builder: (context, state) {
+      if (state is UserDataReady) {
+        return SafeArea(
+          child: Scaffold(
+            body: _buildContent(context, state.categories),
+          ),
+        );
+      } else if (state is UserDataError) {
+        return errorDialog();
+      }
+      return progressBar();
+    });
   }
 
-  Widget _buildContent(BuildContext context) {
+  Widget _buildContent(BuildContext context, List<CategoryModel> categories) {
     CategoryModel(imagePath: work, text: 'Work number');
-
-    List<CategoryModel> categories = [];
-    categories.add(CategoryModel(imagePath: achievement, text: 'Work number'));
-    categories.add(CategoryModel(imagePath: balance, text: 'Work number'));
-    categories
-        .add(CategoryModel(imagePath: bioCompatibility, text: 'Work number'));
-    categories.add(CategoryModel(imagePath: birthdayCode, text: 'Work number'));
-    categories.add(CategoryModel(imagePath: birthdayNum, text: 'Work number'));
-    categories.add(CategoryModel(imagePath: challenge, text: 'Work number'));
-    categories.add(CategoryModel(imagePath: character, text: 'Work number'));
-    categories
-        .add(CategoryModel(imagePath: compatibility, text: 'Work number'));
-    categories.add(CategoryModel(imagePath: day, text: 'Work number'));
-    categories.add(CategoryModel(imagePath: desire, text: 'Work number'));
-    categories.add(CategoryModel(imagePath: expression, text: 'Work number'));
-    categories.add(CategoryModel(imagePath: intelligence, text: 'Work number'));
-    categories.add(CategoryModel(imagePath: karma, text: 'Work number'));
-    categories.add(CategoryModel(imagePath: lifePath, text: 'Work number'));
-    categories.add(CategoryModel(imagePath: love, text: 'Work number'));
-    categories.add(CategoryModel(imagePath: luckyGem, text: 'Work number'));
-    categories.add(CategoryModel(imagePath: lucky, text: 'Work number'));
-    categories.add(CategoryModel(imagePath: marriage, text: 'Work number'));
-    categories.add(CategoryModel(imagePath: matrix, text: 'Work number'));
-    categories.add(CategoryModel(imagePath: matrixLines, text: 'Work number'));
-    categories.add(CategoryModel(imagePath: maturity, text: 'Work number'));
-    categories.add(CategoryModel(imagePath: money, text: 'Work number'));
-    categories.add(CategoryModel(imagePath: month, text: 'Work number'));
-    categories.add(CategoryModel(imagePath: name, text: 'Work number'));
-    categories.add(CategoryModel(imagePath: personality, text: 'Work number'));
-    categories.add(CategoryModel(imagePath: potential, text: 'Work number'));
-    categories.add(CategoryModel(imagePath: secondaryBio, text: 'Work number'));
-    categories.add(CategoryModel(imagePath: soul, text: 'Work number'));
-    categories.add(CategoryModel(imagePath: work, text: 'Work number'));
-    categories.add(CategoryModel(imagePath: year, text: 'Work number'));
 
     return Container(
       color: backgroundColor,

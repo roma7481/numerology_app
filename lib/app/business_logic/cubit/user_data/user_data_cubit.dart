@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/constants/strings.dart';
 import 'package:numerology/app/data/data_provider/shared_pref.dart';
 import 'package:numerology/app/data/data_provider/sqlite_helper.dart';
@@ -33,10 +34,11 @@ class UserDataCubit extends Cubit<UserDataState> {
     try {
       await SharedPref.instance
           .setValue(key: primaryUserKey, value: profile.profileId);
+      var dataParser = Globals.instance.getDataParser();
+      emit(UserDataReady(profile: profile, categories: dataParser.getCategories()));
     } catch (e) {
       emitPrimaryUserError(e);
     }
-    emit(UserDataReady(profile: profile, categories: []));
   }
 
   emitPrimaryUserError(Exception e) {
