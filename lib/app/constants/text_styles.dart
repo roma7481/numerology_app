@@ -66,7 +66,7 @@ var noticeTextStyle = GoogleFonts.sourceSansPro(
 
 /// HOME PAGE ///
 
-var categoryTileHeader = GoogleFonts.nanumMyeongjo(
+var categoryTileHeader = GoogleFonts.philosopher(
   textStyle: TextStyle(
     fontSize: 19.0,
     color: categoryTileText,
