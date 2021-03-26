@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:numerology/app/business_logic/cubit/language/language_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.dart';
 import 'package:numerology/app/constants/colors.dart';
-import 'package:numerology/app/constants/icon_path.dart';
 import 'package:numerology/app/data/models/category_model.dart';
 import 'package:numerology/app/presentation/common_widgets/error_dialog.dart';
 import 'package:numerology/app/presentation/common_widgets/progress_bar.dart';
+import 'package:numerology/app/presentation/pages/navigator/navigator.dart';
 
 import 'category_tile.dart';
 import 'day_category.dart';
@@ -35,15 +35,13 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _buildContent(BuildContext context, UserDataReady userDataState) {
-    CategoryModel(imagePath: work, text: 'Work number');
-
     return Container(
       color: backgroundColor,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: CustomScrollView(
           slivers: [
-            _buildDailyCategory(context,userDataState.dayCategory),
+            _buildDailyCategory(context, userDataState.dayCategory),
             SliverGrid(
               delegate: _buildList(userDataState.categories),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -58,12 +56,15 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  SliverToBoxAdapter _buildDailyCategory(BuildContext context, CategoryModel category) {
+  SliverToBoxAdapter _buildDailyCategory(
+      BuildContext context, CategoryModel category) {
     return SliverToBoxAdapter(
       child: buildDayCategory(
         context: context,
         text: category.text,
-        onPressed: () {},
+        onPressed: () async {
+          navigateToDescription(context);
+        },
         imagePath: category.imagePath,
       ),
     );
