@@ -24,3 +24,6 @@ const Color tileColor = Color.fromRGBO(0, 63, 115, 1);
 /// PROGRESS BAR ///
 const Color activeProgress = Color.fromRGBO(128, 202, 255, 1);
 const Color inactiveProgress = Color.fromRGBO(0, 63, 115, 1);
+
+/// DESCRIPTION PAGE ///
+const Color circleColor = Color.fromRGBO(252, 186, 3, 1);
