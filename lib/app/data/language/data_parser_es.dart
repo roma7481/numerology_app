@@ -1,5 +1,7 @@
+import 'package:numerology/app/business_logic/services/category_calc.dart';
 import 'package:numerology/app/constants/icon_path.dart';
 import 'package:numerology/app/data/language/data_parser.dart';
+import 'package:numerology/app/data/models/profile.dart';
 
 import '../models/category_model.dart';
 
@@ -35,5 +37,11 @@ class DataParserEs extends DataParser {
     categories.add(CategoryModel(imagePath: karma, text: 'Ley Karmica'));
 
     return categories;
+  }
+
+  @override
+  CategoryModel getPersonalDay(Profile profile) {
+    var calculation = CategoryCalc.instance.calcPersonalDay(profile);
+    return CategoryModel(imagePath: day, text: 'Número de día personal', calculation: calculation);
   }
 }

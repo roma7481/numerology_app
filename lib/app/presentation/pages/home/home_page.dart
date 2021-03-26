@@ -24,7 +24,7 @@ class HomePage extends StatelessWidget {
       if (state is UserDataReady) {
         return SafeArea(
           child: Scaffold(
-            body: _buildContent(context, state.categories),
+            body: _buildContent(context, state),
           ),
         );
       } else if (state is UserDataError) {
@@ -34,7 +34,7 @@ class HomePage extends StatelessWidget {
     });
   }
 
-  Widget _buildContent(BuildContext context, List<CategoryModel> categories) {
+  Widget _buildContent(BuildContext context, UserDataReady userDataState) {
     CategoryModel(imagePath: work, text: 'Work number');
 
     return Container(
@@ -43,9 +43,9 @@ class HomePage extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: CustomScrollView(
           slivers: [
-            _buildDailyCategory(context),
+            _buildDailyCategory(context,userDataState.dayCategory),
             SliverGrid(
-              delegate: _buildList(categories),
+              delegate: _buildList(userDataState.categories),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 childAspectRatio: MediaQuery.of(context).size.width /
@@ -58,13 +58,13 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  SliverToBoxAdapter _buildDailyCategory(BuildContext context) {
+  SliverToBoxAdapter _buildDailyCategory(BuildContext context, CategoryModel category) {
     return SliverToBoxAdapter(
       child: buildDayCategory(
         context: context,
-        text: 'Personal Day number',
+        text: category.text,
         onPressed: () {},
-        imagePath: day,
+        imagePath: category.imagePath,
       ),
     );
   }
