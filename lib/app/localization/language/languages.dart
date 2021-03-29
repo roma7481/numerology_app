@@ -40,4 +40,8 @@ abstract class Languages {
   String get errorMessageHeader;
 
   String get errorMessageContent;
+
+  String get description;
+
+  String get info;
 }

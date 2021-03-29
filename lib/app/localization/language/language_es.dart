@@ -60,4 +60,10 @@ class LanguageEs extends Languages {
 
   @override
   String get errorMessageHeader => 'errorMessageHeader ES';
+
+  @override
+  String get description => 'description ES';
+
+  @override
+  String get info => 'info ES';
 }

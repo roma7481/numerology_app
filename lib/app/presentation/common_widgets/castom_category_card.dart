@@ -24,7 +24,7 @@ class CustomCategoryCard extends StatelessWidget {
     return Align(
       alignment: Alignment.topLeft,
       child: Padding(
-          padding: const EdgeInsets.all(12.0),
+          padding: const EdgeInsets.all(16.0),
           child: _buildCardContent(context)),
     );
   }

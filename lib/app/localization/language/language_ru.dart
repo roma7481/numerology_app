@@ -60,4 +60,10 @@ class LanguageRu extends Languages {
 
   @override
   String get errorMessageHeader => 'errorMessageHeader RU';
+
+  @override
+  String get description => 'description RU';
+
+  @override
+  String get info => 'info RU';
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/presentation/common_widgets/castom_category_card.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
@@ -6,10 +7,17 @@ import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
 import 'circle_widget.dart';
 
 class DescriptionPage extends StatelessWidget {
+  final String header;
   final int calculation;
   final String description;
+  final String info;
 
-  DescriptionPage({this.calculation, this.description});
+  DescriptionPage({
+    this.calculation,
+    this.description,
+    this.header,
+    this.info,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +28,7 @@ class DescriptionPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Daily Number'),
+        title: Text(header),
         backgroundColor: backgroundColor,
       ),
       body: _buildContext(context),
@@ -28,13 +36,14 @@ class DescriptionPage extends StatelessWidget {
   }
 
   Widget _buildContext(BuildContext context) {
+    var language = Globals.instance.getLanguage();
     return Container(
       color: backgroundColor,
       child: CustomScrollView(
         slivers: [
           _buildNumberIcon(context, calculation.toString()),
-          _buildDescriptionCard('header', description),
-          _buildInfoCard('header', 'info'),
+          _buildDescriptionCard(language.description, description),
+          _buildInfoCard(language.info, info),
         ],
       ),
     );

@@ -19,7 +19,7 @@ class UserDataReady extends UserDataState {
 class UserDataInit extends UserDataState {}
 
 class UserDataError extends UserDataState {
-  final Error exception;
+  final Exception exception;
 
   UserDataError({@required this.exception});
 }

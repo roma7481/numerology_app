@@ -24,7 +24,7 @@ class ProfilesInit extends ProfilesState {
 }
 
 class ProfilesError extends ProfilesState {
-  final Error exception;
+  final Exception exception;
 
   ProfilesError({@required this.exception});
 }

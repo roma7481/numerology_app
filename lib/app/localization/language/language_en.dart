@@ -67,4 +67,10 @@ class LanguageEn extends Languages {
   @override
   String get errorMessageHeader =>
       'Something went wrong please try again later';
+
+  @override
+  String get description => 'Description';
+
+  @override
+  String get info => 'Info';
 }
