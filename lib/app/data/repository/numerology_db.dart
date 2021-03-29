@@ -54,16 +54,13 @@ class NumerologyDBRepository {
     return await openDatabase(path, readOnly: true);
   }
 
-  Future<List<Map<String, dynamic>>> getEntities(
-      String query, Function fromMap) async {
+  Future<T> getEntity<T>(String query, Function fromMap) async {
     Database db =
         await instance.database; // this command calls get database async method
 
     final List<Map<String, dynamic>> maps = await db.rawQuery(query);
 
-    return List.generate(maps.length, (i) {
-      return fromMap(maps[i]);
-    });
+    return fromMap(maps.first);
   }
 
   Future closeDB() async {

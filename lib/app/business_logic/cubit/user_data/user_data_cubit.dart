@@ -46,7 +46,7 @@ class UserDataCubit extends Cubit<UserDataState> {
     }
   }
 
-  emitPrimaryUserError(Exception e) {
+  emitPrimaryUserError(Error e) {
     emit(UserDataError(exception: e));
   }
 }

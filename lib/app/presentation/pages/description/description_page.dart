@@ -6,6 +6,11 @@ import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
 import 'circle_widget.dart';
 
 class DescriptionPage extends StatelessWidget {
+  final int calculation;
+  final String description;
+
+  DescriptionPage({this.calculation, this.description});
+
   @override
   Widget build(BuildContext context) {
     return _buildPageContent(context);
@@ -27,21 +32,21 @@ class DescriptionPage extends StatelessWidget {
       color: backgroundColor,
       child: CustomScrollView(
         slivers: [
-          _buildNumberIcon(context),
-          _buildDescriptionCard('header', 'content'),
+          _buildNumberIcon(context, calculation.toString()),
+          _buildDescriptionCard('header', description),
           _buildInfoCard('header', 'info'),
         ],
       ),
     );
   }
 
-  Widget _buildNumberIcon(BuildContext context) {
+  Widget _buildNumberIcon(BuildContext context, String calculation) {
     return SliverToBoxAdapter(
       child: Container(
         width: 400,
         height: 200,
         child: CustomPaint(
-          painter: OpenPainter(context, '11'),
+          painter: OpenPainter(context, calculation),
         ),
       ),
     );

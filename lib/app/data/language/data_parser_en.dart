@@ -47,15 +47,19 @@ class DataParserEn extends DataParser {
   @override
   Future<CategoryModel> getPersonalDay(Profile profile) async {
     var calculation = CategoryCalc.instance.calcPersonalDay(profile);
-    var description = await NumerologyDBProvider.instance.getEntities(
-        'select description from PERSONAL_DAY_ENG where number = ' +
-            calculation.toString(),
-        (entity) => entity);
+    var description = await NumerologyDBProvider.instance.getEntity(
+      'select description from PERSONAL_DAY_ENG where number = ' +
+          calculation.toString(),
+      (map) => map['description'] as String,
+    );
 
     return CategoryModel(
         imagePath: day,
         text: 'Personal day number',
         calculation: calculation,
-        page: DescriptionPage());
+        page: DescriptionPage(
+          calculation: calculation,
+          description: description,
+        ));
   }
 }

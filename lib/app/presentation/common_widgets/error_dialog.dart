@@ -9,6 +9,6 @@ Widget errorDialog() {
   Languages language = Globals.instance.getLanguage();
   return EmptyContent(
     title: language.errorMessageHeader,
-    message: language.errorMessageContent,
+    message: language.errorMessageHeader,
   );
 }
