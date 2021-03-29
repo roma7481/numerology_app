@@ -63,7 +63,7 @@ class HomePage extends StatelessWidget {
         context: context,
         text: category.text,
         onPressed: () async {
-          navigateToDescription(context);
+          navigateToDescription(context, category.page);
         },
         imagePath: category.imagePath,
       ),
