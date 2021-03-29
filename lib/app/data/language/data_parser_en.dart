@@ -3,7 +3,6 @@ import 'package:numerology/app/constants/icon_path.dart';
 import 'package:numerology/app/data/data_provider/numerology_helper.dart';
 import 'package:numerology/app/data/language/data_parser.dart';
 import 'package:numerology/app/data/models/profile.dart';
-import 'package:numerology/app/presentation/pages/description/description_page.dart';
 
 import '../models/category_model.dart';
 
@@ -53,13 +52,6 @@ class DataParserEn extends DataParser {
       (map) => map['description'] as String,
     );
 
-    return CategoryModel(
-        imagePath: day,
-        text: 'Personal day number',
-        calculation: calculation,
-        page: DescriptionPage(
-          calculation: calculation,
-          description: description,
-        ));
+    return CategoryModel(imagePath: luckyGem, text: 'Personal day number');
   }
 }

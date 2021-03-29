@@ -16,6 +16,8 @@ class UserDataReady extends UserDataState {
   });
 }
 
+class UserDataInit extends UserDataState {}
+
 class UserDataError extends UserDataState {
   final Error exception;
 

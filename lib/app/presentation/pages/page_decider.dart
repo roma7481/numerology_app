@@ -11,9 +11,10 @@ class PageDecider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UserDataCubit, UserDataState>(builder: (context, state) {
-      if (state is UserDataReady) {
-        var page = state.profile == null ? WelcomePage() : MainPage();
-        return page;
+      if (state is UserDataInit) {
+        return WelcomePage();
+      } else if (state is UserDataReady) {
+        return MainPage();
       } else if (state is UserDataError) {
         return errorDialog();
       }

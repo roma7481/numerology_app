@@ -20,7 +20,7 @@ class UserDataCubit extends Cubit<UserDataState> {
       var primaryProfileId =
           await SharedPref.instance.getValue(key: primaryUserKey);
       if (primaryProfileId == null) {
-        emit(UserDataReady(profile: null, categories: [], dayCategory: null));
+        emit(UserDataInit());
       } else {
         var profile =
             await ProfileDBProvider.instance.getProfile(primaryProfileId);
