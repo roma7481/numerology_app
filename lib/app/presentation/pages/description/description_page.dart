@@ -8,7 +8,7 @@ import 'circle_widget.dart';
 
 class DescriptionPage extends StatelessWidget {
   final String header;
-  final int calculation;
+  final String calculation;
   final String description;
   final String info;
 
@@ -41,7 +41,7 @@ class DescriptionPage extends StatelessWidget {
       color: backgroundColor,
       child: CustomScrollView(
         slivers: [
-          _buildNumberIcon(context, calculation.toString()),
+          _buildNumberIcon(context, calculation),
           _buildDescriptionCard(language.description, description),
           _buildInfoCard(language.info, info),
         ],
