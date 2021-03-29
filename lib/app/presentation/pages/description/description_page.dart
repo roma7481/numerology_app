@@ -14,6 +14,7 @@ class DescriptionPage extends StatelessWidget {
   Widget _buildPageContent(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text('Daily Number'),
         backgroundColor: backgroundColor,
       ),
@@ -27,7 +28,8 @@ class DescriptionPage extends StatelessWidget {
       child: CustomScrollView(
         slivers: [
           _buildNumberIcon(context),
-          _buildDescriptionCard(),
+          _buildDescriptionCard('header', 'content'),
+          _buildInfoCard('header', 'info'),
         ],
       ),
     );
@@ -45,13 +47,22 @@ class DescriptionPage extends StatelessWidget {
     );
   }
 
-  Widget _buildDescriptionCard() {
+  Widget _buildDescriptionCard(String header, String content) {
     return SliverToBoxAdapter(
       child: CustomCard(
           child: CustomCategoryCard(
-        header: 'wew',
-        content: 'weqewqewq',
-        icon: null,
+        header: header,
+        content: content,
+      )),
+    );
+  }
+
+  Widget _buildInfoCard(String header, String content) {
+    return SliverToBoxAdapter(
+      child: CustomCard(
+          child: CustomCategoryCard(
+        header: header,
+        content: content,
       )),
     );
   }

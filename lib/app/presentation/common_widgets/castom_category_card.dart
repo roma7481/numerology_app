@@ -5,12 +5,10 @@ class CustomCategoryCard extends StatelessWidget {
   CustomCategoryCard({
     @required this.header,
     @required this.content,
-    @required this.icon,
   });
 
   final String header;
   final String content;
-  final String icon;
 
   @override
   Widget build(BuildContext context) {

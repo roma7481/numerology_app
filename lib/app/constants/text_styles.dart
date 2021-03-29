@@ -90,6 +90,7 @@ var descriptionContentStyle = GoogleFonts.sourceSansPro(
 
 var descriptionHeaderStyle = GoogleFonts.philosopher(
     textStyle: TextStyle(
-  fontSize: 18.0,
+  fontWeight: FontWeight.bold,
+  fontSize: 19.0,
   color: Colors.white,
 ));
