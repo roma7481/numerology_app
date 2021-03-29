@@ -2,8 +2,10 @@ import 'package:numerology/app/business_logic/services/category_calc.dart';
 import 'package:numerology/app/constants/icon_path.dart';
 import 'package:numerology/app/data/language/data_parser.dart';
 import 'package:numerology/app/data/models/profile.dart';
+import 'package:numerology/app/presentation/pages/description/description_page.dart';
 
 import '../models/category_model.dart';
+import 'parser_utils.dart';
 
 class DataParserRu extends DataParser {
   @override
@@ -50,10 +52,30 @@ class DataParserRu extends DataParser {
 
   @override
   Future<CategoryModel> getPersonalDay(Profile profile) async {
-    var calculation = CategoryCalc.instance.calcPersonalDay(profile);
+    var calculation = CategoryCalc.instance.calcPersonalDay(profile).toString();
+
+    var description = await getEntity(
+        table: 'PERSONAL_DAY_RUS',
+        queryColumn: 'number',
+        resColumn: 'description',
+        value: calculation);
+    var info = await getEntity(
+        table: 'TABLE_DESCRIPTION',
+        queryColumn: 'table_name',
+        resColumn: 'description',
+        value: '\"PERSONAL_DAY_RUS\"');
+
+    String categoryName = 'Число дня';
+
     return CategoryModel(
         imagePath: day,
-        text: 'Персональное Число дня',
-        calculation: calculation);
+        text: categoryName,
+        calculation: calculation,
+        page: DescriptionPage(
+          header: categoryName,
+          calculation: calculation,
+          description: description,
+          info: info,
+        ));
   }
 }
