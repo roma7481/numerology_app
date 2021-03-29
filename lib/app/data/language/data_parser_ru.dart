@@ -49,8 +49,11 @@ class DataParserRu extends DataParser {
   }
 
   @override
-  CategoryModel getPersonalDay(Profile profile) {
+  Future<CategoryModel> getPersonalDay(Profile profile) async {
     var calculation = CategoryCalc.instance.calcPersonalDay(profile);
-    return CategoryModel(imagePath: day, text: 'Персональное Число дня', calculation: calculation);
+    return CategoryModel(
+        imagePath: day,
+        text: 'Персональное Число дня',
+        calculation: calculation);
   }
 }

@@ -1,7 +1,7 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-class DBRepository {
+class ProfileDBRepository {
   static Database _database;
   static String _dbName = 'profile_database.db';
   static String _tableName = 'profiles';
@@ -20,9 +20,10 @@ class DBRepository {
           "isSelected INTEGER"
           ")";
 
-  DBRepository._privateConstructor();
+  ProfileDBRepository._privateConstructor();
 
-  static final DBRepository instance = DBRepository._privateConstructor();
+  static final ProfileDBRepository instance =
+      ProfileDBRepository._privateConstructor();
 
   Future<Database> get database async {
     return (_database != null) ? _database : await _initiateDatabase();

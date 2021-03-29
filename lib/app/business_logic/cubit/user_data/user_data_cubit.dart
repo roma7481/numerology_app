@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/constants/strings.dart';
+import 'package:numerology/app/data/data_provider/profile_helper.dart';
 import 'package:numerology/app/data/data_provider/shared_pref.dart';
-import 'package:numerology/app/data/data_provider/sqlite_helper.dart';
 import 'package:numerology/app/data/models/category_model.dart';
 import 'package:numerology/app/data/models/profile.dart';
 
@@ -22,7 +22,8 @@ class UserDataCubit extends Cubit<UserDataState> {
       if (primaryProfileId == null) {
         emit(UserDataReady(profile: null, categories: [], dayCategory: null));
       } else {
-        var profile = await DBProvider.instance.getProfile(primaryProfileId);
+        var profile =
+            await ProfileDBProvider.instance.getProfile(primaryProfileId);
         emitPrimaryUserUpdate(profile);
       }
     } catch (e) {
@@ -39,7 +40,7 @@ class UserDataCubit extends Cubit<UserDataState> {
       emit(UserDataReady(
           profile: profile,
           categories: dataParser.getCategories(),
-          dayCategory: dataParser.getPersonalDay(profile)));
+          dayCategory: await dataParser.getPersonalDay(profile)));
     } catch (e) {
       emitPrimaryUserError(e);
     }

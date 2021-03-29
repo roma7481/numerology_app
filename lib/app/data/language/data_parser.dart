@@ -6,5 +6,6 @@ abstract class DataParser {
   const DataParser();
 
   List<CategoryModel> getCategories();
-  CategoryModel getPersonalDay(Profile profile);
+
+  Future<CategoryModel> getPersonalDay(Profile profile);
 }

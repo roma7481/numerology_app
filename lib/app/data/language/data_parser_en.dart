@@ -1,5 +1,6 @@
 import 'package:numerology/app/business_logic/services/category_calc.dart';
 import 'package:numerology/app/constants/icon_path.dart';
+import 'package:numerology/app/data/data_provider/numerology_helper.dart';
 import 'package:numerology/app/data/language/data_parser.dart';
 import 'package:numerology/app/data/models/profile.dart';
 
@@ -43,8 +44,14 @@ class DataParserEn extends DataParser {
   }
 
   @override
-  CategoryModel getPersonalDay(Profile profile) {
+  Future<CategoryModel> getPersonalDay(Profile profile) async {
     var calculation = CategoryCalc.instance.calcPersonalDay(profile);
-    return CategoryModel(imagePath: day, text: 'Personal day number', calculation: calculation);
+    var description = await NumerologyDBProvider.instance.getEntities(
+        'select description from PERSONAL_DAY_ENG where number = ' +
+            calculation.toString(),
+        (entity) => entity);
+
+    return CategoryModel(
+        imagePath: day, text: 'Personal day number', calculation: calculation);
   }
 }

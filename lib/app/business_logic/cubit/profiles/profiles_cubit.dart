@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:numerology/app/data/data_provider/sqlite_helper.dart';
+import 'package:numerology/app/data/data_provider/profile_helper.dart';
 import 'package:numerology/app/data/models/profile.dart';
 
 part 'profiles_state.dart';
@@ -12,7 +12,7 @@ class ProfilesCubit extends Cubit<ProfilesState> {
 
   Future<void> getProfiles() async {
     try {
-      var profiles = await DBProvider.instance.getAllProfiles();
+      var profiles = await ProfileDBProvider.instance.getAllProfiles();
       emit(ProfilesReady(profiles));
     } catch (e) {
       emitProfilesException(e);
@@ -25,8 +25,8 @@ class ProfilesCubit extends Cubit<ProfilesState> {
 
   void emitAddProfile(Profile profile) async {
     try {
-      await DBProvider.instance.insertProfile(profile);
-      var profiles = await DBProvider.instance.getAllProfiles();
+      await ProfileDBProvider.instance.insertProfile(profile);
+      var profiles = await ProfileDBProvider.instance.getAllProfiles();
       emit(ProfilesUpdate(profiles));
     } catch (e) {
       emitProfilesException(e);
@@ -35,8 +35,8 @@ class ProfilesCubit extends Cubit<ProfilesState> {
 
   void emitInitProfile(Profile profile) async {
     try {
-      await DBProvider.instance.insertProfile(profile);
-      var profiles = await DBProvider.instance.getAllProfiles();
+      await ProfileDBProvider.instance.insertProfile(profile);
+      var profiles = await ProfileDBProvider.instance.getAllProfiles();
       emit(ProfilesInit(profiles.first));
     } catch (e) {
       emitProfilesException(e);
