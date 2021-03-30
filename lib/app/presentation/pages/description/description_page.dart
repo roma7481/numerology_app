@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/presentation/common_widgets/castom_category_card.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
@@ -9,14 +8,12 @@ import 'circle_widget.dart';
 class DescriptionPage extends StatelessWidget {
   final String header;
   final String calculation;
-  final String description;
-  final String info;
+  final Map<String, String> cards;
 
   DescriptionPage({
     this.calculation = '1',
-    this.description = '',
     this.header = '',
-    this.info = '',
+    this.cards = const {},
   });
 
   @override
@@ -36,14 +33,12 @@ class DescriptionPage extends StatelessWidget {
   }
 
   Widget _buildContext(BuildContext context) {
-    var language = Globals.instance.getLanguage();
     return Container(
       color: backgroundColor,
       child: CustomScrollView(
         slivers: [
           _buildNumberIcon(context, calculation),
-          _buildDescriptionCard(language.description, description),
-          _buildInfoCard(language.info, info),
+          SliverList(delegate: _buildList(cards))
         ],
       ),
     );
@@ -61,23 +56,21 @@ class DescriptionPage extends StatelessWidget {
     );
   }
 
-  Widget _buildDescriptionCard(String header, String content) {
-    return SliverToBoxAdapter(
-      child: CustomCard(
-          child: CustomCategoryCard(
-        header: header,
-        content: content,
-      )),
-    );
+  Widget _buildCard(String header, String content) {
+    return CustomCard(
+        child: CustomCategoryCard(
+      header: header,
+      content: content,
+    ));
   }
 
-  Widget _buildInfoCard(String header, String content) {
-    return SliverToBoxAdapter(
-      child: CustomCard(
-          child: CustomCategoryCard(
-        header: header,
-        content: content,
-      )),
+  SliverChildDelegate _buildList(Map<String, String> cards) {
+    return SliverChildBuilderDelegate(
+      (context, index) {
+        var card = cards.entries.toList()[index];
+        return _buildCard(card.key, card.value);
+      },
+      childCount: cards.length,
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/business_logic/services/category_calc.dart';
 import 'package:numerology/app/business_logic/services/date_service.dart';
 import 'package:numerology/app/constants/icon_path.dart';
@@ -60,6 +61,12 @@ class DataParserEn extends DataParser {
 
     String categoryName = 'Life Path Number';
 
+    var language = Globals.instance.language;
+    Map<String, String> cardsList = {
+      language.description: description,
+      language.info: info
+    };
+
     return CategoryModel(
         imagePath: lifePath,
         text: categoryName,
@@ -68,8 +75,7 @@ class DataParserEn extends DataParser {
         page: DescriptionPage(
           header: categoryName,
           calculation: calculation,
-          description: description,
-          info: info,
+          cards: cardsList,
         ));
   }
 
@@ -90,6 +96,12 @@ class DataParserEn extends DataParser {
 
     String categoryName = 'Birthday code';
 
+    var language = Globals.instance.language;
+    Map<String, String> cardsList = {
+      language.description: description,
+      language.info: info
+    };
+
     return CategoryModel(
         imagePath: birthdayCode,
         text: categoryName,
@@ -98,8 +110,7 @@ class DataParserEn extends DataParser {
         page: DescriptionPage(
           header: categoryName,
           calculation: calculation,
-          description: description,
-          info: info,
+          cards: cardsList,
         ));
   }
 
@@ -119,6 +130,12 @@ class DataParserEn extends DataParser {
 
     String categoryName = 'Lucky gem';
 
+    var language = Globals.instance.language;
+    Map<String, String> cardsList = {
+      language.description: description,
+      language.info: info
+    };
+
     return CategoryModel(
         imagePath: luckyGem,
         text: categoryName,
@@ -127,8 +144,7 @@ class DataParserEn extends DataParser {
         page: DescriptionPage(
           header: categoryName,
           calculation: calculation,
-          description: description,
-          info: info,
+          cards: cardsList,
         ));
   }
 
@@ -148,6 +164,12 @@ class DataParserEn extends DataParser {
 
     String categoryName = 'Birthday number';
 
+    var language = Globals.instance.language;
+    Map<String, String> cardsList = {
+      language.description: description,
+      language.info: info
+    };
+
     return CategoryModel(
         imagePath: birthdayNum,
         text: categoryName,
@@ -156,8 +178,7 @@ class DataParserEn extends DataParser {
         page: DescriptionPage(
           header: categoryName,
           calculation: calculation,
-          description: description,
-          info: info,
+          cards: cardsList,
         ));
   }
 
@@ -170,8 +191,7 @@ class DataParserEn extends DataParser {
       descriptionPage = DescriptionPage(
         header: 'categoryName',
         calculation: '23',
-        description: 'description',
-        info: 'info',
+        cards: {},
       );
     }
 
@@ -202,6 +222,12 @@ class DataParserEn extends DataParser {
 
     String categoryName = 'Day number';
 
+    var language = Globals.instance.language;
+    Map<String, String> cardsList = {
+      language.description: description,
+      language.info: info
+    };
+
     return CategoryModel(
         imagePath: day,
         text: categoryName,
@@ -210,8 +236,7 @@ class DataParserEn extends DataParser {
         page: DescriptionPage(
           header: categoryName,
           calculation: calculation,
-          description: description,
-          info: info,
+          cards: cardsList,
         ));
   }
 }
