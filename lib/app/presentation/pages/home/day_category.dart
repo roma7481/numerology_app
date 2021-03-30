@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/constants/text_styles.dart';
-import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
 
 import 'custom_raised_button.dart';
 
@@ -17,16 +16,14 @@ Widget buildDayCategory({
     child: CustomButton(
         onPressed: onPressed,
         child: Container(
-          height: 220,
+          height: 200,
           child: Stack(
             children: [
-              CustomCard(
-                child: Column(
-                  children: [
-                    _buildHeader(text),
-                    _buildContent(content),
-                  ],
-                ),
+              Column(
+                children: [
+                  _buildHeader(text),
+                  _buildContent(content),
+                ],
               ),
               _buildIcon(),
               _buildReadMore(),
@@ -67,12 +64,15 @@ Widget _buildReadMore() {
   );
 }
 
-Text _buildContent(content) {
-  return Text(
-    content,
-    maxLines: 3,
-    overflow: TextOverflow.ellipsis,
-    style: personalDayText,
+Widget _buildContent(content) {
+  return Padding(
+    padding: const EdgeInsets.only(left: 12.0, right: 12.0),
+    child: Text(
+      content,
+      maxLines: 3,
+      overflow: TextOverflow.ellipsis,
+      style: personalDayText,
+    ),
   );
 }
 
