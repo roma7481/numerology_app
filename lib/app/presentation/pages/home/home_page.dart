@@ -60,8 +60,8 @@ class HomePage extends StatelessWidget {
       BuildContext context, CategoryModel category) {
     return SliverToBoxAdapter(
       child: buildDayCategory(
-        context: context,
         text: category.text,
+        content: category.content,
         onPressed: () async {
           navigateToDescription(context, category.page);
         },

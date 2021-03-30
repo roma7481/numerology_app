@@ -71,6 +71,7 @@ class DataParserRu extends DataParser {
         imagePath: day,
         text: categoryName,
         calculation: calculation,
+        content: description,
         page: DescriptionPage(
           header: categoryName,
           calculation: calculation,

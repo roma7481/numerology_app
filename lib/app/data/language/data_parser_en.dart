@@ -64,6 +64,7 @@ class DataParserEn extends DataParser {
     return CategoryModel(
         imagePath: day,
         text: categoryName,
+        content: description,
         calculation: calculation,
         page: DescriptionPage(
           header: categoryName,

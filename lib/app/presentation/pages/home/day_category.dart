@@ -1,45 +1,69 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:numerology/app/constants/text_styles.dart';
+import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
 
 import 'custom_raised_button.dart';
 
 Widget buildDayCategory({
-  @required BuildContext context,
   @required String text,
   @required Function onPressed,
   @required String imagePath,
+  content,
 }) {
-  double width = MediaQuery.of(context).size.width * 0.9;
-
   return Padding(
     padding: const EdgeInsets.only(bottom: 4.0),
     child: CustomButton(
         onPressed: onPressed,
         child: Container(
-          height: 170,
-          width: width,
+          height: 220,
           child: Stack(
-            alignment: Alignment.bottomRight,
             children: [
-              Positioned(
-                bottom: -1.0,
-                right: -4.0,
-                child: SvgPicture.asset(
-                  imagePath,
-                  height: 70.0,
+              CustomCard(
+                child: Column(
+                  children: [
+                    _buildHeader(text),
+                    _buildContent(content),
+                  ],
                 ),
               ),
-              Positioned(
-                left: 8.0,
-                top: 8.0,
-                child: Text(
-                  text.replaceFirst(RegExp(r' '), '\n'),
-                  style: categoryTileHeader,
-                ),
-              ),
+              _buildImage(imagePath),
             ],
           ),
         )),
+  );
+}
+
+Text _buildContent(content) {
+  return Text(
+    content,
+    maxLines: 3,
+    overflow: TextOverflow.ellipsis,
+    style: personalDayText,
+  );
+}
+
+Widget _buildImage(String imagePath) {
+  return Positioned(
+    bottom: -5.0,
+    right: -1.0,
+    child: SvgPicture.asset(
+      imagePath,
+      height: 70.0,
+    ),
+  );
+}
+
+Widget _buildHeader(String header) {
+  return Padding(
+    padding: const EdgeInsets.only(
+      top: 16.0,
+      left: 8.0,
+      bottom: 8.0,
+    ),
+    child: Text(
+      header,
+      style: descriptionHeaderStyle,
+    ),
   );
 }

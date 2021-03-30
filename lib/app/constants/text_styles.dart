@@ -72,6 +72,13 @@ var categoryTileHeader = GoogleFonts.philosopher(
   ),
 );
 
+var personalDayText = GoogleFonts.sourceSansPro(
+  textStyle: TextStyle(
+    fontSize: 17.0,
+    color: categoryTileText,
+  ),
+);
+
 /// DESCRIPTION PAGE ///
 
 var calcNumber = GoogleFonts.arefRuqaa(
