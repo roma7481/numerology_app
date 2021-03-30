@@ -1,4 +1,6 @@
+import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/data/models/profile.dart';
+import 'package:numerology/app/localization/language/language_ru.dart';
 
 import 'date_service.dart';
 
@@ -6,6 +8,16 @@ class CategoryCalc {
   CategoryCalc._();
 
   static final instance = CategoryCalc._();
+
+  int calcBirthdayCode(Profile profile) {
+    var birthday = DateService.fromTimestamp(profile.dob);
+    var brthCodeNumber = birthday.day + birthday.month + birthday.year;
+
+    if (Globals.instance.language is LanguageRu) {
+      return _calcToSingleDigitWithMagicNums(brthCodeNumber);
+    }
+    return _calcToSingleDigit(brthCodeNumber);
+  }
 
   int calcLuckGem(Profile profile) {
     var birthday = DateService.fromTimestamp(profile.dob);
