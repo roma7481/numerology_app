@@ -28,11 +28,27 @@ Widget buildDayCategory({
                   ],
                 ),
               ),
+              _buildIcon(),
               _buildReadMore(),
               _buildImage(imagePath),
             ],
           ),
         )),
+  );
+}
+
+Widget _buildIcon() {
+  return Align(
+    alignment: Alignment.topRight,
+    child: Padding(
+      padding: const EdgeInsets.only(top: 16.0, right: 8.0),
+      child: IconTheme(
+        data: new IconThemeData(color: Colors.white),
+        child: Icon(
+          Icons.keyboard_arrow_right,
+        ),
+      ),
+    ),
   );
 }
 
