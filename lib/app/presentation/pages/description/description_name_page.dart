@@ -12,13 +12,14 @@ import 'package:numerology/app/presentation/common_widgets/error_dialog.dart';
 import 'package:numerology/app/presentation/common_widgets/line_widget.dart';
 import 'package:numerology/app/presentation/common_widgets/progress_bar.dart';
 import 'package:numerology/app/presentation/common_widgets/toast.dart';
-import 'package:numerology/app/presentation/pages/description/description_page.dart';
 import 'package:numerology/app/presentation/pages/welcome/input_text_tile.dart';
 
 class DescriptionNameBasedPage extends StatefulWidget {
-  final int dob;
+  final String categoryName;
+  final Widget page;
 
-  const DescriptionNameBasedPage({Key key, this.dob}) : super(key: key);
+  const DescriptionNameBasedPage({Key key, this.categoryName, this.page})
+      : super(key: key);
 
   @override
   _DescriptionNameBasedPageState createState() =>
@@ -54,18 +55,24 @@ class _DescriptionNameBasedPageState extends State<DescriptionNameBasedPage> {
             state.profile.lastName.isEmpty) {
           currentProfile = state.profile;
           return _showForm(context);
+        } else {
+          return _sowDescriptionPage(state);
         }
-        return DescriptionPage(
-          calculation: '12',
-          description: 'descr',
-          header: 'header',
-          info: 'info',
-        );
       } else if (state is UserDataError) {
         return errorDialog();
       }
       return progressBar();
     });
+  }
+
+  Widget _sowDescriptionPage(UserDataReady state) {
+    var categories = state.categories
+        .where((category) => category.text == widget.categoryName)
+        .toList();
+    if (categories.isEmpty) {
+      return errorDialog();
+    }
+    return (categories.first.page as DescriptionNameBasedPage).page;
   }
 
   SafeArea _showForm(BuildContext context) {

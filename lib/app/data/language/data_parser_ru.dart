@@ -9,7 +9,7 @@ import 'parser_utils.dart';
 
 class DataParserRu extends DataParser {
   @override
-  List<CategoryModel> getCategories() {
+  Future<List<CategoryModel>> getCategories(Profile profile) async {
     List<CategoryModel> categories = [];
     categories
         .add(CategoryModel(imagePath: compatibility, text: 'Совместимость'));

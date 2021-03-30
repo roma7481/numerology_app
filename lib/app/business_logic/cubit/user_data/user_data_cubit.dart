@@ -36,10 +36,11 @@ class UserDataCubit extends Cubit<UserDataState> {
       await SharedPref.instance
           .setValue(key: primaryUserKey, value: profile.profileId);
       var dataParser = Globals.instance.getDataParser();
+      var categories = await dataParser.getCategories(profile);
 
       emit(UserDataReady(
           profile: profile,
-          categories: dataParser.getCategories(),
+          categories: categories,
           dayCategory: await dataParser.getPersonalDay(profile)));
     } catch (e) {
       emitPrimaryUserError(e);

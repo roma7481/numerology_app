@@ -13,10 +13,10 @@ class DescriptionPage extends StatelessWidget {
   final String info;
 
   DescriptionPage({
-    this.calculation,
-    this.description,
-    this.header,
-    this.info,
+    this.calculation = '1',
+    this.description = '',
+    this.header = '',
+    this.info = '',
   });
 
   @override

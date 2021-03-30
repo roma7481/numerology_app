@@ -12,7 +12,7 @@ class DataParserEn extends DataParser {
   const DataParserEn();
 
   @override
-  List<CategoryModel> getCategories() {
+  Future<List<CategoryModel>> getCategories(Profile profile) async {
     List<CategoryModel> categories = [];
 
     categories
@@ -24,10 +24,7 @@ class DataParserEn extends DataParser {
     categories.add(CategoryModel(imagePath: matrix, text: 'Psychomatrix'));
     categories
         .add(CategoryModel(imagePath: matrixLines, text: 'Psychomatrix Lines'));
-    categories.add(CategoryModel(
-        imagePath: soul,
-        text: 'Soul number',
-        page: DescriptionNameBasedPage()));
+    categories.add(_getSoulNumber(profile));
     categories
         .add(CategoryModel(imagePath: challenge, text: 'Challenge number'));
     categories.add(CategoryModel(imagePath: name, text: 'Name number'));
@@ -46,6 +43,30 @@ class DataParserEn extends DataParser {
     categories.add(CategoryModel(imagePath: luckyGem, text: 'Lucky gem'));
 
     return categories;
+  }
+
+  CategoryModel _getSoulNumber(Profile profile) {
+    DescriptionPage descriptionPage = DescriptionPage();
+
+    if (profile.firstName.isNotEmpty ||
+        profile.lastName.isNotEmpty ||
+        profile.middleName.isNotEmpty) {
+      descriptionPage = DescriptionPage(
+        header: 'categoryName',
+        calculation: '23',
+        description: 'description',
+        info: 'info',
+      );
+    }
+
+    var categoryName = 'Soul number';
+    return CategoryModel(
+        imagePath: soul,
+        text: categoryName,
+        page: DescriptionNameBasedPage(
+          categoryName: categoryName,
+          page: descriptionPage,
+        ));
   }
 
   @override
