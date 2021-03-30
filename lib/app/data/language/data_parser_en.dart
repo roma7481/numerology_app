@@ -40,12 +40,43 @@ class DataParserEn extends DataParser {
     categories
         .add(CategoryModel(imagePath: birthdayCode, text: 'Birthday code'));
     categories.add(await _getBirthdayNumber(profile));
-    categories.add(CategoryModel(imagePath: luckyGem, text: 'Lucky gem'));
+    categories.add(await _getLuckyGemModel(profile));
 
     return categories;
   }
 
-  Future<CategoryModel> _getBirthdayNumber(Profile profile) async{
+  Future<CategoryModel> _getLuckyGemModel(Profile profile) async {
+    var calculation = CategoryCalc.instance.calcLuckGem(profile).toString();
+
+    // return CategoryModel(imagePath: luckyGem, text: 'Lucky gem');
+
+    var description = await getEntity(
+        table: 'LUCKY_GEM_ENG',
+        queryColumn: 'number',
+        resColumn: 'description',
+        value: calculation);
+    var info = await getEntity(
+        table: 'TABLE_DESCRIPTION',
+        queryColumn: 'table_name',
+        resColumn: 'description',
+        value: '\"LUCKY_GEM_ENG\"');
+
+    String categoryName = 'Lucky gem';
+
+    return CategoryModel(
+        imagePath: luckyGem,
+        text: categoryName,
+        content: description,
+        calculation: calculation,
+        page: DescriptionPage(
+          header: categoryName,
+          calculation: calculation,
+          description: description,
+          info: info,
+        ));
+  }
+
+  Future<CategoryModel> _getBirthdayNumber(Profile profile) async {
     var calculation = DateService.fromTimestamp(profile.dob).day.toString();
 
     var description = await getEntity(

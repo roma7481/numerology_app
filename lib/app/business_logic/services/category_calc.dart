@@ -7,6 +7,11 @@ class CategoryCalc {
 
   static final instance = CategoryCalc._();
 
+  int calcLuckGem(Profile profile) {
+    var birthday = DateService.fromTimestamp(profile.dob);
+    return _calcToSingleDigit(birthday.day);
+  }
+
   int calcPersonalDay(Profile profile) {
     var personalMonth = calcPersonalMonth(profile);
     var currentDay = DateService.getCurrentDate().day;
