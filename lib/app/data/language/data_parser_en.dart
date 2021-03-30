@@ -1,4 +1,5 @@
 import 'package:numerology/app/business_logic/services/category_calc.dart';
+import 'package:numerology/app/business_logic/services/date_service.dart';
 import 'package:numerology/app/constants/icon_path.dart';
 import 'package:numerology/app/data/language/data_parser.dart';
 import 'package:numerology/app/data/models/profile.dart';
@@ -38,11 +39,39 @@ class DataParserEn extends DataParser {
     categories.add(CategoryModel(imagePath: maturity, text: 'Maturity number'));
     categories
         .add(CategoryModel(imagePath: birthdayCode, text: 'Birthday code'));
-    categories
-        .add(CategoryModel(imagePath: birthdayNum, text: 'Birthday number'));
+    categories.add(await _getBirthdayNumber(profile));
     categories.add(CategoryModel(imagePath: luckyGem, text: 'Lucky gem'));
 
     return categories;
+  }
+
+  Future<CategoryModel> _getBirthdayNumber(Profile profile) async{
+    var calculation = DateService.fromTimestamp(profile.dob).day.toString();
+
+    var description = await getEntity(
+        table: 'BIRTHDAY_NUMBER_ENG',
+        queryColumn: 'number',
+        resColumn: 'description',
+        value: calculation);
+    var info = await getEntity(
+        table: 'TABLE_DESCRIPTION',
+        queryColumn: 'table_name',
+        resColumn: 'description',
+        value: '\"BIRTHDAY_NUMBER_ENG\"');
+
+    String categoryName = 'Birthday number';
+
+    return CategoryModel(
+        imagePath: birthdayNum,
+        text: categoryName,
+        content: description,
+        calculation: calculation,
+        page: DescriptionPage(
+          header: categoryName,
+          calculation: calculation,
+          description: description,
+          info: info,
+        ));
   }
 
   CategoryModel _getSoulNumber(Profile profile) {
