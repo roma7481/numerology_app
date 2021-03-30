@@ -2,6 +2,7 @@ import 'package:numerology/app/business_logic/services/category_calc.dart';
 import 'package:numerology/app/constants/icon_path.dart';
 import 'package:numerology/app/data/language/data_parser.dart';
 import 'package:numerology/app/data/models/profile.dart';
+import 'package:numerology/app/presentation/pages/description/description_name_page.dart';
 import 'package:numerology/app/presentation/pages/description/description_page.dart';
 
 import '../models/category_model.dart';
@@ -23,7 +24,10 @@ class DataParserEn extends DataParser {
     categories.add(CategoryModel(imagePath: matrix, text: 'Psychomatrix'));
     categories
         .add(CategoryModel(imagePath: matrixLines, text: 'Psychomatrix Lines'));
-    categories.add(CategoryModel(imagePath: soul, text: 'Soul number'));
+    categories.add(CategoryModel(
+        imagePath: soul,
+        text: 'Soul number',
+        page: DescriptionNameBasedPage()));
     categories
         .add(CategoryModel(imagePath: challenge, text: 'Challenge number'));
     categories.add(CategoryModel(imagePath: name, text: 'Name number'));

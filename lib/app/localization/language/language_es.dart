@@ -69,4 +69,10 @@ class LanguageEs extends Languages {
 
   @override
   String get readMore => 'readMore ES';
+
+  @override
+  String get categoryRequiresName => 'categoryRequiresName ES';
+
+  @override
+  String get enterMissingData => 'enterMissingData ES';
 }

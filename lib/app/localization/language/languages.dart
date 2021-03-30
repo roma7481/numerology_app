@@ -46,4 +46,8 @@ abstract class Languages {
   String get info;
 
   String get readMore;
+
+  String get categoryRequiresName;
+
+  String get enterMissingData;
 }

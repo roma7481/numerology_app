@@ -76,4 +76,10 @@ class LanguageEn extends Languages {
 
   @override
   String get readMore => 'Read more ...';
+
+  @override
+  String get categoryRequiresName => 'This category requires a name';
+
+  @override
+  String get enterMissingData => 'Please enter the missing data';
 }

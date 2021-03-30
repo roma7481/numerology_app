@@ -43,7 +43,7 @@ class HomePage extends StatelessWidget {
           slivers: [
             _buildDailyCategory(context, userDataState.dayCategory),
             SliverGrid(
-              delegate: _buildList(userDataState.categories),
+              delegate: _buildList(context, userDataState.categories),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 childAspectRatio: MediaQuery.of(context).size.width /
@@ -70,18 +70,34 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  SliverChildBuilderDelegate _buildList(List<CategoryModel> categories) {
+  SliverChildBuilderDelegate _buildList(
+      BuildContext context, List<CategoryModel> categories) {
     return SliverChildBuilderDelegate(
       (context, index) {
         var category = categories[index];
-        return _buildListTile(category.text, category.imagePath);
+        return _buildListTile(
+          context,
+          category.text,
+          category.imagePath,
+          category.page,
+        );
       },
       childCount: categories.length,
       addAutomaticKeepAlives: false,
     );
   }
 
-  Widget _buildListTile(String text, String iconPath) {
-    return buildCategoryTile(text: text, onPressed: () {}, imagePath: iconPath);
+  Widget _buildListTile(
+    BuildContext context,
+    String text,
+    String iconPath,
+    Widget page,
+  ) {
+    return buildCategoryTile(
+        text: text,
+        onPressed: () {
+          navigateToDescription(context, page);
+        },
+        imagePath: iconPath);
   }
 }

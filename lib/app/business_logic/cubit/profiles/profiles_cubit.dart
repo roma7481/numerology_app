@@ -33,6 +33,15 @@ class ProfilesCubit extends Cubit<ProfilesState> {
     }
   }
 
+  void emitUpdateName(Profile profile) async {
+    try {
+      await ProfileDBProvider.instance.updateProfile(profile);
+      emit(ProfilesUpdate([profile]));
+    } catch (e) {
+      emitProfilesException(e);
+    }
+  }
+
   void emitInitProfile(Profile profile) async {
     try {
       await ProfileDBProvider.instance.insertProfile(profile);
