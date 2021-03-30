@@ -44,4 +44,6 @@ abstract class Languages {
   String get description;
 
   String get info;
+
+  String get readMore;
 }

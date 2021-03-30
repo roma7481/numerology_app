@@ -73,4 +73,7 @@ class LanguageEn extends Languages {
 
   @override
   String get info => 'Info';
+
+  @override
+  String get readMore => 'Read more ...';
 }

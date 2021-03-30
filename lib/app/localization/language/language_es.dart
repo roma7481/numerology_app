@@ -66,4 +66,7 @@ class LanguageEs extends Languages {
 
   @override
   String get info => 'info ES';
+
+  @override
+  String get readMore => 'readMore ES';
 }

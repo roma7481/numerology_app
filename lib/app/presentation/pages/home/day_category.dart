@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
 
@@ -27,10 +28,26 @@ Widget buildDayCategory({
                   ],
                 ),
               ),
+              _buildReadMore(),
               _buildImage(imagePath),
             ],
           ),
         )),
+  );
+}
+
+Widget _buildReadMore() {
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: Align(
+      alignment: Alignment.bottomLeft,
+      child: Text(
+        Globals.instance.language.readMore,
+        maxLines: 3,
+        overflow: TextOverflow.ellipsis,
+        style: personalDayText,
+      ),
+    ),
   );
 }
 
