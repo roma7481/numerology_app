@@ -20,8 +20,7 @@ class DataParserEn extends DataParser {
         .add(CategoryModel(imagePath: compatibility, text: 'Compatibility'));
     categories.add(
         CategoryModel(imagePath: secondaryBio, text: 'Secondary Biorhythms'));
-    categories
-        .add(CategoryModel(imagePath: lifePath, text: 'Life Path Number'));
+    categories.add(await _getLifePathNumber(profile));
     categories.add(CategoryModel(imagePath: matrix, text: 'Psychomatrix'));
     categories
         .add(CategoryModel(imagePath: matrixLines, text: 'Psychomatrix Lines'));
@@ -42,6 +41,36 @@ class DataParserEn extends DataParser {
     categories.add(await _getLuckyGemModel(profile));
 
     return categories;
+  }
+
+  Future<CategoryModel> _getLifePathNumber(Profile profile) async {
+    var calculation =
+        CategoryCalc.instance.calcLifePathNumberMethod1(profile).toString();
+
+    var description = await getEntity(
+        table: 'LIFE_PATH_NUMBER_ENG',
+        queryColumn: 'number',
+        resColumn: 'description',
+        value: calculation);
+    var info = await getEntity(
+        table: 'TABLE_DESCRIPTION',
+        queryColumn: 'table_name',
+        resColumn: 'description',
+        value: '\"LIFE_PATH_NUMBER_ENG\"');
+
+    String categoryName = 'Life Path Number';
+
+    return CategoryModel(
+        imagePath: lifePath,
+        text: categoryName,
+        content: description,
+        calculation: calculation,
+        page: DescriptionPage(
+          header: categoryName,
+          calculation: calculation,
+          description: description,
+          info: info,
+        ));
   }
 
   Future<CategoryModel> _getBirthdayCode(Profile profile) async {

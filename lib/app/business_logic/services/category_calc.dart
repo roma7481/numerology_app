@@ -9,6 +9,15 @@ class CategoryCalc {
 
   static final instance = CategoryCalc._();
 
+  int calcLifePathNumberMethod1(Profile profile) {
+    var birthday = DateService.fromTimestamp(profile.dob);
+    var lifeNumberDay = _calcToSingleDigitWithMagicNums(birthday.day);
+    var lifeNumberMonth = _calcToSingleDigitWithMagicNums(birthday.month);
+    var lifeNumberYear = _calcToSingleDigitWithMagicNums(birthday.year);
+    return _calcToSingleDigitWithMagicNums(
+        lifeNumberDay + lifeNumberMonth + lifeNumberYear);
+  }
+
   int calcBirthdayCode(Profile profile) {
     var birthday = DateService.fromTimestamp(profile.dob);
     var brthCodeNumber = birthday.day + birthday.month + birthday.year;
