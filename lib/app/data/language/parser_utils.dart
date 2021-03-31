@@ -14,3 +14,18 @@ dynamic getEntity({
     fromMap,
   );
 }
+
+dynamic getEntityAdvanced({
+  String table,
+  String queryColumn,
+  String resColumn,
+  String value,
+  Function fromMap,
+}) async {
+  var query = 'select * from $table where $queryColumn = $value';
+
+  return await NumerologyDBProvider.instance.getEntity(
+    query,
+    fromMap,
+  );
+}

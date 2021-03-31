@@ -44,15 +44,28 @@ class DataParserEn extends DataParser {
     return categories;
   }
 
+  Map<String, String> _fromMapLifePath(Map<String, dynamic> map) {
+    return {
+      'Description': map['description'] as String,
+      'Profession': map['profession'] as String,
+      'Finances': map['finances'] as String,
+      'Relationship': map['relationships'] as String,
+      'Health': map['health'] as String,
+      'Negative': map['negative'] as String,
+    };
+  }
+
   Future<CategoryModel> _getLifePathNumber(Profile profile) async {
     var calculation =
         CategoryCalc.instance.calcLifePathNumberMethod1(profile).toString();
 
-    var description = await getEntity(
-        table: 'LIFE_PATH_NUMBER_ENG',
-        queryColumn: 'number',
-        resColumn: 'description',
-        value: calculation);
+    Map<String, String> cards = await getEntityAdvanced(
+      table: 'LIFE_PATH_NUMBER_ENG',
+      queryColumn: 'number',
+      resColumn: 'description',
+      value: calculation,
+      fromMap: (map) => _fromMapLifePath(map),
+    );
     var info = await getEntity(
         table: 'TABLE_DESCRIPTION',
         queryColumn: 'table_name',
@@ -62,20 +75,16 @@ class DataParserEn extends DataParser {
     String categoryName = 'Life Path Number';
 
     var language = Globals.instance.language;
-    Map<String, String> cardsList = {
-      language.description: description,
-      language.info: info
-    };
+    cards.addAll({language.info: info});
 
     return CategoryModel(
         imagePath: lifePath,
         text: categoryName,
-        content: description,
         calculation: calculation,
         page: DescriptionPage(
           header: categoryName,
           calculation: calculation,
-          cards: cardsList,
+          cards: cards,
         ));
   }
 
