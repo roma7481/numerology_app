@@ -62,11 +62,11 @@ class DescriptionPage extends StatelessWidget {
     if (content.length > 1000) {
       return CustomCard(
           child: ExpandablePanel(
-        theme: ExpandableThemeData(iconColor: Colors.white),
-        header: _buildHeader(header),
-        collapsed: _buildCardContent(content: content, isFolded: true),
-        expanded: _buildCardContent(
-          content: content,
+              theme: ExpandableThemeData(iconColor: Colors.white),
+              header: _buildHeader(header),
+              collapsed: _buildCardContent(content: content, isFolded: true),
+              expanded: _buildCardContent(
+                content: content,
         ),
       ));
     } else {

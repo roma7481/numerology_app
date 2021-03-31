@@ -136,7 +136,7 @@ class DataParserEn extends DataParser {
         resColumn: 'description',
         value: '\"LUCKY_GEM_ENG\"');
 
-    String categoryName = 'Lucky gem';
+    String categoryName = 'Lucky Gem';
 
     var language = Globals.instance.language;
     Map<String, String> cardsList = {
