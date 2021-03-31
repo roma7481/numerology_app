@@ -31,7 +31,7 @@ class DataParserEn extends DataParser {
     categories.add(await _getDesireNumber(profile));
     categories.add(CategoryModel(imagePath: marriage, text: 'Marriage number'));
     categories.add(await _getExpressionNumber(profile));
-    categories.add(CategoryModel(imagePath: work, text: 'Realization number'));
+    categories.add(await _getRealizationNumber(profile));
     categories.add(await _getPersonalityNumber(profile));
     categories.add(await _getMaturityNumber(profile));
     categories.add(await _getBirthdayCode(profile));
@@ -39,6 +39,29 @@ class DataParserEn extends DataParser {
     categories.add(await _getLuckyGemModel(profile));
 
     return categories;
+  }
+
+  Future<CategoryModel> _getRealizationNumber(Profile profile) async {
+    DescriptionPage descriptionPage = DescriptionPage();
+    var categoryName = 'Realization number';
+
+    if (_isNameSet(profile)) {
+      var calculation = CategoryCalc.instance.calcRealizationNumber(profile);
+
+      descriptionPage = DescriptionPage(
+        header: categoryName,
+        calculation: calculation.toString(),
+        description: await getDescription('REALIZATION_NUMBER_ENG', calculation),
+      );
+    }
+
+    return CategoryModel(
+        imagePath: work,
+        text: categoryName,
+        page: DescriptionNameBasedPage(
+          categoryName: categoryName,
+          page: descriptionPage,
+        ));
   }
 
   Future<CategoryModel> _getMaturityNumber(Profile profile) async {

@@ -10,6 +10,11 @@ class CategoryCalc {
 
   static final instance = CategoryCalc._();
 
+  int calcRealizationNumber(Profile profile) {
+    var realizationNumber = calcLifePathNumberMethod1(profile) + calcExpressionNumber(profile);
+    return _calcToSingleDigitWithMagicNums(realizationNumber);
+  }
+
   int calcMaturityNumber(Profile profile) {
     var maturityNumber = calcLifePathNumberMethod1(profile) + calcExpressionNumber(profile);
     if (Globals.instance.language is LanguageRu) {
