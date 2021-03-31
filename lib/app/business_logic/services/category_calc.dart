@@ -10,6 +10,18 @@ class CategoryCalc {
 
   static final instance = CategoryCalc._();
 
+  int calcDesireNumber(Profile profile) {
+    var firstName = profile.firstName.toLowerCase();
+    var lastName = profile.lastName.toLowerCase();
+
+    var firstNameNumber =
+        _calcToSingleDigitWithMagicNums(_convertConCharsAndSum(firstName));
+    var lastNameNumber =
+        _calcToSingleDigitWithMagicNums(_convertConCharsAndSum(lastName));
+
+    return _calcToSingleDigitWithMagicNums(firstNameNumber + lastNameNumber);
+  }
+
   int calcPersonalityNumber(Profile profile) {
     var personalityNumber = 0;
     bool isStop = false;

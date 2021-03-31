@@ -28,7 +28,7 @@ class DataParserEn extends DataParser {
     categories.add(await _getSoulNumber(profile));
     categories.add(await _getChallengeNumber(profile));
     categories.add(await _getNameNumber(profile));
-    categories.add(CategoryModel(imagePath: desire, text: 'Desire number'));
+    categories.add(await _getDesireNumber(profile));
     categories.add(CategoryModel(imagePath: marriage, text: 'Marriage number'));
     categories.add(await _getExpressionNumber(profile));
     categories.add(CategoryModel(imagePath: work, text: 'Realization number'));
@@ -41,6 +41,29 @@ class DataParserEn extends DataParser {
     return categories;
   }
 
+  Future<CategoryModel> _getDesireNumber(Profile profile) async {
+    DescriptionPage descriptionPage = DescriptionPage();
+    var categoryName = 'Desire number';
+
+    if (_isNameSet(profile)) {
+      var calculation = CategoryCalc.instance.calcDesireNumber(profile);
+
+      descriptionPage = DescriptionPage(
+        header: categoryName,
+        calculation: calculation.toString(),
+        description: await getDescription('DESIRE_NUMBER_ENG', calculation),
+      );
+    }
+
+    return CategoryModel(
+        imagePath: desire,
+        text: categoryName,
+        page: DescriptionNameBasedPage(
+          categoryName: categoryName,
+          page: descriptionPage,
+        ));
+  }
+
   Future<CategoryModel> _getPersonalityNumber(Profile profile) async {
     DescriptionPage descriptionPage = DescriptionPage();
     var categoryName = 'Personality number';
@@ -51,7 +74,8 @@ class DataParserEn extends DataParser {
       descriptionPage = DescriptionPage(
         header: categoryName,
         calculation: calculation.toString(),
-        description: await getDescription('PERSONALITY_NUMBER_ENG', calculation),
+        description:
+            await getDescription('PERSONALITY_NUMBER_ENG', calculation),
       );
     }
 
@@ -63,7 +87,6 @@ class DataParserEn extends DataParser {
           page: descriptionPage,
         ));
   }
-
 
   Future<CategoryModel> _getExpressionNumber(Profile profile) async {
     DescriptionPage descriptionPage = DescriptionPage();
@@ -294,7 +317,7 @@ class DataParserEn extends DataParser {
 
   bool _isNameSet(Profile profile) {
     return profile.firstName.isNotEmpty ||
-      profile.lastName.isNotEmpty ||
-      profile.middleName.isNotEmpty;
+        profile.lastName.isNotEmpty ||
+        profile.middleName.isNotEmpty;
   }
 }
