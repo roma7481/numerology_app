@@ -32,8 +32,7 @@ class DataParserEn extends DataParser {
     categories.add(CategoryModel(imagePath: marriage, text: 'Marriage number'));
     categories.add(await _getExpressionNumber(profile));
     categories.add(CategoryModel(imagePath: work, text: 'Realization number'));
-    categories
-        .add(CategoryModel(imagePath: personality, text: 'Personality number'));
+    categories.add(await _getPersonalityNumber(profile));
     categories.add(CategoryModel(imagePath: maturity, text: 'Maturity number'));
     categories.add(await _getBirthdayCode(profile));
     categories.add(await _getBirthdayNumber(profile));
@@ -41,6 +40,22 @@ class DataParserEn extends DataParser {
 
     return categories;
   }
+
+  Future<CategoryModel> _getPersonalityNumber(Profile profile) async {
+    var calculation = CategoryCalc.instance.calcPersonalityNumber(profile);
+    String categoryName = 'Personality number';
+
+    return CategoryModel(
+        imagePath: personality,
+        text: categoryName,
+        page: DescriptionPage(
+          header: categoryName,
+          calculation: calculation.toString(),
+          description:
+          await getDescription('PERSONALITY_NUMBER_ENG', calculation),
+        ));
+  }
+
 
   Future<CategoryModel> _getExpressionNumber(Profile profile) async {
     var calculation = CategoryCalc.instance.calcExpressionNumber(profile);

@@ -10,6 +10,34 @@ class CategoryCalc {
 
   static final instance = CategoryCalc._();
 
+  int calcPersonalityNumber(Profile profile) {
+    var personalityNumber = 0;
+    bool isStop = false;
+
+    var firstName = profile.firstName.toLowerCase();
+    var lastName = profile.lastName.toLowerCase();
+    var middleName = profile.middleName.toLowerCase();
+
+    var firstNameNumber = _calcToSingleDigit(_convertConCharsAndSum(firstName));
+    var lastNameNumber = _calcToSingleDigit(_convertConCharsAndSum(lastName));
+    var middleNameNumber = middleName.isEmpty
+        ? 0
+        : _calcToSingleDigit(_convertConCharsAndSum(middleName));
+
+    personalityNumber = firstNameNumber + lastNameNumber + middleNameNumber;
+    while (!isStop) {
+      if (personalityNumber == 11 ||
+          personalityNumber == 22 ||
+          personalityNumber < 10) {
+        isStop = true;
+      } else {
+        personalityNumber = _calcNumToDigits(personalityNumber);
+      }
+    }
+
+    return personalityNumber;
+  }
+
   int calcExpressionNumber(Profile profile) {
     var expressionNumber = 0;
 
@@ -71,6 +99,14 @@ class CategoryCalc {
     int sum = 0;
     text.split('').forEach((ch) {
       sum = sum + letterToNumber(ch);
+    });
+    return sum;
+  }
+
+  int _convertConCharsAndSum(String text) {
+    int sum = 0;
+    text.split('').forEach((ch) {
+      sum = sum + conLetterToNumber(ch);
     });
     return sum;
   }
