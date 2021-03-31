@@ -10,6 +10,48 @@ class CategoryCalc {
 
   static final instance = CategoryCalc._();
 
+  int calcNameNumber(Profile profile) {
+    var nameNumber = 0;
+    bool isStop = false;
+
+    var firstName = profile.firstName.toLowerCase();
+    var lastName = profile.lastName.toLowerCase();
+    var middleName = profile.middleName.toLowerCase();
+
+    if (Globals.instance.language is LanguageRu) {
+      var nameNum = _convertCharsAndSum(firstName + lastName + middleName);
+      while (!isStop) {
+        if (nameNum == 11 || nameNum == 22 || nameNum < 10) {
+          nameNumber = nameNum;
+          isStop = true;
+        } else {
+          nameNum = _calcNumToDigits(nameNum);
+        }
+      }
+    } else {
+      var nameNum = middleName.isEmpty
+          ? _convertCharsAndSum(firstName + lastName)
+          : _convertCharsAndSum(firstName + lastName + middleName);
+      while (!isStop) {
+        if (nameNum < 10) {
+          nameNumber = nameNum;
+          isStop = true;
+        } else {
+          nameNum = _calcNumToDigits(nameNum);
+        }
+      }
+    }
+    return nameNumber;
+  }
+
+  int _convertCharsAndSum(String text) {
+    int sum = 0;
+    text.split('').forEach((ch) {
+      sum = sum + letterToNumber(ch);
+    });
+    return sum;
+  }
+
   int calcSoulNumber(Profile profile) {
     var firstName = profile.firstName.toLowerCase();
     var lastName = profile.lastName.toLowerCase();

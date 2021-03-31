@@ -27,7 +27,7 @@ class DataParserEn extends DataParser {
         .add(CategoryModel(imagePath: matrixLines, text: 'Psychomatrix Lines'));
     categories.add(await _getSoulNumber(profile));
     categories.add(await _getChallengeNumber(profile));
-    categories.add(CategoryModel(imagePath: name, text: 'Name number'));
+    categories.add(await _getNameNumber(profile));
     categories.add(CategoryModel(imagePath: desire, text: 'Desire number'));
     categories.add(CategoryModel(imagePath: marriage, text: 'Marriage number'));
     categories
@@ -41,6 +41,39 @@ class DataParserEn extends DataParser {
     categories.add(await _getLuckyGemModel(profile));
 
     return categories;
+  }
+
+  Future<CategoryModel> _getNameNumber(Profile profile) async {
+    var calculation = CategoryCalc.instance.calcNameNumber(profile).toString();
+
+    var description = await getEntity(
+        table: 'NAME_NUMBER_ENG',
+        queryColumn: 'number',
+        resColumn: 'description',
+        value: calculation);
+    var info = await getEntity(
+        table: 'TABLE_DESCRIPTION',
+        queryColumn: 'table_name',
+        resColumn: 'description',
+        value: '\"NAME_NUMBER_ENG\"');
+
+    String categoryName = 'Name number';
+
+    var language = Globals.instance.language;
+    Map<String, String> cards = {
+      language.description: description,
+      language.info: info
+    };
+
+    return CategoryModel(
+        imagePath: name,
+        text: categoryName,
+        content: description,
+        page: DescriptionPage(
+          header: categoryName,
+          calculation: calculation,
+          cards: cards,
+        ));
   }
 
   @override
