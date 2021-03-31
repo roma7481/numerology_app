@@ -33,12 +33,35 @@ class DataParserEn extends DataParser {
     categories.add(await _getExpressionNumber(profile));
     categories.add(CategoryModel(imagePath: work, text: 'Realization number'));
     categories.add(await _getPersonalityNumber(profile));
-    categories.add(CategoryModel(imagePath: maturity, text: 'Maturity number'));
+    categories.add(await _getMaturityNumber(profile));
     categories.add(await _getBirthdayCode(profile));
     categories.add(await _getBirthdayNumber(profile));
     categories.add(await _getLuckyGemModel(profile));
 
     return categories;
+  }
+
+  Future<CategoryModel> _getMaturityNumber(Profile profile) async {
+    DescriptionPage descriptionPage = DescriptionPage();
+    var categoryName = 'Maturity number';
+
+    if (_isNameSet(profile)) {
+      var calculation = CategoryCalc.instance.calcMaturityNumber(profile);
+
+      descriptionPage = DescriptionPage(
+        header: categoryName,
+        calculation: calculation.toString(),
+        description: await getDescription('MATURITY_NUMBER_ENG', calculation),
+      );
+    }
+
+    return CategoryModel(
+        imagePath: maturity,
+        text: categoryName,
+        page: DescriptionNameBasedPage(
+          categoryName: categoryName,
+          page: descriptionPage,
+        ));
   }
 
   Future<CategoryModel> _getDesireNumber(Profile profile) async {

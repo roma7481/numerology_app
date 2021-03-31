@@ -10,6 +10,14 @@ class CategoryCalc {
 
   static final instance = CategoryCalc._();
 
+  int calcMaturityNumber(Profile profile) {
+    var maturityNumber = calcLifePathNumberMethod1(profile) + calcExpressionNumber(profile);
+    if (Globals.instance.language is LanguageRu) {
+      return _calcToSingleDigit(maturityNumber);
+    }
+    return _calcToSingleDigitWithMagicNums(maturityNumber);
+  }
+
   int calcDesireNumber(Profile profile) {
     var firstName = profile.firstName.toLowerCase();
     var lastName = profile.lastName.toLowerCase();
