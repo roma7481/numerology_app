@@ -10,12 +10,12 @@ import 'circle_widget.dart';
 class DescriptionPage extends StatelessWidget {
   final String header;
   final String calculation;
-  final Map<String, String> cards;
+  final Map<String, String> description;
 
   DescriptionPage({
     this.calculation = '',
     this.header = '',
-    this.cards = const {},
+    this.description = const {},
   });
 
   @override
@@ -40,7 +40,7 @@ class DescriptionPage extends StatelessWidget {
       child: CustomScrollView(
         slivers: [
           _buildNumberIcon(context, calculation),
-          SliverList(delegate: _buildList(cards))
+          SliverList(delegate: _buildList(description))
         ],
       ),
     );
@@ -65,11 +65,11 @@ class DescriptionPage extends StatelessWidget {
     if (content.length > 1000) {
       return CustomCard(
           child: ExpandablePanel(
-              theme: ExpandableThemeData(iconColor: Colors.white),
-              header: _buildHeader(header),
-              collapsed: _buildCardContent(content: content, isFolded: true),
-              expanded: _buildCardContent(
-                content: content,
+        theme: ExpandableThemeData(iconColor: Colors.white),
+        header: _buildHeader(header),
+        collapsed: _buildCardContent(content: content, isFolded: true),
+        expanded: _buildCardContent(
+          content: content,
         ),
       ));
     } else {

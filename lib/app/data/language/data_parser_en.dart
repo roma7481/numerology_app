@@ -72,7 +72,7 @@ class DataParserEn extends DataParser {
         page: DescriptionPage(
           header: categoryName,
           calculation: calculation,
-          cards: cards,
+          description: cards,
         ));
   }
 
@@ -106,7 +106,7 @@ class DataParserEn extends DataParser {
         page: DescriptionPage(
           header: categoryName,
           calculation: calculation,
-          cards: cards,
+          description: cards,
         ));
   }
 
@@ -161,7 +161,7 @@ class DataParserEn extends DataParser {
         text: categoryName,
         page: DescriptionPage(
           header: categoryName,
-          cards: cards,
+          description: cards,
         ));
   }
 
@@ -204,104 +204,49 @@ class DataParserEn extends DataParser {
         page: DescriptionPage(
           header: categoryName,
           calculation: calculation,
-          cards: cards,
+          description: cards,
         ));
   }
 
   Future<CategoryModel> _getBirthdayCode(Profile profile) async {
-    var calculation =
-        CategoryCalc.instance.calcBirthdayCode(profile).toString();
-
-    var description = await getEntity(
-        table: 'BIRTHDAY_CODE_ENG',
-        queryColumn: 'number',
-        resColumn: 'description',
-        value: calculation);
-    var info = await getEntity(
-        table: 'TABLE_DESCRIPTION',
-        queryColumn: 'table_name',
-        resColumn: 'description',
-        value: '\"BIRTHDAY_CODE_ENG\"');
-
+    var calculation = CategoryCalc.instance.calcBirthdayCode(profile);
     String categoryName = 'Birthday code';
-
-    var language = Globals.instance.language;
-    Map<String, String> cards = {
-      language.description: description,
-      language.info: info
-    };
 
     return CategoryModel(
         imagePath: birthdayCode,
         text: categoryName,
         page: DescriptionPage(
           header: categoryName,
-          calculation: calculation,
-          cards: cards,
+          calculation: calculation.toString(),
+          description: await getDescription('BIRTHDAY_CODE_ENG', calculation),
         ));
   }
 
   Future<CategoryModel> _getLuckyGemModel(Profile profile) async {
-    var calculation = CategoryCalc.instance.calcLuckGem(profile).toString();
-
-    var description = await getEntity(
-        table: 'LUCKY_GEM_ENG',
-        queryColumn: 'number',
-        resColumn: 'description',
-        value: calculation);
-    var info = await getEntity(
-        table: 'TABLE_DESCRIPTION',
-        queryColumn: 'table_name',
-        resColumn: 'description',
-        value: '\"LUCKY_GEM_ENG\"');
-
+    var calculation = CategoryCalc.instance.calcLuckGem(profile);
     String categoryName = 'Lucky Gem';
-
-    var language = Globals.instance.language;
-    Map<String, String> cards = {
-      language.description: description,
-      language.info: info
-    };
 
     return CategoryModel(
         imagePath: luckyGem,
         text: categoryName,
         page: DescriptionPage(
           header: categoryName,
-          calculation: calculation,
-          cards: cards,
+          calculation: calculation.toString(),
+          description: await getDescription('LUCKY_GEM_ENG', calculation),
         ));
   }
 
   Future<CategoryModel> _getBirthdayNumber(Profile profile) async {
-    var calculation = DateService.fromTimestamp(profile.dob).day.toString();
-
-    var description = await getEntity(
-        table: 'BIRTHDAY_NUMBER_ENG',
-        queryColumn: 'number',
-        resColumn: 'description',
-        value: calculation);
-    var info = await getEntity(
-        table: 'TABLE_DESCRIPTION',
-        queryColumn: 'table_name',
-        resColumn: 'description',
-        value: '\"BIRTHDAY_NUMBER_ENG\"');
-
+    var calculation = DateService.fromTimestamp(profile.dob).day;
     String categoryName = 'Birthday number';
-
-    var language = Globals.instance.language;
-    Map<String, String> cards = {
-      language.description: description,
-      language.info: info
-    };
 
     return CategoryModel(
         imagePath: birthdayNum,
         text: categoryName,
         page: DescriptionPage(
           header: categoryName,
-          calculation: calculation,
-          cards: cards,
+          calculation: calculation.toString(),
+          description: await getDescription('BIRTHDAY_NUMBER_ENG', calculation),
         ));
   }
 
@@ -312,30 +257,12 @@ class DataParserEn extends DataParser {
     if (profile.firstName.isNotEmpty ||
         profile.lastName.isNotEmpty ||
         profile.middleName.isNotEmpty) {
-      var calculation =
-          CategoryCalc.instance.calcSoulNumber(profile).toString();
-
-      var description = await getEntity(
-          table: 'SOUL_URGE_NUMBER_ENG',
-          queryColumn: 'number',
-          resColumn: 'description',
-          value: calculation);
-      var info = await getEntity(
-          table: 'TABLE_DESCRIPTION',
-          queryColumn: 'table_name',
-          resColumn: 'description',
-          value: '\"SOUL_URGE_NUMBER_ENG\"');
-
-      var language = Globals.instance.language;
-      Map<String, String> cards = {
-        language.description: description,
-        language.info: info
-      };
+      var calculation = CategoryCalc.instance.calcSoulNumber(profile);
 
       descriptionPage = DescriptionPage(
         header: categoryName,
-        calculation: calculation,
-        cards: cards,
+        calculation: calculation.toString(),
+        description: await getDescription('BIRTHDAY_NUMBER_ENG', calculation),
       );
     }
 

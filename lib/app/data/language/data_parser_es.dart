@@ -72,7 +72,7 @@ class DataParserEs extends DataParser {
         page: DescriptionPage(
           header: categoryName,
           calculation: calculation,
-          cards: cards,
+          description: cards,
         ));
   }
 }
