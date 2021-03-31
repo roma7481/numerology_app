@@ -42,47 +42,72 @@ class DataParserEn extends DataParser {
   }
 
   Future<CategoryModel> _getPersonalityNumber(Profile profile) async {
-    var calculation = CategoryCalc.instance.calcPersonalityNumber(profile);
-    String categoryName = 'Personality number';
+    DescriptionPage descriptionPage = DescriptionPage();
+    var categoryName = 'Personality number';
+
+    if (_isNameSet(profile)) {
+      var calculation = CategoryCalc.instance.calcPersonalityNumber(profile);
+
+      descriptionPage = DescriptionPage(
+        header: categoryName,
+        calculation: calculation.toString(),
+        description: await getDescription('PERSONALITY_NUMBER_ENG', calculation),
+      );
+    }
 
     return CategoryModel(
         imagePath: personality,
         text: categoryName,
-        page: DescriptionPage(
-          header: categoryName,
-          calculation: calculation.toString(),
-          description:
-          await getDescription('PERSONALITY_NUMBER_ENG', calculation),
+        page: DescriptionNameBasedPage(
+          categoryName: categoryName,
+          page: descriptionPage,
         ));
   }
 
 
   Future<CategoryModel> _getExpressionNumber(Profile profile) async {
-    var calculation = CategoryCalc.instance.calcExpressionNumber(profile);
-    String categoryName = 'Expression number';
+    DescriptionPage descriptionPage = DescriptionPage();
+    var categoryName = 'Expression number';
+
+    if (_isNameSet(profile)) {
+      var calculation = CategoryCalc.instance.calcExpressionNumber(profile);
+
+      descriptionPage = DescriptionPage(
+        header: categoryName,
+        calculation: calculation.toString(),
+        description: await getDescription('EXPRESSION_NUMBER_ENG', calculation),
+      );
+    }
 
     return CategoryModel(
         imagePath: expression,
         text: categoryName,
-        page: DescriptionPage(
-          header: categoryName,
-          calculation: calculation.toString(),
-          description:
-              await getDescription('EXPRESSION_NUMBER_ENG', calculation),
+        page: DescriptionNameBasedPage(
+          categoryName: categoryName,
+          page: descriptionPage,
         ));
   }
 
   Future<CategoryModel> _getNameNumber(Profile profile) async {
-    var calculation = CategoryCalc.instance.calcNameNumber(profile);
-    String categoryName = 'Name number';
+    DescriptionPage descriptionPage = DescriptionPage();
+    var categoryName = 'Name number';
+
+    if (_isNameSet(profile)) {
+      var calculation = CategoryCalc.instance.calcNameNumber(profile);
+
+      descriptionPage = DescriptionPage(
+        header: categoryName,
+        calculation: calculation.toString(),
+        description: await getDescription('NAME_NUMBER_ENG', calculation),
+      );
+    }
 
     return CategoryModel(
         imagePath: name,
         text: categoryName,
-        page: DescriptionPage(
-          header: categoryName,
-          calculation: calculation.toString(),
-          description: await getDescription('BIRTHDAY_CODE_ENG', calculation),
+        page: DescriptionNameBasedPage(
+          categoryName: categoryName,
+          page: descriptionPage,
         ));
   }
 
@@ -248,9 +273,7 @@ class DataParserEn extends DataParser {
     DescriptionPage descriptionPage = DescriptionPage();
     var categoryName = 'Soul number';
 
-    if (profile.firstName.isNotEmpty ||
-        profile.lastName.isNotEmpty ||
-        profile.middleName.isNotEmpty) {
+    if (_isNameSet(profile)) {
       var calculation = CategoryCalc.instance.calcSoulNumber(profile);
 
       descriptionPage = DescriptionPage(
@@ -267,5 +290,11 @@ class DataParserEn extends DataParser {
           categoryName: categoryName,
           page: descriptionPage,
         ));
+  }
+
+  bool _isNameSet(Profile profile) {
+    return profile.firstName.isNotEmpty ||
+      profile.lastName.isNotEmpty ||
+      profile.middleName.isNotEmpty;
   }
 }
