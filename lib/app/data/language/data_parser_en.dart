@@ -25,7 +25,7 @@ class DataParserEn extends DataParser {
     categories.add(CategoryModel(imagePath: matrix, text: 'Psychomatrix'));
     categories
         .add(CategoryModel(imagePath: matrixLines, text: 'Psychomatrix Lines'));
-    categories.add(_getSoulNumber(profile));
+    categories.add(await _getSoulNumber(profile));
     categories.add(await _getChallengeNumber(profile));
     categories.add(CategoryModel(imagePath: name, text: 'Name number'));
     categories.add(CategoryModel(imagePath: desire, text: 'Desire number'));
@@ -272,20 +272,40 @@ class DataParserEn extends DataParser {
         ));
   }
 
-  CategoryModel _getSoulNumber(Profile profile) {
+  Future<CategoryModel> _getSoulNumber(Profile profile) async {
     DescriptionPage descriptionPage = DescriptionPage();
+    var categoryName = 'Soul number';
 
     if (profile.firstName.isNotEmpty ||
         profile.lastName.isNotEmpty ||
         profile.middleName.isNotEmpty) {
+      var calculation =
+          CategoryCalc.instance.calcSoulNumber(profile).toString();
+
+      var description = await getEntity(
+          table: 'SOUL_URGE_NUMBER_ENG',
+          queryColumn: 'number',
+          resColumn: 'description',
+          value: calculation);
+      var info = await getEntity(
+          table: 'TABLE_DESCRIPTION',
+          queryColumn: 'table_name',
+          resColumn: 'description',
+          value: '\"SOUL_URGE_NUMBER_ENG\"');
+
+      var language = Globals.instance.language;
+      Map<String, String> cards = {
+        language.description: description,
+        language.info: info
+      };
+
       descriptionPage = DescriptionPage(
-        header: 'categoryName',
-        calculation: '23',
-        cards: {},
+        header: categoryName,
+        calculation: calculation,
+        cards: cards,
       );
     }
 
-    var categoryName = 'Soul number';
     return CategoryModel(
         imagePath: soul,
         text: categoryName,
@@ -294,5 +314,4 @@ class DataParserEn extends DataParser {
           page: descriptionPage,
         ));
   }
-
 }

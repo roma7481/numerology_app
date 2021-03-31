@@ -2,12 +2,45 @@ import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/data/models/profile.dart';
 import 'package:numerology/app/localization/language/language_ru.dart';
 
+import 'calc_utils.dart';
 import 'date_service.dart';
 
 class CategoryCalc {
   CategoryCalc._();
 
   static final instance = CategoryCalc._();
+
+  int calcSoulNumber(Profile profile) {
+    var firstName = profile.firstName.toLowerCase();
+    var lastName = profile.lastName.toLowerCase();
+    var middleName = profile.middleName.toLowerCase();
+    var firstNameNum = _calcToSingleDigit(_convertVowCharsAndSum(firstName));
+    var lastNameNum = _calcToSingleDigit(_convertVowCharsAndSum(lastName));
+    var middleNameNum = middleName.isEmpty
+        ? 0
+        : _calcToSingleDigit(_convertVowCharsAndSum(middleName));
+
+    var soulNumber = firstNameNum + lastNameNum + middleNameNum;
+
+    var isStop = false;
+    while (!isStop) {
+      if (soulNumber == 11 || soulNumber == 22 || soulNumber < 10) {
+        isStop = true;
+      } else {
+        soulNumber = _calcNumToDigits(soulNumber);
+      }
+    }
+
+    return soulNumber;
+  }
+
+  int _convertVowCharsAndSum(String text) {
+    int sum = 0;
+    text.split('').forEach((ch) {
+      sum = sum + vowLetterToNumber(ch);
+    });
+    return sum;
+  }
 
   int calcChallengeNum1(Profile profile) {
     var birthday = DateService.fromTimestamp(profile.dob);
