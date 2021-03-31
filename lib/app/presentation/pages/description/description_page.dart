@@ -13,7 +13,7 @@ class DescriptionPage extends StatelessWidget {
   final Map<String, String> cards;
 
   DescriptionPage({
-    this.calculation = '1',
+    this.calculation = '',
     this.header = '',
     this.cards = const {},
   });
@@ -47,6 +47,9 @@ class DescriptionPage extends StatelessWidget {
   }
 
   Widget _buildNumberIcon(BuildContext context, String calculation) {
+    if (calculation.isEmpty) {
+      return SliverToBoxAdapter(child: Container());
+    }
     return SliverToBoxAdapter(
       child: Container(
         width: 400,

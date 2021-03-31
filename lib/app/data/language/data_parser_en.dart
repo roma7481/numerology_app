@@ -26,8 +26,7 @@ class DataParserEn extends DataParser {
     categories
         .add(CategoryModel(imagePath: matrixLines, text: 'Psychomatrix Lines'));
     categories.add(_getSoulNumber(profile));
-    categories
-        .add(CategoryModel(imagePath: challenge, text: 'Challenge number'));
+    categories.add(await _getChallengeNumber(profile));
     categories.add(CategoryModel(imagePath: name, text: 'Name number'));
     categories.add(CategoryModel(imagePath: desire, text: 'Desire number'));
     categories.add(CategoryModel(imagePath: marriage, text: 'Marriage number'));
@@ -42,6 +41,95 @@ class DataParserEn extends DataParser {
     categories.add(await _getLuckyGemModel(profile));
 
     return categories;
+  }
+
+  @override
+  Future<CategoryModel> getPersonalDay(Profile profile) async {
+    var calculation = CategoryCalc.instance.calcPersonalDay(profile).toString();
+
+    var description = await getEntity(
+        table: 'PERSONAL_DAY_ENG',
+        queryColumn: 'number',
+        resColumn: 'description',
+        value: calculation);
+    var info = await getEntity(
+        table: 'TABLE_DESCRIPTION',
+        queryColumn: 'table_name',
+        resColumn: 'description',
+        value: '\"PERSONAL_DAY_ENG\"');
+
+    String categoryName = 'Day number';
+
+    var language = Globals.instance.language;
+    Map<String, String> cards = {
+      language.description: description,
+      language.info: info
+    };
+
+    return CategoryModel(
+        imagePath: day,
+        text: categoryName,
+        content: description,
+        page: DescriptionPage(
+          header: categoryName,
+          calculation: calculation,
+          cards: cards,
+        ));
+  }
+
+  Future<CategoryModel> _getChallengeNumber(Profile profile) async {
+    var calculation1 =
+        CategoryCalc.instance.calcChallengeNum1(profile).toString();
+    var calculation2 =
+        CategoryCalc.instance.calcChallengeNum2(profile).toString();
+    var calculation3 =
+        CategoryCalc.instance.calcChallengeNum3(profile).toString();
+    var calculation4 =
+        CategoryCalc.instance.calcChallengeNum4(profile).toString();
+
+    var description1 = await getEntity(
+        table: 'CHALLENGE_NUMBER_ENG',
+        queryColumn: 'number',
+        resColumn: 'description',
+        value: calculation1);
+    var description2 = await getEntity(
+        table: 'CHALLENGE_NUMBER_ENG',
+        queryColumn: 'number',
+        resColumn: 'description',
+        value: calculation1);
+    var description3 = await getEntity(
+        table: 'CHALLENGE_NUMBER_ENG',
+        queryColumn: 'number',
+        resColumn: 'description',
+        value: calculation1);
+    var description4 = await getEntity(
+        table: 'CHALLENGE_NUMBER_ENG',
+        queryColumn: 'number',
+        resColumn: 'description',
+        value: calculation1);
+    var info = await getEntity(
+        table: 'TABLE_DESCRIPTION',
+        queryColumn: 'table_name',
+        resColumn: 'description',
+        value: '\"CHALLENGE_NUMBER_ENG\"');
+
+    Map<String, String> cards = {
+      'The First Challenge - $calculation1': description1,
+      'The Second Challenge - $calculation2': description2,
+      'The Third Challenge - $calculation3': description3,
+      'The Fourth Challenge - $calculation4': description4,
+      Globals.instance.language.info: info
+    };
+
+    String categoryName = 'Challenge number';
+
+    return CategoryModel(
+        imagePath: challenge,
+        text: categoryName,
+        page: DescriptionPage(
+          header: categoryName,
+          cards: cards,
+        ));
   }
 
   Map<String, String> _fromMapLifePath(Map<String, dynamic> map) {
@@ -80,7 +168,6 @@ class DataParserEn extends DataParser {
     return CategoryModel(
         imagePath: lifePath,
         text: categoryName,
-        calculation: calculation,
         page: DescriptionPage(
           header: categoryName,
           calculation: calculation,
@@ -106,7 +193,7 @@ class DataParserEn extends DataParser {
     String categoryName = 'Birthday code';
 
     var language = Globals.instance.language;
-    Map<String, String> cardsList = {
+    Map<String, String> cards = {
       language.description: description,
       language.info: info
     };
@@ -114,11 +201,10 @@ class DataParserEn extends DataParser {
     return CategoryModel(
         imagePath: birthdayCode,
         text: categoryName,
-        calculation: calculation,
         page: DescriptionPage(
           header: categoryName,
           calculation: calculation,
-          cards: cardsList,
+          cards: cards,
         ));
   }
 
@@ -139,7 +225,7 @@ class DataParserEn extends DataParser {
     String categoryName = 'Lucky Gem';
 
     var language = Globals.instance.language;
-    Map<String, String> cardsList = {
+    Map<String, String> cards = {
       language.description: description,
       language.info: info
     };
@@ -147,11 +233,10 @@ class DataParserEn extends DataParser {
     return CategoryModel(
         imagePath: luckyGem,
         text: categoryName,
-        calculation: calculation,
         page: DescriptionPage(
           header: categoryName,
           calculation: calculation,
-          cards: cardsList,
+          cards: cards,
         ));
   }
 
@@ -172,7 +257,7 @@ class DataParserEn extends DataParser {
     String categoryName = 'Birthday number';
 
     var language = Globals.instance.language;
-    Map<String, String> cardsList = {
+    Map<String, String> cards = {
       language.description: description,
       language.info: info
     };
@@ -180,11 +265,10 @@ class DataParserEn extends DataParser {
     return CategoryModel(
         imagePath: birthdayNum,
         text: categoryName,
-        calculation: calculation,
         page: DescriptionPage(
           header: categoryName,
           calculation: calculation,
-          cards: cardsList,
+          cards: cards,
         ));
   }
 
@@ -211,38 +295,4 @@ class DataParserEn extends DataParser {
         ));
   }
 
-  @override
-  Future<CategoryModel> getPersonalDay(Profile profile) async {
-    var calculation = CategoryCalc.instance.calcPersonalDay(profile).toString();
-
-    var description = await getEntity(
-        table: 'PERSONAL_DAY_ENG',
-        queryColumn: 'number',
-        resColumn: 'description',
-        value: calculation);
-    var info = await getEntity(
-        table: 'TABLE_DESCRIPTION',
-        queryColumn: 'table_name',
-        resColumn: 'description',
-        value: '\"PERSONAL_DAY_ENG\"');
-
-    String categoryName = 'Day number';
-
-    var language = Globals.instance.language;
-    Map<String, String> cardsList = {
-      language.description: description,
-      language.info: info
-    };
-
-    return CategoryModel(
-        imagePath: day,
-        text: categoryName,
-        content: description,
-        calculation: calculation,
-        page: DescriptionPage(
-          header: categoryName,
-          calculation: calculation,
-          cards: cardsList,
-        ));
-  }
 }

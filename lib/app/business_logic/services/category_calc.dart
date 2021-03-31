@@ -9,6 +9,31 @@ class CategoryCalc {
 
   static final instance = CategoryCalc._();
 
+  int calcChallengeNum1(Profile profile) {
+    var birthday = DateService.fromTimestamp(profile.dob);
+    var challengeMonth = _calcToSingleDigit(birthday.month);
+    var challengeDay = _calcToSingleDigit(birthday.day);
+    return (challengeMonth - challengeDay).abs();
+  }
+
+  int calcChallengeNum2(Profile profile) {
+    var birthday = DateService.fromTimestamp(profile.dob);
+    var challengeYear = _calcToSingleDigit(birthday.year);
+    var challengeDay = _calcToSingleDigit(birthday.day);
+    return (challengeYear - challengeDay).abs();
+  }
+
+  int calcChallengeNum3(Profile profile) {
+    return (calcChallengeNum1(profile) - calcChallengeNum2(profile)).abs();
+  }
+
+  int calcChallengeNum4(Profile profile) {
+    var birthday = DateService.fromTimestamp(profile.dob);
+    var challengeYear = _calcToSingleDigit(birthday.year);
+    var challengeMonth = _calcToSingleDigit(birthday.month);
+    return (challengeYear - challengeMonth).abs();
+  }
+
   int calcLifePathNumberMethod1(Profile profile) {
     var birthday = DateService.fromTimestamp(profile.dob);
     var lifeNumberDay = _calcToSingleDigitWithMagicNums(birthday.day);

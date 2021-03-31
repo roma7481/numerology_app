@@ -1,3 +1,4 @@
+import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/business_logic/services/category_calc.dart';
 import 'package:numerology/app/constants/icon_path.dart';
 import 'package:numerology/app/data/language/data_parser.dart';
@@ -67,15 +68,20 @@ class DataParserRu extends DataParser {
 
     String categoryName = 'Число дня';
 
+    var language = Globals.instance.language;
+    Map<String, String> cards = {
+      language.description: description,
+      language.info: info
+    };
+
     return CategoryModel(
         imagePath: day,
         text: categoryName,
-        calculation: calculation,
         content: description,
         page: DescriptionPage(
           header: categoryName,
           calculation: calculation,
-          cards: {},
+          cards: cards,
         ));
   }
 }
