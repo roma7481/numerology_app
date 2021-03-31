@@ -10,6 +10,29 @@ class CategoryCalc {
 
   static final instance = CategoryCalc._();
 
+  int calcExpressionNumber(Profile profile) {
+    var expressionNumber = 0;
+
+    var firstName = profile.firstName.toLowerCase();
+    var lastName = profile.lastName.toLowerCase();
+    var middleName = profile.middleName.toLowerCase();
+
+    var firstNameNumber = _calcNumToDigits(_convertCharsAndSum(firstName));
+    var lastNameNumber = _calcNumToDigits(_convertCharsAndSum(lastName));
+    var middleNameNumber = middleName.isEmpty
+        ? 0
+        : _calcNumToDigits(_convertCharsAndSum(middleName));
+
+    expressionNumber =
+        _calcToSingleDigit(firstNameNumber + lastNameNumber + middleNameNumber);
+
+    if (!(Globals.instance.language is LanguageRu)) {
+      expressionNumber = _calcToSingleDigitWithMagicNums(expressionNumber);
+    }
+
+    return expressionNumber;
+  }
+
   int calcNameNumber(Profile profile) {
     var nameNumber = 0;
     bool isStop = false;

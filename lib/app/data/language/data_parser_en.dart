@@ -30,8 +30,7 @@ class DataParserEn extends DataParser {
     categories.add(await _getNameNumber(profile));
     categories.add(CategoryModel(imagePath: desire, text: 'Desire number'));
     categories.add(CategoryModel(imagePath: marriage, text: 'Marriage number'));
-    categories
-        .add(CategoryModel(imagePath: expression, text: 'Expression number'));
+    categories.add(await _getExpressionNumber(profile));
     categories.add(CategoryModel(imagePath: work, text: 'Realization number'));
     categories
         .add(CategoryModel(imagePath: personality, text: 'Personality number'));
@@ -41,6 +40,21 @@ class DataParserEn extends DataParser {
     categories.add(await _getLuckyGemModel(profile));
 
     return categories;
+  }
+
+  Future<CategoryModel> _getExpressionNumber(Profile profile) async {
+    var calculation = CategoryCalc.instance.calcExpressionNumber(profile);
+    String categoryName = 'Expression number';
+
+    return CategoryModel(
+        imagePath: expression,
+        text: categoryName,
+        page: DescriptionPage(
+          header: categoryName,
+          calculation: calculation.toString(),
+          description:
+              await getDescription('EXPRESSION_NUMBER_ENG', calculation),
+        ));
   }
 
   Future<CategoryModel> _getNameNumber(Profile profile) async {
@@ -53,7 +67,7 @@ class DataParserEn extends DataParser {
         page: DescriptionPage(
           header: categoryName,
           calculation: calculation.toString(),
-          description: await getDescription('BIRTHDAY_CODE_ENG',calculation),
+          description: await getDescription('BIRTHDAY_CODE_ENG', calculation),
         ));
   }
 
@@ -63,7 +77,7 @@ class DataParserEn extends DataParser {
 
     String categoryName = 'Day number';
 
-    var description = await getDescription('PERSONAL_DAY_ENG',calculation);
+    var description = await getDescription('PERSONAL_DAY_ENG', calculation);
     return CategoryModel(
         imagePath: day,
         text: categoryName,
@@ -174,8 +188,7 @@ class DataParserEn extends DataParser {
   }
 
   Future<CategoryModel> _getBirthdayCode(Profile profile) async {
-    var calculation =
-        CategoryCalc.instance.calcBirthdayCode(profile);
+    var calculation = CategoryCalc.instance.calcBirthdayCode(profile);
     String categoryName = 'Birthday code';
 
     return CategoryModel(
@@ -184,7 +197,7 @@ class DataParserEn extends DataParser {
         page: DescriptionPage(
           header: categoryName,
           calculation: calculation.toString(),
-          description: await getDescription('BIRTHDAY_CODE_ENG',calculation),
+          description: await getDescription('BIRTHDAY_CODE_ENG', calculation),
         ));
   }
 
@@ -198,7 +211,7 @@ class DataParserEn extends DataParser {
         page: DescriptionPage(
           header: categoryName,
           calculation: calculation.toString(),
-          description: await getDescription('LUCKY_GEM_ENG',calculation),
+          description: await getDescription('LUCKY_GEM_ENG', calculation),
         ));
   }
 
@@ -212,7 +225,7 @@ class DataParserEn extends DataParser {
         page: DescriptionPage(
           header: categoryName,
           calculation: calculation.toString(),
-          description: await getDescription('BIRTHDAY_NUMBER_ENG',calculation),
+          description: await getDescription('BIRTHDAY_NUMBER_ENG', calculation),
         ));
   }
 
@@ -223,13 +236,12 @@ class DataParserEn extends DataParser {
     if (profile.firstName.isNotEmpty ||
         profile.lastName.isNotEmpty ||
         profile.middleName.isNotEmpty) {
-      var calculation =
-          CategoryCalc.instance.calcSoulNumber(profile);
+      var calculation = CategoryCalc.instance.calcSoulNumber(profile);
 
       descriptionPage = DescriptionPage(
         header: categoryName,
         calculation: calculation.toString(),
-        description: await getDescription('BIRTHDAY_NUMBER_ENG',calculation),
+        description: await getDescription('BIRTHDAY_NUMBER_ENG', calculation),
       );
     }
 
