@@ -114,7 +114,6 @@ class DataParserEn extends DataParser {
     return CategoryModel(
         imagePath: birthdayCode,
         text: categoryName,
-        content: description,
         calculation: calculation,
         page: DescriptionPage(
           header: categoryName,
@@ -148,7 +147,6 @@ class DataParserEn extends DataParser {
     return CategoryModel(
         imagePath: luckyGem,
         text: categoryName,
-        content: description,
         calculation: calculation,
         page: DescriptionPage(
           header: categoryName,
@@ -182,7 +180,6 @@ class DataParserEn extends DataParser {
     return CategoryModel(
         imagePath: birthdayNum,
         text: categoryName,
-        content: description,
         calculation: calculation,
         page: DescriptionPage(
           header: categoryName,
