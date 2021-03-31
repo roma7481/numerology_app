@@ -44,69 +44,34 @@ class DataParserEn extends DataParser {
   }
 
   Future<CategoryModel> _getNameNumber(Profile profile) async {
-    var calculation = CategoryCalc.instance.calcNameNumber(profile).toString();
-
-    var description = await getEntity(
-        table: 'NAME_NUMBER_ENG',
-        queryColumn: 'number',
-        resColumn: 'description',
-        value: calculation);
-    var info = await getEntity(
-        table: 'TABLE_DESCRIPTION',
-        queryColumn: 'table_name',
-        resColumn: 'description',
-        value: '\"NAME_NUMBER_ENG\"');
-
+    var calculation = CategoryCalc.instance.calcNameNumber(profile);
     String categoryName = 'Name number';
-
-    var language = Globals.instance.language;
-    Map<String, String> cards = {
-      language.description: description,
-      language.info: info
-    };
 
     return CategoryModel(
         imagePath: name,
         text: categoryName,
-        content: description,
         page: DescriptionPage(
           header: categoryName,
-          calculation: calculation,
-          description: cards,
+          calculation: calculation.toString(),
+          description: await getDescription('BIRTHDAY_CODE_ENG',calculation),
         ));
   }
 
   @override
   Future<CategoryModel> getPersonalDay(Profile profile) async {
-    var calculation = CategoryCalc.instance.calcPersonalDay(profile).toString();
-
-    var description = await getEntity(
-        table: 'PERSONAL_DAY_ENG',
-        queryColumn: 'number',
-        resColumn: 'description',
-        value: calculation);
-    var info = await getEntity(
-        table: 'TABLE_DESCRIPTION',
-        queryColumn: 'table_name',
-        resColumn: 'description',
-        value: '\"PERSONAL_DAY_ENG\"');
+    var calculation = CategoryCalc.instance.calcPersonalDay(profile);
 
     String categoryName = 'Day number';
 
-    var language = Globals.instance.language;
-    Map<String, String> cards = {
-      language.description: description,
-      language.info: info
-    };
-
+    var description = await getDescription('PERSONAL_DAY_ENG',calculation);
     return CategoryModel(
         imagePath: day,
         text: categoryName,
-        content: description,
+        content: description.values.first,
         page: DescriptionPage(
           header: categoryName,
-          calculation: calculation,
-          description: cards,
+          calculation: calculation.toString(),
+          description: description,
         ));
   }
 
@@ -209,7 +174,8 @@ class DataParserEn extends DataParser {
   }
 
   Future<CategoryModel> _getBirthdayCode(Profile profile) async {
-    var calculation = CategoryCalc.instance.calcBirthdayCode(profile);
+    var calculation =
+        CategoryCalc.instance.calcBirthdayCode(profile);
     String categoryName = 'Birthday code';
 
     return CategoryModel(
@@ -218,7 +184,7 @@ class DataParserEn extends DataParser {
         page: DescriptionPage(
           header: categoryName,
           calculation: calculation.toString(),
-          description: await getDescription('BIRTHDAY_CODE_ENG', calculation),
+          description: await getDescription('BIRTHDAY_CODE_ENG',calculation),
         ));
   }
 
@@ -232,7 +198,7 @@ class DataParserEn extends DataParser {
         page: DescriptionPage(
           header: categoryName,
           calculation: calculation.toString(),
-          description: await getDescription('LUCKY_GEM_ENG', calculation),
+          description: await getDescription('LUCKY_GEM_ENG',calculation),
         ));
   }
 
@@ -246,7 +212,7 @@ class DataParserEn extends DataParser {
         page: DescriptionPage(
           header: categoryName,
           calculation: calculation.toString(),
-          description: await getDescription('BIRTHDAY_NUMBER_ENG', calculation),
+          description: await getDescription('BIRTHDAY_NUMBER_ENG',calculation),
         ));
   }
 
@@ -257,12 +223,13 @@ class DataParserEn extends DataParser {
     if (profile.firstName.isNotEmpty ||
         profile.lastName.isNotEmpty ||
         profile.middleName.isNotEmpty) {
-      var calculation = CategoryCalc.instance.calcSoulNumber(profile);
+      var calculation =
+          CategoryCalc.instance.calcSoulNumber(profile);
 
       descriptionPage = DescriptionPage(
         header: categoryName,
         calculation: calculation.toString(),
-        description: await getDescription('BIRTHDAY_NUMBER_ENG', calculation),
+        description: await getDescription('BIRTHDAY_NUMBER_ENG',calculation),
       );
     }
 
