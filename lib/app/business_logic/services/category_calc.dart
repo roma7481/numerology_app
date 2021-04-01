@@ -10,6 +10,48 @@ class CategoryCalc {
 
   static final instance = CategoryCalc._();
 
+  List<int> calcMatrix(Profile profile) {
+    var birthday = DateService.fromTimestamp(profile.dob);
+    var year = birthday.year;
+    var month = birthday.month;
+    var day = birthday.day;
+
+    var array = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+    var helpArray = [0, 0, 0, 0];
+    helpArray[0] = _calcNumToDigits(day) +
+        _calcNumToDigits(month) +
+        _calcNumToDigits(year);
+    helpArray[1] = _calcNumToDigits(helpArray[0]);
+    if (day > 9) {
+      helpArray[2] = (helpArray[0] - ((day ~/ 10) * 2)).abs();
+    } else {
+      helpArray[2] = (helpArray[0] - (day * 2)).abs();
+    }
+    helpArray[3] = _calcNumToDigits(helpArray[2]);
+    var helpNum = '' +
+        day.toString() +
+        month.toString() +
+        year.toString() +
+        helpArray[0].toString() +
+        helpArray[1].toString() +
+        helpArray[2].toString() +
+        helpArray[3].toString();
+    helpNum = helpNum.replaceAll('0', '');
+
+    helpNum.split('').forEach((char) {
+      var helping = int.parse(char);
+      if (array[helping - 1] == 0) {
+        array[helping - 1] = helping;
+      } else {
+        var helpSingle =
+            '' + (array[helping - 1]).toString() + helping.toString();
+        array[helping - 1] = int.parse(helpSingle);
+      }
+    });
+
+    return array;
+  }
+
   int calcWeddingNumber(Profile profile) {
     var weddingDate = DateService.fromTimestamp(profile.weddingDate);
     var year = _charToNumber(weddingDate.year.toString());

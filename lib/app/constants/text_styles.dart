@@ -103,8 +103,8 @@ var descriptionHeaderStyle = GoogleFonts.philosopher(
 ));
 
 /// MATRIX ///
-var matrixTileStyle = GoogleFonts.philosopher(
+var matrixTileStyle = GoogleFonts.sourceSansPro(
     textStyle: TextStyle(
-  fontSize: 24.0,
+  fontSize: 18.0,
   color: Colors.white,
 ));
