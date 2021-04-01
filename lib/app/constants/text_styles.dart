@@ -101,3 +101,10 @@ var descriptionHeaderStyle = GoogleFonts.philosopher(
   fontSize: 19.0,
   color: Colors.white,
 ));
+
+/// MATRIX ///
+var matrixTileStyle = GoogleFonts.philosopher(
+    textStyle: TextStyle(
+  fontSize: 24.0,
+  color: Colors.white,
+));

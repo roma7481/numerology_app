@@ -28,10 +28,10 @@ class DescriptionWeddingBasedPage extends StatefulWidget {
 
 class _DescriptionWeddingBasedPageState
     extends State<DescriptionWeddingBasedPage> {
-  Profile _currentProfile;
+  var _currentProfile;
   var _selectedDate;
-  int _weddingDate;
-  bool _isWeddingSet = false;
+  var _weddingDate;
+  var _isWeddingSet = false;
 
   @override
   Widget build(BuildContext context) {

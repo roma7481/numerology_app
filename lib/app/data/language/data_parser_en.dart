@@ -8,6 +8,7 @@ import 'package:numerology/app/data/models/profile.dart';
 import 'package:numerology/app/presentation/pages/description/description_name_page.dart';
 import 'package:numerology/app/presentation/pages/description/description_page.dart';
 import 'package:numerology/app/presentation/pages/description/description_wedding_page.dart';
+import 'package:numerology/app/presentation/pages/description/matrix_lines_page.dart';
 
 import '../models/category_model.dart';
 import 'parser_utils.dart';
@@ -25,8 +26,7 @@ class DataParserEn extends DataParser {
         CategoryModel(imagePath: secondaryBio, text: 'Secondary Biorhythms'));
     categories.add(await _getLifePathNumber(profile));
     categories.add(CategoryModel(imagePath: matrix, text: 'Psychomatrix'));
-    categories
-        .add(CategoryModel(imagePath: matrixLines, text: 'Psychomatrix Lines'));
+    categories.add(await _getMatrixLines(profile));
     categories.add(await _getSoulNumber(profile));
     categories.add(await _getChallengeNumber(profile));
     categories.add(await _getNameNumber(profile));
@@ -41,6 +41,16 @@ class DataParserEn extends DataParser {
     categories.add(await _getLuckyGemModel(profile));
 
     return categories;
+  }
+
+  Future<CategoryModel> _getMatrixLines(Profile profile) async {
+    return CategoryModel(
+        imagePath: matrixLines,
+        text: 'Matrix lines',
+        page: MatrixLinesPage(
+          header: 'Matrix lines',
+          description: {},
+        ));
   }
 
   Future<CategoryModel> _getWeddingNumber(Profile profile) async {
