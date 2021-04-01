@@ -10,13 +10,31 @@ class CategoryCalc {
 
   static final instance = CategoryCalc._();
 
+  int calcWeddingNumber(Profile profile) {
+    var weddingDate = DateService.fromTimestamp(profile.weddingDate);
+    var year = _charToNumber(weddingDate.year.toString());
+    var month = _charToNumber(weddingDate.month.toString());
+    var day = _charToNumber(weddingDate.day.toString());
+    return _calcToSingleDigit(day + month + year);
+  }
+
+  int _charToNumber(String text) {
+    int sum = 0;
+    text.split('').forEach((ch) {
+      sum = sum + int.parse(ch);
+    });
+    return sum;
+  }
+
   int calcRealizationNumber(Profile profile) {
-    var realizationNumber = calcLifePathNumberMethod1(profile) + calcExpressionNumber(profile);
+    var realizationNumber =
+        calcLifePathNumberMethod1(profile) + calcExpressionNumber(profile);
     return _calcToSingleDigitWithMagicNums(realizationNumber);
   }
 
   int calcMaturityNumber(Profile profile) {
-    var maturityNumber = calcLifePathNumberMethod1(profile) + calcExpressionNumber(profile);
+    var maturityNumber =
+        calcLifePathNumberMethod1(profile) + calcExpressionNumber(profile);
     if (Globals.instance.language is LanguageRu) {
       return _calcToSingleDigit(maturityNumber);
     }

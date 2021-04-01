@@ -6,8 +6,8 @@ class Profile {
   final String lastName;
   final String middleName;
   final int dob;
-  final int wedPartnerDate;
-  final int partnerDate;
+  final int weddingDate;
+  final int partnerDob;
   final int isSelected;
 
   Profile({
@@ -17,8 +17,8 @@ class Profile {
     this.lastName = '',
     this.middleName = '',
     this.dob,
-    this.wedPartnerDate,
-    this.partnerDate,
+    this.weddingDate,
+    this.partnerDob,
     this.isSelected = 0,
   });
 
@@ -30,8 +30,8 @@ class Profile {
       lastName: map['lastName'] as String,
       middleName: map['middleName'] as String,
       dob: map['dob'] as int,
-      wedPartnerDate: map['wedPartnerDate'] as int,
-      partnerDate: map['partnerDate'] as int,
+      weddingDate: map['weddingDate'] as int,
+      partnerDob: map['partnerDob'] as int,
       isSelected: map['isSelected'] as int,
     );
   }
@@ -45,8 +45,8 @@ class Profile {
       'lastName': this.lastName,
       'middleName': this.middleName,
       'dob': this.dob,
-      'wedPartnerDate': this.wedPartnerDate,
-      'partnerDate': this.partnerDate,
+      'weddingDate': this.weddingDate,
+      'partnerDob': this.partnerDob,
       'isSelected': this.isSelected,
     } as Map<String, dynamic>;
   }
@@ -58,8 +58,8 @@ class Profile {
     String lastName,
     String middleName,
     int dob,
-    int wedPartnerDate,
-    int partnerDate,
+    int weddingDate,
+    int partnerDob,
     int isSelected,
   }) {
     if ((profileId == null || identical(profileId, this.profileId)) &&
@@ -68,9 +68,8 @@ class Profile {
         (lastName == null || identical(lastName, this.lastName)) &&
         (middleName == null || identical(middleName, this.middleName)) &&
         (dob == null || identical(dob, this.dob)) &&
-        (wedPartnerDate == null ||
-            identical(wedPartnerDate, this.wedPartnerDate)) &&
-        (partnerDate == null || identical(partnerDate, this.partnerDate)) &&
+        (weddingDate == null || identical(weddingDate, this.weddingDate)) &&
+        (partnerDob == null || identical(partnerDob, this.partnerDob)) &&
         (isSelected == null || identical(isSelected, this.isSelected))) {
       return this;
     }
@@ -82,8 +81,8 @@ class Profile {
       lastName: lastName ?? this.lastName,
       middleName: middleName ?? this.middleName,
       dob: dob ?? this.dob,
-      wedPartnerDate: wedPartnerDate ?? this.wedPartnerDate,
-      partnerDate: partnerDate ?? this.partnerDate,
+      weddingDate: weddingDate ?? this.weddingDate,
+      partnerDob: partnerDob ?? this.partnerDob,
       isSelected: isSelected ?? this.isSelected,
     );
   }

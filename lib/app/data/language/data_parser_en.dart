@@ -6,6 +6,7 @@ import 'package:numerology/app/data/language/data_parser.dart';
 import 'package:numerology/app/data/models/profile.dart';
 import 'package:numerology/app/presentation/pages/description/description_name_page.dart';
 import 'package:numerology/app/presentation/pages/description/description_page.dart';
+import 'package:numerology/app/presentation/pages/description/description_wedding_page.dart';
 
 import '../models/category_model.dart';
 import 'parser_utils.dart';
@@ -29,7 +30,7 @@ class DataParserEn extends DataParser {
     categories.add(await _getChallengeNumber(profile));
     categories.add(await _getNameNumber(profile));
     categories.add(await _getDesireNumber(profile));
-    categories.add(CategoryModel(imagePath: marriage, text: 'Marriage number'));
+    categories.add(await _getWeddingNumber(profile));
     categories.add(await _getExpressionNumber(profile));
     categories.add(await _getRealizationNumber(profile));
     categories.add(await _getPersonalityNumber(profile));
@@ -39,6 +40,29 @@ class DataParserEn extends DataParser {
     categories.add(await _getLuckyGemModel(profile));
 
     return categories;
+  }
+
+  Future<CategoryModel> _getWeddingNumber(Profile profile) async {
+    DescriptionPage descriptionPage = DescriptionPage();
+    var categoryName = 'Marriage number';
+
+    if (_isWeddingDateSet(profile)) {
+      var calculation = CategoryCalc.instance.calcWeddingNumber(profile);
+
+      descriptionPage = DescriptionPage(
+        header: categoryName,
+        calculation: calculation.toString(),
+        description: await getDescription('MARRIAGE_NUMBER_ENG', calculation),
+      );
+    }
+
+    return CategoryModel(
+        imagePath: marriage,
+        text: categoryName,
+        page: DescriptionWeddingBasedPage(
+          categoryName: categoryName,
+          page: descriptionPage,
+        ));
   }
 
   Future<CategoryModel> _getRealizationNumber(Profile profile) async {
@@ -51,7 +75,8 @@ class DataParserEn extends DataParser {
       descriptionPage = DescriptionPage(
         header: categoryName,
         calculation: calculation.toString(),
-        description: await getDescription('REALIZATION_NUMBER_ENG', calculation),
+        description:
+            await getDescription('REALIZATION_NUMBER_ENG', calculation),
       );
     }
 
@@ -365,5 +390,9 @@ class DataParserEn extends DataParser {
     return profile.firstName.isNotEmpty ||
         profile.lastName.isNotEmpty ||
         profile.middleName.isNotEmpty;
+  }
+
+  bool _isWeddingDateSet(Profile profile) {
+    return profile.weddingDate != null;
   }
 }

@@ -15,8 +15,8 @@ class ProfileDBRepository {
           "lastName TEXT,"
           "middleName TEXT,"
           "dob INTEGER,"
-          "wedPartnerDate INTEGER,"
-          "partnerDate INTEGER,"
+          "weddingDate INTEGER,"
+          "partnerDob INTEGER,"
           "isSelected INTEGER"
           ")";
 

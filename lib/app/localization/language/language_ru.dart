@@ -75,4 +75,10 @@ class LanguageRu extends Languages {
 
   @override
   String get enterMissingData => 'enterMissingData RU';
+
+  @override
+  String get enterWeddingDate => 'enterWeddingDate RU';
+
+  @override
+  String get weddingDate => 'weddingDate RU';
 }

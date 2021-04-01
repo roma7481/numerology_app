@@ -5,6 +5,8 @@ abstract class Languages {
 
   String get dateOfBirth;
 
+  String get weddingDate;
+
   String get selectDateOfBirth;
 
   String get continueText;
@@ -50,4 +52,6 @@ abstract class Languages {
   String get categoryRequiresName;
 
   String get enterMissingData;
+
+  String get enterWeddingDate;
 }

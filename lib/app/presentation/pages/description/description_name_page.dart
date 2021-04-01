@@ -191,7 +191,7 @@ class _DescriptionNameBasedPageState extends State<DescriptionNameBasedPage> {
           lastName: controllerLastName.text);
 
       context.read<UserDataCubit>().emitPrimaryUserUpdate(updatedProfile);
-      context.read<ProfilesCubit>().emitUpdateName(updatedProfile);
+      context.read<ProfilesCubit>().emitUpdateProfile(updatedProfile);
     }
   }
 }

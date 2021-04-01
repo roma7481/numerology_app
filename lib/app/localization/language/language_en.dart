@@ -82,4 +82,10 @@ class LanguageEn extends Languages {
 
   @override
   String get enterMissingData => 'Please enter the missing data';
+
+  @override
+  String get enterWeddingDate => 'Please enter Wedding date';
+
+  @override
+  String get weddingDate => 'Wedding Date';
 }
