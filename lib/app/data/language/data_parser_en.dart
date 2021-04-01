@@ -44,6 +44,8 @@ class DataParserEn extends DataParser {
   }
 
   Future<CategoryModel> _getMatrixLines(Profile profile) async {
+    var calc =  CategoryCalc.instance.calcMatrixLines(profile);
+
     return CategoryModel(
         imagePath: matrixLines,
         text: 'Matrix lines',
