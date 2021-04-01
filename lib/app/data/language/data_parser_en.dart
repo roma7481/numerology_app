@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/business_logic/services/category_calc.dart';
 import 'package:numerology/app/business_logic/services/date_service.dart';
@@ -43,184 +44,91 @@ class DataParserEn extends DataParser {
   }
 
   Future<CategoryModel> _getWeddingNumber(Profile profile) async {
-    DescriptionPage descriptionPage = DescriptionPage();
-    var categoryName = 'Marriage number';
-
-    if (_isWeddingDateSet(profile)) {
-      var calculation = CategoryCalc.instance.calcWeddingNumber(profile);
-
-      descriptionPage = DescriptionPage(
-        header: categoryName,
-        calculation: calculation.toString(),
-        description: await getDescription('MARRIAGE_NUMBER_ENG', calculation),
-      );
-    }
-
-    return CategoryModel(
-        imagePath: marriage,
-        text: categoryName,
-        page: DescriptionWeddingBasedPage(
-          categoryName: categoryName,
-          page: descriptionPage,
-        ));
+    return await _buildWeddingBasedCategory(
+      profile: profile,
+      imagePath: marriage,
+      categoryName: 'Marriage number',
+      table: 'MARRIAGE_NUMBER_ENG',
+      calcFunction: (profile) =>
+          CategoryCalc.instance.calcWeddingNumber(profile),
+    );
   }
 
   Future<CategoryModel> _getRealizationNumber(Profile profile) async {
-    DescriptionPage descriptionPage = DescriptionPage();
-    var categoryName = 'Realization number';
-
-    if (_isNameSet(profile)) {
-      var calculation = CategoryCalc.instance.calcRealizationNumber(profile);
-
-      descriptionPage = DescriptionPage(
-        header: categoryName,
-        calculation: calculation.toString(),
-        description:
-            await getDescription('REALIZATION_NUMBER_ENG', calculation),
-      );
-    }
-
-    return CategoryModel(
-        imagePath: work,
-        text: categoryName,
-        page: DescriptionNameBasedPage(
-          categoryName: categoryName,
-          page: descriptionPage,
-        ));
+    return await _buildNameBasedCategory(
+      profile: profile,
+      imagePath: work,
+      categoryName: 'Realization number',
+      table: 'REALIZATION_NUMBER_ENG',
+      calcFunction: (profile) =>
+          CategoryCalc.instance.calcRealizationNumber(profile),
+    );
   }
 
   Future<CategoryModel> _getMaturityNumber(Profile profile) async {
-    DescriptionPage descriptionPage = DescriptionPage();
-    var categoryName = 'Maturity number';
-
-    if (_isNameSet(profile)) {
-      var calculation = CategoryCalc.instance.calcMaturityNumber(profile);
-
-      descriptionPage = DescriptionPage(
-        header: categoryName,
-        calculation: calculation.toString(),
-        description: await getDescription('MATURITY_NUMBER_ENG', calculation),
-      );
-    }
-
-    return CategoryModel(
-        imagePath: maturity,
-        text: categoryName,
-        page: DescriptionNameBasedPage(
-          categoryName: categoryName,
-          page: descriptionPage,
-        ));
+    return await _buildNameBasedCategory(
+      profile: profile,
+      imagePath: maturity,
+      categoryName: 'Maturity number',
+      table: 'MATURITY_NUMBER_ENG',
+      calcFunction: (profile) =>
+          CategoryCalc.instance.calcMaturityNumber(profile),
+    );
   }
 
   Future<CategoryModel> _getDesireNumber(Profile profile) async {
-    DescriptionPage descriptionPage = DescriptionPage();
-    var categoryName = 'Desire number';
-
-    if (_isNameSet(profile)) {
-      var calculation = CategoryCalc.instance.calcDesireNumber(profile);
-
-      descriptionPage = DescriptionPage(
-        header: categoryName,
-        calculation: calculation.toString(),
-        description: await getDescription('DESIRE_NUMBER_ENG', calculation),
-      );
-    }
-
-    return CategoryModel(
-        imagePath: desire,
-        text: categoryName,
-        page: DescriptionNameBasedPage(
-          categoryName: categoryName,
-          page: descriptionPage,
-        ));
+    return await _buildNameBasedCategory(
+      profile: profile,
+      imagePath: desire,
+      categoryName: 'Desire number',
+      table: 'DESIRE_NUMBER_ENG',
+      calcFunction: (profile) =>
+          CategoryCalc.instance.calcDesireNumber(profile),
+    );
   }
 
   Future<CategoryModel> _getPersonalityNumber(Profile profile) async {
-    DescriptionPage descriptionPage = DescriptionPage();
-    var categoryName = 'Personality number';
-
-    if (_isNameSet(profile)) {
-      var calculation = CategoryCalc.instance.calcPersonalityNumber(profile);
-
-      descriptionPage = DescriptionPage(
-        header: categoryName,
-        calculation: calculation.toString(),
-        description:
-            await getDescription('PERSONALITY_NUMBER_ENG', calculation),
-      );
-    }
-
-    return CategoryModel(
-        imagePath: personality,
-        text: categoryName,
-        page: DescriptionNameBasedPage(
-          categoryName: categoryName,
-          page: descriptionPage,
-        ));
+    return await _buildNameBasedCategory(
+      profile: profile,
+      imagePath: personality,
+      categoryName: 'Personality number',
+      table: 'PERSONALITY_NUMBER_ENG',
+      calcFunction: (profile) =>
+          CategoryCalc.instance.calcPersonalityNumber(profile),
+    );
   }
 
   Future<CategoryModel> _getExpressionNumber(Profile profile) async {
-    DescriptionPage descriptionPage = DescriptionPage();
-    var categoryName = 'Expression number';
-
-    if (_isNameSet(profile)) {
-      var calculation = CategoryCalc.instance.calcExpressionNumber(profile);
-
-      descriptionPage = DescriptionPage(
-        header: categoryName,
-        calculation: calculation.toString(),
-        description: await getDescription('EXPRESSION_NUMBER_ENG', calculation),
-      );
-    }
-
-    return CategoryModel(
-        imagePath: expression,
-        text: categoryName,
-        page: DescriptionNameBasedPage(
-          categoryName: categoryName,
-          page: descriptionPage,
-        ));
+    return await _buildNameBasedCategory(
+      profile: profile,
+      imagePath: expression,
+      categoryName: 'Expression number',
+      table: 'EXPRESSION_NUMBER_ENG',
+      calcFunction: (profile) =>
+          CategoryCalc.instance.calcExpressionNumber(profile),
+    );
   }
 
   Future<CategoryModel> _getNameNumber(Profile profile) async {
-    DescriptionPage descriptionPage = DescriptionPage();
-    var categoryName = 'Name number';
-
-    if (_isNameSet(profile)) {
-      var calculation = CategoryCalc.instance.calcNameNumber(profile);
-
-      descriptionPage = DescriptionPage(
-        header: categoryName,
-        calculation: calculation.toString(),
-        description: await getDescription('NAME_NUMBER_ENG', calculation),
-      );
-    }
-
-    return CategoryModel(
-        imagePath: name,
-        text: categoryName,
-        page: DescriptionNameBasedPage(
-          categoryName: categoryName,
-          page: descriptionPage,
-        ));
+    return await _buildNameBasedCategory(
+      profile: profile,
+      imagePath: name,
+      categoryName: 'Name number',
+      table: 'NAME_NUMBER_ENG',
+      calcFunction: (profile) => CategoryCalc.instance.calcNameNumber(profile),
+    );
   }
 
   @override
   Future<CategoryModel> getPersonalDay(Profile profile) async {
-    var calculation = CategoryCalc.instance.calcPersonalDay(profile);
-
-    String categoryName = 'Day number';
-
-    var description = await getDescription('PERSONAL_DAY_ENG', calculation);
-    return CategoryModel(
-        imagePath: day,
-        text: categoryName,
-        content: description.values.first,
-        page: DescriptionPage(
-          header: categoryName,
-          calculation: calculation.toString(),
-          description: description,
-        ));
+    return await _buildBasicCategory(
+      profile: profile,
+      categoryName: 'Day number',
+      imagePath: day,
+      table: 'PERSONAL_DAY_ENG',
+      calcFunction: (profile) => CategoryCalc.instance.calcPersonalDay(profile),
+      setPreview: true,
+    );
   }
 
   Future<CategoryModel> _getChallengeNumber(Profile profile) async {
@@ -322,68 +230,44 @@ class DataParserEn extends DataParser {
   }
 
   Future<CategoryModel> _getBirthdayCode(Profile profile) async {
-    var calculation = CategoryCalc.instance.calcBirthdayCode(profile);
-    String categoryName = 'Birthday code';
-
-    return CategoryModel(
-        imagePath: birthdayCode,
-        text: categoryName,
-        page: DescriptionPage(
-          header: categoryName,
-          calculation: calculation.toString(),
-          description: await getDescription('BIRTHDAY_CODE_ENG', calculation),
-        ));
+    return await _buildBasicCategory(
+      profile: profile,
+      categoryName: 'Birthday code',
+      imagePath: birthdayCode,
+      table: 'BIRTHDAY_CODE_ENG',
+      calcFunction: (profile) =>
+          CategoryCalc.instance.calcBirthdayCode(profile),
+    );
   }
 
   Future<CategoryModel> _getLuckyGemModel(Profile profile) async {
-    var calculation = CategoryCalc.instance.calcLuckGem(profile);
-    String categoryName = 'Lucky Gem';
-
-    return CategoryModel(
-        imagePath: luckyGem,
-        text: categoryName,
-        page: DescriptionPage(
-          header: categoryName,
-          calculation: calculation.toString(),
-          description: await getDescription('LUCKY_GEM_ENG', calculation),
-        ));
+    return await _buildBasicCategory(
+      profile: profile,
+      categoryName: 'Lucky Gem',
+      imagePath: luckyGem,
+      table: 'LUCKY_GEM_ENG',
+      calcFunction: (profile) => CategoryCalc.instance.calcLuckGem(profile),
+    );
   }
 
   Future<CategoryModel> _getBirthdayNumber(Profile profile) async {
-    var calculation = DateService.fromTimestamp(profile.dob).day;
-    String categoryName = 'Birthday number';
-
-    return CategoryModel(
-        imagePath: birthdayNum,
-        text: categoryName,
-        page: DescriptionPage(
-          header: categoryName,
-          calculation: calculation.toString(),
-          description: await getDescription('BIRTHDAY_NUMBER_ENG', calculation),
-        ));
+    return await _buildBasicCategory(
+      profile: profile,
+      categoryName: 'Birthday number',
+      imagePath: birthdayNum,
+      table: 'BIRTHDAY_NUMBER_ENG',
+      calcFunction: (profile) => DateService.fromTimestamp(profile.dob).day,
+    );
   }
 
   Future<CategoryModel> _getSoulNumber(Profile profile) async {
-    DescriptionPage descriptionPage = DescriptionPage();
-    var categoryName = 'Soul number';
-
-    if (_isNameSet(profile)) {
-      var calculation = CategoryCalc.instance.calcSoulNumber(profile);
-
-      descriptionPage = DescriptionPage(
-        header: categoryName,
-        calculation: calculation.toString(),
-        description: await getDescription('BIRTHDAY_NUMBER_ENG', calculation),
-      );
-    }
-
-    return CategoryModel(
-        imagePath: soul,
-        text: categoryName,
-        page: DescriptionNameBasedPage(
-          categoryName: categoryName,
-          page: descriptionPage,
-        ));
+    return await _buildNameBasedCategory(
+      profile: profile,
+      imagePath: soul,
+      categoryName: 'Soul number',
+      table: 'BIRTHDAY_NUMBER_ENG',
+      calcFunction: (profile) => CategoryCalc.instance.calcSoulNumber(profile),
+    );
   }
 
   bool _isNameSet(Profile profile) {
@@ -394,5 +278,79 @@ class DataParserEn extends DataParser {
 
   bool _isWeddingDateSet(Profile profile) {
     return profile.weddingDate != null;
+  }
+
+  Future<CategoryModel> _buildNameBasedCategory({
+    @required Profile profile,
+    @required String categoryName,
+    @required String imagePath,
+    @required String table,
+    @required Function calcFunction,
+  }) async {
+    DescriptionPage descriptionPage = DescriptionPage();
+    if (_isNameSet(profile)) {
+      var calculation = calcFunction(profile);
+
+      descriptionPage = DescriptionPage(
+        header: categoryName,
+        calculation: calculation.toString(),
+        description: await getDescription(table, calculation),
+      );
+    }
+
+    return CategoryModel(
+        imagePath: imagePath,
+        text: categoryName,
+        page: DescriptionNameBasedPage(
+          categoryName: categoryName,
+          page: descriptionPage,
+        ));
+  }
+
+  Future<CategoryModel> _buildWeddingBasedCategory({
+    @required Profile profile,
+    @required String categoryName,
+    @required String imagePath,
+    @required String table,
+    @required Function calcFunction,
+  }) async {
+    DescriptionPage descriptionPage = DescriptionPage();
+    if (_isWeddingDateSet(profile)) {
+      var calculation = calcFunction(profile);
+
+      descriptionPage = DescriptionPage(
+        header: categoryName,
+        calculation: calculation.toString(),
+        description: await getDescription(table, calculation),
+      );
+    }
+
+    return CategoryModel(
+        imagePath: imagePath,
+        text: categoryName,
+        page: DescriptionWeddingBasedPage(
+          categoryName: categoryName,
+          page: descriptionPage,
+        ));
+  }
+
+  Future<CategoryModel> _buildBasicCategory(
+      {@required Profile profile,
+      @required String categoryName,
+      @required String imagePath,
+      @required String table,
+      @required Function calcFunction,
+      bool setPreview = false}) async {
+    var calculation = calcFunction(profile);
+    var description = await getDescription(table, calculation);
+    return CategoryModel(
+        imagePath: imagePath,
+        text: categoryName,
+        content: setPreview ? description.values.first : '',
+        page: DescriptionPage(
+          header: categoryName,
+          calculation: calculation.toString(),
+          description: description,
+        ));
   }
 }
