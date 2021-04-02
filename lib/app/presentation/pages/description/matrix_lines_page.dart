@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/data/language/matrix_tile.dart';
 
+import 'matrix_line_data.dart';
+
 class MatrixLinesPage extends StatelessWidget {
   final String header;
   final String calculation;
-  final Map<String, String> description;
+  final List<MatrixLineData> description;
 
   const MatrixLinesPage({
     Key key,
     this.header = '',
     this.calculation = '',
-    this.description = const {},
+    this.description = const [],
   }) : super(key: key);
 
   @override

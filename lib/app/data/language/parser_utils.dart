@@ -1,7 +1,7 @@
 import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/data/data_provider/numerology_helper.dart';
 
-dynamic getEntity({
+Future<dynamic> getEntity({
   String table,
   String queryColumn,
   String resColumn,
@@ -16,7 +16,15 @@ dynamic getEntity({
   );
 }
 
-dynamic getEntityAdvanced({
+Future<dynamic> getEntityRawQuery(String query,
+    {String resColumn = 'description'}) async {
+  return await NumerologyDBProvider.instance.getEntity(
+    query,
+    (map) => map[resColumn] as String,
+  );
+}
+
+Future<dynamic> getEntityAdvanced({
   String table,
   String queryColumn,
   String resColumn,

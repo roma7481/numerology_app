@@ -8,6 +8,7 @@ import 'package:numerology/app/data/models/profile.dart';
 import 'package:numerology/app/presentation/pages/description/description_name_page.dart';
 import 'package:numerology/app/presentation/pages/description/description_page.dart';
 import 'package:numerology/app/presentation/pages/description/description_wedding_page.dart';
+import 'package:numerology/app/presentation/pages/description/matrix_line_data.dart';
 import 'package:numerology/app/presentation/pages/description/matrix_lines_page.dart';
 
 import '../models/category_model.dart';
@@ -44,15 +45,63 @@ class DataParserEn extends DataParser {
   }
 
   Future<CategoryModel> _getMatrixLines(Profile profile) async {
-    var calc =  CategoryCalc.instance.calcMatrixLines(profile);
+    var calc = CategoryCalc.instance.calcMatrixLines(profile);
+
+    var table = 'PSYCHOMATRIX_LINES_ENG';
+    var description1 = await getEntityRawQuery(
+        'select description from $table where category = "purpose" AND number = ${_convertLinesNums(calc[0])}');
+    var description2 = await getEntityRawQuery(
+        'select description from $table where category = "family" AND number = ${_convertLinesNums(calc[1])}');
+    var description3 = await getEntityRawQuery(
+        'select description from $table where category = "stability" AND number = ${_convertLinesNums(calc[2])}');
+    var description4 = await getEntityRawQuery(
+        'select description from $table where category = "esteem" AND number = ${_convertLinesNums(calc[3])}');
+    var description5 = await getEntityRawQuery(
+        'select description from $table where category = "finance" AND number = ${_convertLinesNums(calc[4])}');
+    var description6 = await getEntityRawQuery(
+        'select description from $table where category = "talents" AND number = ${_convertLinesNums(calc[5])}');
+    var description7 = await getEntityRawQuery(
+        'select description from $table where category = "temperament" AND number = ${_convertLinesNums(calc[6])}');
+    var description8 = await getEntityRawQuery(
+        'select description from $table where category = "spirituality" AND number = ${_convertLinesNums(calc[7])}');
+
+    var data1 = MatrixLineData(
+        lineSum: calc[0], description: description1, header: 'Purpose');
+    var data2 = MatrixLineData(
+        lineSum: calc[1], description: description2, header: 'Family');
+    var data3 = MatrixLineData(
+        lineSum: calc[2], description: description3, header: 'Stability');
+    var data4 = MatrixLineData(
+        lineSum: calc[3], description: description4, header: 'Esteem');
+    var data5 = MatrixLineData(
+        lineSum: calc[4], description: description5, header: 'Finance');
+    var data6 = MatrixLineData(
+        lineSum: calc[5], description: description6, header: 'Talents');
+    var data7 = MatrixLineData(
+        lineSum: calc[6], description: description7, header: 'Temperament');
+    var data8 = MatrixLineData(
+        lineSum: calc[7], description: description8, header: 'Spirituality');
 
     return CategoryModel(
         imagePath: matrixLines,
         text: 'Matrix lines',
         page: MatrixLinesPage(
           header: 'Matrix lines',
-          description: {},
+          description: [
+            data1,
+            data2,
+            data3,
+            data4,
+            data5,
+            data6,
+            data7,
+            data8,
+          ],
         ));
+  }
+
+  int _convertLinesNums(int number) {
+    return number > 6 ? 6 : number;
   }
 
   Future<CategoryModel> _getWeddingNumber(Profile profile) async {
