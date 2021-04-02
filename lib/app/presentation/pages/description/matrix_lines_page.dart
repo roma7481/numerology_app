@@ -12,12 +12,14 @@ class MatrixLinesPage extends StatelessWidget {
   final String header;
   final String calculation;
   final List<MatrixLineData> description;
+  final List<int> matrix;
 
   const MatrixLinesPage({
     Key key,
     this.header = '',
     this.calculation = '',
     this.description = const [],
+    this.matrix = const [],
   }) : super(key: key);
 
   @override
@@ -59,25 +61,25 @@ class MatrixLinesPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildMatrixTile(context),
-                _buildMatrixTile(context),
-                _buildMatrixTile(context),
+                _buildMatrixTile(context, matrix[0]),
+                _buildMatrixTile(context, matrix[1]),
+                _buildMatrixTile(context, matrix[2]),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildMatrixTile(context),
-                _buildMatrixTile(context),
-                _buildMatrixTile(context),
+                _buildMatrixTile(context, matrix[3]),
+                _buildMatrixTile(context, matrix[4]),
+                _buildMatrixTile(context, matrix[5]),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildMatrixTile(context),
-                _buildMatrixTile(context),
-                _buildMatrixTile(context),
+                _buildMatrixTile(context, matrix[6]),
+                _buildMatrixTile(context, matrix[7]),
+                _buildMatrixTile(context, matrix[8]),
               ],
             )
           ],
@@ -86,11 +88,11 @@ class MatrixLinesPage extends StatelessWidget {
     );
   }
 
-  Widget _buildMatrixTile(BuildContext context) {
+  Widget _buildMatrixTile(BuildContext context, int lineSum) {
     var height = MediaQuery.of(context).size.height;
     var sideLength = height * 0.1;
     return buildMatrixTileButton(
-      '9999',
+      lineSum.toString(),
       () {},
       sideLength,
     );

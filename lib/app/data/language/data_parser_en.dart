@@ -46,6 +46,7 @@ class DataParserEn extends DataParser {
 
   Future<CategoryModel> _getMatrixLines(Profile profile) async {
     var calc = CategoryCalc.instance.calcMatrixLines(profile);
+    var matrix = CategoryCalc.instance.calcMatrix(profile);
 
     var table = 'PSYCHOMATRIX_LINES_ENG';
     var description1 = await getEntityRawQuery(
@@ -97,6 +98,7 @@ class DataParserEn extends DataParser {
             data7,
             data8,
           ],
+          matrix: matrix,
         ));
   }
 
