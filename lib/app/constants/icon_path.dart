@@ -28,3 +28,14 @@ const secondaryBio = 'assets/category_images/secondary_bio.svg';
 const soul = 'assets/category_images/soul.svg';
 const work = 'assets/category_images/work.svg';
 const year = 'assets/category_images/year.svg';
+
+/// MATRIX ///
+
+const matrix1 = 'assets/matrix/grid1.svg';
+const matrix2 = 'assets/matrix/grid2.svg';
+const matrix3 = 'assets/matrix/grid3.svg';
+const matrix4 = 'assets/matrix/grid4.svg';
+const matrix5 = 'assets/matrix/grid5.svg';
+const matrix6 = 'assets/matrix/grid6.svg';
+const matrix7 = 'assets/matrix/grid7.svg';
+const matrix8 = 'assets/matrix/grid8.svg';

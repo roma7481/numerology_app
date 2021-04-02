@@ -1,6 +1,8 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:numerology/app/constants/colors.dart';
+import 'package:numerology/app/constants/icon_path.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/data/language/matrix_tile.dart';
 import 'package:numerology/app/presentation/common_widgets/castom_category_card.dart';
@@ -134,34 +136,32 @@ class MatrixLinesPage extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(
           top: 16.0,
-          left: 48.0,
+          left: 24.0,
         ),
-        child: Text(
-          header,
-          style: descriptionHeaderStyle,
+        child: Row(
+          // mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SvgPicture.asset(matrix1, height: 20.0),
+            Text(
+              header,
+              style: descriptionHeaderStyle,
+            ),
+            Opacity(
+                opacity: 0.0, child: SvgPicture.asset(matrix1, height: 20.0)),
+          ],
         ),
       ),
     );
   }
 
   Widget _buildCardContent({String content, bool isFolded = false}) {
-    if (isFolded) {
-      return Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Text(
-          content,
-          maxLines: 4,
-          overflow: TextOverflow.ellipsis,
-          style: descriptionContentStyle,
-        ),
-      );
-    }
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: Text(
-        content,
-        style: descriptionContentStyle,
-      ),
+      child: Text(content,
+          maxLines: isFolded ? 4 : 2000,
+          style: descriptionContentStyle,
+          overflow: isFolded ? TextOverflow.ellipsis : TextOverflow.visible),
     );
   }
 }
