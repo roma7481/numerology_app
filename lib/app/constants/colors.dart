@@ -28,6 +28,7 @@ const Color inactiveProgress = Color.fromRGBO(0, 63, 115, 1);
 
 /// DESCRIPTION PAGE ///
 const Color circleColor = Color.fromRGBO(252, 186, 3, 1);
+const Color arrowColor = Color.fromRGBO(252, 186, 3, 1);
 
 /// MATRIX TILE ///
 const Color unselectedTileColor = Color.fromRGBO(0, 63, 115, 1);

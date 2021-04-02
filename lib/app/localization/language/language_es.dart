@@ -81,4 +81,7 @@ class LanguageEs extends Languages {
 
   @override
   String get weddingDate => 'weddingDate ES';
+
+  @override
+  String get numberOfDigits => 'numberOfDigits: ';
 }

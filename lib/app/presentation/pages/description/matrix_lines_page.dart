@@ -47,7 +47,6 @@ class MatrixLinesPage extends StatelessWidget {
         slivers: [
           _buildMatrix(context),
           _buildList(),
-          // SliverList(delegate: _buildList(description))
         ],
       ),
     );
@@ -114,7 +113,7 @@ class MatrixLinesPage extends StatelessWidget {
     if (content.length > 1000) {
       return CustomCard(
           child: ExpandablePanel(
-        theme: ExpandableThemeData(iconColor: Colors.white),
+        theme: ExpandableThemeData(iconColor: arrowColor),
         header: _buildHeader(header, iconPath),
         collapsed: _buildCardContent(content: content, isFolded: true),
         expanded: _buildCardContent(

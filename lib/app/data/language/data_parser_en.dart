@@ -45,6 +45,7 @@ class DataParserEn extends DataParser {
   }
 
   Future<CategoryModel> _getMatrixLines(Profile profile) async {
+    var language = Globals.instance.getLanguage();
     var calc = CategoryCalc.instance.calcMatrixLines(profile);
     var matrix = CategoryCalc.instance.calcMatrix(profile);
 
@@ -67,21 +68,69 @@ class DataParserEn extends DataParser {
         'select description from $table where category = "spirituality" AND number = ${_convertLinesNums(calc[7])}');
 
     var data1 = MatrixLineData(
-        lineSum: calc[0], description: description1, header: 'Purpose', iconPath: matrix1);
+        lineSum: calc[0],
+        description: language.numberOfDigits +
+            calc[0].toString() +
+            "\n\n" +
+            description1,
+        header: 'Purpose',
+        iconPath: matrix1);
     var data2 = MatrixLineData(
-        lineSum: calc[1], description: description2, header: 'Family', iconPath: matrix2);
+        lineSum: calc[1],
+        description: language.numberOfDigits +
+            calc[1].toString() +
+            "\n\n" +
+            description2,
+        header: 'Family',
+        iconPath: matrix2);
     var data3 = MatrixLineData(
-        lineSum: calc[2], description: description3, header: 'Stability', iconPath: matrix3);
+        lineSum: calc[2],
+        description: language.numberOfDigits +
+            calc[2].toString() +
+            "\n\n" +
+            description3,
+        header: 'Stability',
+        iconPath: matrix3);
     var data4 = MatrixLineData(
-        lineSum: calc[3], description: description4, header: 'Esteem', iconPath: matrix4);
+        lineSum: calc[3],
+        description: language.numberOfDigits +
+            calc[3].toString() +
+            "\n\n" +
+            description4,
+        header: 'Esteem',
+        iconPath: matrix4);
     var data5 = MatrixLineData(
-        lineSum: calc[4], description: description5, header: 'Finance', iconPath: matrix5);
+        lineSum: calc[4],
+        description: language.numberOfDigits +
+            calc[4].toString() +
+            "\n\n" +
+            description5,
+        header: 'Finance',
+        iconPath: matrix5);
     var data6 = MatrixLineData(
-        lineSum: calc[5], description: description6, header: 'Talents', iconPath: matrix6);
+        lineSum: calc[5],
+        description: language.numberOfDigits +
+            calc[5].toString() +
+            "\n\n" +
+            description6,
+        header: 'Talents',
+        iconPath: matrix6);
     var data7 = MatrixLineData(
-        lineSum: calc[6], description: description7, header: 'Temperament', iconPath: matrix7);
+        lineSum: calc[6],
+        description: language.numberOfDigits +
+            calc[6].toString() +
+            "\n\n" +
+            description7,
+        header: 'Temperament',
+        iconPath: matrix7);
     var data8 = MatrixLineData(
-        lineSum: calc[7], description: description8, header: 'Spirituality', iconPath: matrix8);
+        lineSum: calc[7],
+        description: language.numberOfDigits +
+            calc[7].toString() +
+            "\n\n" +
+            description8,
+        header: 'Spirituality',
+        iconPath: matrix8);
 
     return CategoryModel(
         imagePath: matrixLines,

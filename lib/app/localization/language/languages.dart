@@ -54,4 +54,6 @@ abstract class Languages {
   String get enterMissingData;
 
   String get enterWeddingDate;
+
+  String get numberOfDigits;
 }
