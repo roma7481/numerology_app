@@ -2,7 +2,6 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:numerology/app/constants/colors.dart';
-import 'package:numerology/app/constants/icon_path.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/data/language/matrix_tile.dart';
 import 'package:numerology/app/presentation/common_widgets/castom_category_card.dart';
@@ -105,18 +104,18 @@ class MatrixLinesPage extends StatelessWidget {
         delegate: SliverChildBuilderDelegate(
       (context, index) {
         var data = description[index];
-        return _buildCard(data.header, data.description);
+        return _buildCard(data.header, data.description, data.iconPath);
       },
       childCount: description.length,
     ));
   }
 
-  Widget _buildCard(String header, String content) {
+  Widget _buildCard(String header, String content, String iconPath) {
     if (content.length > 1000) {
       return CustomCard(
           child: ExpandablePanel(
         theme: ExpandableThemeData(iconColor: Colors.white),
-        header: _buildHeader(header),
+        header: _buildHeader(header, iconPath),
         collapsed: _buildCardContent(content: content, isFolded: true),
         expanded: _buildCardContent(
           content: content,
@@ -127,11 +126,12 @@ class MatrixLinesPage extends StatelessWidget {
           child: CustomCategoryCard(
         header: header,
         content: content,
+        iconPath: iconPath,
       ));
     }
   }
 
-  Widget _buildHeader(String header) {
+  Widget _buildHeader(String header, String iconPath) {
     return Center(
       child: Padding(
         padding: const EdgeInsets.only(
@@ -139,16 +139,15 @@ class MatrixLinesPage extends StatelessWidget {
           left: 24.0,
         ),
         child: Row(
-          // mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SvgPicture.asset(matrix1, height: 20.0),
+            SvgPicture.asset(iconPath, height: 20.0),
             Text(
               header,
               style: descriptionHeaderStyle,
             ),
             Opacity(
-                opacity: 0.0, child: SvgPicture.asset(matrix1, height: 20.0)),
+                opacity: 0.0, child: SvgPicture.asset(iconPath, height: 20.0)),
           ],
         ),
       ),

@@ -67,21 +67,21 @@ class DataParserEn extends DataParser {
         'select description from $table where category = "spirituality" AND number = ${_convertLinesNums(calc[7])}');
 
     var data1 = MatrixLineData(
-        lineSum: calc[0], description: description1, header: 'Purpose');
+        lineSum: calc[0], description: description1, header: 'Purpose', iconPath: matrix1);
     var data2 = MatrixLineData(
-        lineSum: calc[1], description: description2, header: 'Family');
+        lineSum: calc[1], description: description2, header: 'Family', iconPath: matrix2);
     var data3 = MatrixLineData(
-        lineSum: calc[2], description: description3, header: 'Stability');
+        lineSum: calc[2], description: description3, header: 'Stability', iconPath: matrix3);
     var data4 = MatrixLineData(
-        lineSum: calc[3], description: description4, header: 'Esteem');
+        lineSum: calc[3], description: description4, header: 'Esteem', iconPath: matrix4);
     var data5 = MatrixLineData(
-        lineSum: calc[4], description: description5, header: 'Finance');
+        lineSum: calc[4], description: description5, header: 'Finance', iconPath: matrix5);
     var data6 = MatrixLineData(
-        lineSum: calc[5], description: description6, header: 'Talents');
+        lineSum: calc[5], description: description6, header: 'Talents', iconPath: matrix6);
     var data7 = MatrixLineData(
-        lineSum: calc[6], description: description7, header: 'Temperament');
+        lineSum: calc[6], description: description7, header: 'Temperament', iconPath: matrix7);
     var data8 = MatrixLineData(
-        lineSum: calc[7], description: description8, header: 'Spirituality');
+        lineSum: calc[7], description: description8, header: 'Spirituality', iconPath: matrix8);
 
     return CategoryModel(
         imagePath: matrixLines,
