@@ -14,6 +14,7 @@ class MatrixLinesPage extends StatelessWidget {
   final String calculation;
   final List<MatrixLineData> description;
   final List<int> matrix;
+  final Map<String, String> info;
 
   const MatrixLinesPage({
     Key key,
@@ -21,6 +22,7 @@ class MatrixLinesPage extends StatelessWidget {
     this.calculation = '',
     this.description = const [],
     this.matrix = const [],
+    this.info,
   }) : super(key: key);
 
   @override
@@ -47,6 +49,7 @@ class MatrixLinesPage extends StatelessWidget {
         slivers: [
           _buildMatrix(context),
           _buildList(),
+          _buildInfo(),
         ],
       ),
     );
@@ -89,11 +92,14 @@ class MatrixLinesPage extends StatelessWidget {
   }
 
   Widget _buildMatrixTile(BuildContext context, int lineSum) {
-    var height = MediaQuery.of(context).size.height;
+    var height = MediaQuery
+        .of(context)
+        .size
+        .height;
     var sideLength = height * 0.1;
     return buildMatrixTileButton(
       lineSum.toString(),
-      () {},
+          () {},
       sideLength,
     );
   }
@@ -101,32 +107,32 @@ class MatrixLinesPage extends StatelessWidget {
   Widget _buildList() {
     return SliverList(
         delegate: SliverChildBuilderDelegate(
-      (context, index) {
-        var data = description[index];
-        return _buildCard(data.header, data.description, data.iconPath);
-      },
-      childCount: description.length,
-    ));
+              (context, index) {
+            var data = description[index];
+            return _buildCard(data.header, data.description, data.iconPath);
+          },
+          childCount: description.length,
+        ));
   }
 
   Widget _buildCard(String header, String content, String iconPath) {
     if (content.length > 1000) {
       return CustomCard(
           child: ExpandablePanel(
-        theme: ExpandableThemeData(iconColor: arrowColor),
-        header: _buildHeader(header, iconPath),
-        collapsed: _buildCardContent(content: content, isFolded: true),
-        expanded: _buildCardContent(
-          content: content,
-        ),
-      ));
+            theme: ExpandableThemeData(iconColor: arrowColor),
+            header: _buildHeader(header, iconPath),
+            collapsed: _buildCardContent(content: content, isFolded: true),
+            expanded: _buildCardContent(
+              content: content,
+            ),
+          ));
     } else {
       return CustomCard(
           child: CustomCategoryCard(
-        header: header,
-        content: content,
-        iconPath: iconPath,
-      ));
+            header: header,
+            content: content,
+            iconPath: iconPath,
+          ));
     }
   }
 
@@ -161,5 +167,15 @@ class MatrixLinesPage extends StatelessWidget {
           style: descriptionContentStyle,
           overflow: isFolded ? TextOverflow.ellipsis : TextOverflow.visible),
     );
+  }
+
+  Widget _buildInfo() {
+    return SliverToBoxAdapter(
+      child: CustomCard(
+        child: CustomCategoryCard(
+        header: info.keys.first,
+        content: info.values.first,
+      ),
+    ),);
   }
 }

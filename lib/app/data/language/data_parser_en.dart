@@ -67,31 +67,106 @@ class DataParserEn extends DataParser {
     var description8 = await getEntityRawQuery(
         'select description from $table where category = "spirituality" AND number = ${_convertLinesNums(calc[7])}');
 
-    var info1 = await getEntityRawQuery('select description from TABLE_DESCRIPTION where table_name = "$table" and category = "purpose"');
-    var info2 = await getEntityRawQuery('select description from TABLE_DESCRIPTION where table_name = "$table" and category = "family"');
-    var info3 = await getEntityRawQuery('select description from TABLE_DESCRIPTION where table_name = "$table" and category = "stability"');
-    var info4 = await getEntityRawQuery('select description from TABLE_DESCRIPTION where table_name = "$table" and category = "esteem"');
-    var info5 = await getEntityRawQuery('select description from TABLE_DESCRIPTION where table_name = "$table" and category = "finance"');
-    var info6 = await getEntityRawQuery('select description from TABLE_DESCRIPTION where table_name = "$table" and category = "talents"');
-    var info7 = await getEntityRawQuery('select description from TABLE_DESCRIPTION where table_name = "$table" and category = "temperament"');
-    var info8 = await getEntityRawQuery('select description from TABLE_DESCRIPTION where table_name = "$table" and category = "spirituality"');
+    var info1 = await getEntityRawQuery(
+        'select description from TABLE_DESCRIPTION where table_name = "$table" and category = "purpose"');
+    var info2 = await getEntityRawQuery(
+        'select description from TABLE_DESCRIPTION where table_name = "$table" and category = "family"');
+    var info3 = await getEntityRawQuery(
+        'select description from TABLE_DESCRIPTION where table_name = "$table" and category = "stability"');
+    var info4 = await getEntityRawQuery(
+        'select description from TABLE_DESCRIPTION where table_name = "$table" and category = "esteem"');
+    var info5 = await getEntityRawQuery(
+        'select description from TABLE_DESCRIPTION where table_name = "$table" and category = "finance"');
+    var info6 = await getEntityRawQuery(
+        'select description from TABLE_DESCRIPTION where table_name = "$table" and category = "talents"');
+    var info7 = await getEntityRawQuery(
+        'select description from TABLE_DESCRIPTION where table_name = "$table" and category = "temperament"');
+    var info8 = await getEntityRawQuery(
+        'select description from TABLE_DESCRIPTION where table_name = "$table" and category = "spirituality"');
+
+    var info = await getEntityRawQuery(
+        'select description from TABLE_DESCRIPTION where table_name =  "PSYCHOMATRIX_ENG" and category = "info"');
 
     var data1 = MatrixLineData(
-        lineSum: calc[0], description: language.numberOfDigits + calc[0].toString() + "\n\n" + description1 + "\n\n" + info1, header: 'Purpose', iconPath: matrix1);
+        lineSum: calc[0],
+        description: language.numberOfDigits +
+            calc[0].toString() +
+            "\n\n" +
+            description1 +
+            "\n\n" +
+            info1,
+        header: 'Purpose',
+        iconPath: matrix1);
     var data2 = MatrixLineData(
-        lineSum: calc[1], description: language.numberOfDigits + calc[1].toString() + "\n\n" + description2 + "\n\n" + info2, header: 'Family', iconPath: matrix2);
+        lineSum: calc[1],
+        description: language.numberOfDigits +
+            calc[1].toString() +
+            "\n\n" +
+            description2 +
+            "\n\n" +
+            info2,
+        header: 'Family',
+        iconPath: matrix2);
     var data3 = MatrixLineData(
-        lineSum: calc[2], description: language.numberOfDigits + calc[2].toString() + "\n\n" + description3 + "\n\n" + info3, header: 'Stability', iconPath: matrix3);
+        lineSum: calc[2],
+        description: language.numberOfDigits +
+            calc[2].toString() +
+            "\n\n" +
+            description3 +
+            "\n\n" +
+            info3,
+        header: 'Stability',
+        iconPath: matrix3);
     var data4 = MatrixLineData(
-        lineSum: calc[3], description: language.numberOfDigits + calc[3].toString() + "\n\n" + description4 + "\n\n" + info4, header: 'Esteem', iconPath: matrix4);
+        lineSum: calc[3],
+        description: language.numberOfDigits +
+            calc[3].toString() +
+            "\n\n" +
+            description4 +
+            "\n\n" +
+            info4,
+        header: 'Esteem',
+        iconPath: matrix4);
     var data5 = MatrixLineData(
-        lineSum: calc[4], description: language.numberOfDigits + calc[4].toString() + "\n\n" + description5 + "\n\n" + info5, header: 'Finance', iconPath: matrix5);
+        lineSum: calc[4],
+        description: language.numberOfDigits +
+            calc[4].toString() +
+            "\n\n" +
+            description5 +
+            "\n\n" +
+            info5,
+        header: 'Finance',
+        iconPath: matrix5);
     var data6 = MatrixLineData(
-        lineSum: calc[5], description: language.numberOfDigits + calc[5].toString() + "\n\n" + description6 + "\n\n" + info6, header: 'Talents', iconPath: matrix6);
+        lineSum: calc[5],
+        description: language.numberOfDigits +
+            calc[5].toString() +
+            "\n\n" +
+            description6 +
+            "\n\n" +
+            info6,
+        header: 'Talents',
+        iconPath: matrix6);
     var data7 = MatrixLineData(
-        lineSum: calc[6], description: language.numberOfDigits + calc[6].toString() + "\n\n" + description7 + "\n\n" + info7, header: 'Temperament', iconPath: matrix7);
+        lineSum: calc[6],
+        description: language.numberOfDigits +
+            calc[6].toString() +
+            "\n\n" +
+            description7 +
+            "\n\n" +
+            info7,
+        header: 'Temperament',
+        iconPath: matrix7);
     var data8 = MatrixLineData(
-        lineSum: calc[7], description: language.numberOfDigits + calc[7].toString() + "\n\n" + description8 + "\n\n" + info8, header: 'Spirituality', iconPath: matrix8);
+        lineSum: calc[7],
+        description: language.numberOfDigits +
+            calc[7].toString() +
+            "\n\n" +
+            description8 +
+            "\n\n" +
+            info8,
+        header: 'Spirituality',
+        iconPath: matrix8);
 
     return CategoryModel(
         imagePath: matrixLines,
@@ -109,6 +184,7 @@ class DataParserEn extends DataParser {
             data8,
           ],
           matrix: matrix,
+          info: {Globals.instance.language.info: info},
         ));
   }
 
