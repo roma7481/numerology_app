@@ -47,12 +47,13 @@ class DataParserEn extends DataParser {
 
   Future<CategoryModel> _getMatrix(Profile profile) async {
     var calc = CategoryCalc.instance.calcMatrix(profile);
+    var categoryName = 'Psychomatrix';
 
     return CategoryModel(
         imagePath: matrix,
-        text: 'Matrix lines',
+        text: categoryName,
         page: MatrixPage(
-          header: 'Psychomatrix',
+          header: categoryName,
           matrix: calc,
         ));
   }
