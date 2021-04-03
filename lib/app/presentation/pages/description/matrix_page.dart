@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/data/language/matrix_tile.dart';
 
-
 class MatrixPage extends StatefulWidget {
   final String header;
   final List<int> matrix;
@@ -18,7 +17,6 @@ class MatrixPage extends StatefulWidget {
 }
 
 class _MatrixPageState extends State<MatrixPage> {
-
   List<int> get matrix => widget.matrix;
 
   @override
@@ -59,23 +57,23 @@ class _MatrixPageState extends State<MatrixPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 _buildMatrixTile(context, matrix[0]),
-                _buildMatrixTile(context, matrix[1]),
-                _buildMatrixTile(context, matrix[2]),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
                 _buildMatrixTile(context, matrix[3]),
-                _buildMatrixTile(context, matrix[4]),
-                _buildMatrixTile(context, matrix[5]),
+                _buildMatrixTile(context, matrix[6]),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildMatrixTile(context, matrix[6]),
+                _buildMatrixTile(context, matrix[1]),
+                _buildMatrixTile(context, matrix[4]),
                 _buildMatrixTile(context, matrix[7]),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _buildMatrixTile(context, matrix[2]),
+                _buildMatrixTile(context, matrix[5]),
                 _buildMatrixTile(context, matrix[8]),
               ],
             )
@@ -86,16 +84,12 @@ class _MatrixPageState extends State<MatrixPage> {
   }
 
   Widget _buildMatrixTile(BuildContext context, int cellDigits) {
-    var height = MediaQuery
-        .of(context)
-        .size
-        .height;
+    var height = MediaQuery.of(context).size.height;
     var sideLength = height * 0.1;
     return buildMatrixTileButton(
-      cellDigits.toString(),
-          () {},
+      cellDigits.toString().replaceAll('0', '-'),
+      () {},
       sideLength,
     );
   }
 }
-

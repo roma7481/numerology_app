@@ -65,23 +65,23 @@ class MatrixLinesPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 _buildMatrixTile(context, matrix[0]),
-                _buildMatrixTile(context, matrix[1]),
-                _buildMatrixTile(context, matrix[2]),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
                 _buildMatrixTile(context, matrix[3]),
-                _buildMatrixTile(context, matrix[4]),
-                _buildMatrixTile(context, matrix[5]),
+                _buildMatrixTile(context, matrix[6]),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildMatrixTile(context, matrix[6]),
+                _buildMatrixTile(context, matrix[1]),
+                _buildMatrixTile(context, matrix[4]),
                 _buildMatrixTile(context, matrix[7]),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _buildMatrixTile(context, matrix[2]),
+                _buildMatrixTile(context, matrix[5]),
                 _buildMatrixTile(context, matrix[8]),
               ],
             )
@@ -92,14 +92,11 @@ class MatrixLinesPage extends StatelessWidget {
   }
 
   Widget _buildMatrixTile(BuildContext context, int lineSum) {
-    var height = MediaQuery
-        .of(context)
-        .size
-        .height;
+    var height = MediaQuery.of(context).size.height;
     var sideLength = height * 0.1;
     return buildMatrixTileButton(
-      lineSum.toString(),
-          () {},
+      lineSum.toString().replaceAll('0', '-'),
+      () {},
       sideLength,
     );
   }
@@ -107,32 +104,32 @@ class MatrixLinesPage extends StatelessWidget {
   Widget _buildList() {
     return SliverList(
         delegate: SliverChildBuilderDelegate(
-              (context, index) {
-            var data = description[index];
-            return _buildCard(data.header, data.description, data.iconPath);
-          },
-          childCount: description.length,
-        ));
+      (context, index) {
+        var data = description[index];
+        return _buildCard(data.header, data.description, data.iconPath);
+      },
+      childCount: description.length,
+    ));
   }
 
   Widget _buildCard(String header, String content, String iconPath) {
     if (content.length > 1000) {
       return CustomCard(
           child: ExpandablePanel(
-            theme: ExpandableThemeData(iconColor: arrowColor),
-            header: _buildHeader(header, iconPath),
-            collapsed: _buildCardContent(content: content, isFolded: true),
-            expanded: _buildCardContent(
-              content: content,
-            ),
-          ));
+        theme: ExpandableThemeData(iconColor: arrowColor),
+        header: _buildHeader(header, iconPath),
+        collapsed: _buildCardContent(content: content, isFolded: true),
+        expanded: _buildCardContent(
+          content: content,
+        ),
+      ));
     } else {
       return CustomCard(
           child: CustomCategoryCard(
-            header: header,
-            content: content,
-            iconPath: iconPath,
-          ));
+        header: header,
+        content: content,
+        iconPath: iconPath,
+      ));
     }
   }
 
@@ -173,9 +170,10 @@ class MatrixLinesPage extends StatelessWidget {
     return SliverToBoxAdapter(
       child: CustomCard(
         child: CustomCategoryCard(
-        header: info.keys.first,
-        content: info.values.first,
+          header: info.keys.first,
+          content: info.values.first,
+        ),
       ),
-    ),);
+    );
   }
 }
