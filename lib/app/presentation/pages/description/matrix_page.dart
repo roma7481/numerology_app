@@ -22,6 +22,8 @@ class MatrixPage extends StatefulWidget {
 class _MatrixPageState extends State<MatrixPage> {
   List<int> get matrix => widget.matrix;
   var _indexSelected = 0;
+  var _descriptionCard = '';
+  var _infoCard = '';
 
   @override
   Widget build(BuildContext context) {

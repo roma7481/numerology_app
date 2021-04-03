@@ -50,6 +50,27 @@ class DataParserEn extends DataParser {
     var calc = CategoryCalc.instance.calcMatrix(profile);
     var categoryName = 'Psychomatrix';
 
+    var table = 'PSYCHOMATRIX_ENG';
+
+    var description1 = await getEntityRawQuery(
+        'select description from $table where characteristic =  "personality" and number = ${_convertMatrixNums(calc[0])}');
+    var description2 = await getEntityRawQuery(
+        'select description from $table where characteristic =  "energy" and number = ${_convertMatrixNums(calc[1])}');
+    var description3 = await getEntityRawQuery(
+        'select description from $table where characteristic =  "interest" and number = ${_convertMatrixNums(calc[2])}');
+    var description4 = await getEntityRawQuery(
+        'select description from $table where characteristic =  "health" and number = ${_convertMatrixNums(calc[3])}');
+    var description5 = await getEntityRawQuery(
+        'select description from $table where characteristic =  "logic" and number = ${_convertMatrixNums(calc[4])}');
+    var description6 = await getEntityRawQuery(
+        'select description from $table where characteristic =  "work" and number = ${_convertMatrixNums(calc[5])}');
+    var description7 = await getEntityRawQuery(
+        'select description from $table where characteristic =  "luck" and number = ${_convertMatrixNums(calc[6])}');
+    var description8 = await getEntityRawQuery(
+        'select description from $table where characteristic =  "duty" and number = ${_convertMatrixNums(calc[7])}');
+    var description9 = await getEntityRawQuery(
+        'select description from $table where characteristic =  "memory" and number = ${_convertMatrixNums(calc[8])}');
+
     return CategoryModel(
         imagePath: matrix,
         text: categoryName,
@@ -58,6 +79,16 @@ class DataParserEn extends DataParser {
           matrix: calc,
           guideText: language.clickOnAnyCell,
         ));
+  }
+
+  String _convertMatrixNums(int num) {
+    var str = num.toString();
+    if (str.contains('1')) {
+      return str.length > 7 ? str.substring(0, 6) : str;
+    } else if (str.contains('2')) {
+      return str.length > 6 ? str.substring(0, 5) : str;
+    }
+    return str.length > 5 ? str.substring(0, 4) : str;
   }
 
   Future<CategoryModel> _getMatrixLines(Profile profile) async {
