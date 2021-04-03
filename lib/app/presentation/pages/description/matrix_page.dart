@@ -64,6 +64,7 @@ class _MatrixPageState extends State<MatrixPage> {
           _buildMatrix(context),
           _buildGuideText(),
           _buildDescription(),
+          _buildInfo(),
         ],
       ),
     );
@@ -112,6 +113,8 @@ class _MatrixPageState extends State<MatrixPage> {
         () {
       setState(() {
         _indexSelected = index;
+        _descriptionCard = widget.data[index].description;
+        _infoCard = widget.data[index].info;
       });
     }, sideLength, isSelected: index == _indexSelected);
   }
@@ -121,7 +124,7 @@ class _MatrixPageState extends State<MatrixPage> {
       child: Align(
         alignment: Alignment.topCenter,
         child: Padding(
-          padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+          padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
           child: Text(
             widget.guideText,
             style: matrixNotice,
@@ -176,9 +179,14 @@ class _MatrixPageState extends State<MatrixPage> {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Text(content,
-          maxLines: isFolded ? 4 : 2000,
+          maxLines: isFolded ? 6 : 2000,
           style: descriptionContentStyle,
           overflow: isFolded ? TextOverflow.ellipsis : TextOverflow.visible),
     );
+  }
+
+  Widget _buildInfo() {
+    return SliverToBoxAdapter(
+        child: _buildCard(_infoCard.keys.first, _infoCard.values.first));
   }
 }
