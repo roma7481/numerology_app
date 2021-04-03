@@ -18,6 +18,7 @@ class MatrixPage extends StatefulWidget {
 
 class _MatrixPageState extends State<MatrixPage> {
   List<int> get matrix => widget.matrix;
+  var _indexSelected = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -56,25 +57,25 @@ class _MatrixPageState extends State<MatrixPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildMatrixTile(context, matrix[0]),
-                _buildMatrixTile(context, matrix[3]),
-                _buildMatrixTile(context, matrix[6]),
+                _buildMatrixTile(context, matrix[0], 0),
+                _buildMatrixTile(context, matrix[3], 3),
+                _buildMatrixTile(context, matrix[6], 6),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildMatrixTile(context, matrix[1]),
-                _buildMatrixTile(context, matrix[4]),
-                _buildMatrixTile(context, matrix[7]),
+                _buildMatrixTile(context, matrix[1], 1),
+                _buildMatrixTile(context, matrix[4], 4),
+                _buildMatrixTile(context, matrix[7], 7),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildMatrixTile(context, matrix[2]),
-                _buildMatrixTile(context, matrix[5]),
-                _buildMatrixTile(context, matrix[8]),
+                _buildMatrixTile(context, matrix[2], 2),
+                _buildMatrixTile(context, matrix[5], 5),
+                _buildMatrixTile(context, matrix[8], 8),
               ],
             )
           ],
@@ -83,13 +84,18 @@ class _MatrixPageState extends State<MatrixPage> {
     );
   }
 
-  Widget _buildMatrixTile(BuildContext context, int cellDigits) {
+  Widget _buildMatrixTile(BuildContext context, int cellDigits, int index) {
     var height = MediaQuery.of(context).size.height;
     var sideLength = height * 0.1;
     return buildMatrixTileButton(
       cellDigits.toString().replaceAll('0', '-'),
-      () {},
+      () {
+        setState(() {
+          _indexSelected = index;
+        });
+      },
       sideLength,
+      isSelected: index == _indexSelected
     );
   }
 }
