@@ -87,4 +87,7 @@ class LanguageRu extends Languages {
 
   @override
   String get clickOnAnyCell => 'clickOnAnyCell RU';
+
+  @override
+  String get digitsInCell => 'digitsInCell RU';
 }

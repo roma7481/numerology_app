@@ -94,4 +94,7 @@ class LanguageEn extends Languages {
 
   @override
   String get clickOnAnyCell => 'Click on any cell';
+
+  @override
+  String get digitsInCell => 'Digits in the cell: ';
 }

@@ -93,57 +93,48 @@ class DataParserEn extends DataParser {
 
     List<MatrixData> data = [
       MatrixData(
-          index: 0,
-          description: {"Personality": language.numberOfDigits +
-              calc[0].toString() +
+          description: {"Personality": language.digitsInCell +
+              calc[0].toString().replaceAll('0', '-') +
               "\n\n" + description1},
           info: {language.info: info1}),
       MatrixData(
-          index: 1,
-          description: {"Energy": language.numberOfDigits +
-              calc[1].toString() +
+          description: {"Energy": language.digitsInCell +
+              calc[1].toString().replaceAll('0', '-') +
               "\n\n" + description2},
           info: {language.info: info2}),
       MatrixData(
-          index: 2,
-          description: {"Interest": language.numberOfDigits +
-              calc[2].toString() +
+          description: {"Interest": language.digitsInCell +
+              calc[2].toString().replaceAll('0', '-') +
               "\n\n" + description3},
           info: {language.info: info3}),
       MatrixData(
-          index: 3,
-          description: {"Health": language.numberOfDigits +
-              calc[3].toString() +
+          description: {"Health": language.digitsInCell +
+              calc[3].toString().replaceAll('0', '-') +
               "\n\n" + description4},
           info: {language.info: info4}),
       MatrixData(
-          index: 4,
-          description: {"Logic": language.numberOfDigits +
-              calc[4].toString() +
+          description: {"Logic": language.digitsInCell +
+              calc[4].toString().replaceAll('0', '-') +
               "\n\n" + description5},
           info: {language.info: info5}),
       MatrixData(
-          index: 5,
-          description: {"Work": language.numberOfDigits +
-              calc[5].toString() +
+          description: {"Work": language.digitsInCell +
+              calc[5].toString().replaceAll('0', '-') +
               "\n\n" + description6},
           info: {language.info: info6}),
       MatrixData(
-          index: 6,
-          description: {"Luck": language.numberOfDigits +
-              calc[6].toString() +
+          description: {"Luck": language.digitsInCell +
+              calc[6].toString().replaceAll('0', '-') +
               "\n\n" + description7},
           info: {language.info: info7}),
       MatrixData(
-          index: 7,
-          description: {"Duty": language.numberOfDigits +
-              calc[7].toString() +
+          description: {"Duty": language.digitsInCell +
+              calc[7].toString().replaceAll('0', '-') +
               "\n\n" + description8},
           info: {language.info: info8}),
       MatrixData(
-          index: 8,
           description: {"Memory": language.numberOfDigits +
-              calc[8].toString() +
+              calc[8].toString().replaceAll('0', '-') +
               "\n\n" + description9},
           info: {language.info: info9}),
     ];

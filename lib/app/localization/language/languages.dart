@@ -57,5 +57,7 @@ abstract class Languages {
 
   String get numberOfDigits;
 
+  String get digitsInCell;
+
   String get clickOnAnyCell;
 }
