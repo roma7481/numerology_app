@@ -8,6 +8,7 @@ import 'package:numerology/app/data/models/profile.dart';
 import 'package:numerology/app/presentation/pages/description/description_name_page.dart';
 import 'package:numerology/app/presentation/pages/description/description_page.dart';
 import 'package:numerology/app/presentation/pages/description/description_wedding_page.dart';
+import 'package:numerology/app/presentation/pages/description/matrix_data.dart';
 import 'package:numerology/app/presentation/pages/description/matrix_line_data.dart';
 import 'package:numerology/app/presentation/pages/description/matrix_lines_page.dart';
 import 'package:numerology/app/presentation/pages/description/matrix_page.dart';
@@ -71,15 +72,63 @@ class DataParserEn extends DataParser {
     var description9 = await getEntityRawQuery(
         'select description from $table where characteristic =  "memory" and number = ${_convertMatrixNums(calc[8])}');
 
-    var info1 =  await getEntityRawQuery('select description from TABLE_DESCRIPTION where table_name = "$table" and category = "1"');
-    var info2 =  await getEntityRawQuery('select description from TABLE_DESCRIPTION where table_name = "$table" and category = "2"');
-    var info3 =  await getEntityRawQuery('select description from TABLE_DESCRIPTION where table_name = "$table" and category = "3"');
-    var info4 =  await getEntityRawQuery('select description from TABLE_DESCRIPTION where table_name = "$table" and category = "4"');
-    var info5 =  await getEntityRawQuery('select description from TABLE_DESCRIPTION where table_name = "$table" and category = "5"');
-    var info6 =  await getEntityRawQuery('select description from TABLE_DESCRIPTION where table_name = "$table" and category = "6"');
-    var info7 =  await getEntityRawQuery('select description from TABLE_DESCRIPTION where table_name = "$table" and category = "7"');
-    var info8 =  await getEntityRawQuery('select description from TABLE_DESCRIPTION where table_name = "$table" and category = "8"');
-    var info9 =  await getEntityRawQuery('select description from TABLE_DESCRIPTION where table_name = "$table" and category = "9"');
+    var info1 = await getEntityRawQuery(
+        'select description from TABLE_DESCRIPTION where table_name = "$table" and category = "1"');
+    var info2 = await getEntityRawQuery(
+        'select description from TABLE_DESCRIPTION where table_name = "$table" and category = "2"');
+    var info3 = await getEntityRawQuery(
+        'select description from TABLE_DESCRIPTION where table_name = "$table" and category = "3"');
+    var info4 = await getEntityRawQuery(
+        'select description from TABLE_DESCRIPTION where table_name = "$table" and category = "4"');
+    var info5 = await getEntityRawQuery(
+        'select description from TABLE_DESCRIPTION where table_name = "$table" and category = "5"');
+    var info6 = await getEntityRawQuery(
+        'select description from TABLE_DESCRIPTION where table_name = "$table" and category = "6"');
+    var info7 = await getEntityRawQuery(
+        'select description from TABLE_DESCRIPTION where table_name = "$table" and category = "7"');
+    var info8 = await getEntityRawQuery(
+        'select description from TABLE_DESCRIPTION where table_name = "$table" and category = "8"');
+    var info9 = await getEntityRawQuery(
+        'select description from TABLE_DESCRIPTION where table_name = "$table" and category = "9"');
+
+    List<MatrixData> data = [
+      MatrixData(
+          index: 0,
+          description: {"Personality": description1},
+          info: {language.info: info1}),
+      MatrixData(
+          index: 1,
+          description: {"Energy": description2},
+          info: {language.info: info2}),
+      MatrixData(
+          index: 2,
+          description: {"Interest": description3},
+          info: {language.info: info3}),
+      MatrixData(
+          index: 3,
+          description: {"Health": description4},
+          info: {language.info: info4}),
+      MatrixData(
+          index: 4,
+          description: {"Logic": description5},
+          info: {language.info: info5}),
+      MatrixData(
+          index: 5,
+          description: {"Work": description6},
+          info: {language.info: info6}),
+      MatrixData(
+          index: 6,
+          description: {"Luck": description7},
+          info: {language.info: info7}),
+      MatrixData(
+          index: 7,
+          description: {"Duty": description8},
+          info: {language.info: info8}),
+      MatrixData(
+          index: 8,
+          description: {"Memory": description9},
+          info: {language.info: info9}),
+    ];
 
     return CategoryModel(
         imagePath: matrix,
@@ -88,6 +137,7 @@ class DataParserEn extends DataParser {
           header: categoryName,
           matrix: calc,
           guideText: language.clickOnAnyCell,
+          data: data,
         ));
   }
 
