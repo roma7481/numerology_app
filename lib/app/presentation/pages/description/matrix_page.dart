@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:numerology/app/constants/colors.dart';
+import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/data/language/matrix_tile.dart';
 
 class MatrixPage extends StatefulWidget {
   final String header;
+  final String guideText;
   final List<int> matrix;
 
   const MatrixPage({
     Key key,
     this.matrix,
     this.header,
+    this.guideText,
   }) : super(key: key);
 
   @override
@@ -43,6 +46,7 @@ class _MatrixPageState extends State<MatrixPage> {
       child: CustomScrollView(
         slivers: [
           _buildMatrix(context),
+          _buildGuideText(),
         ],
       ),
     );
@@ -87,15 +91,26 @@ class _MatrixPageState extends State<MatrixPage> {
   Widget _buildMatrixTile(BuildContext context, int cellDigits, int index) {
     var height = MediaQuery.of(context).size.height;
     var sideLength = height * 0.1;
-    return buildMatrixTileButton(
-      cellDigits.toString().replaceAll('0', '-'),
-      () {
-        setState(() {
-          _indexSelected = index;
-        });
-      },
-      sideLength,
-      isSelected: index == _indexSelected
+    return buildMatrixTileButton(cellDigits.toString().replaceAll('0', '-'),
+        () {
+      setState(() {
+        _indexSelected = index;
+      });
+    }, sideLength, isSelected: index == _indexSelected);
+  }
+
+  Widget _buildGuideText() {
+    return SliverToBoxAdapter(
+      child: Align(
+        alignment: Alignment.topCenter,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+          child: Text(
+            widget.guideText,
+            style: matrixNotice,
+          ),
+        ),
+      ),
     );
   }
 }

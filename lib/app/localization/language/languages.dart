@@ -56,4 +56,6 @@ abstract class Languages {
   String get enterWeddingDate;
 
   String get numberOfDigits;
+
+  String get clickOnAnyCell;
 }

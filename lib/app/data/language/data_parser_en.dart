@@ -46,6 +46,7 @@ class DataParserEn extends DataParser {
   }
 
   Future<CategoryModel> _getMatrix(Profile profile) async {
+    var language = Globals.instance.getLanguage();
     var calc = CategoryCalc.instance.calcMatrix(profile);
     var categoryName = 'Psychomatrix';
 
@@ -55,6 +56,7 @@ class DataParserEn extends DataParser {
         page: MatrixPage(
           header: categoryName,
           matrix: calc,
+          guideText: language.clickOnAnyCell,
         ));
   }
 

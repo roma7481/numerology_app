@@ -108,3 +108,9 @@ var matrixTileStyle = GoogleFonts.sourceSansPro(
   fontSize: 18.0,
   color: Colors.white,
 ));
+
+var matrixNotice = GoogleFonts.sourceSansPro(
+    textStyle: TextStyle(
+  fontSize: 16.0,
+  color: pickerHeaderColor,
+));

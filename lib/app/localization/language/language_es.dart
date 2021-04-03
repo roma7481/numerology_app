@@ -83,5 +83,8 @@ class LanguageEs extends Languages {
   String get weddingDate => 'weddingDate ES';
 
   @override
-  String get numberOfDigits => 'numberOfDigits: ';
+  String get numberOfDigits => 'numberOfDigits: ES';
+
+  @override
+  String get clickOnAnyCell => 'clickOnAnyCell ES';
 }
