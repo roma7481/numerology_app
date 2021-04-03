@@ -124,7 +124,7 @@ class _MatrixPageState extends State<MatrixPage> {
       child: Align(
         alignment: Alignment.topCenter,
         child: Padding(
-          padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
+          padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 20.0),
           child: Text(
             widget.guideText,
             style: matrixNotice,

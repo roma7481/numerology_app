@@ -94,39 +94,57 @@ class DataParserEn extends DataParser {
     List<MatrixData> data = [
       MatrixData(
           index: 0,
-          description: {"Personality": description1},
+          description: {"Personality": language.numberOfDigits +
+              calc[0].toString() +
+              "\n\n" + description1},
           info: {language.info: info1}),
       MatrixData(
           index: 1,
-          description: {"Energy": description2},
+          description: {"Energy": language.numberOfDigits +
+              calc[1].toString() +
+              "\n\n" + description2},
           info: {language.info: info2}),
       MatrixData(
           index: 2,
-          description: {"Interest": description3},
+          description: {"Interest": language.numberOfDigits +
+              calc[2].toString() +
+              "\n\n" + description3},
           info: {language.info: info3}),
       MatrixData(
           index: 3,
-          description: {"Health": description4},
+          description: {"Health": language.numberOfDigits +
+              calc[3].toString() +
+              "\n\n" + description4},
           info: {language.info: info4}),
       MatrixData(
           index: 4,
-          description: {"Logic": description5},
+          description: {"Logic": language.numberOfDigits +
+              calc[4].toString() +
+              "\n\n" + description5},
           info: {language.info: info5}),
       MatrixData(
           index: 5,
-          description: {"Work": description6},
+          description: {"Work": language.numberOfDigits +
+              calc[5].toString() +
+              "\n\n" + description6},
           info: {language.info: info6}),
       MatrixData(
           index: 6,
-          description: {"Luck": description7},
+          description: {"Luck": language.numberOfDigits +
+              calc[6].toString() +
+              "\n\n" + description7},
           info: {language.info: info7}),
       MatrixData(
           index: 7,
-          description: {"Duty": description8},
+          description: {"Duty": language.numberOfDigits +
+              calc[7].toString() +
+              "\n\n" + description8},
           info: {language.info: info8}),
       MatrixData(
           index: 8,
-          description: {"Memory": description9},
+          description: {"Memory": language.numberOfDigits +
+              calc[8].toString() +
+              "\n\n" + description9},
           info: {language.info: info9}),
     ];
 
