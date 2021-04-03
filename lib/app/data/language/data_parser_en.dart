@@ -71,6 +71,16 @@ class DataParserEn extends DataParser {
     var description9 = await getEntityRawQuery(
         'select description from $table where characteristic =  "memory" and number = ${_convertMatrixNums(calc[8])}');
 
+    var info1 =  await getEntityRawQuery('select description from TABLE_DESCRIPTION where table_name = "$table" and category = "1"');
+    var info2 =  await getEntityRawQuery('select description from TABLE_DESCRIPTION where table_name = "$table" and category = "2"');
+    var info3 =  await getEntityRawQuery('select description from TABLE_DESCRIPTION where table_name = "$table" and category = "3"');
+    var info4 =  await getEntityRawQuery('select description from TABLE_DESCRIPTION where table_name = "$table" and category = "4"');
+    var info5 =  await getEntityRawQuery('select description from TABLE_DESCRIPTION where table_name = "$table" and category = "5"');
+    var info6 =  await getEntityRawQuery('select description from TABLE_DESCRIPTION where table_name = "$table" and category = "6"');
+    var info7 =  await getEntityRawQuery('select description from TABLE_DESCRIPTION where table_name = "$table" and category = "7"');
+    var info8 =  await getEntityRawQuery('select description from TABLE_DESCRIPTION where table_name = "$table" and category = "8"');
+    var info9 =  await getEntityRawQuery('select description from TABLE_DESCRIPTION where table_name = "$table" and category = "9"');
+
     return CategoryModel(
         imagePath: matrix,
         text: categoryName,
