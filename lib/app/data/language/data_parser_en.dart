@@ -55,6 +55,39 @@ class DataParserEn extends DataParser {
       var yourMatrix = CategoryCalc.instance.calcMatrixByDob(profile.dob);
       var partnerMatrix =
           CategoryCalc.instance.calcMatrixByDob(profile.partnerDob);
+
+      var matrixCompat =
+          CategoryCalc.instance.calcMatrixCompat(yourMatrix, partnerMatrix);
+      var table = 'PSYCHOMATRIX_COMPAT_ENG';
+
+      var description1 = await getEntityRawQuery(
+          'select description from $table where category =  "PURPOSE" and strength =  "${matrixCompat[0]}"');
+      var description2 = await getEntityRawQuery(
+          'select description from $table where category =  "FAMILY" and strength =  "${matrixCompat[1]}"');
+      var description3 = await getEntityRawQuery(
+          'select description from $table where category =  "STABILITY" and strength =  "${matrixCompat[2]}"');
+      var description4 = await getEntityRawQuery(
+          'select description from $table where category =  "ESTEEM" and strength = "${matrixCompat[3]}"');
+      var description5 = await getEntityRawQuery(
+          'select description from $table where category =  "FINANCE" and strength =  "${matrixCompat[4]}"');
+      var description6 = await getEntityRawQuery(
+          'select description from $table where category =  "TALENTS" and strength =  "${matrixCompat[5]}"');
+      var description7 = await getEntityRawQuery(
+          'select description from $table where category =  "TEMPERAMENT" and strength =  "${matrixCompat[6]}"');
+      var description8 = await getEntityRawQuery(
+          'select description from $table where category =  "SPIRITUALITY" and strength =  "${matrixCompat[7]}"');
+
+      Map<String, String> descriptions = {
+        'PURPOSE': description1,
+        'FAMILY': description2,
+        'STABILITY': description3,
+        'ESTEEM': description4,
+        'FINANCE': description5,
+        'TALENTS': description6,
+        'TEMPERAMENT': description7,
+        'SPIRITUALITY': description8,
+      };
+
       descriptionPage = CompatInternalPage(
         yourMatrix: yourMatrix,
         partnerMatrix: partnerMatrix,

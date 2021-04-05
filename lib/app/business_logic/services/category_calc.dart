@@ -10,6 +10,25 @@ class CategoryCalc {
 
   static final instance = CategoryCalc._();
 
+  List<String> calcMatrixCompat(List<int> yourMatrix, List<int> partnerMatrix) {
+    List<String> categories = ['', '', '', '', '', '', '', '',''];
+    for (int i = 0; i < yourMatrix.length; i++) {
+      if (yourMatrix[i] < 3 && partnerMatrix[i] < 3) {
+        categories[i] = "weak";
+      } else if (yourMatrix[i] == 3 && partnerMatrix[i] == 3) {
+        categories[i] = "moderate";
+      } else if (yourMatrix[i] > 3 && partnerMatrix[i] > 3) {
+            if ((yourMatrix[i] - partnerMatrix[i]).abs() >= 2) {
+              categories[i] = (yourMatrix[i] > partnerMatrix[i]) ? "you_stronger" : "partner_stronger";
+            } else {
+              categories[i] = "strong";
+            }
+      }
+    }
+
+    return categories;
+  }
+
   List<int> calcMatrixLines(Profile profile) {
     var linesArray = [
       0,

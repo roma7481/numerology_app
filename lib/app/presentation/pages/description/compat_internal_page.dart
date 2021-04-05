@@ -132,7 +132,7 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
     } else if (_selectedIndex == 1) {
       return SliverToBoxAdapter(child: Container());
     }
-    return SliverToBoxAdapter(child: Container());
+    return _buildLifePathContent();
   }
 
   Widget _buildMatrixContent() {
@@ -150,5 +150,9 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
         buildMatrix(context, widget.partnerMatrix),
       ]),
     );
+  }
+
+  Widget _buildLifePathContent() {
+    return SliverToBoxAdapter(child: Container());
   }
 }
