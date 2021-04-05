@@ -5,6 +5,7 @@ import 'package:numerology/app/business_logic/services/date_service.dart';
 import 'package:numerology/app/constants/icon_path.dart';
 import 'package:numerology/app/data/language/data_parser.dart';
 import 'package:numerology/app/data/models/profile.dart';
+import 'package:numerology/app/presentation/pages/description/description_compat_page.dart';
 import 'package:numerology/app/presentation/pages/description/description_name_page.dart';
 import 'package:numerology/app/presentation/pages/description/description_page.dart';
 import 'package:numerology/app/presentation/pages/description/description_wedding_page.dart';
@@ -23,8 +24,7 @@ class DataParserEn extends DataParser {
   Future<List<CategoryModel>> getCategories(Profile profile) async {
     List<CategoryModel> categories = [];
 
-    categories
-        .add(CategoryModel(imagePath: compatibility, text: 'Compatibility'));
+    categories.add(await _getCompat(profile));
     categories.add(
         CategoryModel(imagePath: secondaryBio, text: 'Secondary Biorhythms'));
     categories.add(await _getLifePathNumber(profile));
@@ -44,6 +44,29 @@ class DataParserEn extends DataParser {
     categories.add(await _getLuckyGemModel(profile));
 
     return categories;
+  }
+
+  Future<CategoryModel> _getCompat(Profile profile) async {
+    // CategoryModel(imagePath: compatibility, text: 'Compatibility')
+
+    DescriptionPage descriptionPage = DescriptionPage();
+    var categoryName = 'Compatibility';
+
+    if (_isPartnerDobSet(profile)) {
+      descriptionPage = DescriptionPage(
+        header: categoryName,
+        calculation: '76'.toString(),
+        description: {'header': 'description'},
+      );
+    }
+
+    return CategoryModel(
+        imagePath: compatibility,
+        text: categoryName,
+        page: DescriptionPartnerDobBasedPage(
+          categoryName: categoryName,
+          page: descriptionPage,
+        ));
   }
 
   Future<CategoryModel> _getMatrix(Profile profile) async {
@@ -92,51 +115,78 @@ class DataParserEn extends DataParser {
         'select description from TABLE_DESCRIPTION where table_name = "$table" and category = "9"');
 
     List<MatrixData> data = [
-      MatrixData(
-          description: {"Personality": language.digitsInCell +
-              calc[0].toString().replaceAll('0', '-') +
-              "\n\n" + description1},
-          info: {language.info: info1}),
-      MatrixData(
-          description: {"Energy": language.digitsInCell +
-              calc[1].toString().replaceAll('0', '-') +
-              "\n\n" + description2},
-          info: {language.info: info2}),
-      MatrixData(
-          description: {"Interest": language.digitsInCell +
-              calc[2].toString().replaceAll('0', '-') +
-              "\n\n" + description3},
-          info: {language.info: info3}),
-      MatrixData(
-          description: {"Health": language.digitsInCell +
-              calc[3].toString().replaceAll('0', '-') +
-              "\n\n" + description4},
-          info: {language.info: info4}),
-      MatrixData(
-          description: {"Logic": language.digitsInCell +
-              calc[4].toString().replaceAll('0', '-') +
-              "\n\n" + description5},
-          info: {language.info: info5}),
-      MatrixData(
-          description: {"Work": language.digitsInCell +
-              calc[5].toString().replaceAll('0', '-') +
-              "\n\n" + description6},
-          info: {language.info: info6}),
-      MatrixData(
-          description: {"Luck": language.digitsInCell +
-              calc[6].toString().replaceAll('0', '-') +
-              "\n\n" + description7},
-          info: {language.info: info7}),
-      MatrixData(
-          description: {"Duty": language.digitsInCell +
-              calc[7].toString().replaceAll('0', '-') +
-              "\n\n" + description8},
-          info: {language.info: info8}),
-      MatrixData(
-          description: {"Memory": language.numberOfDigits +
-              calc[8].toString().replaceAll('0', '-') +
-              "\n\n" + description9},
-          info: {language.info: info9}),
+      MatrixData(description: {
+        "Personality": language.digitsInCell +
+            calc[0].toString().replaceAll('0', '-') +
+            "\n\n" +
+            description1
+      }, info: {
+        language.info: info1
+      }),
+      MatrixData(description: {
+        "Energy": language.digitsInCell +
+            calc[1].toString().replaceAll('0', '-') +
+            "\n\n" +
+            description2
+      }, info: {
+        language.info: info2
+      }),
+      MatrixData(description: {
+        "Interest": language.digitsInCell +
+            calc[2].toString().replaceAll('0', '-') +
+            "\n\n" +
+            description3
+      }, info: {
+        language.info: info3
+      }),
+      MatrixData(description: {
+        "Health": language.digitsInCell +
+            calc[3].toString().replaceAll('0', '-') +
+            "\n\n" +
+            description4
+      }, info: {
+        language.info: info4
+      }),
+      MatrixData(description: {
+        "Logic": language.digitsInCell +
+            calc[4].toString().replaceAll('0', '-') +
+            "\n\n" +
+            description5
+      }, info: {
+        language.info: info5
+      }),
+      MatrixData(description: {
+        "Work": language.digitsInCell +
+            calc[5].toString().replaceAll('0', '-') +
+            "\n\n" +
+            description6
+      }, info: {
+        language.info: info6
+      }),
+      MatrixData(description: {
+        "Luck": language.digitsInCell +
+            calc[6].toString().replaceAll('0', '-') +
+            "\n\n" +
+            description7
+      }, info: {
+        language.info: info7
+      }),
+      MatrixData(description: {
+        "Duty": language.digitsInCell +
+            calc[7].toString().replaceAll('0', '-') +
+            "\n\n" +
+            description8
+      }, info: {
+        language.info: info8
+      }),
+      MatrixData(description: {
+        "Memory": language.numberOfDigits +
+            calc[8].toString().replaceAll('0', '-') +
+            "\n\n" +
+            description9
+      }, info: {
+        language.info: info9
+      }),
     ];
 
     return CategoryModel(
@@ -543,6 +593,10 @@ class DataParserEn extends DataParser {
 
   bool _isWeddingDateSet(Profile profile) {
     return profile.weddingDate != null;
+  }
+
+  bool _isPartnerDobSet(Profile profile) {
+    return profile.partnerDob != null;
   }
 
   Future<CategoryModel> _buildNameBasedCategory({

@@ -7,6 +7,8 @@ abstract class Languages {
 
   String get weddingDate;
 
+  String get partnersDob;
+
   String get selectDateOfBirth;
 
   String get continueText;
@@ -54,6 +56,8 @@ abstract class Languages {
   String get enterMissingData;
 
   String get enterWeddingDate;
+
+  String get enterPartnerDob;
 
   String get numberOfDigits;
 

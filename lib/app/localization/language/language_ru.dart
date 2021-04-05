@@ -90,4 +90,10 @@ class LanguageRu extends Languages {
 
   @override
   String get digitsInCell => 'digitsInCell RU';
+
+  @override
+  String get enterPartnerDob => 'enterPartnerDob RU';
+
+  @override
+  String get partnersDob => 'partnersDob RU';
 }

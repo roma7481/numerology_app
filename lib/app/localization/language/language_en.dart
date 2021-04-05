@@ -97,4 +97,10 @@ class LanguageEn extends Languages {
 
   @override
   String get digitsInCell => 'Digits in the cell: ';
+
+  @override
+  String get enterPartnerDob => 'Please set partners DOB';
+
+  @override
+  String get partnersDob => 'Partner\'s DOB';
 }

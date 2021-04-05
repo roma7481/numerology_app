@@ -90,4 +90,10 @@ class LanguageEs extends Languages {
 
   @override
   String get digitsInCell => 'Digits in the cell: ES';
+
+  @override
+  String get enterPartnerDob => 'enterPartnerDob ES';
+
+  @override
+  String get partnersDob => 'partnersDob ES';
 }
