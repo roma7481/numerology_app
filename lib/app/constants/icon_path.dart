@@ -39,3 +39,9 @@ const matrix5 = 'assets/matrix/grid5.svg';
 const matrix6 = 'assets/matrix/grid6.svg';
 const matrix7 = 'assets/matrix/grid7.svg';
 const matrix8 = 'assets/matrix/grid8.svg';
+
+/// COMPATIBILITY ///
+
+const bioComp = 'assets/compatibility/bio_comp.svg';
+const lifePathComp = 'assets/compatibility/lifepath_comp.svg';
+const matrixComp = 'assets/compatibility/matrix_comp.svg';

@@ -33,23 +33,23 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
       child: Align(
         alignment: Alignment.topCenter,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            _buildButton(width, 0),
-            _buildButton(width, 1),
-            _buildButton(width, 2),
+            _buildButton(width, 0, matrixComp),
+            _buildButton(width, 1, bioComp),
+            _buildButton(width, 2, lifePathComp),
           ],
         ),
       ),
     );
   }
 
-  Column _buildButton(double width, int index) {
+  Column _buildButton(double width, int index, String iconPath) {
     return Column(
       children: [
         customButton(
           child: Container(
-            child: SvgPicture.asset(work, height: width * 0.2),
+            child: SvgPicture.asset(iconPath, height: width * 0.15),
           ),
           onPressed: () {
             setState(() {
