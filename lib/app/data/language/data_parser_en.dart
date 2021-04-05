@@ -5,6 +5,7 @@ import 'package:numerology/app/business_logic/services/date_service.dart';
 import 'package:numerology/app/constants/icon_path.dart';
 import 'package:numerology/app/data/language/data_parser.dart';
 import 'package:numerology/app/data/models/profile.dart';
+import 'package:numerology/app/presentation/pages/description/compat_internal_page.dart';
 import 'package:numerology/app/presentation/pages/description/description_compat_page.dart';
 import 'package:numerology/app/presentation/pages/description/description_name_page.dart';
 import 'package:numerology/app/presentation/pages/description/description_page.dart';
@@ -49,15 +50,11 @@ class DataParserEn extends DataParser {
   Future<CategoryModel> _getCompat(Profile profile) async {
     // CategoryModel(imagePath: compatibility, text: 'Compatibility')
 
-    DescriptionPage descriptionPage = DescriptionPage();
+    var descriptionPage = CompatInternalPage();
     var categoryName = 'Compatibility';
 
     if (_isPartnerDobSet(profile)) {
-      descriptionPage = DescriptionPage(
-        header: categoryName,
-        calculation: '76'.toString(),
-        description: {'header': 'description'},
-      );
+      descriptionPage = CompatInternalPage();
     }
 
     return CategoryModel(
