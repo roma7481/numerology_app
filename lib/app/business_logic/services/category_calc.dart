@@ -11,27 +11,53 @@ class CategoryCalc {
   static final instance = CategoryCalc._();
 
   List<int> calcMatrixLines(Profile profile) {
-    var linesArray = [0,0,0,0,0,0,0,0,];
+    var linesArray = [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+    ];
     var array = calcMatrix(profile);
-    linesArray[0] = _calcMatrixLine(array: array, index0: 0, index1: 3, index2: 6);
-    linesArray[1] = _calcMatrixLine(array: array, index0: 1, index1: 4, index2: 7);
-    linesArray[2] = _calcMatrixLine(array: array, index0: 2, index1: 5, index2: 8);
-    linesArray[3] = _calcMatrixLine(array: array, index0: 0, index1: 1, index2: 2);
-    linesArray[4] = _calcMatrixLine(array: array, index0: 3, index1: 4, index2: 5);
-    linesArray[5] = _calcMatrixLine(array: array, index0: 6, index1: 7, index2: 8);
-    linesArray[6] = _calcMatrixLine(array: array, index0: 2, index1: 4, index2: 6);
-    linesArray[7] = _calcMatrixLine(array: array, index0: 0, index1: 4, index2: 8);
+    linesArray[0] =
+        _calcMatrixLine(array: array, index0: 0, index1: 3, index2: 6);
+    linesArray[1] =
+        _calcMatrixLine(array: array, index0: 1, index1: 4, index2: 7);
+    linesArray[2] =
+        _calcMatrixLine(array: array, index0: 2, index1: 5, index2: 8);
+    linesArray[3] =
+        _calcMatrixLine(array: array, index0: 0, index1: 1, index2: 2);
+    linesArray[4] =
+        _calcMatrixLine(array: array, index0: 3, index1: 4, index2: 5);
+    linesArray[5] =
+        _calcMatrixLine(array: array, index0: 6, index1: 7, index2: 8);
+    linesArray[6] =
+        _calcMatrixLine(array: array, index0: 2, index1: 4, index2: 6);
+    linesArray[7] =
+        _calcMatrixLine(array: array, index0: 0, index1: 4, index2: 8);
     return linesArray;
   }
 
-  int _calcMatrixLine({List<int> array, int index0, int index1, int index2}){
+  int _calcMatrixLine({List<int> array, int index0, int index1, int index2}) {
     return array[index0] + array[index1] + array[index2] == 0
         ? 0
-        : ('' + array[index0].toString() + array[index1].toString() + array[index2].toString()).replaceAll('0', '').length;
+        : ('' +
+                array[index0].toString() +
+                array[index1].toString() +
+                array[index2].toString())
+            .replaceAll('0', '')
+            .length;
   }
 
   List<int> calcMatrix(Profile profile) {
-    var birthday = DateService.fromTimestamp(profile.dob);
+    return calcMatrixByDob(profile.dob);
+  }
+
+  List<int> calcMatrixByDob(int dob) {
+    var birthday = DateService.fromTimestamp(dob);
     var year = birthday.year;
     var month = birthday.month;
     var day = birthday.day;

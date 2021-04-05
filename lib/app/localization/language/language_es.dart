@@ -105,4 +105,10 @@ class LanguageEs extends Languages {
 
   @override
   String get matrixCompat => 'matrixCompat ES';
+
+  @override
+  String get partnerMatrix => 'partnerMatrix ES';
+
+  @override
+  String get yourMatrix => 'yourMatrix ES';
 }

@@ -18,8 +18,11 @@ class DescriptionPartnerDobBasedPage extends StatefulWidget {
   final String categoryName;
   final Widget page;
 
-  const DescriptionPartnerDobBasedPage({Key key, this.categoryName, this.page})
-      : super(key: key);
+  const DescriptionPartnerDobBasedPage({
+    Key key,
+    @required this.categoryName,
+    @required this.page,
+  }) : super(key: key);
 
   @override
   _DescriptionPartnerDobBasedPageState createState() =>

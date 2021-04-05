@@ -70,4 +70,8 @@ abstract class Languages {
   String get bioCompat;
 
   String get lifePathCompat;
+
+  String get yourMatrix;
+
+  String get partnerMatrix;
 }

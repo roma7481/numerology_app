@@ -105,4 +105,10 @@ class LanguageRu extends Languages {
 
   @override
   String get matrixCompat => 'matrixCompat RU';
+
+  @override
+  String get partnerMatrix => 'partnerMatrix RU';
+
+  @override
+  String get yourMatrix => 'yourMatrix RU';
 }

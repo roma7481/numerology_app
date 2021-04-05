@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/text_styles.dart';
-import 'package:numerology/app/data/language/matrix_tile.dart';
 import 'package:numerology/app/presentation/common_widgets/castom_category_card.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
 
 import 'matrix_line_data.dart';
+import 'matrix_utils.dart';
 
 class MatrixLinesPage extends StatelessWidget {
   final String header;
@@ -47,57 +47,11 @@ class MatrixLinesPage extends StatelessWidget {
       color: backgroundColor,
       child: CustomScrollView(
         slivers: [
-          _buildMatrix(context),
+          SliverToBoxAdapter(child: buildMatrix(context, matrix)),
           _buildList(),
           _buildInfo(),
         ],
       ),
-    );
-  }
-
-  Widget _buildMatrix(BuildContext context) {
-    return SliverToBoxAdapter(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _buildMatrixTile(context, matrix[0]),
-                _buildMatrixTile(context, matrix[3]),
-                _buildMatrixTile(context, matrix[6]),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _buildMatrixTile(context, matrix[1]),
-                _buildMatrixTile(context, matrix[4]),
-                _buildMatrixTile(context, matrix[7]),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _buildMatrixTile(context, matrix[2]),
-                _buildMatrixTile(context, matrix[5]),
-                _buildMatrixTile(context, matrix[8]),
-              ],
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildMatrixTile(BuildContext context, int lineSum) {
-    var height = MediaQuery.of(context).size.height;
-    var sideLength = height * 0.1;
-    return buildMatrixTileButton(
-      lineSum.toString().replaceAll('0', '-'),
-      () {},
-      sideLength,
     );
   }
 

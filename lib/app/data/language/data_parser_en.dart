@@ -48,13 +48,17 @@ class DataParserEn extends DataParser {
   }
 
   Future<CategoryModel> _getCompat(Profile profile) async {
-    // CategoryModel(imagePath: compatibility, text: 'Compatibility')
-
     var descriptionPage = CompatInternalPage();
     var categoryName = 'Compatibility';
 
     if (_isPartnerDobSet(profile)) {
-      descriptionPage = CompatInternalPage();
+      var yourMatrix = CategoryCalc.instance.calcMatrixByDob(profile.dob);
+      var partnerMatrix =
+          CategoryCalc.instance.calcMatrixByDob(profile.partnerDob);
+      descriptionPage = CompatInternalPage(
+        yourMatrix: yourMatrix,
+        partnerMatrix: partnerMatrix,
+      );
     }
 
     return CategoryModel(

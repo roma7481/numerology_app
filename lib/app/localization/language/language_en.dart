@@ -112,4 +112,10 @@ class LanguageEn extends Languages {
 
   @override
   String get matrixCompat => 'Psychomatrix comp.';
+
+  @override
+  String get partnerMatrix => 'Partner\'s Psychomatrix';
+
+  @override
+  String get yourMatrix => 'Your Psychomatrix';
 }

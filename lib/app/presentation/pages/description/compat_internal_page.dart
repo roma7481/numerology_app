@@ -3,14 +3,23 @@ import 'package:flutter_svg/svg.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/icon_path.dart';
+import 'package:numerology/app/constants/text_styles.dart';
+
+import 'matrix_utils.dart';
 
 class CompatInternalPage extends StatefulWidget {
+  final List<int> yourMatrix;
+  final List<int> partnerMatrix;
+
+  const CompatInternalPage({Key key, this.yourMatrix, this.partnerMatrix})
+      : super(key: key);
+
   @override
   _CompatInternalPageState createState() => _CompatInternalPageState();
 }
 
 class _CompatInternalPageState extends State<CompatInternalPage> {
-  var language = Globals.instance.language;
+  var _language = Globals.instance.language;
   var _selectedIndex = 0;
   var _header = Globals.instance.language.matrixCompat;
 
@@ -29,20 +38,41 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
   }
 
   Widget _buildContent(BuildContext context) {
-    var width = MediaQuery.of(context).size.width;
     return Container(
       color: backgroundColor,
       height: double.infinity,
-      child: Align(
-        alignment: Alignment.topCenter,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _buildButton(width, 0, matrixComp),
-            _buildButton(width, 1, bioComp),
-            _buildButton(width, 2, lifePathComp),
-          ],
-        ),
+      child: CustomScrollView(
+        slivers: [
+          _buildTopNav(),
+          _buildPageDescription(),
+        ],
+      ),
+    );
+  }
+
+  SliverFixedExtentList _buildTopNav() {
+    return SliverFixedExtentList(
+        itemExtent: 100.0,
+        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+          return new Container(
+            alignment: Alignment.center,
+            child: _buildButtons(),
+          );
+        }, childCount: 1));
+  }
+
+  Align _buildButtons() {
+    var width = MediaQuery.of(context).size.width;
+
+    return Align(
+      alignment: Alignment.topCenter,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          _buildButton(width, 0, matrixComp),
+          _buildButton(width, 1, bioComp),
+          _buildButton(width, 2, lifePathComp),
+        ],
       ),
     );
   }
@@ -57,9 +87,10 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
           onPressed: () {
             setState(() {
               _header = index == 0
-                  ? _header = language.matrixCompat
+                  ? _header = _language.matrixCompat
                   : index == 1
-                  ? language.bioCompat : language.lifePathCompat;
+                      ? _language.bioCompat
+                      : _language.lifePathCompat;
 
               _selectedIndex = index;
             });
@@ -92,6 +123,32 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
           child: child,
         ),
       ),
+    );
+  }
+
+  Widget _buildPageDescription() {
+    if (_selectedIndex == 0) {
+      return _buildMatrixContent();
+    } else if (_selectedIndex == 1) {
+      return SliverToBoxAdapter(child: Container());
+    }
+    return SliverToBoxAdapter(child: Container());
+  }
+
+  Widget _buildMatrixContent() {
+    return SliverToBoxAdapter(
+      child: Column(children: [
+        Text(
+          _language.yourMatrix,
+          style: matrixNotice,
+        ),
+        buildMatrix(context, widget.yourMatrix),
+        Text(
+          _language.partnerMatrix,
+          style: matrixNotice,
+        ),
+        buildMatrix(context, widget.partnerMatrix),
+      ]),
     );
   }
 }
