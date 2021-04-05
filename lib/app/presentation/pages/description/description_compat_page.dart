@@ -154,7 +154,7 @@ class _DescriptionPartnerDobBasedPageState
 
   String _getButtonText() {
     if (_selectedDate == null) {
-      return Globals.instance.language.partnersDob;
+      return Globals.instance.language.dateOfBirth;
     }
     return DateService.getFormattedDate(_selectedDate);
   }
