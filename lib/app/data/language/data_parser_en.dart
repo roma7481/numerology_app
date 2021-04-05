@@ -415,17 +415,17 @@ class DataParserEn extends DataParser {
         table: 'CHALLENGE_NUMBER_ENG',
         queryColumn: 'number',
         resColumn: 'description',
-        value: calculation1);
+        value: calculation2);
     var description3 = await getEntity(
         table: 'CHALLENGE_NUMBER_ENG',
         queryColumn: 'number',
         resColumn: 'description',
-        value: calculation1);
+        value: calculation3);
     var description4 = await getEntity(
         table: 'CHALLENGE_NUMBER_ENG',
         queryColumn: 'number',
         resColumn: 'description',
-        value: calculation1);
+        value: calculation4);
     var info = await getEntity(
         table: 'TABLE_DESCRIPTION',
         queryColumn: 'table_name',
