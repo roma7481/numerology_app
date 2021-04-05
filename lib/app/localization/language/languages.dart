@@ -64,4 +64,10 @@ abstract class Languages {
   String get digitsInCell;
 
   String get clickOnAnyCell;
+
+  String get matrixCompat;
+
+  String get bioCompat;
+
+  String get lifePathCompat;
 }

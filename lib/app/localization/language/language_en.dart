@@ -103,4 +103,13 @@ class LanguageEn extends Languages {
 
   @override
   String get partnersDob => 'Partner\'s DOB';
+
+  @override
+  String get bioCompat => 'Biorhythm comp.';
+
+  @override
+  String get lifePathCompat => 'Life Path comp.';
+
+  @override
+  String get matrixCompat => 'Psychomatrix comp.';
 }

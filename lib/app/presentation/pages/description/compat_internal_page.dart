@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/icon_path.dart';
 
@@ -9,7 +10,9 @@ class CompatInternalPage extends StatefulWidget {
 }
 
 class _CompatInternalPageState extends State<CompatInternalPage> {
+  var language = Globals.instance.language;
   var _selectedIndex = 0;
+  var _header = Globals.instance.language.matrixCompat;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +20,7 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text('header'),
+          title: Text(_header),
           backgroundColor: backgroundColor,
         ),
         body: _buildContent(context),
@@ -53,6 +56,11 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
           ),
           onPressed: () {
             setState(() {
+              _header = index == 0
+                  ? _header = language.matrixCompat
+                  : index == 1
+                  ? language.bioCompat : language.lifePathCompat;
+
               _selectedIndex = index;
             });
           },

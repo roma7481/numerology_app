@@ -96,4 +96,13 @@ class LanguageRu extends Languages {
 
   @override
   String get partnersDob => 'partnersDob RU';
+
+  @override
+  String get bioCompat => 'bioCompat RU';
+
+  @override
+  String get lifePathCompat => 'lifePathCompat RU';
+
+  @override
+  String get matrixCompat => 'matrixCompat RU';
 }

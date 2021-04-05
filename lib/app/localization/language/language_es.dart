@@ -96,4 +96,13 @@ class LanguageEs extends Languages {
 
   @override
   String get partnersDob => 'partnersDob ES';
+
+  @override
+  String get bioCompat => 'bioCompat ES';
+
+  @override
+  String get lifePathCompat => 'lifePathCompat ES';
+
+  @override
+  String get matrixCompat => 'matrixCompat ES';
 }
