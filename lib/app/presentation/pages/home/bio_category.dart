@@ -15,9 +15,9 @@ Widget buildBioCategory(BuildContext context) {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _buildProgress(context, physicalGradient),
-              _buildProgress(context, emotionalGradient),
-              _buildProgress(context, intellectGradient),
+              _buildBio(context, physicalGradient, 'text', bioNamePhis),
+              _buildBio(context, emotionalGradient, 'text', bioNameEmotion),
+              _buildBio(context, intellectGradient, 'text', bioNameIntel),
             ],
           ),
         ),
@@ -26,7 +26,26 @@ Widget buildBioCategory(BuildContext context) {
   );
 }
 
-Widget _buildProgress(BuildContext context, LinearGradient gradient) {
+Column _buildBio(BuildContext context, LinearGradient gradient, String text, TextStyle style) {
+  return Column(
+    children: [
+      _buildProgressChart(context, gradient),
+      _buildProgressName(text, style),
+    ],
+  );
+}
+
+Widget _buildProgressName(String text, TextStyle style) {
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Text(
+      text,
+      style: style,
+    ),
+  );
+}
+
+Widget _buildProgressChart(BuildContext context, LinearGradient gradient) {
   return CircularPercentIndicator(
       radius: MediaQuery.of(context).size.width * 0.24,
       lineWidth: 7.0,

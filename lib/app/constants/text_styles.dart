@@ -138,3 +138,21 @@ var bioPercentage = GoogleFonts.sourceSansPro(
       fontSize: 16.0,
       color: Colors.white,
     ));
+
+var bioNamePhis = GoogleFonts.sourceSansPro(
+    textStyle: TextStyle(
+      fontSize: 16.0,
+      color: bioPhysicalCircleStart,
+    ));
+
+var bioNameEmotion = GoogleFonts.sourceSansPro(
+    textStyle: TextStyle(
+      fontSize: 16.0,
+      color: bioEmotionCircleEnd,
+    ));
+
+var bioNameIntel = GoogleFonts.sourceSansPro(
+    textStyle: TextStyle(
+      fontSize: 16.0,
+      color: intellectEmotionCircleStart,
+    ));
