@@ -16,12 +16,18 @@ class CompatInternalPage extends StatefulWidget {
   final List<int> yourMatrix;
   final List<int> partnerMatrix;
   final List<MatrixLineData> matrixDescription;
+  final List<MatrixLineData> lifePathDescription;
+  final int yourLifePath;
+  final int partnersLifePath;
 
   const CompatInternalPage({
     Key key,
     this.yourMatrix,
     this.partnerMatrix,
     this.matrixDescription,
+    this.lifePathDescription,
+    this.yourLifePath,
+    this.partnersLifePath,
   }) : super(key: key);
 
   @override
@@ -143,8 +149,11 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
     }
     return [
       _buildTopNav(),
-      _buildNumberIcon(context, '7', _language.yourLifePathNum),
-      _buildNumberIcon(context, '8', _language.partnerLifePathNum),
+      _buildNumberIcon(
+          context, widget.yourLifePath.toString(), _language.yourLifePathNum),
+      _buildNumberIcon(context, widget.partnersLifePath.toString(),
+          _language.partnerLifePathNum),
+      _buildList(widget.lifePathDescription),
     ];
   }
 
@@ -152,7 +161,7 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
     return [
       _buildTopNav(),
       _buildMatrixContent(),
-      _buildMatrixList(),
+      _buildList(widget.matrixDescription),
     ];
   }
 
@@ -203,14 +212,14 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
     );
   }
 
-  Widget _buildMatrixList() {
+  Widget _buildList(List<MatrixLineData> dataList) {
     return SliverList(
         delegate: SliverChildBuilderDelegate(
       (context, index) {
-        var data = widget.matrixDescription[index];
+        var data = dataList[index];
         return _buildCard(data.header, data.description, data.iconPath);
       },
-      childCount: widget.matrixDescription.length,
+      childCount: dataList.length,
     ));
   }
 

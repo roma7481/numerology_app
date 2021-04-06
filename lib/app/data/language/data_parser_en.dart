@@ -56,6 +56,32 @@ class DataParserEn extends DataParser {
       var partnerMatrix =
           CategoryCalc.instance.calcMatrixByDob(profile.partnerDob);
 
+      var yourLifePath =
+          CategoryCalc.instance.calcLifePathNumberMethod(profile.dob);
+      var partnerLifePath =
+          CategoryCalc.instance.calcLifePathNumberMethod(profile.partnerDob);
+
+      var lifePathCompat = '';
+      if (yourLifePath < partnerLifePath) {
+        lifePathCompat = await getEntityRawQuery(
+            'select description from "LIFE_PATH_NUMBER_COMPAT_ENG" where number1 = $yourLifePath and number2 = $partnerLifePath');
+      } else {
+        lifePathCompat = await getEntityRawQuery(
+            'select description from "LIFE_PATH_NUMBER_COMPAT_ENG" where number2 = $yourLifePath and number1 = $partnerLifePath');
+      }
+
+      var lifePathInfo = await getEntityRawQuery(
+          'select description from "TABLE_DESCRIPTION" where table_name = "LIFE_PATH_NUMBER_COMPAT_ENG"');
+
+      var lifePathDescription = MatrixLineData(
+          description: lifePathCompat,
+          header: Globals.instance.language.lifePathCompat,
+          iconPath: directions);
+      var lifePathInfoDescription = MatrixLineData(
+          description: lifePathInfo,
+          header: Globals.instance.language.info,
+          iconPath: info);
+
       var matrixCompat =
           CategoryCalc.instance.calcMatrixCompat(yourMatrix, partnerMatrix);
       var table = 'PSYCHOMATRIX_COMPAT_ENG';
@@ -139,6 +165,8 @@ class DataParserEn extends DataParser {
       descriptionPage = CompatInternalPage(
         yourMatrix: yourMatrix,
         partnerMatrix: partnerMatrix,
+        yourLifePath: yourLifePath,
+        partnersLifePath: partnerLifePath,
         matrixDescription: [
           data1,
           data2,
@@ -149,6 +177,10 @@ class DataParserEn extends DataParser {
           data7,
           data8,
           matrixInfo,
+        ],
+        lifePathDescription: [
+          lifePathDescription,
+          lifePathInfoDescription,
         ],
       );
     }
