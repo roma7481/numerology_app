@@ -77,20 +77,71 @@ class DataParserEn extends DataParser {
       var description8 = await getEntityRawQuery(
           'select description from $table where category =  "SPIRITUALITY" and strength =  "${matrixCompat[7]}"');
 
-      Map<String, String> descriptions = {
-        'PURPOSE': description1,
-        'FAMILY': description2,
-        'STABILITY': description3,
-        'ESTEEM': description4,
-        'FINANCE': description5,
-        'TALENTS': description6,
-        'TEMPERAMENT': description7,
-        'SPIRITUALITY': description8,
-      };
+      var matrixTable = 'PSYCHOMATRIX_LINES_ENG';
+
+      var info1 = await getEntityRawQuery(
+          'select description from TABLE_DESCRIPTION where table_name = "$matrixTable" and category = "purpose"');
+      var info2 = await getEntityRawQuery(
+          'select description from TABLE_DESCRIPTION where table_name = "$matrixTable" and category = "family"');
+      var info3 = await getEntityRawQuery(
+          'select description from TABLE_DESCRIPTION where table_name = "$matrixTable" and category = "stability"');
+      var info4 = await getEntityRawQuery(
+          'select description from TABLE_DESCRIPTION where table_name = "$matrixTable" and category = "esteem"');
+      var info5 = await getEntityRawQuery(
+          'select description from TABLE_DESCRIPTION where table_name = "$matrixTable" and category = "finance"');
+      var info6 = await getEntityRawQuery(
+          'select description from TABLE_DESCRIPTION where table_name = "$matrixTable" and category = "talents"');
+      var info7 = await getEntityRawQuery(
+          'select description from TABLE_DESCRIPTION where table_name = "$matrixTable" and category = "temperament"');
+      var info8 = await getEntityRawQuery(
+          'select description from TABLE_DESCRIPTION where table_name = "$matrixTable" and category = "spirituality"');
+
+      var data1 = MatrixLineData(
+          description: description1 + "\n\n" + info1,
+          header: 'Purpose',
+          iconPath: matrix1);
+      var data2 = MatrixLineData(
+          description: description2 + "\n\n" + info2,
+          header: 'Family',
+          iconPath: matrix2);
+      var data3 = MatrixLineData(
+          description: description3 + "\n\n" + info3,
+          header: 'Stability',
+          iconPath: matrix3);
+      var data4 = MatrixLineData(
+          description: description4 + "\n\n" + info4,
+          header: 'Esteem',
+          iconPath: matrix4);
+      var data5 = MatrixLineData(
+          description: description5 + "\n\n" + info5,
+          header: 'Finance',
+          iconPath: matrix5);
+      var data6 = MatrixLineData(
+          description: description6 + "\n\n" + info6,
+          header: 'Talents',
+          iconPath: matrix6);
+      var data7 = MatrixLineData(
+          description: description7 + "\n\n" + info7,
+          header: 'Temperament',
+          iconPath: matrix7);
+      var data8 = MatrixLineData(
+          description: description8 + "\n\n" + info8,
+          header: 'Spirituality',
+          iconPath: matrix8);
 
       descriptionPage = CompatInternalPage(
         yourMatrix: yourMatrix,
         partnerMatrix: partnerMatrix,
+        matrixDescription: [
+          data1,
+          data2,
+          data3,
+          data4,
+          data5,
+          data6,
+          data7,
+          data8,
+        ],
       );
     }
 

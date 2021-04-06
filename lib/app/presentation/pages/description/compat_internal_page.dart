@@ -1,18 +1,27 @@
+import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/icon_path.dart';
 import 'package:numerology/app/constants/text_styles.dart';
+import 'package:numerology/app/presentation/common_widgets/castom_category_card.dart';
+import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
 
+import 'matrix_line_data.dart';
 import 'matrix_utils.dart';
 
 class CompatInternalPage extends StatefulWidget {
   final List<int> yourMatrix;
   final List<int> partnerMatrix;
+  final List<MatrixLineData> matrixDescription;
 
-  const CompatInternalPage({Key key, this.yourMatrix, this.partnerMatrix})
-      : super(key: key);
+  const CompatInternalPage({
+    Key key,
+    this.yourMatrix,
+    this.partnerMatrix,
+    this.matrixDescription,
+  }) : super(key: key);
 
   @override
   _CompatInternalPageState createState() => _CompatInternalPageState();
@@ -42,10 +51,7 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
       color: backgroundColor,
       height: double.infinity,
       child: CustomScrollView(
-        slivers: [
-          _buildTopNav(),
-          _buildPageDescription(),
-        ],
+        slivers: _buildPageDescription(),
       ),
     );
   }
@@ -126,13 +132,19 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
     );
   }
 
-  Widget _buildPageDescription() {
+  List<Widget> _buildPageDescription() {
     if (_selectedIndex == 0) {
-      return _buildMatrixContent();
+      return [
+        _buildTopNav(),
+        _buildMatrixContent(),
+        _buildMatrixList(),
+      ];
     } else if (_selectedIndex == 1) {
-      return SliverToBoxAdapter(child: Container());
+      return [_buildTopNav()];
     }
-    return _buildLifePathContent();
+    return [
+      _buildTopNav(),
+    ];
   }
 
   Widget _buildMatrixContent() {
@@ -152,7 +164,69 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
     );
   }
 
-  Widget _buildLifePathContent() {
-    return SliverToBoxAdapter(child: Container());
+
+  Widget _buildMatrixList() {
+    return SliverList(
+        delegate: SliverChildBuilderDelegate(
+      (context, index) {
+        var data = widget.matrixDescription[index];
+        return _buildCard(data.header, data.description, data.iconPath);
+      },
+      childCount: widget.matrixDescription.length,
+    ));
+  }
+
+  Widget _buildCard(String header, String content, String iconPath) {
+    if (content.length > 1000) {
+      return CustomCard(
+          child: ExpandablePanel(
+        theme: ExpandableThemeData(iconColor: arrowColor),
+        header: _buildHeader(header, iconPath),
+        collapsed: _buildCardContent(content: content, isFolded: true),
+        expanded: _buildCardContent(
+          content: content,
+        ),
+      ));
+    } else {
+      return CustomCard(
+          child: CustomCategoryCard(
+        header: header,
+        content: content,
+        iconPath: iconPath,
+      ));
+    }
+  }
+
+  Widget _buildHeader(String header, String iconPath) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.only(
+          top: 16.0,
+          left: 24.0,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SvgPicture.asset(iconPath, height: 20.0),
+            Text(
+              header,
+              style: descriptionHeaderStyle,
+            ),
+            Opacity(
+                opacity: 0.0, child: SvgPicture.asset(iconPath, height: 20.0)),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCardContent({String content, bool isFolded = false}) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Text(content,
+          maxLines: isFolded ? 4 : 2000,
+          style: descriptionContentStyle,
+          overflow: isFolded ? TextOverflow.ellipsis : TextOverflow.visible),
+    );
   }
 }
