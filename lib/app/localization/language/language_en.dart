@@ -120,8 +120,8 @@ class LanguageEn extends Languages {
   String get yourMatrix => 'Your Psychomatrix';
 
   @override
-  String get partnerLifePathNum => 'Your life path number';
+  String get yourLifePathNum => 'Your life path number';
 
   @override
-  String get yourLifePathNum => 'Partner\'s life path number';
+  String get partnerLifePathNum => 'Partner\'s life path number';
 }
