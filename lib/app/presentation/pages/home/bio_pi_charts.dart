@@ -4,7 +4,7 @@ import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
-Widget buildBioCategory(BuildContext context, List<double> bio) {
+Widget buildBioPiCharts(BuildContext context, List<double> bio) {
   var _language = Globals.instance.language;
   var bioPhis = bio[0];
   var bioEmotion = bio[1];

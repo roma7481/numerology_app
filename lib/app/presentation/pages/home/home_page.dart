@@ -8,8 +8,9 @@ import 'package:numerology/app/presentation/common_widgets/error_dialog.dart';
 import 'package:numerology/app/presentation/common_widgets/progress_bar.dart';
 import 'package:numerology/app/presentation/pages/home/custom_raised_button.dart';
 import 'package:numerology/app/presentation/pages/navigator/navigator.dart';
+import 'package:numerology/app/presentation/navigators/navigator.dart';
 
-import 'bio_category.dart';
+import 'bio_pi_charts.dart';
 import 'category_tile.dart';
 import 'day_category.dart';
 
@@ -65,11 +66,11 @@ class HomePage extends StatelessWidget {
   Widget _buildBioCategory(BuildContext context, List<double> bio) {
     return SliverToBoxAdapter(
       child: CustomButton(
-        child: buildBioCategory(
+        child: buildBioPiCharts(
           context,
           bio,
         ),
-        onPressed: () {},
+        onPressed: () => navigateToBioGraphsPage(context),
       ),
     );
   }

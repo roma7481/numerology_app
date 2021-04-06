@@ -13,9 +13,13 @@ class CategoryCalc {
   static final instance = CategoryCalc._();
 
   List<double> calcBio(Profile profile) {
+    return calcBioByDate(profile.dob);
+  }
+
+  List<double> calcBioByDate(int dob) {
     var rhythms = [0.0, 0.0, 0.0];
 
-    var days = _calcDaysAfterBorn(profile.dob);
+    var days = _calcDaysAfterBorn(dob);
     rhythms[0] = sin(2.0 * pi * days / 23.0) * 100.0;
     rhythms[1] = sin(2.0 * pi * days / 28.0) * 100.0;
     rhythms[2] = sin(2.0 * pi * days / 33.0) * 100.0;
