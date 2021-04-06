@@ -124,3 +124,9 @@ var calcNumberCompat = GoogleFonts.arefRuqaa(
     fontWeight: FontWeight.bold,
   ),
 );
+
+var lifePathCompat = GoogleFonts.sourceSansPro(
+    textStyle: TextStyle(
+  fontSize: 16.0,
+  color: pickerHeaderColor,
+));

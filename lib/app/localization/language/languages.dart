@@ -74,4 +74,8 @@ abstract class Languages {
   String get yourMatrix;
 
   String get partnerMatrix;
+
+  String get yourLifePathNum;
+
+  String get partnerLifePathNum;
 }

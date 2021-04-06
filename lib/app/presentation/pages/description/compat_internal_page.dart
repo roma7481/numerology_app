@@ -143,8 +143,8 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
     }
     return [
       _buildTopNav(),
-      _buildNumberIcon(context, '7'),
-      _buildNumberIcon(context, '8'),
+      _buildNumberIcon(context, '7', _language.yourLifePathNum),
+      _buildNumberIcon(context, '8', _language.partnerLifePathNum),
     ];
   }
 
@@ -173,14 +173,32 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
     );
   }
 
-  Widget _buildNumberIcon(BuildContext context, String calculation) {
+  Widget _buildNumberIcon(
+      BuildContext context, String calculation, String text) {
+    var width = MediaQuery.of(context).size.width;
     return SliverToBoxAdapter(
-      child: Container(
-        width: 200,
-        height: 80,
-        child: CustomPaint(
-          painter: CompatCircle(context, calculation),
-        ),
+      child: Stack(
+        children: [
+          Container(
+            width: 200,
+            height: 80,
+            child: CustomPaint(
+              painter: CompatCircle(context, calculation),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 30.0, left: width * 0.35),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  text,
+                  style: lifePathCompat,
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

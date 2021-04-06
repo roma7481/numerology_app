@@ -111,4 +111,10 @@ class LanguageRu extends Languages {
 
   @override
   String get yourMatrix => 'yourMatrix RU';
+
+  @override
+  String get partnerLifePathNum => 'partnerLifePathNum RU';
+
+  @override
+  String get yourLifePathNum => 'partnerLifePathNum RU';
 }

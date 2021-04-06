@@ -111,4 +111,10 @@ class LanguageEs extends Languages {
 
   @override
   String get yourMatrix => 'yourMatrix ES';
+
+  @override
+  String get partnerLifePathNum => 'partnerLifePathNum ES';
+
+  @override
+  String get yourLifePathNum => 'yourLifePathNum ES';
 }

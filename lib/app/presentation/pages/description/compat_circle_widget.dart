@@ -14,7 +14,7 @@ class CompatCircle extends CustomPainter {
 
     var paint = Paint()
       ..color = circleColor
-      ..strokeWidth = 4.0
+      ..strokeWidth = 3.0
       ..style = PaintingStyle.stroke;
     var radius = 30.0;
     var center = Offset((width) * 0.2, 40);
@@ -30,7 +30,7 @@ class CompatCircle extends CustomPainter {
       ..layout(maxWidth: size.width - 12.0 - 12.0);
     textPainter.paint(
         canvas,
-        Offset((size.width - textPainter.width) * 0.19,
+        Offset((size.width - textPainter.width) * 0.39,
             40 - textPainter.height * 0.6));
   }
 
