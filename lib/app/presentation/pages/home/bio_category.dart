@@ -5,6 +5,8 @@ import 'package:numerology/app/constants/text_styles.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 Widget buildBioCategory(BuildContext context) {
+  var _language = Globals.instance.language;
+
   return Container(
     height: 200,
     child: Column(
@@ -15,9 +17,9 @@ Widget buildBioCategory(BuildContext context) {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _buildBio(context, physicalGradient, 'text', bioNamePhis),
-              _buildBio(context, emotionalGradient, 'text', bioNameEmotion),
-              _buildBio(context, intellectGradient, 'text', bioNameIntel),
+              _buildBio(context, physicalGradient, _language.physicalBio, bioNamePhis),
+              _buildBio(context, emotionalGradient, _language.emotionalBio, bioNameEmotion),
+              _buildBio(context, intellectGradient, _language.intellectBio, bioNameIntel),
             ],
           ),
         ),

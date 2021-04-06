@@ -127,4 +127,13 @@ class LanguageEn extends Languages {
 
   @override
   String get dailyBio => 'Daily Biorhythms';
+
+  @override
+  String get emotionalBio => 'Emotional';
+
+  @override
+  String get intellectBio => 'Intellectual';
+
+  @override
+  String get physicalBio => 'Physical';
 }

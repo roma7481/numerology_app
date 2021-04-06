@@ -120,4 +120,13 @@ class LanguageRu extends Languages {
 
   @override
   String get dailyBio => 'dailyBio RU';
+
+  @override
+  String get emotionalBio => 'emotionalBio RU';
+
+  @override
+  String get intellectBio => 'intellectBio RU';
+
+  @override
+  String get physicalBio => 'physicalBio RU';
 }

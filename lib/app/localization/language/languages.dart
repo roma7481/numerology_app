@@ -80,4 +80,10 @@ abstract class Languages {
   String get partnerLifePathNum;
 
   String get dailyBio;
+
+  String get physicalBio;
+
+  String get emotionalBio;
+
+  String get intellectBio;
 }
