@@ -46,7 +46,7 @@ class HomePage extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: CustomScrollView(
           slivers: [
-            _buildBioCategory(context),
+            _buildBioCategory(context, userDataState.bio),
             _buildDailyCategory(context, userDataState.dayCategory),
             SliverGrid(
               delegate: _buildList(userDataState.categories),
@@ -62,11 +62,12 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildBioCategory(BuildContext context) {
+  Widget _buildBioCategory(BuildContext context, List<double> bio) {
     return SliverToBoxAdapter(
       child: CustomButton(
         child: buildBioCategory(
           context,
+          bio,
         ),
         onPressed: () {},
       ),

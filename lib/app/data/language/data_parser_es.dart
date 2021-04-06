@@ -75,4 +75,9 @@ class DataParserEs extends DataParser {
           description: cards,
         ));
   }
+
+  @override
+  List<double> getPersonalBio(Profile profile) {
+    return CategoryCalc.instance.calcBio(profile);
+  }
 }

@@ -4,8 +4,11 @@ import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
-Widget buildBioCategory(BuildContext context) {
+Widget buildBioCategory(BuildContext context, List<double> bio) {
   var _language = Globals.instance.language;
+  var bioPhis = bio[0];
+  var bioEmotion = bio[1];
+  var bioIntel = bio[2];
 
   return Container(
     height: 200,
@@ -17,9 +20,12 @@ Widget buildBioCategory(BuildContext context) {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _buildBio(context, physicalGradient, _language.physicalBio, bioNamePhis),
-              _buildBio(context, emotionalGradient, _language.emotionalBio, bioNameEmotion),
-              _buildBio(context, intellectGradient, _language.intellectBio, bioNameIntel),
+              _buildBio(context, physicalGradient, _language.physicalBio,
+                  bioNamePhis, bioPhis),
+              _buildBio(context, emotionalGradient, _language.emotionalBio,
+                  bioNameEmotion, bioEmotion),
+              _buildBio(context, intellectGradient, _language.intellectBio,
+                  bioNameIntel, bioIntel),
             ],
           ),
         ),
@@ -28,10 +34,11 @@ Widget buildBioCategory(BuildContext context) {
   );
 }
 
-Column _buildBio(BuildContext context, LinearGradient gradient, String text, TextStyle style) {
+Column _buildBio(BuildContext context, LinearGradient gradient, String text,
+    TextStyle style, double value) {
   return Column(
     children: [
-      _buildProgressChart(context, gradient),
+      _buildProgressChart(context, gradient, value),
       _buildProgressName(text, style),
     ],
   );
@@ -47,16 +54,18 @@ Widget _buildProgressName(String text, TextStyle style) {
   );
 }
 
-Widget _buildProgressChart(BuildContext context, LinearGradient gradient) {
+Widget _buildProgressChart(
+    BuildContext context, LinearGradient gradient, double value) {
+  var percent = value.toStringAsFixed(0);
   return CircularPercentIndicator(
       radius: MediaQuery.of(context).size.width * 0.24,
       lineWidth: 7.0,
-      reverse: false,
-      percent: 0.8,
+      reverse: value.isNegative,
+      percent: double.parse((value.abs() * 0.01).toStringAsFixed(1)),
       animation: true,
       animationDuration: 2200,
       center: new Text(
-        "100%",
+        percent.toString() + '%',
         style: bioPercentage,
       ),
       circularStrokeCap: CircularStrokeCap.round,

@@ -38,10 +38,13 @@ class UserDataCubit extends Cubit<UserDataState> {
       var dataParser = Globals.instance.getDataParser();
       var categories = await dataParser.getCategories(profile);
 
-      emit(UserDataReady(
-          profile: profile,
-          categories: categories,
-          dayCategory: await dataParser.getPersonalDay(profile)));
+      emit(
+        UserDataReady(
+            profile: profile,
+            categories: categories,
+            dayCategory: await dataParser.getPersonalDay(profile),
+            bio: dataParser.getPersonalBio(profile)),
+      );
     } catch (e) {
       emitPrimaryUserError(e);
     }

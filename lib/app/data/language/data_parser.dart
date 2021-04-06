@@ -8,4 +8,6 @@ abstract class DataParser {
   Future<List<CategoryModel>> getCategories(Profile profile);
 
   Future<CategoryModel> getPersonalDay(Profile profile);
+
+  List<double> getPersonalBio(Profile profile);
 }

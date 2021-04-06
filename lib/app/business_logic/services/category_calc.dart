@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/data/models/profile.dart';
 import 'package:numerology/app/localization/language/language_ru.dart';
@@ -9,6 +11,29 @@ class CategoryCalc {
   CategoryCalc._();
 
   static final instance = CategoryCalc._();
+
+  List<double> calcBio(Profile profile) {
+    var rhythms = [0.0, 0.0, 0.0];
+
+    var days = _calcDaysAfterBorn(profile.dob);
+    rhythms[0] = sin(2.0 * pi * days / 23.0) * 100.0;
+    rhythms[1] = sin(2.0 * pi * days / 28.0) * 100.0;
+    rhythms[2] = sin(2.0 * pi * days / 33.0) * 100.0;
+
+    for (int i = 0; i < rhythms.length; i++) {
+      if (rhythms[i] < 0 && rhythms[i] > -0.1) {
+        rhythms[i] = 0;
+      }
+    }
+
+    return rhythms;
+  }
+
+  int _calcDaysAfterBorn(int dob) {
+    var date1 = DateService.fromTimestamp(dob);
+    var date2 = DateTime.now();
+    return date2.difference(date1).abs().inDays;
+  }
 
   List<String> calcMatrixCompat(List<int> yourMatrix, List<int> partnerMatrix) {
     List<String> categories = ['', '', '', '', '', '', '', '', ''];

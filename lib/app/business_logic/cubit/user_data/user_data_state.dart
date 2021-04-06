@@ -8,8 +8,10 @@ class UserDataReady extends UserDataState {
   final Profile profile;
   final List<CategoryModel> categories;
   final CategoryModel dayCategory;
+  final List<double> bio;
 
   UserDataReady({
+    @required this.bio,
     @required this.dayCategory,
     @required this.profile,
     @required this.categories,

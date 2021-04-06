@@ -571,6 +571,11 @@ class DataParserEn extends DataParser {
     );
   }
 
+  @override
+  List<double> getPersonalBio(Profile profile) {
+    return CategoryCalc.instance.calcBio(profile);
+  }
+
   Future<CategoryModel> _getChallengeNumber(Profile profile) async {
     var calculation1 =
         CategoryCalc.instance.calcChallengeNum1(profile).toString();
