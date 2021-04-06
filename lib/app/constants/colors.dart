@@ -34,3 +34,8 @@ const Color arrowColor = Color.fromRGBO(252, 186, 3, 1);
 /// MATRIX TILE ///
 const Color unselectedTileColor = Color.fromRGBO(0, 63, 115, 1);
 const Color selectedTileColor = Color.fromRGBO(40, 77, 181, 1);
+
+/// BIO ///
+
+const Color bioCircleBg = Color.fromRGBO(74, 87, 145, 1);
+const Color bioPhysicalCircle = Color.fromRGBO(0, 171, 106, 1);
