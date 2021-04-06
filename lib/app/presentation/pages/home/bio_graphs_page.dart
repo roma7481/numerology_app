@@ -26,7 +26,6 @@ class BioGraphsPage extends StatelessWidget {
       child: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
-            // child: LineChartSample(),
             child: LineChartSample(),
           )
         ],
