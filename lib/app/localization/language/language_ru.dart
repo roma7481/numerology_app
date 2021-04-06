@@ -117,4 +117,7 @@ class LanguageRu extends Languages {
 
   @override
   String get yourLifePathNum => 'partnerLifePathNum RU';
+
+  @override
+  String get dailyBio => 'dailyBio RU';
 }

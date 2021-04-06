@@ -117,4 +117,7 @@ class LanguageEs extends Languages {
 
   @override
   String get yourLifePathNum => 'yourLifePathNum ES';
+
+  @override
+  String get dailyBio => 'dailyBio ES';
 }

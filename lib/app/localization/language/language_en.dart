@@ -124,4 +124,7 @@ class LanguageEn extends Languages {
 
   @override
   String get partnerLifePathNum => 'Partner\'s life path number';
+
+  @override
+  String get dailyBio => 'Daily Biorhythms';
 }
