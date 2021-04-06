@@ -114,3 +114,13 @@ var matrixNotice = GoogleFonts.sourceSansPro(
   fontSize: 16.0,
   color: pickerHeaderColor,
 ));
+
+/// COMPAT PAGE ///
+
+var calcNumberCompat = GoogleFonts.arefRuqaa(
+  textStyle: TextStyle(
+    fontSize: 30.0,
+    color: Colors.white,
+    fontWeight: FontWeight.bold,
+  ),
+);

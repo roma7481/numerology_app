@@ -8,6 +8,7 @@ import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/presentation/common_widgets/castom_category_card.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
 
+import 'compat_circle_widget.dart';
 import 'matrix_line_data.dart';
 import 'matrix_utils.dart';
 
@@ -134,16 +135,24 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
 
   List<Widget> _buildPageDescription() {
     if (_selectedIndex == 0) {
+      return _buildMatrix();
+    } else if (_selectedIndex == 1) {
       return [
         _buildTopNav(),
-        _buildMatrixContent(),
-        _buildMatrixList(),
       ];
-    } else if (_selectedIndex == 1) {
-      return [_buildTopNav()];
     }
     return [
       _buildTopNav(),
+      _buildNumberIcon(context, '7'),
+      _buildNumberIcon(context, '8'),
+    ];
+  }
+
+  List<Widget> _buildMatrix() {
+    return [
+      _buildTopNav(),
+      _buildMatrixContent(),
+      _buildMatrixList(),
     ];
   }
 
@@ -164,6 +173,17 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
     );
   }
 
+  Widget _buildNumberIcon(BuildContext context, String calculation) {
+    return SliverToBoxAdapter(
+      child: Container(
+        width: 200,
+        height: 80,
+        child: CustomPaint(
+          painter: CompatCircle(context, calculation),
+        ),
+      ),
+    );
+  }
 
   Widget _buildMatrixList() {
     return SliverList(
