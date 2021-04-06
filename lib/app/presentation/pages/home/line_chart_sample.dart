@@ -10,6 +10,16 @@ class LineChartSample extends StatefulWidget {
 }
 
 class _LineChartSampleState extends State<LineChartSample> {
+  double minX;
+  double maxX;
+
+  @override
+  void initState() {
+    super.initState();
+    minX = 0;
+    maxX = 12;
+  }
+
   List<Color> gradientColors = [
     const Color(0xff23b6e6),
     const Color(0xff02d39a),
@@ -30,9 +40,32 @@ class _LineChartSampleState extends State<LineChartSample> {
                   ),
                   color: tileColor),
               child: Padding(
-                padding: const EdgeInsets.only(right: 18.0, left: 12.0, top: 24, bottom: 12),
-                child: LineChart(
-                  mainData(),
+                padding: const EdgeInsets.only(
+                    right: 18.0, left: 12.0, top: 24, bottom: 12),
+                child: Listener(
+                  // child: LineChart(
+                  //   mainData(),
+                  // ),
+                  child: GestureDetector(
+                    onHorizontalDragUpdate: (dragUpdDet) {
+                      setState(() {
+                        print(dragUpdDet.primaryDelta);
+                        double primDelta = dragUpdDet.primaryDelta ?? 0.0;
+                        if (primDelta != 0) {
+                          if (primDelta.isNegative) {
+                            minX += maxX * 0.008;
+                            maxX += maxX * 0.008;
+                          } else {
+                            minX -= maxX * 0.008;
+                            maxX -= maxX * 0.008;
+                          }
+                        }
+                      });
+                    },
+                    child: LineChart(
+                      mainData(),
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -43,8 +76,9 @@ class _LineChartSampleState extends State<LineChartSample> {
   }
 
   LineChartData mainData() {
-
-    final spots = List.generate(45, (i) => (i) / 4).map((x) => FlSpot(x, sin(2.0 * pi * x / 23.0) * 100.0)).toList();
+    final spots = List.generate(365, (i) => (i) / 4)
+        .map((x) => FlSpot(x, sin(2.0 * pi * x / 23.0) * 100.0))
+        .toList();
 
     return LineChartData(
       gridData: FlGridData(
@@ -58,8 +92,10 @@ class _LineChartSampleState extends State<LineChartSample> {
         bottomTitles: SideTitles(
           showTitles: true,
           reservedSize: 22,
-          getTextStyles: (value) =>
-          const TextStyle(color: Color(0xff68737d), fontWeight: FontWeight.bold, fontSize: 16),
+          getTextStyles: (value) => const TextStyle(
+              color: Color(0xff68737d),
+              fontWeight: FontWeight.bold,
+              fontSize: 16),
           getTitles: (value) {
             switch (value.toInt()) {
               case 2:
@@ -103,10 +139,11 @@ class _LineChartSampleState extends State<LineChartSample> {
           margin: 12,
         ),
       ),
-      borderData:
-      FlBorderData(show: true, border: Border.all(color: const Color(0xff37434d), width: 1)),
-      minX: 0,
-      maxX: 11,
+      borderData: FlBorderData(
+          show: true,
+          border: Border.all(color: const Color(0xff37434d), width: 1)),
+      minX: minX,
+      maxX: maxX,
       minY: -120,
       maxY: 120,
       lineBarsData: [
@@ -121,7 +158,8 @@ class _LineChartSampleState extends State<LineChartSample> {
           ),
           belowBarData: BarAreaData(
             show: true,
-            colors: gradientColors.map((color) => color.withOpacity(0.3)).toList(),
+            colors:
+                gradientColors.map((color) => color.withOpacity(0.3)).toList(),
           ),
         ),
       ],

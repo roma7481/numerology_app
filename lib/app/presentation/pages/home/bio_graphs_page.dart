@@ -16,7 +16,7 @@ class BioGraphsPage extends StatelessWidget {
   Widget _buildPageContent(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          body: _buildContent(context),
+      body: _buildContent(context),
     ));
   }
 
@@ -26,6 +26,7 @@ class BioGraphsPage extends StatelessWidget {
       child: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
+            // child: LineChartSample(),
             child: LineChartSample(),
           )
         ],
