@@ -96,6 +96,9 @@ class DataParserEn extends DataParser {
       var info8 = await getEntityRawQuery(
           'select description from TABLE_DESCRIPTION where table_name = "$matrixTable" and category = "spirituality"');
 
+      var matrInfo = await getEntityRawQuery(
+          'select description from TABLE_DESCRIPTION where table_name = "PSYCHOMATRIX_ENG" and category = "info"');
+
       var data1 = MatrixLineData(
           description: description1 + "\n\n" + info1,
           header: 'Purpose',
@@ -128,6 +131,10 @@ class DataParserEn extends DataParser {
           description: description8 + "\n\n" + info8,
           header: 'Spirituality',
           iconPath: matrix8);
+      var matrixInfo = MatrixLineData(
+          description: matrInfo,
+          header: Globals.instance.language.info,
+          iconPath: info);
 
       descriptionPage = CompatInternalPage(
         yourMatrix: yourMatrix,
@@ -141,6 +148,7 @@ class DataParserEn extends DataParser {
           data6,
           data7,
           data8,
+          matrixInfo,
         ],
       );
     }

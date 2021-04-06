@@ -45,3 +45,4 @@ const matrix8 = 'assets/matrix/grid8.svg';
 const bioComp = 'assets/compatibility/bio_comp.svg';
 const lifePathComp = 'assets/compatibility/lifepath_comp.svg';
 const matrixComp = 'assets/compatibility/matrix_comp.svg';
+const info = 'assets/compatibility/info.svg';
