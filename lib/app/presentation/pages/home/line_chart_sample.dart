@@ -152,27 +152,25 @@ class _LineChartSampleState extends State<LineChartSample> {
       minY: -120,
       maxY: 120,
       lineBarsData: [
-        _buildCurve(spotsPhys),
-        _buildCurve(spotsEmotion),
-        _buildCurve(spotsIntel),
+        _buildCurve(spotsPhys, physicalColors),
+        _buildCurve(spotsEmotion, emotionColors),
+        _buildCurve(spotsIntel, intelColors),
       ],
     );
   }
 
-  LineChartBarData _buildCurve(List<FlSpot> spots) {
+  LineChartBarData _buildCurve(List<FlSpot> spots, List<Color> gradient) {
     return LineChartBarData(
         spots: spots,
         isCurved: true,
-        colors: gradientColors,
+        colors: gradient,
         barWidth: 5,
         isStrokeCapRound: true,
         dotData: FlDotData(
           show: false,
         ),
         belowBarData: BarAreaData(
-          show: true,
-          colors:
-              gradientColors.map((color) => color.withOpacity(0.3)).toList(),
+          show: false,
         ),
       );
   }

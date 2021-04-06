@@ -48,17 +48,23 @@ const Color bioEmotionCircleEnd = Color.fromRGBO(243, 190, 0, 1);
 const Color intellectEmotionCircleStart = Color.fromRGBO(148, 99, 235, 1);
 const Color intellectEmotionCircleEnd = Color.fromRGBO(66, 142, 235, 1);
 
-const LinearGradient physicalGradient = LinearGradient(colors: [
+const LinearGradient physicalGradient = LinearGradient(colors: physicalColors);
+
+const LinearGradient emotionalGradient = LinearGradient(colors: emotionColors);
+
+const LinearGradient intellectGradient = LinearGradient(colors: intelColors);
+
+const List<Color> physicalColors = [
   bioPhysicalCircleStart,
   bioPhysicalCircleEnd,
-]);
+];
 
-const LinearGradient emotionalGradient = LinearGradient(colors: [
+const List<Color> emotionColors = [
   bioEmotionCircleStart,
   bioEmotionCircleEnd,
-]);
+];
 
-const LinearGradient intellectGradient = LinearGradient(colors: [
+const List<Color> intelColors = [
   intellectEmotionCircleStart,
   intellectEmotionCircleEnd,
-]);
+];
