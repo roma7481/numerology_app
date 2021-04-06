@@ -130,3 +130,11 @@ var lifePathCompat = GoogleFonts.sourceSansPro(
   fontSize: 16.0,
   color: pickerHeaderColor,
 ));
+
+/// BIO ///
+
+var bioPercentage = GoogleFonts.sourceSansPro(
+    textStyle: TextStyle(
+      fontSize: 16.0,
+      color: Colors.white,
+    ));

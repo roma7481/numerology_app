@@ -38,4 +38,27 @@ const Color selectedTileColor = Color.fromRGBO(40, 77, 181, 1);
 /// BIO ///
 
 const Color bioCircleBg = Color.fromRGBO(74, 87, 145, 1);
-const Color bioPhysicalCircle = Color.fromRGBO(0, 171, 106, 1);
+
+const Color bioPhysicalCircleStart = Color.fromRGBO(66, 142, 235, 1);
+const Color bioPhysicalCircleEnd = Color.fromRGBO(0, 171, 106, 1);
+
+const Color bioEmotionCircleStart = Color.fromRGBO(214, 74, 81, 1);
+const Color bioEmotionCircleEnd = Color.fromRGBO(243, 190, 0, 1);
+
+const Color intellectEmotionCircleStart = Color.fromRGBO(148, 99, 235, 1);
+const Color intellectEmotionCircleEnd = Color.fromRGBO(66, 142, 235, 1);
+
+const LinearGradient physicalGradient = LinearGradient(colors: [
+  bioPhysicalCircleStart,
+  bioPhysicalCircleEnd,
+]);
+
+const LinearGradient emotionalGradient = LinearGradient(colors: [
+  bioEmotionCircleStart,
+  bioEmotionCircleEnd,
+]);
+
+const LinearGradient intellectGradient = LinearGradient(colors: [
+  intellectEmotionCircleStart,
+  intellectEmotionCircleEnd,
+]);
