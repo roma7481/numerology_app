@@ -11,12 +11,12 @@ Widget buildBioCategory(BuildContext context, List<double> bio) {
   var bioIntel = bio[2];
 
   return Container(
-    height: 200,
+    height: 210,
     child: Column(
       children: [
         _buildHeader(Globals.instance.language.dailyBio),
         Padding(
-          padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 24.0),
+          padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 12.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -41,6 +41,17 @@ Column _buildBio(BuildContext context, LinearGradient gradient, String text,
       _buildProgressChart(context, gradient, value),
       _buildProgressName(text, style),
     ],
+  );
+}
+
+Widget _buildImage() {
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: IconTheme(
+      data: new IconThemeData(
+          color: Colors.white),
+      child: new Icon(Icons.chevron_right),
+    ),
   );
 }
 
@@ -80,9 +91,16 @@ Widget _buildHeader(String header) {
       left: 8.0,
       bottom: 8.0,
     ),
-    child: Text(
-      header,
-      style: descriptionHeaderStyle,
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Opacity(opacity: 0.0, child: _buildImage(),),
+        Text(
+          header,
+          style: descriptionHeaderStyle,
+        ),
+        _buildImage(),
+      ],
     ),
   );
 }
