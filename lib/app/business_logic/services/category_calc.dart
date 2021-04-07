@@ -36,7 +36,7 @@ class CategoryCalc {
   int calcDaysAfterBorn(int dob) {
     var date1 = DateService.fromTimestamp(dob);
     var date2 = DateTime.now();
-    return date2.difference(date1).abs().inDays;
+    return date2.difference(date1).abs().inDays - 1;
   }
 
   List<String> calcMatrixCompat(
