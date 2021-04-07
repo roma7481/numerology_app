@@ -79,7 +79,7 @@ class _GraphWidgetState extends State<GraphWidget> {
     var numDaysSinceBorn =
         CategoryCalc.instance.calcDaysAfterBorn(widget.profile.dob);
 
-    return List.generate(365 * 11, (i) => (i) / 10)
+    return List.generate(365 * 11, (i) => (i - 100) / 10)
         .where((element) => element > minX && element < maxX)
         .map((x) => FlSpot(
             x, sin(2.0 * pi * (numDaysSinceBorn + x) / daysInterval) * 100.0))
@@ -157,8 +157,8 @@ class _GraphWidgetState extends State<GraphWidget> {
   }
 
   String _getDateRange(double value) {
-    var numDays = value.toInt() - 1;
-    if (numDays.isOdd && value >= 0) {
+    var numDays = value.floor() - 1;
+    if (numDays.isOdd) {
       var currentDay = DateTime.now();
       var newDate = new DateTime(
           currentDay.year, currentDay.month, currentDay.day + numDays);
