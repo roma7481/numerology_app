@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:numerology/app/business_logic/services/category_calc.dart';
 import 'package:numerology/app/business_logic/services/date_service.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/data/models/profile.dart';
@@ -75,9 +76,13 @@ class _GraphWidgetState extends State<GraphWidget> {
   }
 
   List<FlSpot> _generateSpots(double daysInterval) {
+    var numDaysSinceBorn =
+        CategoryCalc.instance.calcDaysAfterBorn(widget.profile.dob);
+
     return List.generate(365 * 11, (i) => (i) / 10)
         .where((element) => element > minX && element < maxX)
-        .map((x) => FlSpot(x, sin(2.0 * pi * x / daysInterval) * 100.0))
+        .map((x) => FlSpot(
+            x, sin(2.0 * pi * (numDaysSinceBorn + x) / daysInterval) * 100.0))
         .toList();
   }
 

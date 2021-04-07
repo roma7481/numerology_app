@@ -19,7 +19,7 @@ class CategoryCalc {
   List<double> calcBioByDate(int dob) {
     var rhythms = [0.0, 0.0, 0.0];
 
-    var days = _calcDaysAfterBorn(dob);
+    var days = calcDaysAfterBorn(dob);
     rhythms[0] = sin(2.0 * pi * days / 23.0) * 100.0;
     rhythms[1] = sin(2.0 * pi * days / 28.0) * 100.0;
     rhythms[2] = sin(2.0 * pi * days / 33.0) * 100.0;
@@ -33,7 +33,7 @@ class CategoryCalc {
     return rhythms;
   }
 
-  int _calcDaysAfterBorn(int dob) {
+  int calcDaysAfterBorn(int dob) {
     var date1 = DateService.fromTimestamp(dob);
     var date2 = DateTime.now();
     return date2.difference(date1).abs().inDays;
