@@ -2,10 +2,12 @@ import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:numerology/app/business_logic/cubit/bio/bio_cubit.dart';
 import 'package:numerology/app/business_logic/services/category_calc.dart';
 import 'package:numerology/app/business_logic/services/date_service.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/data/models/profile.dart';
+import 'package:provider/provider.dart';
 
 class GraphWidget extends StatefulWidget {
   final Profile profile;
@@ -22,9 +24,6 @@ class _GraphWidgetState extends State<GraphWidget> {
   double maxX;
   final _scrollDelta = 0.4;
   bool _isTapEnabled = true;
-  double _physical = 0.0;
-  double _emotional = 0.0;
-  double _intel = 0.0;
 
   @override
   void initState() {
@@ -40,11 +39,11 @@ class _GraphWidgetState extends State<GraphWidget> {
         AspectRatio(
           aspectRatio: 1.20,
           child: Padding(
-            padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 32),
+            padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 32),
             child: Container(
               decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(
-                    Radius.circular(18),
+                    Radius.circular(16),
                   ),
                   color: tileColor),
               child: Padding(
@@ -93,19 +92,18 @@ class _GraphWidgetState extends State<GraphWidget> {
 
   List<FlSpot> _generateSpots(double daysInterval) {
     var numDaysSinceBorn =
-    CategoryCalc.instance.calcDaysAfterBorn(widget.profile.dob);
+        CategoryCalc.instance.calcDaysAfterBorn(widget.profile.dob);
 
     return List.generate(365 * 11, (i) => (i - 100) / 10)
         .where((element) => element > minX && element < maxX)
-        .map((x) =>
-        FlSpot(
-            x, _calcY(numDaysSinceBorn, x, daysInterval)))
+        .map((x) => FlSpot(x, _calcY(numDaysSinceBorn, x, daysInterval)))
         .toList();
   }
 
   double _calcY(int numDaysSinceBorn, double x, double daysInterval) {
     return double.parse(
-        (sin(2.0 * pi * (numDaysSinceBorn + x) / daysInterval) * 100.0).toStringAsFixed(1));
+        (sin(2.0 * pi * (numDaysSinceBorn + x) / daysInterval) * 100.0)
+            .toStringAsFixed(1));
   }
 
   LineChartData mainData() {
@@ -117,10 +115,11 @@ class _GraphWidgetState extends State<GraphWidget> {
       lineTouchData: LineTouchData(
           enabled: _isTapEnabled,
           touchCallback: (LineTouchResponse touchResponse) {
-            _physical = touchResponse.lineBarSpots[0].y;
-            _emotional = touchResponse.lineBarSpots[1].y;
-            _intel = touchResponse.lineBarSpots[2].y;
-            widget.onTap(_physical,_emotional,_intel);
+            context.read<BioCubit>().emitBioUpdate([
+              touchResponse.lineBarSpots[0].y,
+              touchResponse.lineBarSpots[1].y,
+              touchResponse.lineBarSpots[2].y,
+            ], widget.profile);
           }),
       gridData: FlGridData(
         show: true,
@@ -131,11 +130,10 @@ class _GraphWidgetState extends State<GraphWidget> {
       titlesData: FlTitlesData(
         show: true,
         bottomTitles: SideTitles(
-          rotateAngle: -45.0,
+          rotateAngle: -55.0,
           showTitles: true,
           reservedSize: 22,
-          getTextStyles: (value) =>
-          const TextStyle(
+          getTextStyles: (value) => const TextStyle(
               color: graphDates, fontWeight: FontWeight.bold, fontSize: 12),
           getTitles: (value) {
             return _getDateRange(value);
@@ -144,8 +142,7 @@ class _GraphWidgetState extends State<GraphWidget> {
         ),
         leftTitles: SideTitles(
           showTitles: true,
-          getTextStyles: (value) =>
-          const TextStyle(
+          getTextStyles: (value) => const TextStyle(
             color: graphDates,
             fontSize: 15,
           ),
