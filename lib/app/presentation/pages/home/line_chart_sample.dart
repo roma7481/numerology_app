@@ -74,16 +74,17 @@ class _LineChartSampleState extends State<LineChartSample> {
     );
   }
 
+  List<FlSpot> _generateSpots(double daysInterval){
+    return List.generate(365 * 11, (i) => (i) / 10)
+        .where((element) => element > minX && element < maxX)
+        .map((x) => FlSpot(x, sin(2.0 * pi * x / daysInterval) * 100.0))
+        .toList();
+  }
+
   LineChartData mainData() {
-    final spotsPhys = List.generate(365, (i) => (i) / 1)
-        .map((x) => FlSpot(x, sin(2.0 * pi * x / 23.0) * 100.0))
-        .toList();
-    final spotsEmotion = List.generate(365, (i) => (i) / 1)
-        .map((x) => FlSpot(x, sin(2.0 * pi * x / 28.0) * 100.0))
-        .toList();
-    final spotsIntel = List.generate(365, (i) => (i) / 1)
-        .map((x) => FlSpot(x, sin(2.0 * pi * x / 33.0) * 100.0))
-        .toList();
+    final spotsPhys = _generateSpots(23.0);
+    final spotsEmotion = _generateSpots(28.0);
+    final spotsIntel = _generateSpots(33.0);
 
     return LineChartData(
       lineTouchData: LineTouchData(enabled: false),
