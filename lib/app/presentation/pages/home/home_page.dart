@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:numerology/app/business_logic/cubit/bio/bio_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/language/language_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.dart';
 import 'package:numerology/app/constants/colors.dart';
@@ -26,6 +27,7 @@ class HomePage extends StatelessWidget {
   Widget _buildPageContent(BuildContext context) {
     return BlocBuilder<UserDataCubit, UserDataState>(builder: (context, state) {
       if (state is UserDataReady) {
+        context.read<BioCubit>().emitBioUpdateByProfile(state.profile);
         return SafeArea(
           child: Scaffold(
             body: _buildContent(
