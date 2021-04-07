@@ -89,13 +89,19 @@ class _GraphWidgetState extends State<GraphWidget> {
 
   List<FlSpot> _generateSpots(double daysInterval) {
     var numDaysSinceBorn =
-        CategoryCalc.instance.calcDaysAfterBorn(widget.profile.dob);
+    CategoryCalc.instance.calcDaysAfterBorn(widget.profile.dob);
 
     return List.generate(365 * 11, (i) => (i - 100) / 10)
         .where((element) => element > minX && element < maxX)
-        .map((x) => FlSpot(
-            x, sin(2.0 * pi * (numDaysSinceBorn + x) / daysInterval) * 100.0))
+        .map((x) =>
+        FlSpot(
+            x, _calcY(numDaysSinceBorn, x, daysInterval)))
         .toList();
+  }
+
+  double _calcY(int numDaysSinceBorn, double x, double daysInterval) {
+    return double.parse(
+        (sin(2.0 * pi * (numDaysSinceBorn + x) / daysInterval) * 100.0).toStringAsFixed(1));
   }
 
   LineChartData mainData() {
@@ -104,7 +110,9 @@ class _GraphWidgetState extends State<GraphWidget> {
     final spotsIntel = _generateSpots(33.0);
 
     return LineChartData(
-      lineTouchData: LineTouchData(enabled: _isTapEnabled),
+      lineTouchData: LineTouchData(
+          enabled: _isTapEnabled,
+      ),
       gridData: FlGridData(
         show: true,
         verticalInterval: 1.0,
@@ -117,7 +125,8 @@ class _GraphWidgetState extends State<GraphWidget> {
           rotateAngle: -45.0,
           showTitles: true,
           reservedSize: 22,
-          getTextStyles: (value) => const TextStyle(
+          getTextStyles: (value) =>
+          const TextStyle(
               color: graphDates, fontWeight: FontWeight.bold, fontSize: 12),
           getTitles: (value) {
             return _getDateRange(value);
@@ -126,7 +135,8 @@ class _GraphWidgetState extends State<GraphWidget> {
         ),
         leftTitles: SideTitles(
           showTitles: true,
-          getTextStyles: (value) => const TextStyle(
+          getTextStyles: (value) =>
+          const TextStyle(
             color: graphDates,
             fontSize: 15,
           ),
