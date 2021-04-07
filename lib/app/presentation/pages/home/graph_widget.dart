@@ -158,7 +158,7 @@ class _GraphWidgetState extends State<GraphWidget> {
 
   String _getDateRange(double value) {
     var numDays = value.toInt() - 1;
-    if (numDays.isOdd && value > 0) {
+    if (numDays.isOdd && value >= 0) {
       var currentDay = DateTime.now();
       var newDate = new DateTime(
           currentDay.year, currentDay.month, currentDay.day + numDays);
