@@ -39,21 +39,26 @@ class CategoryCalc {
     return date2.difference(date1).abs().inDays;
   }
 
-  List<String> calcMatrixCompat(List<int> yourMatrix, List<int> partnerMatrix) {
-    List<String> categories = ['', '', '', '', '', '', '', '', ''];
-    for (int i = 0; i < yourMatrix.length; i++) {
-      if (yourMatrix[i] < 3 && partnerMatrix[i] < 3) {
+  List<String> calcMatrixCompat(
+      List<int> yourMatrixLines, List<int> partnerMatrixLines) {
+    List<String> categories = ['', '', '', '', '', '', '', ''];
+    for (int i = 0; i < yourMatrixLines.length; i++) {
+      if (yourMatrixLines[i] < 3 && partnerMatrixLines[i] < 3) {
         categories[i] = "weak";
-      } else if (yourMatrix[i] == 3 && partnerMatrix[i] == 3) {
+      } else if (yourMatrixLines[i] == 3 && partnerMatrixLines[i] == 3) {
         categories[i] = "moderate";
-      } else if (yourMatrix[i] > 3 && partnerMatrix[i] > 3) {
-        if ((yourMatrix[i] - partnerMatrix[i]).abs() >= 2) {
-          categories[i] = (yourMatrix[i] > partnerMatrix[i])
+      } else if (yourMatrixLines[i] > 3 && partnerMatrixLines[i] > 3) {
+        if ((yourMatrixLines[i] - partnerMatrixLines[i]).abs() >= 2) {
+          categories[i] = (yourMatrixLines[i] > partnerMatrixLines[i])
               ? "you_stronger"
               : "partner_stronger";
         } else {
           categories[i] = "strong";
         }
+      } else {
+        categories[i] = (yourMatrixLines[i] > partnerMatrixLines[i])
+            ? "you_stronger"
+            : "partner_stronger";
       }
     }
 
@@ -61,6 +66,10 @@ class CategoryCalc {
   }
 
   List<int> calcMatrixLines(Profile profile) {
+    return calcMatrixLinesByDob(profile.dob);
+  }
+
+  List<int> calcMatrixLinesByDob(int dob) {
     var linesArray = [
       0,
       0,
@@ -71,7 +80,8 @@ class CategoryCalc {
       0,
       0,
     ];
-    var array = calcMatrix(profile);
+
+    var array = calcMatrixByDob(dob);
     linesArray[0] =
         _calcMatrixLine(array: array, index0: 0, index1: 3, index2: 6);
     linesArray[1] =

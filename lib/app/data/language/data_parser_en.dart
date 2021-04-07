@@ -52,7 +52,11 @@ class DataParserEn extends DataParser {
     var categoryName = 'Compatibility';
 
     if (_isPartnerDobSet(profile)) {
+      var yourMatrixLines =
+          CategoryCalc.instance.calcMatrixLinesByDob(profile.dob);
       var yourMatrix = CategoryCalc.instance.calcMatrixByDob(profile.dob);
+      var partnerMatrixLines =
+          CategoryCalc.instance.calcMatrixLinesByDob(profile.partnerDob);
       var partnerMatrix =
           CategoryCalc.instance.calcMatrixByDob(profile.partnerDob);
 
@@ -82,8 +86,8 @@ class DataParserEn extends DataParser {
           header: Globals.instance.language.info,
           iconPath: info);
 
-      var matrixCompat =
-          CategoryCalc.instance.calcMatrixCompat(yourMatrix, partnerMatrix);
+      var matrixCompat = CategoryCalc.instance
+          .calcMatrixCompat(yourMatrixLines, partnerMatrixLines);
       var table = 'PSYCHOMATRIX_COMPAT_ENG';
 
       var description1 = await getEntityRawQuery(
