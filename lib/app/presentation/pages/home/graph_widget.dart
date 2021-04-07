@@ -115,11 +115,16 @@ class _GraphWidgetState extends State<GraphWidget> {
       lineTouchData: LineTouchData(
           enabled: _isTapEnabled,
           touchCallback: (LineTouchResponse touchResponse) {
-            context.read<BioCubit>().emitBioUpdate([
-              touchResponse.lineBarSpots[0].y,
-              touchResponse.lineBarSpots[1].y,
-              touchResponse.lineBarSpots[2].y,
-            ], widget.profile);
+            if (touchResponse.lineBarSpots != null &&
+                touchResponse.lineBarSpots.isNotEmpty) {
+              context.read<BioCubit>().emitBioUpdate(
+                [
+                  touchResponse.lineBarSpots[0].y,
+                  touchResponse.lineBarSpots[1].y,
+                  touchResponse.lineBarSpots[2].y,
+                ],
+              );
+            }
           }),
       gridData: FlGridData(
         show: true,
