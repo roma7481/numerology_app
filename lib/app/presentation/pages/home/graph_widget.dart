@@ -9,8 +9,9 @@ import 'package:numerology/app/data/models/profile.dart';
 
 class GraphWidget extends StatefulWidget {
   final Profile profile;
+  final Function onTap;
 
-  const GraphWidget({Key key, this.profile}) : super(key: key);
+  const GraphWidget({Key key, this.profile, this.onTap}) : super(key: key);
 
   @override
   _GraphWidgetState createState() => _GraphWidgetState();
@@ -21,6 +22,9 @@ class _GraphWidgetState extends State<GraphWidget> {
   double maxX;
   final _scrollDelta = 0.4;
   bool _isTapEnabled = true;
+  double _physical = 0.0;
+  double _emotional = 0.0;
+  double _intel = 0.0;
 
   @override
   void initState() {
@@ -112,7 +116,12 @@ class _GraphWidgetState extends State<GraphWidget> {
     return LineChartData(
       lineTouchData: LineTouchData(
           enabled: _isTapEnabled,
-      ),
+          touchCallback: (LineTouchResponse touchResponse) {
+            _physical = touchResponse.lineBarSpots[0].y;
+            _emotional = touchResponse.lineBarSpots[1].y;
+            _intel = touchResponse.lineBarSpots[2].y;
+            widget.onTap(_physical,_emotional,_intel);
+          }),
       gridData: FlGridData(
         show: true,
         verticalInterval: 1.0,
