@@ -4,13 +4,18 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:numerology/app/business_logic/services/date_service.dart';
 import 'package:numerology/app/constants/colors.dart';
+import 'package:numerology/app/data/models/profile.dart';
 
-class LineChartSample extends StatefulWidget {
+class GraphWidget extends StatefulWidget {
+  final Profile profile;
+
+  const GraphWidget({Key key, this.profile}) : super(key: key);
+
   @override
-  _LineChartSampleState createState() => _LineChartSampleState();
+  _GraphWidgetState createState() => _GraphWidgetState();
 }
 
-class _LineChartSampleState extends State<LineChartSample> {
+class _GraphWidgetState extends State<GraphWidget> {
   double minX;
   double maxX;
   final scrollDelta = 0.01;
@@ -21,11 +26,6 @@ class _LineChartSampleState extends State<LineChartSample> {
     minX = 0;
     maxX = 8;
   }
-
-  List<Color> gradientColors = [
-    const Color(0xff23b6e6),
-    const Color(0xff02d39a),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +74,7 @@ class _LineChartSampleState extends State<LineChartSample> {
     );
   }
 
-  List<FlSpot> _generateSpots(double daysInterval){
+  List<FlSpot> _generateSpots(double daysInterval) {
     return List.generate(365 * 11, (i) => (i) / 10)
         .where((element) => element > minX && element < maxX)
         .map((x) => FlSpot(x, sin(2.0 * pi * x / daysInterval) * 100.0))

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:numerology/app/data/models/profile.dart';
 import 'package:numerology/app/presentation/pages/bottom_navigator/main_page.dart';
 import 'package:numerology/app/presentation/pages/home/bio_graphs_page.dart';
 import 'package:numerology/app/presentation/pages/welcome/name_settings_page.dart';
@@ -23,12 +24,14 @@ void navigateToMainPage(BuildContext context) async {
   );
 }
 
-void navigateToBioGraphsPage(BuildContext context) async {
+void navigateToBioGraphsPage(BuildContext context, Profile profile) async {
   Navigator.of(context, rootNavigator: true).maybePop();
   await Navigator.push(
     context,
     MaterialPageRoute<void>(
-      builder: (BuildContext context) => BioGraphsPage(),
+      builder: (BuildContext context) => BioGraphsPage(
+        profile: profile,
+      ),
     ),
   );
 }

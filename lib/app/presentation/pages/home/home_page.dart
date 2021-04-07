@@ -4,11 +4,12 @@ import 'package:numerology/app/business_logic/cubit/language/language_cubit.dart
 import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/data/models/category_model.dart';
+import 'package:numerology/app/data/models/profile.dart';
 import 'package:numerology/app/presentation/common_widgets/error_dialog.dart';
 import 'package:numerology/app/presentation/common_widgets/progress_bar.dart';
+import 'package:numerology/app/presentation/navigators/navigator.dart';
 import 'package:numerology/app/presentation/pages/home/custom_raised_button.dart';
 import 'package:numerology/app/presentation/pages/navigator/navigator.dart';
-import 'package:numerology/app/presentation/navigators/navigator.dart';
 
 import 'bio_pi_charts.dart';
 import 'category_tile.dart';
@@ -47,7 +48,8 @@ class HomePage extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: CustomScrollView(
           slivers: [
-            _buildBioCategory(context, userDataState.bio),
+            _buildBioCategory(
+                context, userDataState.bio, userDataState.profile),
             _buildDailyCategory(context, userDataState.dayCategory),
             SliverGrid(
               delegate: _buildList(userDataState.categories),
@@ -63,14 +65,15 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildBioCategory(BuildContext context, List<double> bio) {
+  Widget _buildBioCategory(
+      BuildContext context, List<double> bio, Profile profile) {
     return SliverToBoxAdapter(
       child: CustomButton(
         child: buildBioPiCharts(
           context,
           bio,
         ),
-        onPressed: () => navigateToBioGraphsPage(context),
+        onPressed: () => navigateToBioGraphsPage(context, profile),
       ),
     );
   }
