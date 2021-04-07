@@ -5,6 +5,8 @@ import 'package:numerology/app/localization/language/language_en.dart';
 class DateService {
   static var standardFormat = [dd, '-', mm, '-', yyyy];
   static var usFormat = [M, '-', dd, '-', yyyy];
+  static var standardShortFormat = [dd, '.', mm];
+  static var usShortFormat = [M, '.', dd];
 
   static DateTime getCurrentDate() {
     return DateTime.now();
@@ -19,6 +21,12 @@ class DateService {
     return (Globals.instance.getLanguage() is LanguageEn)
         ? formatDate(date, usFormat)
         : formatDate(date, standardFormat);
+  }
+
+  static String getShortFormattedDate(DateTime date) {
+    return (Globals.instance.getLanguage() is LanguageEn)
+        ? formatDate(date, usShortFormat)
+        : formatDate(date, standardShortFormat);
   }
 
   static int toTimestamp(DateTime date) {

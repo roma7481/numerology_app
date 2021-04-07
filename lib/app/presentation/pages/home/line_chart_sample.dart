@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:numerology/app/business_logic/services/date_service.dart';
 import 'package:numerology/app/constants/colors.dart';
 
 class LineChartSample extends StatefulWidget {
@@ -18,7 +19,7 @@ class _LineChartSampleState extends State<LineChartSample> {
   void initState() {
     super.initState();
     minX = 0;
-    maxX = 7;
+    maxX = 8;
   }
 
   List<Color> gradientColors = [
@@ -74,13 +75,13 @@ class _LineChartSampleState extends State<LineChartSample> {
   }
 
   LineChartData mainData() {
-    final spotsPhys = List.generate(365, (i) => (i) / 4)
+    final spotsPhys = List.generate(365, (i) => (i) / 1)
         .map((x) => FlSpot(x, sin(2.0 * pi * x / 23.0) * 100.0))
         .toList();
-    final spotsEmotion = List.generate(365, (i) => (i) / 4)
+    final spotsEmotion = List.generate(365, (i) => (i) / 1)
         .map((x) => FlSpot(x, sin(2.0 * pi * x / 28.0) * 100.0))
         .toList();
-    final spotsIntel = List.generate(365, (i) => (i) / 4)
+    final spotsIntel = List.generate(365, (i) => (i) / 1)
         .map((x) => FlSpot(x, sin(2.0 * pi * x / 33.0) * 100.0))
         .toList();
 
@@ -102,15 +103,7 @@ class _LineChartSampleState extends State<LineChartSample> {
               fontWeight: FontWeight.bold,
               fontSize: 16),
           getTitles: (value) {
-            switch (value.toInt()) {
-              case 2:
-                return 'MAR';
-              case 5:
-                return 'JUN';
-              case 8:
-                return 'SEP';
-            }
-            return '';
+            return _getDateRange(value);
           },
           margin: 8,
         ),
@@ -159,19 +152,31 @@ class _LineChartSampleState extends State<LineChartSample> {
     );
   }
 
+  String _getDateRange(double value) {
+    var numDays = value.toInt() - 1;
+    if (numDays.isOdd) {
+      var currentDay = DateTime.now();
+      var newDate = new DateTime(
+          currentDay.year, currentDay.month, currentDay.day + numDays);
+
+      return DateService.getShortFormattedDate(newDate);
+    }
+    return '';
+  }
+
   LineChartBarData _buildCurve(List<FlSpot> spots, List<Color> gradient) {
     return LineChartBarData(
-        spots: spots,
-        isCurved: true,
-        colors: gradient,
-        barWidth: 5,
-        isStrokeCapRound: true,
-        dotData: FlDotData(
-          show: false,
-        ),
-        belowBarData: BarAreaData(
-          show: false,
-        ),
-      );
+      spots: spots,
+      isCurved: true,
+      colors: gradient,
+      barWidth: 5,
+      isStrokeCapRound: true,
+      dotData: FlDotData(
+        show: false,
+      ),
+      belowBarData: BarAreaData(
+        show: false,
+      ),
+    );
   }
 }
