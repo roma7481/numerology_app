@@ -100,9 +100,7 @@ class _LineChartSampleState extends State<LineChartSample> {
           showTitles: true,
           reservedSize: 22,
           getTextStyles: (value) => const TextStyle(
-              color: Color(0xff68737d),
-              fontWeight: FontWeight.bold,
-              fontSize: 16),
+              color: graphDates, fontWeight: FontWeight.bold, fontSize: 12),
           getTitles: (value) {
             return _getDateRange(value);
           },
@@ -111,8 +109,7 @@ class _LineChartSampleState extends State<LineChartSample> {
         leftTitles: SideTitles(
           showTitles: true,
           getTextStyles: (value) => const TextStyle(
-            color: Color(0xff67727d),
-            fontWeight: FontWeight.bold,
+            color: graphDates,
             fontSize: 15,
           ),
           getTitles: (value) {

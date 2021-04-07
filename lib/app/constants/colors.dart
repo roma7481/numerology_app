@@ -68,3 +68,7 @@ const List<Color> intelColors = [
   intellectEmotionCircleStart,
   intellectEmotionCircleEnd,
 ];
+
+/// GRAPH ///
+
+const Color graphDates = Colors.white;
