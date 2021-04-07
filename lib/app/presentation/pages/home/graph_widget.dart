@@ -20,6 +20,7 @@ class _GraphWidgetState extends State<GraphWidget> {
   double minX;
   double maxX;
   final _scrollDelta = 0.4;
+  bool _isTapEnabled = true;
 
   @override
   void initState() {
@@ -49,6 +50,7 @@ class _GraphWidgetState extends State<GraphWidget> {
                   child: GestureDetector(
                     onHorizontalDragUpdate: (dragUpdDet) {
                       setState(() {
+                        _isTapEnabled = false;
                         print(dragUpdDet.primaryDelta);
                         double primDelta = dragUpdDet.primaryDelta ?? 0.0;
                         if (primDelta != 0) {
@@ -60,6 +62,16 @@ class _GraphWidgetState extends State<GraphWidget> {
                             maxX -= _scrollDelta;
                           }
                         }
+                      });
+                    },
+                    onTap: () {
+                      setState(() {
+                        _isTapEnabled = true;
+                      });
+                    },
+                    onTapDown: (TapDownDetails details) {
+                      setState(() {
+                        _isTapEnabled = true;
                       });
                     },
                     child: LineChart(
@@ -92,7 +104,7 @@ class _GraphWidgetState extends State<GraphWidget> {
     final spotsIntel = _generateSpots(33.0);
 
     return LineChartData(
-      lineTouchData: LineTouchData(enabled: false),
+      lineTouchData: LineTouchData(enabled: _isTapEnabled),
       gridData: FlGridData(
         show: true,
         verticalInterval: 1.0,
