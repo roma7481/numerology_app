@@ -96,6 +96,7 @@ class _LineChartSampleState extends State<LineChartSample> {
       titlesData: FlTitlesData(
         show: true,
         bottomTitles: SideTitles(
+          rotateAngle: -45.0,
           showTitles: true,
           reservedSize: 22,
           getTextStyles: (value) => const TextStyle(
@@ -154,7 +155,7 @@ class _LineChartSampleState extends State<LineChartSample> {
 
   String _getDateRange(double value) {
     var numDays = value.toInt() - 1;
-    if (numDays.isOdd) {
+    if (numDays.isOdd && value > 0) {
       var currentDay = DateTime.now();
       var newDate = new DateTime(
           currentDay.year, currentDay.month, currentDay.day + numDays);
