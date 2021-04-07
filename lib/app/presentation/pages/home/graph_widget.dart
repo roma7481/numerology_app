@@ -19,7 +19,7 @@ class GraphWidget extends StatefulWidget {
 class _GraphWidgetState extends State<GraphWidget> {
   double minX;
   double maxX;
-  final scrollDelta = 0.01;
+  final _scrollDelta = 0.4;
 
   @override
   void initState() {
@@ -53,11 +53,11 @@ class _GraphWidgetState extends State<GraphWidget> {
                         double primDelta = dragUpdDet.primaryDelta ?? 0.0;
                         if (primDelta != 0) {
                           if (primDelta.isNegative) {
-                            minX += maxX * scrollDelta;
-                            maxX += maxX * scrollDelta;
+                            minX += _scrollDelta;
+                            maxX += _scrollDelta;
                           } else {
-                            minX -= maxX * scrollDelta;
-                            maxX -= maxX * scrollDelta;
+                            minX -= _scrollDelta;
+                            maxX -= _scrollDelta;
                           }
                         }
                       });
