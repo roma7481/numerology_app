@@ -67,7 +67,7 @@ class BioCubit extends Cubit<BioState> {
       CardData(
           description: info,
           header: Globals.instance.language.info,
-          iconPath: info),
+          iconPath: infoIcon),
     ];
   }
 }

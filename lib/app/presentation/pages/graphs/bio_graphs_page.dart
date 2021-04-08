@@ -5,6 +5,8 @@ import 'package:numerology/app/business_logic/services/date_service.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/data/models/profile.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
+import 'package:numerology/app/presentation/common_widgets/foldable_card_widget.dart';
+import 'package:numerology/app/presentation/pages/description/matrix_line_data.dart';
 
 import 'bio_pi_charts.dart';
 import 'graph_widget.dart';
@@ -48,13 +50,18 @@ class _BioGraphsPageState extends State<BioGraphsPage> {
       color: backgroundColor,
       child: CustomScrollView(
         slivers: [
-          SliverToBoxAdapter(
-            child: GraphWidget(
-              profile: widget.profile,
-            ),
-          ),
-          _buildPiCharts(state)
+          _buildGraphs(),
+          _buildPiCharts(state),
+          _buildList(state.description)
         ],
+      ),
+    );
+  }
+
+  SliverToBoxAdapter _buildGraphs() {
+    return SliverToBoxAdapter(
+      child: GraphWidget(
+        profile: widget.profile,
       ),
     );
   }
@@ -75,5 +82,16 @@ class _BioGraphsPageState extends State<BioGraphsPage> {
         ),
       ),
     );
+  }
+
+  Widget _buildList(List<CardData> description) {
+    return SliverList(
+        delegate: SliverChildBuilderDelegate(
+      (context, index) {
+        var data = description[index];
+        return buildExpandCard(data.header, data.description, data.iconPath);
+      },
+      childCount: description.length,
+    ));
   }
 }

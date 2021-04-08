@@ -84,7 +84,7 @@ class DataParserEn extends DataParser {
       var lifePathInfoDescription = CardData(
           description: lifePathInfo,
           header: Globals.instance.language.info,
-          iconPath: info);
+          iconPath: infoIcon);
 
       var matrixCompat = CategoryCalc.instance
           .calcMatrixCompat(yourMatrixLines, partnerMatrixLines);
@@ -164,7 +164,7 @@ class DataParserEn extends DataParser {
       var matrixInfo = CardData(
           description: matrInfo,
           header: Globals.instance.language.info,
-          iconPath: info);
+          iconPath: infoIcon);
 
       descriptionPage = CompatInternalPage(
         yourMatrix: yourMatrix,
