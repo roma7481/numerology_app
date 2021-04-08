@@ -7,6 +7,8 @@ import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/data/models/profile.dart';
 import 'package:numerology/app/presentation/common_widgets/progress_bar.dart';
 
+import 'graph_widget.dart';
+
 class BioGraphsSecondPage extends StatefulWidget {
   @override
   _BioGraphsSecondPageState createState() => _BioGraphsSecondPageState();
@@ -52,6 +54,20 @@ class _BioGraphsSecondPageState extends State<BioGraphsSecondPage> {
   Widget _buildContent(BuildContext context) {
     return Container(
       color: backgroundColor,
+      child: CustomScrollView(
+        slivers: [
+          _buildGraphs(),
+        ],
+      ),
+    );
+  }
+
+  SliverToBoxAdapter _buildGraphs() {
+    return SliverToBoxAdapter(
+      child: GraphWidget(
+        profile: profile,
+        isPrimaryBioGraph: false,
+      ),
     );
   }
 }

@@ -59,7 +59,11 @@ class _BioGraphsPageState extends State<BioGraphsPage> {
     return Container(
       color: backgroundColor,
       child: CustomScrollView(
-        slivers: [_buildGraphs(), _buildPiCharts(), _buildList()],
+        slivers: [
+          _buildGraphs(),
+          _buildPiCharts(),
+          _buildList(),
+        ],
       ),
     );
   }
@@ -73,7 +77,6 @@ class _BioGraphsPageState extends State<BioGraphsPage> {
   }
 
   _buildPiCharts() {
-    // context.read<BioCubit>().emitBioInit(profile);
     return BlocBuilder<BioCubit, BioState>(builder: (context, state) {
       return SliverToBoxAdapter(
         child: Padding(

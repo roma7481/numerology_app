@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:numerology/app/business_logic/cubit/bio/bio_cubit.dart';
+import 'package:numerology/app/business_logic/cubit/bio_second/bio_second_cubit.dart';
 import 'package:numerology/app/business_logic/services/category_calc.dart';
 import 'package:numerology/app/business_logic/services/date_service.dart';
 import 'package:numerology/app/constants/colors.dart';
@@ -11,9 +12,10 @@ import 'package:provider/provider.dart';
 
 class GraphWidget extends StatefulWidget {
   final Profile profile;
-  final Function onTap;
+  final bool isPrimaryBioGraph;
 
-  const GraphWidget({Key key, this.profile, this.onTap}) : super(key: key);
+  const GraphWidget({Key key, this.profile, this.isPrimaryBioGraph = true})
+      : super(key: key);
 
   @override
   _GraphWidgetState createState() => _GraphWidgetState();
@@ -91,7 +93,7 @@ class _GraphWidgetState extends State<GraphWidget> {
     var numDaysSinceBorn =
         CategoryCalc.instance.calcDaysAfterBorn(widget.profile.dob);
 
-    return List.generate(365 * 11, (i) => (i - 365*2) / 5)
+    return List.generate(365 * 11, (i) => (i - 365 * 2) / 5)
         .where((element) => element > minX && element < maxX)
         .map((x) => FlSpot(x, _calcY(numDaysSinceBorn, x, daysInterval)))
         .toList();
@@ -104,10 +106,6 @@ class _GraphWidgetState extends State<GraphWidget> {
   }
 
   LineChartData mainData() {
-    final spotsPhys = _generateSpots(23.0);
-    final spotsEmotion = _generateSpots(28.0);
-    final spotsIntel = _generateSpots(33.0);
-
     return LineChartData(
       lineTouchData: LineTouchData(
           enabled: _isTapEnabled,
@@ -145,46 +143,62 @@ class _GraphWidgetState extends State<GraphWidget> {
       maxX: maxX,
       minY: -120,
       maxY: 120,
-      lineBarsData: [
-        _buildCurve(spotsPhys, physicalColors),
-        _buildCurve(spotsEmotion, emotionColors),
-        _buildCurve(spotsIntel, intelColors),
-      ],
+      lineBarsData: _getBarsData(),
     );
+  }
+
+  List<LineChartBarData> _getBarsData() {
+    if (widget.isPrimaryBioGraph) {
+      return [
+        _buildCurve(_generateSpots(23.0), physicalColors),
+        _buildCurve(_generateSpots(28.0), emotionColors),
+        _buildCurve(_generateSpots(33.0), intelColors),
+      ];
+    }
+    return [
+      _buildCurve(_generateSpots(53.0), physicalColors), //spirit
+      _buildCurve(_generateSpots(38.0), emotionColors), //intuition
+      _buildCurve(_generateSpots(48.0), intelColors), //awareness
+      _buildCurve(_generateSpots(43.0), intelColors), //aesthetic
+    ];
   }
 
   SideTitles _buildSideTiles() {
     return SideTitles(
-        showTitles: true,
-        getTextStyles: (value) => const TextStyle(
-          color: graphDates,
-          fontSize: 15,
-        ),
-        getTitles: (value) {
-          switch (value.toInt()) {
-            case 90:
-              return '90%';
-            case 60:
-              return '60%';
-            case 30:
-              return '30%';
-            case 0:
-              return '0%';
-            case -90:
-              return '-90%';
-            case -60:
-              return '-60%';
-            case -30:
-              return '-30%';
-          }
-          return '';
-        },
-        reservedSize: 28,
-        margin: 12,
-      );
+      showTitles: true,
+      getTextStyles: (value) => const TextStyle(
+        color: graphDates,
+        fontSize: 15,
+      ),
+      getTitles: (value) {
+        switch (value.toInt()) {
+          case 90:
+            return '90%';
+          case 60:
+            return '60%';
+          case 30:
+            return '30%';
+          case 0:
+            return '0%';
+          case -90:
+            return '-90%';
+          case -60:
+            return '-60%';
+          case -30:
+            return '-30%';
+        }
+        return '';
+      },
+      reservedSize: 28,
+      margin: 12,
+    );
   }
 
   void updatePiCharts() {
+    widget.isPrimaryBioGraph ? _updateForPrim() : _updateForSecond();
+  }
+
+  void _updateForPrim() {
     if (_touchResponse != null) {
       if (_touchResponse.lineBarSpots != null &&
           _touchResponse.lineBarSpots.isNotEmpty) {
@@ -193,6 +207,23 @@ class _GraphWidgetState extends State<GraphWidget> {
             _touchResponse.lineBarSpots[0].y,
             _touchResponse.lineBarSpots[1].y,
             _touchResponse.lineBarSpots[2].y,
+          ],
+          date: _getSelectedDate(_touchResponse.lineBarSpots[0].x),
+        );
+      }
+    }
+  }
+
+  void _updateForSecond() {
+    if (_touchResponse != null) {
+      if (_touchResponse.lineBarSpots != null &&
+          _touchResponse.lineBarSpots.isNotEmpty) {
+        context.read<BioSecondCubit>().emitBioUpdate(
+          [
+            _touchResponse.lineBarSpots[0].y,
+            _touchResponse.lineBarSpots[1].y,
+            _touchResponse.lineBarSpots[2].y,
+            _touchResponse.lineBarSpots[3].y,
           ],
           date: _getSelectedDate(_touchResponse.lineBarSpots[0].x),
         );
