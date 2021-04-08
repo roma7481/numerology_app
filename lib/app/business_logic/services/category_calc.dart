@@ -64,7 +64,7 @@ class CategoryCalc {
     rhythms[0] = sin(2.0 * pi * days / 53.0) * 100.0; //spirit
     rhythms[1] = sin(2.0 * pi * days / 38.0) * 100.0; //intuition
     rhythms[2] = sin(2.0 * pi * days / 48.0) * 100.0; //awareness
-    rhythms[2] = sin(2.0 * pi * days / 43.0) * 100.0; //aesthetic
+    rhythms[3] = sin(2.0 * pi * days / 43.0) * 100.0; //aesthetic
 
     for (int i = 0; i < rhythms.length; i++) {
       if (rhythms[i] < 0 && rhythms[i] > -0.1) {
