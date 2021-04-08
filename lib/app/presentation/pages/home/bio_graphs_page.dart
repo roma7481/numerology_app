@@ -25,6 +25,8 @@ class _BioGraphsPageState extends State<BioGraphsPage> {
   Widget build(BuildContext context) {
     context.read<BioCubit>().emitBioInit(widget.profile);
     return BlocBuilder<BioCubit, BioState>(builder: (context, state) {
+      header =
+          DateService.getFormattedDate(DateService.fromTimestamp(state.date));
       return _buildPageContent(context, state);
     });
   }

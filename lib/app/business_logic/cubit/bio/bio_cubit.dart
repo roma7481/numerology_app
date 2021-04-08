@@ -14,25 +14,17 @@ class BioCubit extends Cubit<BioState> {
           date: DateService.toTimestamp(DateTime.now()),
         ));
 
-  void emitBioUpdate(List<double> bio, int date) async {
+  void emitBioUpdate(List<double> bio, {int date}) async {
+    if (date == null) {
+      date = DateService.toTimestamp(DateTime.now());
+    }
+
     emit(BioState(
-        physical: bio[0],
-        emotional: bio[1],
-        intel: bio[2],
-        date: DateService.toTimestamp(DateTime.now())));
+        physical: bio[0], emotional: bio[1], intel: bio[2], date: date));
   }
 
   void emitBioInit(Profile profile) {
     var bio = CategoryCalc.instance.calcBioByDate(profile.dob);
-    emitBioUpdateByBio(bio);
-  }
-
-  void emitBioUpdateByBio(List<double> bio) async {
-    emit(BioState(
-      physical: bio[0],
-      emotional: bio[1],
-      intel: bio[2],
-      date: DateService.toTimestamp(DateTime.now()),
-    ));
+    emitBioUpdate(bio);
   }
 }

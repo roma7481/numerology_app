@@ -122,7 +122,8 @@ class _GraphWidgetState extends State<GraphWidget> {
                   touchResponse.lineBarSpots[0].y,
                   touchResponse.lineBarSpots[1].y,
                   touchResponse.lineBarSpots[2].y,
-                ],54
+                ],
+                date: _getSelectedDate(touchResponse.lineBarSpots[0].x),
               );
             }
           }),
@@ -199,6 +200,14 @@ class _GraphWidgetState extends State<GraphWidget> {
       return DateService.getShortFormattedDate(newDate);
     }
     return '';
+  }
+
+  int _getSelectedDate(double value) {
+    var numDays = value.floor() - 1;
+    var currentDay = DateTime.now();
+    var newDate = new DateTime(
+        currentDay.year, currentDay.month, currentDay.day + numDays);
+    return DateService.toTimestamp(newDate);
   }
 
   LineChartBarData _buildCurve(List<FlSpot> spots, List<Color> gradient) {
