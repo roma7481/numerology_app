@@ -14,6 +14,7 @@ import 'package:numerology/app/presentation/pages/description/matrix_data.dart';
 import 'package:numerology/app/presentation/pages/description/matrix_line_data.dart';
 import 'package:numerology/app/presentation/pages/description/matrix_lines_page.dart';
 import 'package:numerology/app/presentation/pages/description/matrix_page.dart';
+import 'package:numerology/app/presentation/pages/graphs/bio_graphs_second_page.dart';
 
 import '../models/category_model.dart';
 import 'parser_utils.dart';
@@ -26,8 +27,7 @@ class DataParserEn extends DataParser {
     List<CategoryModel> categories = [];
 
     categories.add(await _getCompat(profile));
-    categories.add(
-        CategoryModel(imagePath: secondaryBio, text: 'Secondary Biorhythms'));
+    categories.add(await _getSecondBio(profile));
     categories.add(await _getLifePathNumber(profile));
     categories.add(await _getMatrix(profile));
     categories.add(await _getMatrixLines(profile));
@@ -45,6 +45,17 @@ class DataParserEn extends DataParser {
     categories.add(await _getLuckyGemModel(profile));
 
     return categories;
+  }
+
+  Future<CategoryModel> _getSecondBio(Profile profile) async {
+    var categoryName = 'Secondary Biorhythms';
+    return CategoryModel(
+        imagePath: secondaryBio,
+        text: categoryName,
+        page: DescriptionPartnerDobBasedPage(
+          categoryName: categoryName,
+          page: BioGraphsSecondPage(),
+        ));
   }
 
   Future<CategoryModel> _getCompat(Profile profile) async {
