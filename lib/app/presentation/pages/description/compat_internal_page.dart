@@ -93,7 +93,7 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
       children: [
         customButton(
           child: Container(
-            child: SvgPicture.asset(iconPath, height: width * 0.15),
+            child: SvgPicture.asset(iconPath, height: width * 0.10),
           ),
           onPressed: () {
             setState(() {
