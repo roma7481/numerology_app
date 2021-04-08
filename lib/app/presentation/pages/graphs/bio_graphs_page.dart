@@ -82,9 +82,9 @@ class _BioGraphsPageState extends State<BioGraphsPage> {
             child: buildBioPiCharts(
                 context,
                 [
-                  state.physical,
-                  state.emotional,
-                  state.intel,
+                  state.bio[0],
+                  state.bio[1],
+                  state.bio[2],
                 ],
                 isHeaderVisible: false),
           ),

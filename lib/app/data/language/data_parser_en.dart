@@ -52,10 +52,7 @@ class DataParserEn extends DataParser {
     return CategoryModel(
         imagePath: secondaryBio,
         text: categoryName,
-        page: DescriptionPartnerDobBasedPage(
-          categoryName: categoryName,
-          page: BioGraphsSecondPage(),
-        ));
+        page: BioGraphsSecondPage());
   }
 
   Future<CategoryModel> _getCompat(Profile profile) async {

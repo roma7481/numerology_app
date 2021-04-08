@@ -12,9 +12,6 @@ part 'bio_state.dart';
 class BioCubit extends Cubit<BioState> {
   BioCubit()
       : super(BioState(
-          physical: 0.0,
-          emotional: 0.0,
-          intel: 0.0,
           date: DateService.toTimestamp(DateTime.now()),
           description: [],
         ));
@@ -25,9 +22,7 @@ class BioCubit extends Cubit<BioState> {
     }
 
     emit(BioState(
-      physical: bio[0],
-      emotional: bio[1],
-      intel: bio[2],
+      bio: bio,
       date: date,
       description: await _getDescription(bio),
     ));
