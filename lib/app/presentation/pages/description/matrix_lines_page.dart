@@ -12,7 +12,7 @@ import 'matrix_utils.dart';
 class MatrixLinesPage extends StatelessWidget {
   final String header;
   final String calculation;
-  final List<MatrixLineData> description;
+  final List<CardData> description;
   final List<int> matrix;
   final Map<String, String> info;
 

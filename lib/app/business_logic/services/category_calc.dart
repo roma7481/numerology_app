@@ -16,6 +16,20 @@ class CategoryCalc {
     return calcBioByDate(profile.dob);
   }
 
+  List<String> calcBioLevel(List<double> bio) {
+    var bioLevels = ['positive', 'positive', 'positive'];
+
+    for (int i = 0; i < bio.length; i++) {
+      bioLevels[i] = bio[i] < 0
+          ? 'negative'
+          : bio[i] > 0
+              ? 'positive'
+              : 'critical';
+    }
+
+    return bioLevels;
+  }
+
   List<double> calcBioByDate(int dob) {
     var rhythms = [0.0, 0.0, 0.0];
 

@@ -77,11 +77,11 @@ class DataParserEn extends DataParser {
       var lifePathInfo = await getEntityRawQuery(
           'select description from "TABLE_DESCRIPTION" where table_name = "LIFE_PATH_NUMBER_COMPAT_ENG"');
 
-      var lifePathDescription = MatrixLineData(
+      var lifePathDescription = CardData(
           description: lifePathCompat,
           header: Globals.instance.language.lifePathCompat,
           iconPath: directions);
-      var lifePathInfoDescription = MatrixLineData(
+      var lifePathInfoDescription = CardData(
           description: lifePathInfo,
           header: Globals.instance.language.info,
           iconPath: info);
@@ -129,39 +129,39 @@ class DataParserEn extends DataParser {
       var matrInfo = await getEntityRawQuery(
           'select description from TABLE_DESCRIPTION where table_name = "PSYCHOMATRIX_ENG" and category = "info"');
 
-      var data1 = MatrixLineData(
+      var data1 = CardData(
           description: description1 + "\n\n" + info1,
           header: 'Purpose',
           iconPath: matrix1);
-      var data2 = MatrixLineData(
+      var data2 = CardData(
           description: description2 + "\n\n" + info2,
           header: 'Family',
           iconPath: matrix2);
-      var data3 = MatrixLineData(
+      var data3 = CardData(
           description: description3 + "\n\n" + info3,
           header: 'Stability',
           iconPath: matrix3);
-      var data4 = MatrixLineData(
+      var data4 = CardData(
           description: description4 + "\n\n" + info4,
           header: 'Esteem',
           iconPath: matrix4);
-      var data5 = MatrixLineData(
+      var data5 = CardData(
           description: description5 + "\n\n" + info5,
           header: 'Finance',
           iconPath: matrix5);
-      var data6 = MatrixLineData(
+      var data6 = CardData(
           description: description6 + "\n\n" + info6,
           header: 'Talents',
           iconPath: matrix6);
-      var data7 = MatrixLineData(
+      var data7 = CardData(
           description: description7 + "\n\n" + info7,
           header: 'Temperament',
           iconPath: matrix7);
-      var data8 = MatrixLineData(
+      var data8 = CardData(
           description: description8 + "\n\n" + info8,
           header: 'Spirituality',
           iconPath: matrix8);
-      var matrixInfo = MatrixLineData(
+      var matrixInfo = CardData(
           description: matrInfo,
           header: Globals.instance.language.info,
           iconPath: info);
@@ -382,7 +382,7 @@ class DataParserEn extends DataParser {
     var info = await getEntityRawQuery(
         'select description from TABLE_DESCRIPTION where table_name =  "PSYCHOMATRIX_ENG" and category = "info"');
 
-    var data1 = MatrixLineData(
+    var data1 = CardData(
         lineSum: calc[0],
         description: language.numberOfDigits +
             calc[0].toString() +
@@ -392,7 +392,7 @@ class DataParserEn extends DataParser {
             info1,
         header: 'Purpose',
         iconPath: matrix1);
-    var data2 = MatrixLineData(
+    var data2 = CardData(
         lineSum: calc[1],
         description: language.numberOfDigits +
             calc[1].toString() +
@@ -402,7 +402,7 @@ class DataParserEn extends DataParser {
             info2,
         header: 'Family',
         iconPath: matrix2);
-    var data3 = MatrixLineData(
+    var data3 = CardData(
         lineSum: calc[2],
         description: language.numberOfDigits +
             calc[2].toString() +
@@ -412,7 +412,7 @@ class DataParserEn extends DataParser {
             info3,
         header: 'Stability',
         iconPath: matrix3);
-    var data4 = MatrixLineData(
+    var data4 = CardData(
         lineSum: calc[3],
         description: language.numberOfDigits +
             calc[3].toString() +
@@ -422,7 +422,7 @@ class DataParserEn extends DataParser {
             info4,
         header: 'Esteem',
         iconPath: matrix4);
-    var data5 = MatrixLineData(
+    var data5 = CardData(
         lineSum: calc[4],
         description: language.numberOfDigits +
             calc[4].toString() +
@@ -432,7 +432,7 @@ class DataParserEn extends DataParser {
             info5,
         header: 'Finance',
         iconPath: matrix5);
-    var data6 = MatrixLineData(
+    var data6 = CardData(
         lineSum: calc[5],
         description: language.numberOfDigits +
             calc[5].toString() +
@@ -442,7 +442,7 @@ class DataParserEn extends DataParser {
             info6,
         header: 'Talents',
         iconPath: matrix6);
-    var data7 = MatrixLineData(
+    var data7 = CardData(
         lineSum: calc[6],
         description: language.numberOfDigits +
             calc[6].toString() +
@@ -452,7 +452,7 @@ class DataParserEn extends DataParser {
             info7,
         header: 'Temperament',
         iconPath: matrix7);
-    var data8 = MatrixLineData(
+    var data8 = CardData(
         lineSum: calc[7],
         description: language.numberOfDigits +
             calc[7].toString() +

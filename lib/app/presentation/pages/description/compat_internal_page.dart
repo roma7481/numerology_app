@@ -15,8 +15,8 @@ import 'matrix_utils.dart';
 class CompatInternalPage extends StatefulWidget {
   final List<int> yourMatrix;
   final List<int> partnerMatrix;
-  final List<MatrixLineData> matrixDescription;
-  final List<MatrixLineData> lifePathDescription;
+  final List<CardData> matrixDescription;
+  final List<CardData> lifePathDescription;
   final int yourLifePath;
   final int partnersLifePath;
 
@@ -212,7 +212,7 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
     );
   }
 
-  Widget _buildList(List<MatrixLineData> dataList) {
+  Widget _buildList(List<CardData> dataList) {
     return SliverList(
         delegate: SliverChildBuilderDelegate(
       (context, index) {

@@ -1,11 +1,11 @@
-class MatrixLineData {
+class CardData {
   final int lineSum;
   final String header;
   final String description;
   final String iconPath;
 
-  MatrixLineData({
-    this.lineSum,
+  CardData({
+    this.lineSum = 0,
     this.header,
     this.description,
     this.iconPath,
