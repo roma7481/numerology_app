@@ -4,17 +4,18 @@ import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
-Widget buildBioPiCharts(BuildContext context, List<double> bio) {
+Widget buildBioPiCharts(BuildContext context, List<double> bio,
+    {bool isHeaderVisible = true}) {
   var _language = Globals.instance.language;
   var bioPhis = bio[0];
   var bioEmotion = bio[1];
   var bioIntel = bio[2];
 
   return Container(
-    height: 210,
+    height: isHeaderVisible ? 210 : 150,
     child: Column(
       children: [
-        _buildHeader(Globals.instance.language.dailyBio),
+        _buildHeader(isHeaderVisible),
         Padding(
           padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 12.0),
           child: Row(
@@ -48,8 +49,7 @@ Widget _buildImage() {
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: IconTheme(
-      data: new IconThemeData(
-          color: Colors.white),
+      data: new IconThemeData(color: Colors.white),
       child: new Icon(Icons.chevron_right),
     ),
   );
@@ -84,7 +84,10 @@ Widget _buildProgressChart(
       linearGradient: gradient);
 }
 
-Widget _buildHeader(String header) {
+Widget _buildHeader(bool isHeaderVisible) {
+  if (!isHeaderVisible) {
+    return Container();
+  }
   return Padding(
     padding: const EdgeInsets.only(
       top: 16.0,
@@ -94,9 +97,12 @@ Widget _buildHeader(String header) {
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Opacity(opacity: 0.0, child: _buildImage(),),
+        Opacity(
+          opacity: 0.0,
+          child: _buildImage(),
+        ),
         Text(
-          header,
+          Globals.instance.language.dailyBio,
           style: descriptionHeaderStyle,
         ),
         _buildImage(),

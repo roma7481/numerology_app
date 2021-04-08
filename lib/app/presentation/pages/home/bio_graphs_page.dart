@@ -31,12 +31,12 @@ class _BioGraphsPageState extends State<BioGraphsPage> {
   Widget _buildPageContent(BuildContext context, BioState state) {
     return SafeArea(
         child: Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            backgroundColor: backgroundColor,
-            title: Text(header),
-          ),
-          body: _buildContent(context, state),
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: backgroundColor,
+        title: Text(header),
+      ),
+      body: _buildContent(context, state),
     ));
   }
 
@@ -61,11 +61,14 @@ class _BioGraphsPageState extends State<BioGraphsPage> {
       child: Padding(
         padding: const EdgeInsets.only(top: 16.0),
         child: CustomCard(
-          child: buildBioPiCharts(context, [
-            state.physical,
-            state.emotional,
-            state.intel,
-          ]),
+          child: buildBioPiCharts(
+              context,
+              [
+                state.physical,
+                state.emotional,
+                state.intel,
+              ],
+              isHeaderVisible: false),
         ),
       ),
     );
