@@ -125,7 +125,7 @@ class _GraphWidgetState extends State<GraphWidget> {
       titlesData: FlTitlesData(
         show: true,
         bottomTitles: SideTitles(
-          rotateAngle: -55.0,
+          rotateAngle: -50.0,
           showTitles: true,
           reservedSize: 22,
           getTextStyles: (value) => const TextStyle(
@@ -133,36 +133,10 @@ class _GraphWidgetState extends State<GraphWidget> {
           getTitles: (value) {
             return _getDateRange(value);
           },
-          margin: 8,
+          margin: 20,
         ),
-        leftTitles: SideTitles(
-          showTitles: true,
-          getTextStyles: (value) => const TextStyle(
-            color: graphDates,
-            fontSize: 15,
-          ),
-          getTitles: (value) {
-            switch (value.toInt()) {
-              case 90:
-                return '90%';
-              case 60:
-                return '60%';
-              case 30:
-                return '30%';
-              case 0:
-                return '0%';
-              case -90:
-                return '-90%';
-              case -60:
-                return '-60%';
-              case -30:
-                return '-30%';
-            }
-            return '';
-          },
-          reservedSize: 28,
-          margin: 12,
-        ),
+        leftTitles: _buildSideTiles(),
+        rightTitles: _buildSideTiles(),
       ),
       borderData: FlBorderData(
           show: true,
@@ -177,6 +151,37 @@ class _GraphWidgetState extends State<GraphWidget> {
         _buildCurve(spotsIntel, intelColors),
       ],
     );
+  }
+
+  SideTitles _buildSideTiles() {
+    return SideTitles(
+        showTitles: true,
+        getTextStyles: (value) => const TextStyle(
+          color: graphDates,
+          fontSize: 15,
+        ),
+        getTitles: (value) {
+          switch (value.toInt()) {
+            case 90:
+              return '90%';
+            case 60:
+              return '60%';
+            case 30:
+              return '30%';
+            case 0:
+              return '0%';
+            case -90:
+              return '-90%';
+            case -60:
+              return '-60%';
+            case -30:
+              return '-30%';
+          }
+          return '';
+        },
+        reservedSize: 28,
+        margin: 12,
+      );
   }
 
   void updatePiCharts() {
