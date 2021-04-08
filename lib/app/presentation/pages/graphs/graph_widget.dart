@@ -24,6 +24,7 @@ class _GraphWidgetState extends State<GraphWidget> {
   double maxX;
   final _scrollDelta = 0.4;
   bool _isTapEnabled = true;
+  LineTouchResponse _touchResponse;
 
   @override
   void initState() {
@@ -70,11 +71,7 @@ class _GraphWidgetState extends State<GraphWidget> {
                     onTap: () {
                       setState(() {
                         _isTapEnabled = true;
-                      });
-                    },
-                    onTapDown: (TapDownDetails details) {
-                      setState(() {
-                        _isTapEnabled = true;
+                        updatePiCharts();
                       });
                     },
                     child: LineChart(
@@ -115,17 +112,9 @@ class _GraphWidgetState extends State<GraphWidget> {
       lineTouchData: LineTouchData(
           enabled: _isTapEnabled,
           touchCallback: (LineTouchResponse touchResponse) {
-            if (touchResponse.lineBarSpots != null &&
-                touchResponse.lineBarSpots.isNotEmpty) {
-              context.read<BioCubit>().emitBioUpdate(
-                [
-                  touchResponse.lineBarSpots[0].y,
-                  touchResponse.lineBarSpots[1].y,
-                  touchResponse.lineBarSpots[2].y,
-                ],
-                date: _getSelectedDate(touchResponse.lineBarSpots[0].x),
-              );
-            }
+            setState(() {
+              _touchResponse = touchResponse;
+            });
           }),
       gridData: FlGridData(
         show: true,
@@ -188,6 +177,24 @@ class _GraphWidgetState extends State<GraphWidget> {
         _buildCurve(spotsIntel, intelColors),
       ],
     );
+  }
+
+  void updatePiCharts() {
+    if (_touchResponse != null) {
+      if (_touchResponse.lineBarSpots != null &&
+          _touchResponse.lineBarSpots.isNotEmpty) {
+        print("&&& ${_touchResponse.lineBarSpots[0].x}");
+
+        context.read<BioCubit>().emitBioUpdate(
+          [
+            _touchResponse.lineBarSpots[0].y,
+            _touchResponse.lineBarSpots[1].y,
+            _touchResponse.lineBarSpots[2].y,
+          ],
+          date: _getSelectedDate(_touchResponse.lineBarSpots[0].x),
+        );
+      }
+    }
   }
 
   String _getDateRange(double value) {

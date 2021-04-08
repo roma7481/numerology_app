@@ -33,21 +33,25 @@ class _BioGraphsPageState extends State<BioGraphsPage> {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: backgroundColor,
-        title: Text(header),
+        title: _buildHeader(),
       ),
       body: _buildContent(context),
     ));
+  }
+
+  Widget _buildHeader() {
+    return BlocBuilder<BioCubit, BioState>(builder: (context, state) {
+      header =
+          DateService.getFormattedDate(DateService.fromTimestamp(state.date));
+      return Text(header);
+    });
   }
 
   Widget _buildContent(BuildContext context) {
     return Container(
       color: backgroundColor,
       child: CustomScrollView(
-        slivers: [
-          _buildGraphs(),
-          _buildPiCharts(),
-          _buildList()
-        ],
+        slivers: [_buildGraphs(), _buildPiCharts(), _buildList()],
       ),
     );
   }
@@ -63,8 +67,6 @@ class _BioGraphsPageState extends State<BioGraphsPage> {
   _buildPiCharts() {
     context.read<BioCubit>().emitBioInit(widget.profile);
     return BlocBuilder<BioCubit, BioState>(builder: (context, state) {
-      header =
-          DateService.getFormattedDate(DateService.fromTimestamp(state.date));
       return SliverToBoxAdapter(
         child: Padding(
           padding: const EdgeInsets.only(top: 24.0),
