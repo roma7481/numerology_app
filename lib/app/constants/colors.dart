@@ -52,10 +52,14 @@ const Color aestheticEmotionCircleStart = Color.fromRGBO(251, 133, 255, 1);
 const Color aestheticEmotionCircleEnd = Color.fromRGBO(255, 92, 138, 1);
 
 const LinearGradient physicalGradient = LinearGradient(colors: physicalColors);
-
 const LinearGradient emotionalGradient = LinearGradient(colors: emotionColors);
-
 const LinearGradient intellectGradient = LinearGradient(colors: intelColors);
+
+const LinearGradient spiritGradient = LinearGradient(colors: spiritColors);
+const LinearGradient awareGradient = LinearGradient(colors: awareColors);
+const LinearGradient intuitGradient = LinearGradient(colors: intuitColors);
+const LinearGradient aestheticGradient =
+    LinearGradient(colors: aestheticColors);
 
 const List<Color> physicalColors = [
   bioPhysicalCircleStart,

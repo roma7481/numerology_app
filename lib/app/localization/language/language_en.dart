@@ -136,4 +136,16 @@ class LanguageEn extends Languages {
 
   @override
   String get physicalBio => 'Physical';
+
+  @override
+  String get aestheticBio => 'Aesthetic';
+
+  @override
+  String get awareBio => 'Awareness';
+
+  @override
+  String get intuitBio => 'Intuition';
+
+  @override
+  String get spiritBio => 'Spiritual';
 }

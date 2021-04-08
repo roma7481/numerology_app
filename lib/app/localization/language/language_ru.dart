@@ -129,4 +129,16 @@ class LanguageRu extends Languages {
 
   @override
   String get physicalBio => 'physicalBio RU';
+
+  @override
+  String get aestheticBio => 'aestheticBio RU';
+
+  @override
+  String get awareBio => 'awareBio RU';
+
+  @override
+  String get intuitBio => 'intuitBio RU';
+
+  @override
+  String get spiritBio => 'spiritBio RU';
 }

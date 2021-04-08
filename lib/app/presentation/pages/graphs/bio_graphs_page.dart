@@ -76,20 +76,13 @@ class _BioGraphsPageState extends State<BioGraphsPage> {
     );
   }
 
-  _buildPiCharts() {
+  Widget _buildPiCharts() {
     return BlocBuilder<BioCubit, BioState>(builder: (context, state) {
       return SliverToBoxAdapter(
         child: Padding(
           padding: const EdgeInsets.only(top: 24.0),
           child: CustomCard(
-            child: buildBioPiCharts(
-                context,
-                [
-                  state.bio[0],
-                  state.bio[1],
-                  state.bio[2],
-                ],
-                isHeaderVisible: false),
+            child: buildBioPiCharts(context, state.bio, isHeaderVisible: false),
           ),
         ),
       );

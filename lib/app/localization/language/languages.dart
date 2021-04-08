@@ -86,4 +86,12 @@ abstract class Languages {
   String get emotionalBio;
 
   String get intellectBio;
+
+  String get spiritBio;
+
+  String get awareBio;
+
+  String get intuitBio;
+
+  String get aestheticBio;
 }

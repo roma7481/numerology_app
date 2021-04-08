@@ -129,4 +129,16 @@ class LanguageEs extends Languages {
 
   @override
   String get physicalBio => 'physicalBio ES';
+
+  @override
+  String get aestheticBio => 'aestheticBio ES';
+
+  @override
+  String get awareBio => 'awareBio ES';
+
+  @override
+  String get intuitBio => 'intuitBio ES';
+
+  @override
+  String get spiritBio => 'spiritBio ES';
 }
