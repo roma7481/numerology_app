@@ -27,6 +27,7 @@ class HomePage extends StatelessWidget {
   Widget _buildPageContent(BuildContext context) {
     return BlocBuilder<UserDataCubit, UserDataState>(builder: (context, state) {
       if (state is UserDataReady) {
+        context.read<BioCubit>().emitBioInit(state.profile);
         return SafeArea(
           child: Scaffold(
             body: _buildContent(
@@ -68,7 +69,6 @@ class HomePage extends StatelessWidget {
 
   Widget _buildBioCategory(
       BuildContext context, List<double> bio, Profile profile) {
-    context.read<BioCubit>().emitBioUpdateByProfile(bio);
     return SliverToBoxAdapter(
       child: CustomButton(
         child: buildBioPiCharts(

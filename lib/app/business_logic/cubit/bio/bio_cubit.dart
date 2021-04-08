@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:numerology/app/business_logic/services/category_calc.dart';
 import 'package:numerology/app/business_logic/services/date_service.dart';
+import 'package:numerology/app/data/models/profile.dart';
 
 part 'bio_state.dart';
 
@@ -13,10 +15,19 @@ class BioCubit extends Cubit<BioState> {
         ));
 
   void emitBioUpdate(List<double> bio, int date) async {
-    emit(BioState(physical: bio[0], emotional: bio[1], intel: bio[2], date: DateService.toTimestamp(DateTime.now())));
+    emit(BioState(
+        physical: bio[0],
+        emotional: bio[1],
+        intel: bio[2],
+        date: DateService.toTimestamp(DateTime.now())));
   }
 
-  void emitBioUpdateByProfile(List<double> bio) async {
+  void emitBioInit(Profile profile) {
+    var bio = CategoryCalc.instance.calcBioByDate(profile.dob);
+    emitBioUpdateByBio(bio);
+  }
+
+  void emitBioUpdateByBio(List<double> bio) async {
     emit(BioState(
       physical: bio[0],
       emotional: bio[1],

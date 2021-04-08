@@ -23,6 +23,7 @@ class _BioGraphsPageState extends State<BioGraphsPage> {
 
   @override
   Widget build(BuildContext context) {
+    context.read<BioCubit>().emitBioInit(widget.profile);
     return BlocBuilder<BioCubit, BioState>(builder: (context, state) {
       return _buildPageContent(context, state);
     });
