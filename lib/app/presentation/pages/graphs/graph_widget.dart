@@ -156,10 +156,10 @@ class _GraphWidgetState extends State<GraphWidget> {
       ];
     }
     return [
-      _buildCurve(_generateSpots(53.0), physicalColors), //spirit
-      _buildCurve(_generateSpots(38.0), emotionColors), //intuition
-      _buildCurve(_generateSpots(48.0), intelColors), //awareness
-      _buildCurve(_generateSpots(43.0), intelColors), //aesthetic
+      _buildCurve(_generateSpots(53.0), spiritColors), //spirit
+      _buildCurve(_generateSpots(38.0), awareColors), //intuition
+      _buildCurve(_generateSpots(48.0), intuitColors), //awareness
+      _buildCurve(_generateSpots(43.0), aestheticColors), //aesthetic
     ];
   }
 
