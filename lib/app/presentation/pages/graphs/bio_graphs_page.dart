@@ -6,7 +6,6 @@ import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/data/models/profile.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
 import 'package:numerology/app/presentation/common_widgets/foldable_card_widget.dart';
-import 'package:numerology/app/presentation/pages/description/matrix_line_data.dart';
 
 import 'bio_pi_charts.dart';
 import 'graph_widget.dart';
@@ -25,15 +24,10 @@ class _BioGraphsPageState extends State<BioGraphsPage> {
 
   @override
   Widget build(BuildContext context) {
-    context.read<BioCubit>().emitBioInit(widget.profile);
-    return BlocBuilder<BioCubit, BioState>(builder: (context, state) {
-      header =
-          DateService.getFormattedDate(DateService.fromTimestamp(state.date));
-      return _buildPageContent(context, state);
-    });
+    return _buildPageContent(context);
   }
 
-  Widget _buildPageContent(BuildContext context, BioState state) {
+  Widget _buildPageContent(BuildContext context) {
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
@@ -41,18 +35,18 @@ class _BioGraphsPageState extends State<BioGraphsPage> {
         backgroundColor: backgroundColor,
         title: Text(header),
       ),
-      body: _buildContent(context, state),
+      body: _buildContent(context),
     ));
   }
 
-  Widget _buildContent(BuildContext context, BioState state) {
+  Widget _buildContent(BuildContext context) {
     return Container(
       color: backgroundColor,
       child: CustomScrollView(
         slivers: [
           _buildGraphs(),
-          _buildPiCharts(state),
-          _buildList(state.description)
+          _buildPiCharts(),
+          _buildList()
         ],
       ),
     );
@@ -66,32 +60,39 @@ class _BioGraphsPageState extends State<BioGraphsPage> {
     );
   }
 
-  _buildPiCharts(BioState state) {
-    return SliverToBoxAdapter(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 16.0),
-        child: CustomCard(
-          child: buildBioPiCharts(
-              context,
-              [
-                state.physical,
-                state.emotional,
-                state.intel,
-              ],
-              isHeaderVisible: false),
+  _buildPiCharts() {
+    context.read<BioCubit>().emitBioInit(widget.profile);
+    return BlocBuilder<BioCubit, BioState>(builder: (context, state) {
+      header =
+          DateService.getFormattedDate(DateService.fromTimestamp(state.date));
+      return SliverToBoxAdapter(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 24.0),
+          child: CustomCard(
+            child: buildBioPiCharts(
+                context,
+                [
+                  state.physical,
+                  state.emotional,
+                  state.intel,
+                ],
+                isHeaderVisible: false),
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 
-  Widget _buildList(List<CardData> description) {
-    return SliverList(
-        delegate: SliverChildBuilderDelegate(
-      (context, index) {
-        var data = description[index];
-        return buildExpandCard(data.header, data.description, data.iconPath);
-      },
-      childCount: description.length,
-    ));
+  Widget _buildList() {
+    return BlocBuilder<BioCubit, BioState>(builder: (context, state) {
+      return SliverList(
+          delegate: SliverChildBuilderDelegate(
+        (context, index) {
+          var data = state.description[index];
+          return buildExpandCard(data.header, data.description, data.iconPath);
+        },
+        childCount: state.description.length,
+      ));
+    });
   }
 }
