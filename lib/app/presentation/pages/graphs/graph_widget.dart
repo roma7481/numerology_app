@@ -29,8 +29,8 @@ class _GraphWidgetState extends State<GraphWidget> {
   @override
   void initState() {
     super.initState();
-    minX = 0;
-    maxX = 8;
+    minX = -4;
+    maxX = 4;
   }
 
   @override
@@ -91,7 +91,7 @@ class _GraphWidgetState extends State<GraphWidget> {
     var numDaysSinceBorn =
         CategoryCalc.instance.calcDaysAfterBorn(widget.profile.dob);
 
-    return List.generate(365 * 11, (i) => (i - 100) / 10)
+    return List.generate(365 * 11, (i) => (i - 365*2) / 10)
         .where((element) => element > minX && element < maxX)
         .map((x) => FlSpot(x, _calcY(numDaysSinceBorn, x, daysInterval)))
         .toList();
@@ -183,8 +183,6 @@ class _GraphWidgetState extends State<GraphWidget> {
     if (_touchResponse != null) {
       if (_touchResponse.lineBarSpots != null &&
           _touchResponse.lineBarSpots.isNotEmpty) {
-        print("&&& ${_touchResponse.lineBarSpots[0].x}");
-
         context.read<BioCubit>().emitBioUpdate(
           [
             _touchResponse.lineBarSpots[0].y,
@@ -198,7 +196,7 @@ class _GraphWidgetState extends State<GraphWidget> {
   }
 
   String _getDateRange(double value) {
-    var numDays = value.floor() - 1;
+    var numDays = value.round();
     if (numDays.isOdd) {
       var currentDay = DateTime.now();
       var newDate = new DateTime(
@@ -210,7 +208,7 @@ class _GraphWidgetState extends State<GraphWidget> {
   }
 
   int _getSelectedDate(double value) {
-    var numDays = value.floor() - 1;
+    var numDays = value.round();
     var currentDay = DateTime.now();
     var newDate = new DateTime(
         currentDay.year, currentDay.month, currentDay.day + numDays);
