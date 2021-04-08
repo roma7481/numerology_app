@@ -12,42 +12,34 @@ part 'bio_state.dart';
 class BioCubit extends Cubit<BioState> {
   BioCubit()
       : super(BioState(
+          physical: 0.0,
+          emotional: 0.0,
+          intel: 0.0,
           date: DateService.toTimestamp(DateTime.now()),
+          description: [],
         ));
 
-  void emitBioUpdatePrim(List<double> bioPrim, {int date}) async {
+  void emitBioUpdate(List<double> bio, {int date}) async {
     if (date == null) {
       date = DateService.toTimestamp(DateTime.now());
     }
 
-    emit(state.copyWith(
-      bioPrim: bioPrim,
+    emit(BioState(
+      physical: bio[0],
+      emotional: bio[1],
+      intel: bio[2],
       date: date,
-      descriptionPrim: await _getDescriptionPrim(bioPrim),
-    ));
-  }
-
-  void emitBioUpdateSecond(List<double> bioSecond, {int date}) async {
-    if (date == null) {
-      date = DateService.toTimestamp(DateTime.now());
-    }
-
-    emit(state.copyWith(
-      bioSecond: bioSecond,
-      date: date,
-      descriptionSecond: await _getDescriptionSecond(bioSecond),
+      description: await _getDescription(bio),
     ));
   }
 
   void emitBioInit(Profile profile) {
-    var bioPrim = CategoryCalc.instance.calcBioPrimByDate(profile.dob);
-    var bioSecond = CategoryCalc.instance.calcBioSecondByDate(profile.dob);
-    emitBioUpdatePrim(bioPrim);
-    emitBioUpdateSecond(bioSecond);
+    var bio = CategoryCalc.instance.calcBioByDate(profile.dob);
+    emitBioUpdate(bio);
   }
 
-  Future<List<CardData>> _getDescriptionPrim(List<double> bioPrim) async {
-    var bioLevel = CategoryCalc.instance.calcBioLevelPrim(bioPrim);
+  Future<List<CardData>> _getDescription(List<double> bio) async {
+    var bioLevel = CategoryCalc.instance.calcBioLevel(bio);
 
     var table = 'BIORITHMS_ENG';
     var description1 = await getEntityRawQuery(
@@ -57,7 +49,7 @@ class BioCubit extends Cubit<BioState> {
     var description3 = await getEntityRawQuery(
         'select description from $table where type = "intellectual" AND level = "${bioLevel[2]}"');
     var info = await getEntityRawQuery(
-        'select description from "TABLE_DESCRIPTION" where table_name = "$table"');
+        'select description from "TABLE_DESCRIPTION" where table_name = "$table" ');
 
     return [
       CardData(
@@ -70,45 +62,6 @@ class BioCubit extends Cubit<BioState> {
           iconPath: emotional),
       CardData(
           description: description3,
-          header: Globals.instance.language.intellectBio,
-          iconPath: intel),
-      CardData(
-          description: info,
-          header: Globals.instance.language.info,
-          iconPath: infoIcon),
-    ];
-  }
-
-  Future<List<CardData>> _getDescriptionSecond(List<double> bioSecond) async {
-    var bioLevel = CategoryCalc.instance.calcBioLevelSecond(bioSecond);
-
-    var table = 'SECONDARY_BIORITHMS_ENG';
-    var description1 = await getEntityRawQuery(
-        'select description from $table where type = "spiritual" AND level = "${bioLevel[0]}"');
-    var description2 = await getEntityRawQuery(
-        'select description from $table where type = "intuitive" AND level = "${bioLevel[1]}"');
-    var description3 = await getEntityRawQuery(
-        'select description from $table where type = "self-awareness" AND level = "${bioLevel[2]}"');
-    var description4 = await getEntityRawQuery(
-        'select description from $table where type = "aesthetic" AND level = "${bioLevel[2]}"');
-    var info = await getEntityRawQuery(
-        'select description from "TABLE_DESCRIPTION" where table_name = "SECONDARY_BIORYTHMS_ENG"');
-
-    return [
-      CardData(
-          description: description1,
-          header: Globals.instance.language.physicalBio,
-          iconPath: physical),
-      CardData(
-          description: description2,
-          header: Globals.instance.language.emotionalBio,
-          iconPath: emotional),
-      CardData(
-          description: description3,
-          header: Globals.instance.language.intellectBio,
-          iconPath: intel),
-      CardData(
-          description: description4,
           header: Globals.instance.language.intellectBio,
           iconPath: intel),
       CardData(

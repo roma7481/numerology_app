@@ -82,9 +82,9 @@ class _BioGraphsPageState extends State<BioGraphsPage> {
             child: buildBioPiCharts(
                 context,
                 [
-                  state.bioPrim[0],
-                  state.bioPrim[1],
-                  state.bioPrim[2],
+                  state.physical,
+                  state.emotional,
+                  state.intel,
                 ],
                 isHeaderVisible: false),
           ),
@@ -98,10 +98,10 @@ class _BioGraphsPageState extends State<BioGraphsPage> {
       return SliverList(
           delegate: SliverChildBuilderDelegate(
         (context, index) {
-          var data = state.descriptionPrim[index];
+          var data = state.description[index];
           return buildExpandCard(data.header, data.description, data.iconPath);
         },
-        childCount: state.descriptionPrim.length,
+        childCount: state.description.length,
       ));
     });
   }

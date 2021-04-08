@@ -91,7 +91,7 @@ class _GraphWidgetState extends State<GraphWidget> {
     var numDaysSinceBorn =
         CategoryCalc.instance.calcDaysAfterBorn(widget.profile.dob);
 
-    return List.generate(365 * 11, (i) => (i - 365 * 2) / 5)
+    return List.generate(365 * 11, (i) => (i - 365*2) / 5)
         .where((element) => element > minX && element < maxX)
         .map((x) => FlSpot(x, _calcY(numDaysSinceBorn, x, daysInterval)))
         .toList();
@@ -155,40 +155,40 @@ class _GraphWidgetState extends State<GraphWidget> {
 
   SideTitles _buildSideTiles() {
     return SideTitles(
-      showTitles: true,
-      getTextStyles: (value) => const TextStyle(
-        color: graphDates,
-        fontSize: 15,
-      ),
-      getTitles: (value) {
-        switch (value.toInt()) {
-          case 90:
-            return '90%';
-          case 60:
-            return '60%';
-          case 30:
-            return '30%';
-          case 0:
-            return '0%';
-          case -90:
-            return '-90%';
-          case -60:
-            return '-60%';
-          case -30:
-            return '-30%';
-        }
-        return '';
-      },
-      reservedSize: 28,
-      margin: 12,
-    );
+        showTitles: true,
+        getTextStyles: (value) => const TextStyle(
+          color: graphDates,
+          fontSize: 15,
+        ),
+        getTitles: (value) {
+          switch (value.toInt()) {
+            case 90:
+              return '90%';
+            case 60:
+              return '60%';
+            case 30:
+              return '30%';
+            case 0:
+              return '0%';
+            case -90:
+              return '-90%';
+            case -60:
+              return '-60%';
+            case -30:
+              return '-30%';
+          }
+          return '';
+        },
+        reservedSize: 28,
+        margin: 12,
+      );
   }
 
   void updatePiCharts() {
     if (_touchResponse != null) {
       if (_touchResponse.lineBarSpots != null &&
           _touchResponse.lineBarSpots.isNotEmpty) {
-        context.read<BioCubit>().emitBioUpdatePrim(
+        context.read<BioCubit>().emitBioUpdate(
           [
             _touchResponse.lineBarSpots[0].y,
             _touchResponse.lineBarSpots[1].y,

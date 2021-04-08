@@ -42,8 +42,7 @@ class _BioGraphsSecondPageState extends State<BioGraphsSecondPage> {
 
   Widget _buildHeader() {
     return BlocBuilder<BioCubit, BioState>(builder: (context, state) {
-      header =
-          DateService.getFormattedDate(DateService.fromTimestamp(state.date));
+      header = 'some header';
       return Text(header);
     });
   }
