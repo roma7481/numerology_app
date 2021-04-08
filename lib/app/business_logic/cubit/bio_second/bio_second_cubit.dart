@@ -51,20 +51,20 @@ class BioSecondCubit extends Cubit<BioSecondState> {
     return [
       CardData(
           description: description1,
-          header: Globals.instance.language.physicalBio,
-          iconPath: physical),
+          header: Globals.instance.language.spiritBio,
+          iconPath: spirit),
       CardData(
           description: description2,
-          header: Globals.instance.language.emotionalBio,
-          iconPath: emotional),
+          header: Globals.instance.language.intuitBio,
+          iconPath: intuit),
       CardData(
           description: description3,
-          header: Globals.instance.language.intellectBio,
-          iconPath: intel),
+          header: Globals.instance.language.awareBio,
+          iconPath: awareness),
       CardData(
           description: description4,
-          header: Globals.instance.language.intellectBio,
-          iconPath: intel),
+          header: Globals.instance.language.aestheticBio,
+          iconPath: aesthetic),
       CardData(
           description: info,
           header: Globals.instance.language.info,

@@ -53,3 +53,8 @@ const directions = 'assets/compatibility/directions.svg';
 const physical = 'assets/graphs/graph_phys.svg';
 const emotional = 'assets/graphs/graph_emot.svg';
 const intel = 'assets/graphs/graph_intel.svg';
+
+const spirit = physical;
+const intuit = intel;
+const awareness = emotional;
+const aesthetic = 'assets/graphs/graph_aest.svg';

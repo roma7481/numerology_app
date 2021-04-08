@@ -5,6 +5,7 @@ import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.da
 import 'package:numerology/app/business_logic/services/date_service.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/data/models/profile.dart';
+import 'package:numerology/app/presentation/common_widgets/foldable_card_widget.dart';
 import 'package:numerology/app/presentation/common_widgets/progress_bar.dart';
 
 import 'bio_pi_charts_second.dart';
@@ -59,6 +60,7 @@ class _BioGraphsSecondPageState extends State<BioGraphsSecondPage> {
         slivers: [
           _buildGraphs(),
           _buildPiCharts(),
+          _buildList(),
         ],
       ),
     );
@@ -85,6 +87,20 @@ class _BioGraphsSecondPageState extends State<BioGraphsSecondPage> {
           ),
         ),
       );
+    });
+  }
+
+  Widget _buildList() {
+    return BlocBuilder<BioSecondCubit, BioSecondState>(
+        builder: (context, state) {
+      return SliverList(
+          delegate: SliverChildBuilderDelegate(
+        (context, index) {
+          var data = state.description[index];
+          return buildExpandCard(data.header, data.description, data.iconPath);
+        },
+        childCount: state.description.length,
+      ));
     });
   }
 }
