@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:numerology/app/business_logic/cubit/bio/bio_cubit.dart';
+import 'package:numerology/app/business_logic/cubit/bio_second/bio_second_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/language/language_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.dart';
 import 'package:numerology/app/business_logic/services/date_service.dart';
@@ -28,6 +29,7 @@ class HomePage extends StatelessWidget {
     return BlocBuilder<UserDataCubit, UserDataState>(builder: (context, state) {
       if (state is UserDataReady) {
         context.read<BioCubit>().emitBioInit(state.profile);
+        context.read<BioSecondCubit>().emitBioInit(state.profile);
         return SafeArea(
           child: Scaffold(
             appBar: AppBar(
@@ -49,7 +51,7 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _buildHeader() {
-      return Text(DateService.getFormattedDate(DateTime.now()));
+    return Text(DateService.getFormattedDate(DateTime.now()));
   }
 
   Widget _buildContent(BuildContext context, UserDataReady userDataState) {

@@ -13,10 +13,10 @@ class CategoryCalc {
   static final instance = CategoryCalc._();
 
   List<double> calcBio(Profile profile) {
-    return calcBioByDate(profile.dob);
+    return calcBioPrimByDate(profile.dob);
   }
 
-  List<String> calcBioLevel(List<double> bio) {
+  List<String> calcBioPrimLevel(List<double> bio) {
     var bioLevels = ['positive', 'positive', 'positive'];
 
     for (int i = 0; i < bio.length; i++) {
@@ -30,13 +30,41 @@ class CategoryCalc {
     return bioLevels;
   }
 
-  List<double> calcBioByDate(int dob) {
+  List<String> calcBioSecondLevel(List<double> bio) {
+    var bioLevels = ['high', 'high', 'high', 'high'];
+
+    for (int i = 0; i < bio.length; i++) {
+      bioLevels[i] = bio[i] < 0 ? 'low' : 'high';
+    }
+
+    return bioLevels;
+  }
+
+  List<double> calcBioPrimByDate(int dob) {
     var rhythms = [0.0, 0.0, 0.0];
 
     var days = calcDaysAfterBorn(dob);
     rhythms[0] = sin(2.0 * pi * days / 23.0) * 100.0;
     rhythms[1] = sin(2.0 * pi * days / 28.0) * 100.0;
     rhythms[2] = sin(2.0 * pi * days / 33.0) * 100.0;
+
+    for (int i = 0; i < rhythms.length; i++) {
+      if (rhythms[i] < 0 && rhythms[i] > -0.1) {
+        rhythms[i] = 0;
+      }
+    }
+
+    return rhythms;
+  }
+
+  List<double> calcBioSecondByDate(int dob) {
+    var rhythms = [0.0, 0.0, 0.0, 0.0];
+
+    var days = calcDaysAfterBorn(dob);
+    rhythms[0] = sin(2.0 * pi * days / 53.0) * 100.0; //spirit
+    rhythms[1] = sin(2.0 * pi * days / 38.0) * 100.0; //intuition
+    rhythms[2] = sin(2.0 * pi * days / 48.0) * 100.0; //awareness
+    rhythms[2] = sin(2.0 * pi * days / 43.0) * 100.0; //aesthetic
 
     for (int i = 0; i < rhythms.length; i++) {
       if (rhythms[i] < 0 && rhythms[i] > -0.1) {

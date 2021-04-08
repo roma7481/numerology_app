@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:numerology/app/business_logic/cubit/bio/bio_cubit.dart';
+import 'package:numerology/app/business_logic/cubit/bio_second/bio_second_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.dart';
 import 'package:numerology/app/business_logic/services/date_service.dart';
 import 'package:numerology/app/constants/colors.dart';
@@ -41,8 +41,10 @@ class _BioGraphsSecondPageState extends State<BioGraphsSecondPage> {
   }
 
   Widget _buildHeader() {
-    return BlocBuilder<BioCubit, BioState>(builder: (context, state) {
-      header = 'some header';
+    return BlocBuilder<BioSecondCubit, BioSecondState>(
+        builder: (context, state) {
+      header =
+          DateService.getFormattedDate(DateService.fromTimestamp(state.date));
       return Text(header);
     });
   }

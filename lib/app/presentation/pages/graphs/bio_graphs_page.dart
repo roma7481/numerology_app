@@ -73,7 +73,7 @@ class _BioGraphsPageState extends State<BioGraphsPage> {
   }
 
   _buildPiCharts() {
-    context.read<BioCubit>().emitBioInit(profile);
+    // context.read<BioCubit>().emitBioInit(profile);
     return BlocBuilder<BioCubit, BioState>(builder: (context, state) {
       return SliverToBoxAdapter(
         child: Padding(

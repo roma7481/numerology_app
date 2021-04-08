@@ -7,6 +7,7 @@ import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.da
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
+import 'app/business_logic/cubit/bio_second/bio_second_cubit.dart';
 import 'app/business_logic/cubit/language/language_cubit.dart';
 import 'app/constants/strings.dart';
 import 'app/presentation/pages/page_decider.dart';
@@ -32,6 +33,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<BioCubit>(
           create: (context) => BioCubit(),
+        ),
+        BlocProvider<BioSecondCubit>(
+          create: (context) => BioSecondCubit(),
         ),
         BlocProvider<UserDataCubit>(
           create: (context) => UserDataCubit(),
