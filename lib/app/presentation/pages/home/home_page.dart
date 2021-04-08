@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:numerology/app/business_logic/cubit/bio/bio_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/language/language_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.dart';
+import 'package:numerology/app/business_logic/services/date_service.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/data/models/category_model.dart';
 import 'package:numerology/app/data/models/profile.dart';
@@ -29,6 +30,11 @@ class HomePage extends StatelessWidget {
         context.read<BioCubit>().emitBioInit(state.profile);
         return SafeArea(
           child: Scaffold(
+            appBar: AppBar(
+              centerTitle: true,
+              backgroundColor: backgroundColor,
+              title: _buildHeader(),
+            ),
             body: _buildContent(
               context,
               state,
@@ -40,6 +46,10 @@ class HomePage extends StatelessWidget {
       }
       return progressBar();
     });
+  }
+
+  Widget _buildHeader() {
+      return Text(DateService.getFormattedDate(DateTime.now()));
   }
 
   Widget _buildContent(BuildContext context, UserDataReady userDataState) {
