@@ -91,7 +91,7 @@ class _GraphWidgetState extends State<GraphWidget> {
     var numDaysSinceBorn =
         CategoryCalc.instance.calcDaysAfterBorn(widget.profile.dob);
 
-    return List.generate(365 * 11, (i) => (i - 365*2) / 10)
+    return List.generate(365 * 11, (i) => (i - 365*2) / 5)
         .where((element) => element > minX && element < maxX)
         .map((x) => FlSpot(x, _calcY(numDaysSinceBorn, x, daysInterval)))
         .toList();
