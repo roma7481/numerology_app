@@ -76,9 +76,9 @@ const List<Color> intelColors = [
   intellectEmotionCircleEnd,
 ];
 
-const List<Color> spiritColors = emotionColors;
-const List<Color> awareColors = intelColors;
-const List<Color> intuitColors = physicalColors;
+const List<Color> spiritColors = physicalColors;
+const List<Color> intuitColors = intelColors;
+const List<Color> awareColors = emotionColors;
 const List<Color> aestheticColors = [
   aestheticEmotionCircleStart,
   aestheticEmotionCircleEnd,

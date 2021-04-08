@@ -156,3 +156,12 @@ var bioNameIntel = GoogleFonts.sourceSansPro(
       fontSize: 16.0,
       color: intellectEmotionCircleStart,
     ));
+
+var bioNameSpirit = bioNamePhis;
+var bioNameIntuit = bioNameIntel;
+var bioNameAware = bioNameEmotion;
+var bioNameAesthetic = GoogleFonts.sourceSansPro(
+    textStyle: TextStyle(
+      fontSize: 16.0,
+      color: aestheticEmotionCircleStart,
+    ));
