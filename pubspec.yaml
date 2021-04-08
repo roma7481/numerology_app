@@ -70,6 +70,7 @@ flutter:
     - assets/category_images/
     - assets/compatibility/
     - assets/matrix/
+    - assets/graphs/
     - assets/database/numerology.db
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg

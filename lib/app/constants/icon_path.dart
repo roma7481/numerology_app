@@ -47,3 +47,9 @@ const lifePathComp = 'assets/compatibility/lifepath_comp.svg';
 const matrixComp = 'assets/compatibility/matrix_comp.svg';
 const info = 'assets/compatibility/info.svg';
 const directions = 'assets/compatibility/directions.svg';
+
+/// GRAPHS ///
+
+const physical = 'assets/graphs/graph_phys.svg';
+const emotional = 'assets/graphs/graph_emot.svg';
+const intel = 'assets/graphs/graph_intel.svg';
