@@ -12,7 +12,7 @@ import 'package:numerology/app/presentation/navigators/navigator.dart';
 import 'package:numerology/app/presentation/pages/home/custom_raised_button.dart';
 import 'package:numerology/app/presentation/pages/navigator/navigator.dart';
 
-import 'bio_pi_charts.dart';
+import '../graphs/bio_pi_charts.dart';
 import 'category_tile.dart';
 import 'day_category.dart';
 

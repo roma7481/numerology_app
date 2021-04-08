@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:numerology/app/data/models/profile.dart';
 import 'package:numerology/app/presentation/pages/bottom_navigator/main_page.dart';
-import 'package:numerology/app/presentation/pages/home/bio_graphs_page.dart';
+import 'package:numerology/app/presentation/pages/graphs/bio_graphs_page.dart';
 import 'package:numerology/app/presentation/pages/welcome/name_settings_page.dart';
 
 void navigateToNameSettings(BuildContext context, int dob) async {
