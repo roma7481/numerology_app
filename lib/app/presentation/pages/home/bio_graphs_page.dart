@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:numerology/app/business_logic/cubit/bio/bio_cubit.dart';
+import 'package:numerology/app/business_logic/services/date_service.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/data/models/profile.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
@@ -18,6 +19,8 @@ class BioGraphsPage extends StatefulWidget {
 }
 
 class _BioGraphsPageState extends State<BioGraphsPage> {
+  var header = DateService.getFormattedDate(DateTime.now());
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<BioCubit, BioState>(builder: (context, state) {
@@ -28,7 +31,12 @@ class _BioGraphsPageState extends State<BioGraphsPage> {
   Widget _buildPageContent(BuildContext context, BioState state) {
     return SafeArea(
         child: Scaffold(
-      body: _buildContent(context, state),
+          appBar: AppBar(
+            centerTitle: true,
+            backgroundColor: backgroundColor,
+            title: Text(header),
+          ),
+          body: _buildContent(context, state),
     ));
   }
 

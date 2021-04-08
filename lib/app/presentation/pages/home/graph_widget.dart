@@ -37,9 +37,9 @@ class _GraphWidgetState extends State<GraphWidget> {
     return Stack(
       children: <Widget>[
         AspectRatio(
-          aspectRatio: 1.20,
+          aspectRatio: 1.1,
           child: Padding(
-            padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 32),
+            padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 36),
             child: Container(
               decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(
@@ -122,7 +122,7 @@ class _GraphWidgetState extends State<GraphWidget> {
                   touchResponse.lineBarSpots[0].y,
                   touchResponse.lineBarSpots[1].y,
                   touchResponse.lineBarSpots[2].y,
-                ],
+                ],54
               );
             }
           }),
