@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:numerology/app/business_logic/cubit/bio/bio_cubit.dart';
+import 'package:numerology/app/business_logic/cubit/forecast/forecast_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/profiles/profiles_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.dart';
 import 'package:path_provider/path_provider.dart';
@@ -33,6 +34,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<BioCubit>(
           create: (context) => BioCubit(),
+        ),
+        BlocProvider<ForecastCubit>(
+          create: (context) => ForecastCubit(),
         ),
         BlocProvider<BioSecondCubit>(
           create: (context) => BioSecondCubit(),

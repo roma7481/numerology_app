@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:numerology/app/business_logic/cubit/forecast/forecast.dart';
+import 'package:numerology/app/business_logic/cubit/forecast/forecast_cubit.dart';
 import 'package:numerology/app/constants/colors.dart';
-import 'package:numerology/app/constants/icon_path.dart';
 import 'package:numerology/app/constants/text_styles.dart';
+import 'package:numerology/app/presentation/common_widgets/error_dialog.dart';
+import 'package:numerology/app/presentation/common_widgets/progress_bar.dart';
 import 'package:numerology/app/presentation/pages/home/day_category.dart';
 
 import 'forecast_button.dart';
@@ -12,9 +16,20 @@ class ForecastPage extends StatefulWidget {
 }
 
 class _ForecastPageState extends State<ForecastPage> {
+  var _daily;
+  var _dailyBtnIndex = 0;
+
   @override
   Widget build(BuildContext context) {
-    return _buildContent();
+    return BlocBuilder<ForecastCubit, ForecastState>(builder: (context, state) {
+      if (state is ForecastReady) {
+        _daily = state.daily;
+        return _buildContent();
+      } else if (state is ForecastError) {
+        return errorDialog();
+      }
+      return progressBar();
+    });
   }
 
   Scaffold _buildContent() {
@@ -32,19 +47,22 @@ class _ForecastPageState extends State<ForecastPage> {
     return Container(
       color: backgroundColor,
       child: CustomScrollView(
-        slivers: [_buildCategory()],
+        slivers: [
+          _buildCategory(_daily),
+          _buildLine(),
+        ],
       ),
     );
   }
 
-  Widget _buildCategory() {
+  Widget _buildCategory(Forecast forecast) {
     return SliverToBoxAdapter(
       child: Column(
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 16.0, bottom: 8.0),
             child: Text(
-              'cat header',
+              forecast.title,
               style: forecastCardHeader,
             ),
           ),
@@ -55,50 +73,50 @@ class _ForecastPageState extends State<ForecastPage> {
               children: [
                 ForecastButton(
                     child: Text(
-                      'waebtn1',
+                      forecast.btnTitles[0],
                       style: buttonTextStyle,
                     ),
                     onPressed: () {}),
                 ForecastButton(
                     child: Text(
-                      'qwebtn2',
+                      forecast.btnTitles[1],
                       style: buttonTextStyle,
                     ),
                     onPressed: () {}),
                 ForecastButton(
                     child: Text(
-                      'qwebtn3',
+                      forecast.btnTitles[2],
                       style: buttonTextStyle,
                     ),
                     onPressed: () {}),
               ],
             ),
           ),
-          _buildCategoryCard(),
-          _buildLine(),
+          _buildCategoryCard(forecast, _dailyBtnIndex),
         ],
       ),
     );
   }
 
   Widget _buildLine() {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Container(
-        height: 1.0,
-        width: MediaQuery.of(context).size.width * 0.90,
-        color: Colors.white,
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Container(
+          height: 1.0,
+          width: MediaQuery.of(context).size.width * 0.90,
+          color: Colors.white,
+        ),
       ),
     );
   }
 
-  Widget _buildCategoryCard() {
+  Widget _buildCategoryCard(Forecast forecast, int selectedBtn) {
     return buildDayCategory(
-      text: 'category.text',
-      content: 'category.content',
-      onPressed: () async {
-      },
-      imagePath: day,
+      text: forecast.cardTitle,
+      content: forecast.contents[selectedBtn],
+      onPressed: () {},
+      imagePath: forecast.iconPath,
     );
   }
 }
