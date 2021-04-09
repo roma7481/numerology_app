@@ -471,6 +471,12 @@ class CategoryCalc {
     return _calcToSingleDigit(personalMonth + currentDay);
   }
 
+  int calcPersonalDayByDate(Profile profile, DateTime date) {
+    var personalMonth = calcPersonalMonth(profile);
+    var currentDay = date.day;
+    return _calcToSingleDigit(personalMonth + currentDay);
+  }
+
   int calcPersonalMonth(Profile profile) {
     var personalYear = calcPersonalYear(profile);
     var currentMonth = DateService.getCurrentDate().month;

@@ -35,14 +35,15 @@ class MyApp extends StatelessWidget {
         BlocProvider<BioCubit>(
           create: (context) => BioCubit(),
         ),
-        BlocProvider<ForecastCubit>(
-          create: (context) => ForecastCubit(),
-        ),
         BlocProvider<BioSecondCubit>(
           create: (context) => BioSecondCubit(),
         ),
         BlocProvider<UserDataCubit>(
           create: (context) => UserDataCubit(),
+          lazy: false,
+        ),
+        BlocProvider<ForecastCubit>(
+          create: (context) => ForecastCubit(UserDataCubit()),
           lazy: false,
         ),
         BlocProvider<ProfilesCubit>(
