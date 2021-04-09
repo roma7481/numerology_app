@@ -135,33 +135,49 @@ var lifePathCompat = GoogleFonts.sourceSansPro(
 
 var bioPercentage = GoogleFonts.sourceSansPro(
     textStyle: TextStyle(
-      fontSize: 16.0,
-      color: Colors.white,
-    ));
+  fontSize: 16.0,
+  color: Colors.white,
+));
 
 var bioNamePhis = GoogleFonts.sourceSansPro(
     textStyle: TextStyle(
-      fontSize: 16.0,
-      color: bioPhysicalCircleStart,
-    ));
+  fontSize: 16.0,
+  color: bioPhysicalCircleStart,
+));
 
 var bioNameEmotion = GoogleFonts.sourceSansPro(
     textStyle: TextStyle(
-      fontSize: 16.0,
-      color: bioEmotionCircleEnd,
-    ));
+  fontSize: 16.0,
+  color: bioEmotionCircleEnd,
+));
 
 var bioNameIntel = GoogleFonts.sourceSansPro(
     textStyle: TextStyle(
-      fontSize: 16.0,
-      color: intellectEmotionCircleStart,
-    ));
+  fontSize: 16.0,
+  color: intellectEmotionCircleStart,
+));
 
 var bioNameSpirit = bioNamePhis;
 var bioNameIntuit = bioNameIntel;
 var bioNameAware = bioNameEmotion;
 var bioNameAesthetic = GoogleFonts.sourceSansPro(
     textStyle: TextStyle(
-      fontSize: 16.0,
-      color: aestheticEmotionCircleStart,
-    ));
+  fontSize: 16.0,
+  color: aestheticEmotionCircleStart,
+));
+
+/// FORECAST ///
+
+var forecastCardHeader = GoogleFonts.philosopher(
+  textStyle: TextStyle(
+    fontSize: 22.0,
+    color: categoryTileText,
+    fontWeight: FontWeight.bold,
+  ),
+);
+
+var buttonTextStyle = GoogleFonts.sourceSansPro(
+    textStyle: TextStyle(
+  fontSize: 15.0,
+  color: Colors.white,
+));
