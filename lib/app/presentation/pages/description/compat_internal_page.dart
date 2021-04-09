@@ -155,6 +155,7 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
     return [
       _buildTopNav(),
       _buildPiCharts(),
+      _buildList(widget.bioDescription),
     ];
   }
 
