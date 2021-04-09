@@ -48,14 +48,14 @@ class _ForecastPageState extends State<ForecastPage> {
       color: backgroundColor,
       child: CustomScrollView(
         slivers: [
-          _buildCategory(_daily),
+          _buildCategory(_daily, _onDailyPressed),
           _buildLine(),
         ],
       ),
     );
   }
 
-  Widget _buildCategory(Forecast forecast) {
+  Widget _buildCategory(Forecast forecast, Function onPresses) {
     return SliverToBoxAdapter(
       child: Column(
         children: [
@@ -76,19 +76,19 @@ class _ForecastPageState extends State<ForecastPage> {
                       forecast.btnTitles[0],
                       style: buttonTextStyle,
                     ),
-                    onPressed: () {}),
+                    onPressed: () => _onDailyPressed(0)),
                 ForecastButton(
                     child: Text(
                       forecast.btnTitles[1],
                       style: buttonTextStyle,
                     ),
-                    onPressed: () {}),
+                    onPressed: () => _onDailyPressed(1)),
                 ForecastButton(
                     child: Text(
                       forecast.btnTitles[2],
                       style: buttonTextStyle,
                     ),
-                    onPressed: () {}),
+                    onPressed: () => _onDailyPressed(2)),
               ],
             ),
           ),
@@ -96,6 +96,12 @@ class _ForecastPageState extends State<ForecastPage> {
         ],
       ),
     );
+  }
+
+  void _onDailyPressed(int index) {
+    setState(() {
+      _dailyBtnIndex = index;
+    });
   }
 
   Widget _buildLine() {
