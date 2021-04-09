@@ -48,14 +48,15 @@ class _ForecastPageState extends State<ForecastPage> {
       color: backgroundColor,
       child: CustomScrollView(
         slivers: [
-          _buildCategory(_daily, _onDailyPressed),
+          _buildCategory(_daily, _onDailyPressed, _dailyBtnIndex),
           _buildLine(),
         ],
       ),
     );
   }
 
-  Widget _buildCategory(Forecast forecast, Function onPresses) {
+  Widget _buildCategory(
+      Forecast forecast, Function onPressed, int selectedButton) {
     return SliverToBoxAdapter(
       child: Column(
         children: [
@@ -72,18 +73,21 @@ class _ForecastPageState extends State<ForecastPage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ForecastButton(
+                    isSelected: selectedButton == 0,
                     child: Text(
                       forecast.btnTitles[0],
                       style: buttonTextStyle,
                     ),
                     onPressed: () => _onDailyPressed(0)),
                 ForecastButton(
+                    isSelected: selectedButton == 1,
                     child: Text(
                       forecast.btnTitles[1],
                       style: buttonTextStyle,
                     ),
                     onPressed: () => _onDailyPressed(1)),
                 ForecastButton(
+                    isSelected: selectedButton == 2,
                     child: Text(
                       forecast.btnTitles[2],
                       style: buttonTextStyle,
