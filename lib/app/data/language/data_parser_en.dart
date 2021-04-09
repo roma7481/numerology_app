@@ -82,8 +82,25 @@ class DataParserEn extends DataParser {
           'select description from BIORITHM_COMPATIBILITY_ENG  where  type = "emotional" and level = "${bioCompatLevels[1]}"');
       var bioCompDescr3 = await getEntityRawQuery(
           'select description from BIORITHM_COMPATIBILITY_ENG  where  type = "intellectual" and level = "${bioCompatLevels[2]}"');
-      var bioCompInfo = await getEntityRawQuery(
+      var bioCompInfoDescr = await getEntityRawQuery(
           'select description from "TABLE_DESCRIPTION" where table_name = "BIORITHM_COMPATIBILITY_ENG"');
+
+      var bioCompData1 = CardData(
+          description: bioCompDescr1,
+          header: Globals.instance.language.physicalBio,
+          iconPath: physical);
+      var bioCompData2 = CardData(
+          description: bioCompDescr2,
+          header: Globals.instance.language.emotionalBio,
+          iconPath: emotional);
+      var bioCompData3 = CardData(
+          description: bioCompDescr3,
+          header: Globals.instance.language.intellectBio,
+          iconPath: intel);
+      var bioCompInfo = CardData(
+          description: bioCompInfoDescr,
+          header: Globals.instance.language.info,
+          iconPath: infoIcon);
 
       var lifePathCompat = '';
       if (yourLifePath < partnerLifePath) {
@@ -202,6 +219,12 @@ class DataParserEn extends DataParser {
           data7,
           data8,
           matrixInfo,
+        ],
+        bioDescription: [
+          bioCompData1,
+          bioCompData2,
+          bioCompData3,
+          bioCompInfo,
         ],
         lifePathDescription: [
           lifePathDescription,

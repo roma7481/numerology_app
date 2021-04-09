@@ -5,6 +5,7 @@ import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/icon_path.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/presentation/common_widgets/foldable_card_widget.dart';
+import 'package:numerology/app/presentation/pages/graphs/bio_pi_charts.dart';
 
 import 'compat_circle_widget.dart';
 import 'matrix_line_data.dart';
@@ -63,6 +64,15 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
         slivers: _buildPageDescription(),
       ),
     );
+  }
+
+  List<Widget> _buildPageDescription() {
+    if (_selectedIndex == 0) {
+      return _buildMatrixCompat();
+    } else if (_selectedIndex == 1) {
+      return _buildBioCompat();
+    }
+    return _buildLifePathCompat();
   }
 
   SliverFixedExtentList _buildTopNav() {
@@ -141,18 +151,10 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
     );
   }
 
-  List<Widget> _buildPageDescription() {
-    if (_selectedIndex == 0) {
-      return _buildMatrixCompat();
-    } else if (_selectedIndex == 1) {
-      return _buildBioCompat();
-    }
-    return _buildLifePathCompat();
-  }
-
   List<Widget> _buildBioCompat() {
     return [
       _buildTopNav(),
+      _buildPiCharts(),
     ];
   }
 
@@ -231,5 +233,15 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
       },
       childCount: dataList.length,
     ));
+  }
+
+  Widget _buildPiCharts() {
+    return SliverToBoxAdapter(
+      child: buildBioPiCharts(
+        context,
+        widget.bioCompat,
+        isHeaderVisible: false,
+      ),
+    );
   }
 }

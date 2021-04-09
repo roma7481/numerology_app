@@ -5,7 +5,6 @@ import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.da
 import 'package:numerology/app/business_logic/services/date_service.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/data/models/profile.dart';
-import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
 import 'package:numerology/app/presentation/common_widgets/foldable_card_widget.dart';
 import 'package:numerology/app/presentation/common_widgets/progress_bar.dart';
 
@@ -81,9 +80,7 @@ class _BioGraphsPageState extends State<BioGraphsPage> {
       return SliverToBoxAdapter(
         child: Padding(
           padding: const EdgeInsets.only(top: 24.0),
-          child: CustomCard(
-            child: buildBioPiCharts(context, state.bio, isHeaderVisible: false),
-          ),
+          child: buildBioPiCharts(context, state.bio, isHeaderVisible: false),
         ),
       );
     });

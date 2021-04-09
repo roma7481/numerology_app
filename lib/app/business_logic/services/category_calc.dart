@@ -54,9 +54,9 @@ class CategoryCalc {
     var rhythms = [0.0, 0.0, 0.0];
     var days = _calcDaysBetweenCouples(profile);
 
-    rhythms[0] = (sin(2.0 * pi * days / 23.0) * 100.0).abs();
-    rhythms[1] = (sin(2.0 * pi * days / 28.0) * 100.0).abs();
-    rhythms[2] = (sin(2.0 * pi * days / 33.0) * 100.0).abs();
+    rhythms[0] = (cos(2.0 * pi * days / 23.0) * 100.0).abs();
+    rhythms[1] = (cos(2.0 * pi * days / 28.0) * 100.0).abs();
+    rhythms[2] = (cos(2.0 * pi * days / 33.0) * 100.0).abs();
 
     return rhythms;
   }
