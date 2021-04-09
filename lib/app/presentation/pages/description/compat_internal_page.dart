@@ -4,6 +4,7 @@ import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/icon_path.dart';
 import 'package:numerology/app/constants/text_styles.dart';
+import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
 import 'package:numerology/app/presentation/common_widgets/foldable_card_widget.dart';
 import 'package:numerology/app/presentation/pages/graphs/bio_pi_charts.dart';
 
@@ -238,10 +239,12 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
 
   Widget _buildPiCharts() {
     return SliverToBoxAdapter(
-      child: buildBioPiCharts(
-        context,
-        widget.bioCompat,
-        isHeaderVisible: false,
+      child: CustomCard(
+        child: buildBioPiCharts(
+          context,
+          widget.bioCompat,
+          isHeaderVisible: false,
+        ),
       ),
     );
   }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/text_styles.dart';
-import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 Widget buildBioPiCharts(BuildContext context, List<double> bio,
@@ -12,28 +11,26 @@ Widget buildBioPiCharts(BuildContext context, List<double> bio,
   var bioEmotion = bio[1];
   var bioIntel = bio[2];
 
-  return CustomCard(
-    child: Container(
-      height: isHeaderVisible ? 210 : 150,
-      child: Column(
-        children: [
-          _buildHeader(isHeaderVisible),
-          Padding(
-            padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 12.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _buildBio(context, physicalGradient, _language.physicalBio,
-                    bioNamePhis, bioPhis),
-                _buildBio(context, emotionalGradient, _language.emotionalBio,
-                    bioNameEmotion, bioEmotion),
-                _buildBio(context, intellectGradient, _language.intellectBio,
-                    bioNameIntel, bioIntel),
-              ],
-            ),
+  return Container(
+    height: isHeaderVisible ? 210 : 150,
+    child: Column(
+      children: [
+        _buildHeader(isHeaderVisible),
+        Padding(
+          padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 12.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _buildBio(context, physicalGradient, _language.physicalBio,
+                  bioNamePhis, bioPhis),
+              _buildBio(context, emotionalGradient, _language.emotionalBio,
+                  bioNameEmotion, bioEmotion),
+              _buildBio(context, intellectGradient, _language.intellectBio,
+                  bioNameIntel, bioIntel),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     ),
   );
 }
