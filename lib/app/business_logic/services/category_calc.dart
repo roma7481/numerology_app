@@ -30,6 +30,42 @@ class CategoryCalc {
     return bioLevels;
   }
 
+  List<String> calcBioCompatLevel(Profile profile) {
+    var bioCompat = calcBioCompat(profile);
+    var bioLevels = ['max', 'max', 'max'];
+
+    for (int i = 0; i < bioCompat.length; i++) {
+      var daily = bioCompat[i];
+      if (daily <= 100.0 && daily >= 80.0) {
+        bioLevels[i] = "max";
+      } else if (daily >= 50 && daily < 80.0) {
+        bioLevels[i] = "good";
+      } else if (daily >= 30 && daily < 50.0) {
+        bioLevels[i] = "bad";
+      } else {
+        bioLevels[i] = "min";
+      }
+    }
+
+    return bioLevels;
+  }
+
+  List<double> calcBioCompat(Profile profile) {
+    var rhythms = [0.0, 0.0, 0.0];
+    var days = _calcDaysBetweenCouples(profile);
+
+    rhythms[0] = (sin(2.0 * pi * days / 23.0) * 100.0).abs();
+    rhythms[1] = (sin(2.0 * pi * days / 28.0) * 100.0).abs();
+    rhythms[2] = (sin(2.0 * pi * days / 33.0) * 100.0).abs();
+
+    return rhythms;
+  }
+
+  int _calcDaysBetweenCouples(Profile profile) {
+    var millisecondsDiff = (profile.dob - profile.partnerDob).abs();
+    return Duration(milliseconds: millisecondsDiff).inDays;
+  }
+
   List<String> calcBioSecondLevel(List<double> bio) {
     var bioLevels = ['high', 'high', 'high', 'high'];
 

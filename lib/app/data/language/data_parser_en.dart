@@ -60,6 +60,9 @@ class DataParserEn extends DataParser {
     var categoryName = 'Compatibility';
 
     if (_isPartnerDobSet(profile)) {
+      var bioCompat = CategoryCalc.instance.calcBioCompat(profile);
+      var bioCompatLevels = CategoryCalc.instance.calcBioCompatLevel(profile);
+
       var yourMatrixLines =
           CategoryCalc.instance.calcMatrixLinesByDob(profile.dob);
       var yourMatrix = CategoryCalc.instance.calcMatrixByDob(profile.dob);
@@ -72,6 +75,15 @@ class DataParserEn extends DataParser {
           CategoryCalc.instance.calcLifePathNumberMethod(profile.dob);
       var partnerLifePath =
           CategoryCalc.instance.calcLifePathNumberMethod(profile.partnerDob);
+
+      var bioCompDescr1 = await getEntityRawQuery(
+          'select description from BIORITHM_COMPATIBILITY_ENG  where  type = "physical" and level = "${bioCompatLevels[0]}"');
+      var bioCompDescr2 = await getEntityRawQuery(
+          'select description from BIORITHM_COMPATIBILITY_ENG  where  type = "emotional" and level = "${bioCompatLevels[1]}"');
+      var bioCompDescr3 = await getEntityRawQuery(
+          'select description from BIORITHM_COMPATIBILITY_ENG  where  type = "intellectual" and level = "${bioCompatLevels[2]}"');
+      var bioCompInfo = await getEntityRawQuery(
+          'select description from "TABLE_DESCRIPTION" where table_name = "BIORITHM_COMPATIBILITY_ENG"');
 
       var lifePathCompat = '';
       if (yourLifePath < partnerLifePath) {
@@ -175,6 +187,7 @@ class DataParserEn extends DataParser {
           iconPath: infoIcon);
 
       descriptionPage = CompatInternalPage(
+        bioCompat: bioCompat,
         yourMatrix: yourMatrix,
         partnerMatrix: partnerMatrix,
         yourLifePath: yourLifePath,

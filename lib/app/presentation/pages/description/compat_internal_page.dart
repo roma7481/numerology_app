@@ -15,6 +15,8 @@ class CompatInternalPage extends StatefulWidget {
   final List<int> partnerMatrix;
   final List<CardData> matrixDescription;
   final List<CardData> lifePathDescription;
+  final List<CardData> bioDescription;
+  final List<double> bioCompat;
   final int yourLifePath;
   final int partnersLifePath;
 
@@ -26,6 +28,8 @@ class CompatInternalPage extends StatefulWidget {
     this.lifePathDescription,
     this.yourLifePath,
     this.partnersLifePath,
+    this.bioDescription,
+    this.bioCompat,
   }) : super(key: key);
 
   @override
@@ -139,12 +143,20 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
 
   List<Widget> _buildPageDescription() {
     if (_selectedIndex == 0) {
-      return _buildMatrix();
+      return _buildMatrixCompat();
     } else if (_selectedIndex == 1) {
-      return [
-        _buildTopNav(),
-      ];
+      return _buildBioCompat();
     }
+    return _buildLifePathCompat();
+  }
+
+  List<Widget> _buildBioCompat() {
+    return [
+      _buildTopNav(),
+    ];
+  }
+
+  List<Widget> _buildLifePathCompat() {
     return [
       _buildTopNav(),
       _buildNumberIcon(
@@ -155,7 +167,7 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
     ];
   }
 
-  List<Widget> _buildMatrix() {
+  List<Widget> _buildMatrixCompat() {
     return [
       _buildTopNav(),
       _buildMatrixContent(),
