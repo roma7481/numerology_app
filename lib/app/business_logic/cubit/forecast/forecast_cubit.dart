@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:numerology/app/business_logic/cubit/forecast/forecast.dart';
 import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.dart';
+import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/business_logic/services/category_calc.dart';
 import 'package:numerology/app/business_logic/services/date_service.dart';
 import 'package:numerology/app/constants/icon_path.dart';
@@ -31,6 +32,8 @@ class ForecastCubit extends Cubit<ForecastState> {
           title: 'daily',
           cardTitle: 'daily title',
           iconPath: day,
+          info: await _getDayInfo(),
+          calc: _getDayCalc(profile),
           btnTitles: _getDailyBtnTitles(),
           contents: await _getDailyContent(profile));
 
@@ -59,21 +62,40 @@ class ForecastCubit extends Cubit<ForecastState> {
     return [btn1, btn2, btn3];
   }
 
-  Future<List<String>> _getDailyContent(Profile profile) async {
+  Future<Map<String, String>> _getDayInfo() async {
+    var language = Globals.instance.language;
+
+    var info = await getEntityRawQuery(
+        'select description from TABLE_DESCRIPTION where table_name =  "PERSONAL_DAY_ENG"');
+    return {language.info: info};
+  }
+
+  List<int> _getDayCalc(Profile profile) {
     var calc1 =
         CategoryCalc.instance.calcPersonalDayByDate(profile, DateTime.now());
     var calc2 = CategoryCalc.instance.calcPersonalDayByDate(
         profile, DateTime.now().add(const Duration(days: 1)));
     var calc3 = CategoryCalc.instance.calcPersonalDayByDate(
-        profile, DateTime.now().add(const Duration(days: 12)));
+        profile, DateTime.now().add(const Duration(days: 2)));
+
+    return [calc1, calc2, calc3];
+  }
+
+  Future<List<String>> _getDailyContent(Profile profile) async {
+    var calc = _getDayCalc(profile);
 
     var description1 = await getEntityRawQuery(
-        'select description from PERSONAL_DAY_ENG  where  number = "$calc1"');
+        'select description from PERSONAL_DAY_ENG  where  number = "${calc[0]}"');
     var description2 = await getEntityRawQuery(
-        'select description from PERSONAL_DAY_ENG  where  number = "$calc2"');
+        'select description from PERSONAL_DAY_ENG  where  number = "${calc[1]}"');
     var description3 = await getEntityRawQuery(
-        'select description from PERSONAL_DAY_ENG  where  number = "$calc3"');
-    return [description1, description2, description3];
+        'select description from PERSONAL_DAY_ENG  where  number = "${calc[2]}"');
+
+    return [
+      description1,
+      description2,
+      description3,
+    ];
   }
 
   @override

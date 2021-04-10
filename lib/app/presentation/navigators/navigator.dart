@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:numerology/app/presentation/pages/bottom_navigator/main_page.dart';
+import 'package:numerology/app/presentation/pages/description/description_page.dart';
 import 'package:numerology/app/presentation/pages/graphs/bio_graphs_page.dart';
 import 'package:numerology/app/presentation/pages/welcome/name_settings_page.dart';
 
@@ -31,4 +32,18 @@ void navigateToBioGraphsPage(BuildContext context) async {
 void navigateToDescription(BuildContext context, Widget page) async {
   Navigator.of(context, rootNavigator: true)
       .push(MaterialPageRoute(builder: (context) => page));
+}
+
+void navigateToDescriptionPage(
+  BuildContext context,
+  String header,
+  String calculation,
+  Map<String, String> description,
+) async {
+  Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
+      builder: (context) => DescriptionPage(
+            header: header,
+            calculation: calculation,
+            description: description,
+          )));
 }

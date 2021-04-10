@@ -6,6 +6,7 @@ import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/presentation/common_widgets/error_dialog.dart';
 import 'package:numerology/app/presentation/common_widgets/progress_bar.dart';
+import 'package:numerology/app/presentation/navigators/navigator.dart';
 import 'package:numerology/app/presentation/pages/home/day_category.dart';
 
 import 'forecast_button.dart';
@@ -122,10 +123,20 @@ class _ForecastPageState extends State<ForecastPage> {
   }
 
   Widget _buildCategoryCard(Forecast forecast, int selectedBtn) {
+    var descriptionMap = {
+      forecast.cardTitle: forecast.contents[selectedBtn],
+    };
+    descriptionMap.addAll(forecast.info);
+
     return buildDayCategory(
       text: forecast.cardTitle,
       content: forecast.contents[selectedBtn],
-      onPressed: () {},
+      onPressed: () => navigateToDescriptionPage(
+        context,
+        forecast.cardTitle,
+        forecast.calc[selectedBtn].toString(),
+        descriptionMap,
+      ),
       imagePath: forecast.iconPath,
     );
   }

@@ -38,12 +38,11 @@ class MyApp extends StatelessWidget {
         BlocProvider<BioSecondCubit>(
           create: (context) => BioSecondCubit(),
         ),
-        BlocProvider<UserDataCubit>(
-          create: (context) => UserDataCubit(),
-          lazy: false,
-        ),
         BlocProvider<ForecastCubit>(
           create: (context) => ForecastCubit(UserDataCubit()),
+        ),
+        BlocProvider<UserDataCubit>(
+          create: (context) => UserDataCubit(),
           lazy: false,
         ),
         BlocProvider<ProfilesCubit>(
