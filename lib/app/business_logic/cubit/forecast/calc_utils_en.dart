@@ -32,6 +32,18 @@ class CalcUtilsEn {
         contents: await _getLuckyContent(profile));
   }
 
+  Future<Forecast> getMonthForecast(Profile profile) async {
+    var language = Globals.instance.language;
+    return Forecast(
+        title: language.monthlyForecast,
+        cardTitle: language.monthNumber,
+        iconPath: month,
+        info: await _getMonthlyInfo(),
+        calc: _getMonthCalc(profile),
+        btnTitles: _getMonthBtnTitles(),
+        contents: await _getMonthContent(profile));
+  }
+
   List<String> _getDailyBtnTitles() {
     var date1 = DateTime.now();
     var date2 = DateTime.now().add(const Duration(days: 1));
@@ -50,8 +62,22 @@ class CalcUtilsEn {
     return _getInfo('PERSONAL_DAY_ENG');
   }
 
+  List<String> _getMonthBtnTitles() {
+    var date1 = DateTime.now();
+    var date2 = DateTime(date1.year, date1.month + 1, date1.day);
+    var date3 = DateTime(date1.year, date1.month + 2, date1.day);
+    var btn1 = DateService.getMonthFormattedDate(date1);
+    var btn2 = DateService.getMonthFormattedDate(date2);
+    var btn3 = DateService.getMonthFormattedDate(date3);
+    return [btn1, btn2, btn3];
+  }
+
   Future<Map<String, String>> _getLuckyInfo() async {
     return _getInfo('DAILY_LUCKY_NUMBER_ENG');
+  }
+
+  Future<Map<String, String>> _getMonthlyInfo() async {
+    return _getInfo('PERSONAL_MONTH_ENG');
   }
 
   Future<Map<String, String>> _getInfo(String table) async {
@@ -84,6 +110,17 @@ class CalcUtilsEn {
     return [calc1, calc2, calc3];
   }
 
+  List<int> _getMonthCalc(Profile profile) {
+    var date = DateTime.now();
+    var calc1 = CategoryCalc.instance.calcMonthNum(profile, date);
+    var calc2 = CategoryCalc.instance
+        .calcMonthNum(profile, DateTime(date.year, date.month + 1, date.day));
+    var calc3 = CategoryCalc.instance
+        .calcMonthNum(profile, DateTime(date.year, date.month + 2, date.day));
+
+    return [calc1, calc2, calc3];
+  }
+
   Future<List<String>> _getDailyContent(Profile profile) async {
     var calc = _getDayCalc(profile);
     return _getContent(calc, "PERSONAL_DAY_ENG");
@@ -92,6 +129,11 @@ class CalcUtilsEn {
   Future<List<String>> _getLuckyContent(Profile profile) async {
     var calc = _getLuckyCalc(profile);
     return _getContent(calc, "DAILY_LUCKY_NUMBER_ENG");
+  }
+
+  Future<List<String>> _getMonthContent(Profile profile) async {
+    var calc = _getMonthCalc(profile);
+    return _getContent(calc, "PERSONAL_MONTH_ENG");
   }
 
   Future<List<String>> _getContent(List<int> calc, String table) async {

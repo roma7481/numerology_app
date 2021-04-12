@@ -7,6 +7,7 @@ class DateService {
   static var usFormat = [M, '-', dd, '-', yyyy];
   static var standardShortFormat = [dd, '.', mm];
   static var usShortFormat = [M, '.', dd];
+  static var monthFormat = [M];
 
   static DateTime getCurrentDate() {
     return DateTime.now();
@@ -27,6 +28,10 @@ class DateService {
     return (Globals.instance.getLanguage() is LanguageEn)
         ? formatDate(date, usShortFormat)
         : formatDate(date, standardShortFormat);
+  }
+
+  static String getMonthFormattedDate(DateTime date) {
+    return formatDate(date, monthFormat);
   }
 
   static int toTimestamp(DateTime date) {

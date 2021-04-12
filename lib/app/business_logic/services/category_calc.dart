@@ -452,12 +452,12 @@ class CategoryCalc {
 
   int calcBirthdayCode(Profile profile) {
     var birthday = DateService.fromTimestamp(profile.dob);
-    var brthCodeNumber = birthday.day + birthday.month + birthday.year;
+    var birthCodeNumber = birthday.day + birthday.month + birthday.year;
 
     if (Globals.instance.language is LanguageRu) {
-      return _calcToSingleDigitWithMagicNums(brthCodeNumber);
+      return _calcToSingleDigitWithMagicNums(birthCodeNumber);
     }
-    return _calcToSingleDigit(brthCodeNumber);
+    return _calcToSingleDigit(birthCodeNumber);
   }
 
   int calcLuckGem(Profile profile) {
@@ -475,6 +475,21 @@ class CategoryCalc {
     var luckyNum = calcPersonalDayByDate(profile, date) +
         calcLifePathNumberMethod1(profile);
     return _calcToSingleDigit(luckyNum);
+  }
+
+  int calcMonthNum(Profile profile, DateTime date) {
+    var year = calcYearNum(profile, date);
+    var currentMonth = date.month;
+    return _calcToSingleDigit(currentMonth + year);
+  }
+
+  int calcYearNum(Profile profile, DateTime date) {
+    var birthday = DateService.fromTimestamp(profile.dob);
+
+    var currentYear = _calcToSingleDigitWithMagicNums(date.year);
+    var day = _calcToSingleDigitWithMagicNums(birthday.day);
+    var month = _calcToSingleDigitWithMagicNums(birthday.month);
+    return _calcToSingleDigit(day + month + currentYear);
   }
 
   int calcPersonalDayByDate(Profile profile, DateTime date) {
