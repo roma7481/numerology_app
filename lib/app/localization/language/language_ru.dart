@@ -150,4 +150,10 @@ class LanguageRu extends Languages {
 
   @override
   String get personalDayNumber => 'personalDayNumber RU';
+
+  @override
+  String get dailyLuckyNumber => 'dailyLuckyNumber RU';
+
+  @override
+  String get luckyForecast => 'luckyForecast RU';
 }

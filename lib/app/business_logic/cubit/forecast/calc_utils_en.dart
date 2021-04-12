@@ -23,8 +23,8 @@ class CalcUtilsEn {
   Future<Forecast> getLuckyForecast(Profile profile) async {
     var language = Globals.instance.language;
     return Forecast(
-        title: language.dailyForecast,
-        cardTitle: language.personalDayNumber,
+        title: language.luckyForecast,
+        cardTitle: language.dailyLuckyNumber,
         iconPath: lucky,
         info: await _getLuckyInfo(),
         calc: _getLuckyCalc(profile),
@@ -47,18 +47,18 @@ class CalcUtilsEn {
   }
 
   Future<Map<String, String>> _getDayInfo() async {
-    var language = Globals.instance.language;
-
-    var info = await getEntityRawQuery(
-        'select description from TABLE_DESCRIPTION where table_name =  "PERSONAL_DAY_ENG"');
-    return {language.info: info};
+    return _getInfo('PERSONAL_DAY_ENG');
   }
 
   Future<Map<String, String>> _getLuckyInfo() async {
+    return _getInfo('DAILY_LUCKY_NUMBER_ENG');
+  }
+
+  Future<Map<String, String>> _getInfo(String table) async {
     var language = Globals.instance.language;
 
     var info = await getEntityRawQuery(
-        'select description from TABLE_DESCRIPTION where table_name =  "DAILY_LUCKY_NUMBER_ENG"');
+        'select description from TABLE_DESCRIPTION where table_name =  "$table"');
     return {language.info: info};
   }
 
@@ -86,35 +86,21 @@ class CalcUtilsEn {
 
   Future<List<String>> _getDailyContent(Profile profile) async {
     var calc = _getDayCalc(profile);
-
-    var description1 = await getEntityRawQuery(
-        'select description from PERSONAL_DAY_ENG  where  number = "${calc[0]}"');
-    var description2 = await getEntityRawQuery(
-        'select description from PERSONAL_DAY_ENG  where  number = "${calc[1]}"');
-    var description3 = await getEntityRawQuery(
-        'select description from PERSONAL_DAY_ENG  where  number = "${calc[2]}"');
-
-    return [
-      description1,
-      description2,
-      description3,
-    ];
+    return _getContent(calc, "PERSONAL_DAY_ENG");
   }
 
   Future<List<String>> _getLuckyContent(Profile profile) async {
     var calc = _getLuckyCalc(profile);
+    return _getContent(calc, "DAILY_LUCKY_NUMBER_ENG");
+  }
 
-    var description1 = await getEntityRawQuery(
-        'select description from DAILY_LUCKY_NUMBER_ENG  where  number = "${calc[0]}"');
-    var description2 = await getEntityRawQuery(
-        'select description from DAILY_LUCKY_NUMBER_ENG  where  number = "${calc[1]}"');
-    var description3 = await getEntityRawQuery(
-        'select description from DAILY_LUCKY_NUMBER_ENG  where  number = "${calc[2]}"');
-
-    return [
-      description1,
-      description2,
-      description3,
-    ];
+  Future<List<String>> _getContent(List<int> calc, String table) async {
+    List<String> description = [];
+    for (var i = 0; i < calc.length; i++) {
+      var descr = await getEntityRawQuery(
+          'select description from $table where  number = "${calc[i]}"');
+      description.add(descr);
+    }
+    return description;
   }
 }

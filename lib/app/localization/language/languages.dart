@@ -99,5 +99,9 @@ abstract class Languages {
 
   String get dailyForecast;
 
+  String get luckyForecast;
+
   String get personalDayNumber;
+
+  String get dailyLuckyNumber;
 }
