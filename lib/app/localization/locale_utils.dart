@@ -1,5 +1,9 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:numerology/app/business_logic/cubit/forecast/calc_utils.dart';
+import 'package:numerology/app/business_logic/cubit/forecast/calc_utils_en.dart';
+import 'package:numerology/app/business_logic/cubit/forecast/calc_utils_es.dart';
+import 'package:numerology/app/business_logic/cubit/forecast/calc_utils_ru.dart';
 import 'package:numerology/app/constants/strings.dart';
 import 'package:numerology/app/data/language/data_parser.dart';
 import 'package:numerology/app/data/language/data_parser_en.dart';
@@ -34,6 +38,19 @@ class LocaleUtils {
     1: LanguageItem(ru, russian),
     2: LanguageItem(es, spanish),
   };
+
+  static ForecastCalcUtils getForecastUtils(String localeCode) {
+    switch (localeCode) {
+      case en:
+        return CalcUtilsEn();
+      case ru:
+        return CalcUtilsRu();
+      case es:
+        return CalcUtilsEs();
+      default:
+        return CalcUtilsEn();
+    }
+  }
 
   static Languages selectLanguage(String localeCode) {
     switch (localeCode) {

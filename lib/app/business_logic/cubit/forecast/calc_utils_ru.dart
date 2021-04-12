@@ -7,9 +7,7 @@ import 'calc_utils.dart';
 import 'calc_utils_common.dart';
 import 'forecast.dart';
 
-class CalcUtilsEn extends ForecastCalcUtils {
-  const CalcUtilsEn();
-
+class CalcUtilsRu extends ForecastCalcUtils {
   @override
   Future<Forecast> getDailyForecast(Profile profile) async {
     var calcUtils = CommonUtils.instance;
@@ -72,19 +70,19 @@ class CalcUtilsEn extends ForecastCalcUtils {
   }
 
   Future<Map<String, String>> _getDayInfo() async {
-    return _getInfo('PERSONAL_DAY_ENG');
+    return _getInfo('PERSONAL_DAY_RUS');
   }
 
   Future<Map<String, String>> _getLuckyInfo() async {
-    return _getInfo('DAILY_LUCKY_NUMBER_ENG');
+    return _getInfo('DAILY_LUCKY_NUMBER_RUS');
   }
 
   Future<Map<String, String>> _getMonthlyInfo() async {
-    return _getInfo('PERSONAL_MONTH_ENG');
+    return _getInfo('PERSONAL_MONTH_RUS');
   }
 
   Future<Map<String, String>> _getYearInfo() async {
-    return _getInfo('PERSONAL_YEAR_ENG');
+    return _getInfo('PERSONAL_YEAR_RUS');
   }
 
   Future<Map<String, String>> _getInfo(String table) async {
@@ -98,24 +96,24 @@ class CalcUtilsEn extends ForecastCalcUtils {
   Future<List<String>> _getDailyContent(Profile profile) async {
     var calcUtils = CommonUtils.instance;
     var calc = calcUtils.getDayCalc(profile);
-    return calcUtils.getContent(calc, "PERSONAL_DAY_ENG");
+    return calcUtils.getContent(calc, "PERSONAL_DAY_RUS");
   }
 
   Future<List<String>> _getLuckyContent(Profile profile) async {
     var calcUtils = CommonUtils.instance;
     var calc = calcUtils.getLuckyCalc(profile);
-    return calcUtils.getContent(calc, "DAILY_LUCKY_NUMBER_ENG");
+    return calcUtils.getContent(calc, "DAILY_LUCKY_NUMBER_RUS");
   }
 
   Future<List<String>> _getMonthContent(Profile profile) async {
     var calcUtils = CommonUtils.instance;
     var calc = calcUtils.getMonthCalc(profile);
-    return calcUtils.getContent(calc, "PERSONAL_MONTH_ENG");
+    return calcUtils.getContent(calc, "PERSONAL_MONTH_RUS");
   }
 
   Future<List<String>> _getYearContent(Profile profile) async {
     var calcUtils = CommonUtils.instance;
     var calc = calcUtils.getYearCalc(profile);
-    return calcUtils.getContent(calc, "PERSONAL_YEAR_ENG");
+    return calcUtils.getContent(calc, "PERSONAL_YEAR_RUS");
   }
 }

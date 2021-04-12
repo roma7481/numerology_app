@@ -5,9 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:numerology/app/business_logic/cubit/forecast/forecast.dart';
 import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.dart';
+import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/data/models/profile.dart';
-
-import 'calc_utils_en.dart';
 
 part 'forecast_state.dart';
 
@@ -24,11 +23,13 @@ class ForecastCubit extends Cubit<ForecastState> {
   }
 
   Future<void> initForecast(Profile profile) async {
+    var forecastUtils = Globals.instance.getForecastUtils();
+
     try {
-      Forecast daily = await CalcUtilsEn().getDailyForecast(profile);
-      Forecast lucky = await CalcUtilsEn().getLuckyForecast(profile);
-      Forecast monthly = await CalcUtilsEn().getMonthForecast(profile);
-      Forecast annual = await CalcUtilsEn().getAnnualForecast(profile);
+      Forecast daily = await forecastUtils.getDailyForecast(profile);
+      Forecast lucky = await forecastUtils.getLuckyForecast(profile);
+      Forecast monthly = await forecastUtils.getMonthForecast(profile);
+      Forecast annual = await forecastUtils.getAnnualForecast(profile);
 
       emit(ForecastReady(
         daily: daily,
