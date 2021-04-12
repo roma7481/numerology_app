@@ -19,13 +19,16 @@ class ForecastPage extends StatefulWidget {
 
 class _ForecastPageState extends State<ForecastPage> {
   var _daily;
+  var _lucky;
   var _dailyBtnIndex = 0;
+  var _luckyBtnIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ForecastCubit, ForecastState>(builder: (context, state) {
       if (state is ForecastReady) {
         _daily = state.daily;
+        _lucky = state.lucky;
         return _buildContent();
       } else if (state is ForecastError) {
         return errorDialog();
@@ -52,6 +55,7 @@ class _ForecastPageState extends State<ForecastPage> {
         slivers: [
           _buildCategory(_daily, _onDailyPressed, _dailyBtnIndex),
           _buildLine(),
+          _buildCategory(_lucky, _onLuckyPressed, _luckyBtnIndex),
         ],
       ),
     );
@@ -80,25 +84,25 @@ class _ForecastPageState extends State<ForecastPage> {
                       forecast.btnTitles[0],
                       style: buttonTextStyle,
                     ),
-                    onPressed: () => _onDailyPressed(0)),
+                    onPressed: () => onPressed(0)),
                 ForecastButton(
                     isSelected: selectedButton == 1,
                     child: Text(
                       forecast.btnTitles[1],
                       style: buttonTextStyle,
                     ),
-                    onPressed: () => _onDailyPressed(1)),
+                    onPressed: () => onPressed(1)),
                 ForecastButton(
                     isSelected: selectedButton == 2,
                     child: Text(
                       forecast.btnTitles[2],
                       style: buttonTextStyle,
                     ),
-                    onPressed: () => _onDailyPressed(2)),
+                    onPressed: () => onPressed(2)),
               ],
             ),
           ),
-          _buildCategoryCard(forecast, _dailyBtnIndex),
+          _buildCategoryCard(forecast, selectedButton),
         ],
       ),
     );
@@ -107,6 +111,12 @@ class _ForecastPageState extends State<ForecastPage> {
   void _onDailyPressed(int index) {
     setState(() {
       _dailyBtnIndex = index;
+    });
+  }
+
+  void _onLuckyPressed(int index) {
+    setState(() {
+      _luckyBtnIndex = index;
     });
   }
 

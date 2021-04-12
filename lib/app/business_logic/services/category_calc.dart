@@ -471,6 +471,12 @@ class CategoryCalc {
     return _calcToSingleDigit(personalMonth + currentDay);
   }
 
+  int calcDailyLuckyNum(Profile profile, DateTime date) {
+    var luckyNum = calcPersonalDayByDate(profile, date) +
+        calcLifePathNumberMethod1(profile);
+    return _calcToSingleDigit(luckyNum);
+  }
+
   int calcPersonalDayByDate(Profile profile, DateTime date) {
     var personalMonth = calcPersonalMonth(profile);
     var currentDay = date.day;
