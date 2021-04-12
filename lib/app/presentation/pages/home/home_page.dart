@@ -34,7 +34,7 @@ class HomePage extends StatelessWidget {
           child: Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              backgroundColor: backgroundColor,
+              brightness: Brightness.dark,
               title: _buildHeader(),
             ),
             body: _buildContent(

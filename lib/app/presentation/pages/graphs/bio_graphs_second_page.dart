@@ -37,7 +37,7 @@ class _BioGraphsSecondPageState extends State<BioGraphsSecondPage> {
         child: Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: backgroundColor,
+        brightness: Brightness.dark,
         title: _buildHeader(),
       ),
       body: _buildContent(context),

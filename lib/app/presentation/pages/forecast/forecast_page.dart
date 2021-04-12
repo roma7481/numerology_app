@@ -47,7 +47,7 @@ class _ForecastPageState extends State<ForecastPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: backgroundColor,
+        brightness: Brightness.dark,
         title: Text(Globals.instance.language.forecast),
       ),
       body: _buildPageBody(),

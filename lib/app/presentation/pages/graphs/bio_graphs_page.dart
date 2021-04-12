@@ -40,7 +40,7 @@ class _BioGraphsPageState extends State<BioGraphsPage> {
         child: Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: backgroundColor,
+        brightness: Brightness.dark,
         title: _buildHeader(),
       ),
       body: _buildContent(context),

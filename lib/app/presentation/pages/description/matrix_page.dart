@@ -47,10 +47,9 @@ class _MatrixPageState extends State<MatrixPage> {
   Widget _buildPageContent(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: Text(widget.header),
-        backgroundColor: backgroundColor,
-      ),
+          centerTitle: true,
+          title: Text(widget.header),
+          brightness: Brightness.dark),
       body: _buildContext(context),
     );
   }

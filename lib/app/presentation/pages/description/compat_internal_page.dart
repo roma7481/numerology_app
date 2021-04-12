@@ -48,10 +48,9 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          centerTitle: true,
-          title: Text(_header),
-          backgroundColor: backgroundColor,
-        ),
+            centerTitle: true,
+            title: Text(_header),
+            brightness: Brightness.dark),
         body: _buildContent(context),
       ),
     );

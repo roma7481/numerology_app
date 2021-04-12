@@ -31,10 +31,7 @@ class MatrixLinesPage extends StatelessWidget {
   Widget _buildPageContent(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: Text(header),
-        backgroundColor: backgroundColor,
-      ),
+          centerTitle: true, title: Text(header), brightness: Brightness.dark),
       body: _buildContext(context),
     );
   }

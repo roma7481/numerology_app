@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -11,10 +12,15 @@ import 'package:provider/provider.dart';
 
 import 'app/business_logic/cubit/bio_second/bio_second_cubit.dart';
 import 'app/business_logic/cubit/language/language_cubit.dart';
+import 'app/constants/colors.dart';
 import 'app/constants/strings.dart';
 import 'app/presentation/pages/page_decider.dart';
 
 Future<void> main() async {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: backgroundColor,
+    statusBarIconBrightness: Brightness.light,
+  ));
   WidgetsFlutterBinding.ensureInitialized();
 
   HydratedBloc.storage = await HydratedStorage.build(
