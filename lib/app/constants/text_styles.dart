@@ -168,11 +168,10 @@ var bioNameAesthetic = GoogleFonts.sourceSansPro(
 
 /// FORECAST ///
 
-var forecastCardHeader = GoogleFonts.philosopher(
+var forecastCardHeader = GoogleFonts.sourceSansPro(
   textStyle: TextStyle(
-    fontSize: 22.0,
+    fontSize: 19.0,
     color: categoryTileText,
-    fontWeight: FontWeight.bold,
   ),
 );
 

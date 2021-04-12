@@ -148,4 +148,13 @@ class LanguageEn extends Languages {
 
   @override
   String get spiritBio => 'Spiritual';
+
+  @override
+  String get forecast => 'Forecast';
+
+  @override
+  String get dailyForecast => 'Daily Forecast';
+
+  @override
+  String get personalDayNumber => 'Personal Day Number';
 }

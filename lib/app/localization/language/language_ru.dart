@@ -141,4 +141,13 @@ class LanguageRu extends Languages {
 
   @override
   String get spiritBio => 'spiritBio RU';
+
+  @override
+  String get forecast => 'Forecast RU';
+
+  @override
+  String get dailyForecast => 'dailyForecast RU';
+
+  @override
+  String get personalDayNumber => 'personalDayNumber RU';
 }

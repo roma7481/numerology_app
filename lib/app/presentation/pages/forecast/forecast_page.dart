@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:numerology/app/business_logic/cubit/forecast/forecast.dart';
 import 'package:numerology/app/business_logic/cubit/forecast/forecast_cubit.dart';
+import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/presentation/common_widgets/error_dialog.dart';
@@ -38,7 +39,7 @@ class _ForecastPageState extends State<ForecastPage> {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: backgroundColor,
-        title: Text('header'),
+        title: Text(Globals.instance.language.forecast),
       ),
       body: _buildPageBody(),
     );

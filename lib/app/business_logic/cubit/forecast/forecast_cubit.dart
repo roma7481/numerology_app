@@ -27,10 +27,11 @@ class ForecastCubit extends Cubit<ForecastState> {
   }
 
   Future<void> initForecast(Profile profile) async {
+    var language = Globals.instance.language;
     try {
       Forecast daily = Forecast(
-          title: 'daily',
-          cardTitle: 'daily title',
+          title: language.dailyForecast,
+          cardTitle: language.personalDayNumber,
           iconPath: day,
           info: await _getDayInfo(),
           calc: _getDayCalc(profile),

@@ -94,4 +94,10 @@ abstract class Languages {
   String get intuitBio;
 
   String get aestheticBio;
+
+  String get forecast;
+
+  String get dailyForecast;
+
+  String get personalDayNumber;
 }

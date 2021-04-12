@@ -141,4 +141,13 @@ class LanguageEs extends Languages {
 
   @override
   String get spiritBio => 'spiritBio ES';
+
+  @override
+  String get forecast => 'Forecast ES';
+
+  @override
+  String get dailyForecast => 'dailyForecast ES';
+
+  @override
+  String get personalDayNumber => 'personalDayNumber ES';
 }
