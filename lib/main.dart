@@ -30,6 +30,10 @@ class MyApp extends StatelessWidget {
     initializeDateFormatting('en');
     return MultiProvider(
       providers: [
+        BlocProvider<UserDataCubit>(
+          create: (context) => UserDataCubit(),
+          lazy: false,
+        ),
         BlocProvider<LanguageCubit>(
           create: (context) => LanguageCubit(),
           lazy: false,
@@ -40,16 +44,12 @@ class MyApp extends StatelessWidget {
         BlocProvider<BioSecondCubit>(
           create: (context) => BioSecondCubit(),
         ),
-        BlocProvider<ForecastCubit>(
-          create: (context) => ForecastCubit(UserDataCubit()),
-        ),
-        BlocProvider<UserDataCubit>(
-          create: (context) => UserDataCubit(),
-          lazy: false,
-        ),
         BlocProvider<ProfilesCubit>(
           create: (context) => ProfilesCubit(),
           lazy: false,
+        ),
+        BlocProvider<ForecastCubit>(
+          create: (context) => ForecastCubit(UserDataCubit()),
         ),
       ],
       child: MaterialApp(
