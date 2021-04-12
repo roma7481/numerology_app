@@ -15,6 +15,9 @@ class ForecastCubit extends Cubit<ForecastState> {
   final UserDataCubit userData;
 
   ForecastCubit(this.userData) : super(ForecastLoading()) {
+    if (userData.state is UserDataReady) {
+      initForecast((userData.state as UserDataReady).profile);
+    }
     userDataStreamSubscription = userData.stream.listen((userDataResult) async {
       if (userDataResult is UserDataReady) {
         await initForecast(userDataResult.profile);
