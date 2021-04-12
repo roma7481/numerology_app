@@ -1,13 +1,13 @@
-import 'package:date_format/date_format.dart';
+import 'package:intl/intl.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/localization/language/language_en.dart';
 
 class DateService {
-  static var standardFormat = [dd, '-', mm, '-', yyyy];
-  static var usFormat = [M, '-', dd, '-', yyyy];
-  static var standardShortFormat = [dd, '.', mm];
-  static var usShortFormat = [M, '.', dd];
-  static var monthFormat = [M];
+  static var standardFormat = DateFormat('dd-MMM-yyyy');
+  static var usFormat = DateFormat('MMM-dd-yyyy');
+  static var standardShortFormat = DateFormat('dd-MMM');
+  static var usShortFormat = DateFormat('MMM-dd');
+  static var monthFormat = DateFormat('MMM');
 
   static DateTime getCurrentDate() {
     return DateTime.now();
@@ -20,18 +20,18 @@ class DateService {
 
   static String getFormattedDate(DateTime date) {
     return (Globals.instance.getLanguage() is LanguageEn)
-        ? formatDate(date, usFormat)
-        : formatDate(date, standardFormat);
+        ? usFormat.format(date)
+        : standardFormat.format(date);
   }
 
   static String getShortFormattedDate(DateTime date) {
     return (Globals.instance.getLanguage() is LanguageEn)
-        ? formatDate(date, usShortFormat)
-        : formatDate(date, standardShortFormat);
+        ? usShortFormat.format(date)
+        : standardShortFormat.format(date);
   }
 
   static String getMonthFormattedDate(DateTime date) {
-    return formatDate(date, monthFormat);
+    return monthFormat.format(date);
   }
 
   static int toTimestamp(DateTime date) {
