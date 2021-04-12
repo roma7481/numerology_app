@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:numerology/app/business_logic/cubit/bio/bio_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/forecast/forecast_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/profiles/profiles_cubit.dart';
@@ -26,6 +27,7 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    initializeDateFormatting('en');
     return MultiProvider(
       providers: [
         BlocProvider<LanguageCubit>(

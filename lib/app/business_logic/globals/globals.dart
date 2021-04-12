@@ -11,12 +11,12 @@ import 'package:numerology/app/localization/language/languages.dart';
 import 'package:numerology/app/localization/locale_utils.dart';
 
 class Globals {
-  Globals._({
-    this.language = const LanguageEn(),
-    this.localeType = LocaleType.en,
-    this.dataParser = const DataParserEn(),
-    this.forecastCalcUtils = const CalcUtilsEn(),
-  });
+  Globals._(
+      {this.language = const LanguageEn(),
+      this.localeType = LocaleType.en,
+      this.dataParser = const DataParserEn(),
+      this.forecastCalcUtils = const CalcUtilsEn(),
+      this.localeCode = 'en'});
 
   static final instance = Globals._();
 
@@ -24,8 +24,10 @@ class Globals {
   LocaleType localeType;
   DataParser dataParser;
   ForecastCalcUtils forecastCalcUtils;
+  String localeCode;
 
   void setLocale({@required String localeCode}) {
+    this.localeCode = localeCode;
     this.language = LocaleUtils.selectLanguage(localeCode);
     this.localeType = LocaleUtils.getTimePickerLocale(localeCode);
     this.dataParser = LocaleUtils.getDataParser(localeCode);
