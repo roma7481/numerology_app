@@ -103,9 +103,13 @@ abstract class Languages {
 
   String get monthlyForecast;
 
+  String get annualForecast;
+
   String get personalDayNumber;
 
   String get dailyLuckyNumber;
 
   String get monthNumber;
+
+  String get yearNumber;
 }

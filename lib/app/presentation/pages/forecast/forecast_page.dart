@@ -21,9 +21,11 @@ class _ForecastPageState extends State<ForecastPage> {
   var _daily;
   var _lucky;
   var _monthly;
+  var _annual;
   var _dailyBtnIndex = 0;
   var _luckyBtnIndex = 0;
   var _monthlyBtnIndex = 0;
+  var _yearBtnIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +34,7 @@ class _ForecastPageState extends State<ForecastPage> {
         _daily = state.daily;
         _lucky = state.lucky;
         _monthly = state.monthly;
+        _annual = state.annual;
         return _buildContent();
       } else if (state is ForecastError) {
         return errorDialog();
@@ -61,6 +64,8 @@ class _ForecastPageState extends State<ForecastPage> {
           _buildCategory(_lucky, _onLuckyPressed, _luckyBtnIndex),
           _buildLine(),
           _buildCategory(_monthly, _onMonthlyPressed, _monthlyBtnIndex),
+          _buildLine(),
+          _buildCategory(_annual, _onYearPressed, _yearBtnIndex),
         ],
       ),
     );
@@ -128,6 +133,12 @@ class _ForecastPageState extends State<ForecastPage> {
   void _onMonthlyPressed(int index) {
     setState(() {
       _monthlyBtnIndex = index;
+    });
+  }
+
+  void _onYearPressed(int index) {
+    setState(() {
+      _yearBtnIndex = index;
     });
   }
 

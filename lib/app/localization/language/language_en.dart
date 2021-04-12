@@ -169,4 +169,10 @@ class LanguageEn extends Languages {
 
   @override
   String get monthlyForecast => 'Monthly Forecast';
+
+  @override
+  String get annualForecast => 'Annual Forecast';
+
+  @override
+  String get yearNumber => 'Year Number';
 }

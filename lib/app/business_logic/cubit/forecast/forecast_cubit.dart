@@ -28,20 +28,17 @@ class ForecastCubit extends Cubit<ForecastState> {
       Forecast daily = await CalcUtilsEn().getDailyForecast(profile);
       Forecast lucky = await CalcUtilsEn().getLuckyForecast(profile);
       Forecast monthly = await CalcUtilsEn().getMonthForecast(profile);
+      Forecast annual = await CalcUtilsEn().getAnnualForecast(profile);
 
       emit(ForecastReady(
         daily: daily,
         lucky: lucky,
         monthly: monthly,
-        annual: daily,
+        annual: annual,
       ));
     } catch (e) {
       emit(ForecastError(e));
     }
-
-    // final Forecast lucky;
-    // final Forecast monthly;
-    // final Forecast annual;
   }
 
   @override

@@ -162,4 +162,10 @@ class LanguageRu extends Languages {
 
   @override
   String get monthlyForecast => 'monthlyForecast RU';
+
+  @override
+  String get annualForecast => 'annualForecast RU';
+
+  @override
+  String get yearNumber => 'yearNumber RU';
 }
