@@ -114,4 +114,6 @@ abstract class Languages {
   String get yearNumber;
 
   String get profiles;
+
+  String get defaultProfileName;
 }

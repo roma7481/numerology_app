@@ -8,6 +8,4 @@ const String spanish = 'Español';
 
 const String numerology = 'Numerology';
 
-const String defaultProfileName = 'Profile1';
-
 const String primaryUserKey = 'primaryUserKey';

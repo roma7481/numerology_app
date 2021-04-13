@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:numerology/app/business_logic/cubit/profiles/profiles_cubit.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
+import 'package:numerology/app/business_logic/services/date_service.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/text_styles.dart';
+import 'package:numerology/app/data/models/profile.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
+import 'package:numerology/app/presentation/common_widgets/error_dialog.dart';
+import 'package:numerology/app/presentation/common_widgets/progress_bar.dart';
 
 class ProfilesPage extends StatefulWidget {
   @override
@@ -10,9 +16,20 @@ class ProfilesPage extends StatefulWidget {
 }
 
 class _ProfilesPageState extends State<ProfilesPage> {
+  List<Profile> _profiles = [];
+
   @override
   Widget build(BuildContext context) {
-    return _buildContent();
+    context.read<ProfilesCubit>().emitGetProfiles();
+    return BlocBuilder<ProfilesCubit, ProfilesState>(builder: (context, state) {
+      if (state is ProfilesReady) {
+        _profiles = state.profiles;
+        return _buildContent();
+      } else if (state is ProfilesError) {
+        return errorDialog();
+      }
+      return progressBar();
+    });
   }
 
   Widget _buildContent() {
@@ -27,15 +44,17 @@ class _ProfilesPageState extends State<ProfilesPage> {
   }
 
   Widget _buildPageBody() {
+    var mainProfile =
+        _profiles.firstWhere((profile) => profile.isSelected == 1);
     return Container(
       color: backgroundColor,
       child: CustomScrollView(
-        slivers: [_buildProfile()],
+        slivers: [_buildProfile(mainProfile)],
       ),
     );
   }
 
-  Widget _buildProfile() {
+  Widget _buildProfile(Profile profile) {
     var width = MediaQuery.of(context).size.width;
 
     return SliverToBoxAdapter(
@@ -55,7 +74,7 @@ class _ProfilesPageState extends State<ProfilesPage> {
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: Text(
-                        'Profile1',
+                        profile.profileName,
                         style: profilesWhiteText,
                       ),
                     ),
@@ -71,7 +90,8 @@ class _ProfilesPageState extends State<ProfilesPage> {
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: Text(
-                        'May 29, 1989',
+                        DateService.getFormattedDate(
+                            DateService.fromTimestamp(profile.dob)),
                         style: profilesWhiteText,
                       ),
                     ),
@@ -81,21 +101,37 @@ class _ProfilesPageState extends State<ProfilesPage> {
               Row(
                 children: [
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(top: 16.0),
-                        child: Text(
-                          'L.Name - ',
-                          style: profilesBlueText,
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Row(
+                          children: [
+                            Text('F.Name - ', style: profilesBlueText),
+                            Text(profile.firstName, style: profilesWhiteText),
+                          ],
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
-                        child: Text('F.Name - ', style: profilesBlueText),
+                        padding: const EdgeInsets.only(top: 16.0),
+                        child: Row(
+                          children: [
+                            Text(
+                              'L.Name - ',
+                              style: profilesBlueText,
+                            ),
+                            Text(profile.lastName, style: profilesWhiteText),
+                          ],
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-                        child: Text('M.Name - ', style: profilesBlueText),
+                        child: Row(
+                          children: [
+                            Text('M.Name - ', style: profilesBlueText),
+                            Text(profile.middleName, style: profilesWhiteText),
+                          ],
+                        ),
                       ),
                     ],
                   ),

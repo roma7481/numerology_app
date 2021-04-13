@@ -7,10 +7,10 @@ part 'profiles_state.dart';
 
 class ProfilesCubit extends Cubit<ProfilesState> {
   ProfilesCubit() : super(ProfilesLoading()) {
-    getProfiles();
+    emitGetProfiles();
   }
 
-  Future<void> getProfiles() async {
+  Future<void> emitGetProfiles() async {
     try {
       var profiles = await ProfileDBProvider.instance.getAllProfiles();
       emit(ProfilesReady(profiles));

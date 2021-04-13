@@ -171,4 +171,7 @@ class LanguageEs extends Languages {
 
   @override
   String get profiles => 'Profiles ES';
+
+  @override
+  String get defaultProfileName => 'Profile1 ES';
 }

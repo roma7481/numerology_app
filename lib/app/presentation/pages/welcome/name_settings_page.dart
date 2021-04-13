@@ -5,7 +5,6 @@ import 'package:numerology/app/business_logic/cubit/profiles/profiles_cubit.dart
 import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/constants/colors.dart';
-import 'package:numerology/app/constants/strings.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/data/models/profile.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_button.dart';
@@ -156,8 +155,9 @@ class _NameSettingsPageState extends State<NameSettingsPage> {
     BuildContext context,
   ) async {
     context.read<ProfilesCubit>().emitInitProfile(Profile(
+          isSelected: 1,
           dob: widget.dob,
-          profileName: defaultProfileName,
+          profileName: Globals.instance.language.defaultProfileName,
           middleName: controllerMiddleName.text,
           firstName: controllerFirstName.text,
           lastName: controllerLastName.text,
