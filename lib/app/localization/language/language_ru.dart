@@ -177,4 +177,7 @@ class LanguageRu extends Languages {
 
   @override
   String get profileName => 'profileName RU';
+
+  @override
+  String get usersName => 'usersName RU';
 }

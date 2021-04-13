@@ -15,14 +15,14 @@ class EditProfileEn extends StatefulWidget {
 }
 
 class _EditProfileEnState extends State<EditProfileEn> {
-  final profileNameController = TextEditingController();
+  final controllerProfileName = TextEditingController();
   final controllerFirstName = TextEditingController();
   final controllerLastName = TextEditingController();
   final controllerMiddleName = TextEditingController();
 
   @override
   void dispose() {
-    profileNameController.dispose();
+    controllerProfileName.dispose();
     controllerFirstName.dispose();
     controllerLastName.dispose();
     controllerMiddleName.dispose();
@@ -54,17 +54,26 @@ class _EditProfileEnState extends State<EditProfileEn> {
       child: Column(
         children: [
           _buildHeader(Globals.instance.language.profileName),
-          _buildInputField(widget.profile.profileName, profileNameController),
+          _buildInputField(widget.profile.profileName, controllerProfileName,
+              'Profile name'),
+          _buildHeader(Globals.instance.language.usersName),
+          _buildInputField(
+              widget.profile.firstName, controllerFirstName, 'F.Name'),
+          _buildInputField(
+              widget.profile.middleName, controllerMiddleName, 'M.Name'),
+          _buildInputField(
+              widget.profile.lastName, controllerLastName, 'L.Name'),
         ],
       ),
     );
   }
 
-  Center _buildInputField(String text, TextEditingController controller) {
+  Center _buildInputField(
+      String text, TextEditingController controller, String hint) {
     if (text != null && text.isNotEmpty) {
       controller.text = text;
     }
-    return buildTextInputTile(context, widget.profile.profileName, controller);
+    return buildTextInputTile(context, hint, controller);
   }
 
   Widget _buildHeader(String text) {

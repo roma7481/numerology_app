@@ -177,4 +177,7 @@ class LanguageEs extends Languages {
 
   @override
   String get profileName => 'profileName ES';
+
+  @override
+  String get usersName => 'usersName ES';
 }
