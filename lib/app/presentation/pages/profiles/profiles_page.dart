@@ -63,69 +63,65 @@ class _ProfilesPageState extends State<ProfilesPage> {
           padding: const EdgeInsets.only(left: 12.0),
           child: Column(
             children: [
+              Stack(children: [
+                _buildPrimeInfo(Icons.person, profile.profileName),
+                _buildCheckbox()
+              ]),
+              _buildPrimeInfo(
+                  Icons.event,
+                  DateService.getFormattedDate(
+                      DateService.fromTimestamp(profile.dob))),
               Padding(
-                padding: const EdgeInsets.only(top: 4.0),
+                padding: const EdgeInsets.only(top: 12.0),
                 child: Row(
                   children: [
-                    Icon(
-                      Icons.person,
-                      color: Colors.white,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Text(
-                        profile.profileName,
-                        style: profilesWhiteText,
-                      ),
-                    ),
-                    _buildCheckbox(),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 4.0),
-                child: Row(
-                  children: [
-                    Icon(Icons.event, color: Colors.white),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Text(
-                        DateService.getFormattedDate(
-                            DateService.fromTimestamp(profile.dob)),
-                        style: profilesWhiteText,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Row(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _buildSecondaryInfo('F.Name - ', profile.firstName),
-                      _buildSecondaryInfo('L.Name - ', profile.lastName),
-                      _buildSecondaryInfo('M.Name - ', profile.middleName),
-                    ],
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: width * 0.05),
-                    child: Column(
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _buildSecondaryInfo('Partner - ', 'profile.partnerDob',
-                            widthDelta: 0.25),
-                        _buildSecondaryInfo('W.Date - ', '', widthDelta: 0.25),
-                        _buildSecondaryInfo('', '', widthDelta: 0.25),
+                        _buildSecondaryInfo('F.Name - ', profile.firstName),
+                        _buildSecondaryInfo('L.Name - ', profile.lastName),
+                        _buildSecondaryInfo('M.Name - ', profile.middleName),
                       ],
                     ),
-                  )
-                ],
+                    Padding(
+                      padding: EdgeInsets.only(left: width * 0.05),
+                      child: Column(
+                        children: [
+                          _buildSecondaryInfo(
+                              'Partner - ', 'profile.partnerDob',
+                              widthDelta: 0.25),
+                          _buildSecondaryInfo('W.Date - ', '',
+                              widthDelta: 0.25),
+                          _buildSecondaryInfo('', '', widthDelta: 0.25),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
               _buildLine(),
               _buildEditBtn(),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildPrimeInfo(IconData icon, String value) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 8.0),
+      child: Row(
+        children: [
+          Icon(icon, color: Colors.white),
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: Text(
+              value,
+              style: profilesWhiteText,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -178,7 +174,7 @@ class _ProfilesPageState extends State<ProfilesPage> {
   Widget _buildCheckbox() {
     var width = MediaQuery.of(context).size.width;
     return Padding(
-      padding: EdgeInsets.only(left: width * 0.55),
+      padding: EdgeInsets.only(left: width * 0.78),
       child: Checkbox(value: true, onChanged: (value) {}),
     );
   }
