@@ -10,6 +10,7 @@ import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/data/models/profile.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_button.dart';
+import 'package:numerology/app/presentation/common_widgets/standard_button.dart';
 import 'package:numerology/app/presentation/pages/welcome/input_text_tile.dart';
 
 class EditProfileEn extends StatefulWidget {
@@ -25,6 +26,7 @@ class _EditProfileEnState extends State<EditProfileEn> {
   var _dob = DateTime.now();
   var _partnerDob;
   var _weddingDate;
+  var _updatedProfile;
 
   final controllerProfileName = TextEditingController();
   final controllerFirstName = TextEditingController();
@@ -44,6 +46,7 @@ class _EditProfileEnState extends State<EditProfileEn> {
   Widget build(BuildContext context) {
     BlocListener<UserDataCubit, UserDataState>(listener: (context, state) {
       if (state is UserDataReady) {
+        _updatedProfile = state.profile;
         _dob = DateService.fromTimestamp(state.profile.dob);
         _partnerDob = DateService.fromTimestamp(state.profile.partnerDob);
         _weddingDate = DateService.fromTimestamp(state.profile.weddingDate);
@@ -76,6 +79,7 @@ class _EditProfileEnState extends State<EditProfileEn> {
           _buildUsernameSettings(),
           _buildDobSettings(),
           _buildSecondarySettings(),
+          _buildButtons(),
         ],
       ),
     );
@@ -85,6 +89,12 @@ class _EditProfileEnState extends State<EditProfileEn> {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
       _buildPartnerDobSettings(),
       _buildWeddingDateSettings(),
+    ]);
+  }
+
+  Widget _buildButtons() {
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+      _buildContinueBtn(),
     ]);
   }
 
@@ -183,30 +193,24 @@ class _EditProfileEnState extends State<EditProfileEn> {
   void _updateDob(DateTime date) {
     setState(() {
       _dob = date;
-      var updatedProfile =
-          widget.profile.copyWith(dob: DateService.toTimestamp(date));
-      context.read<ProfilesCubit>().emitUpdateProfile(updatedProfile);
-      context.read<UserDataCubit>().emitPrimaryUserUpdate(updatedProfile);
+      _updatedProfile =
+          _updatedProfile.copyWith(dob: DateService.toTimestamp(date));
     });
   }
 
   void _updatePartnerDob(DateTime date) {
     setState(() {
       _partnerDob = date;
-      var updatedProfile =
-          widget.profile.copyWith(partnerDob: DateService.toTimestamp(date));
-      context.read<ProfilesCubit>().emitUpdateProfile(updatedProfile);
-      context.read<UserDataCubit>().emitPrimaryUserUpdate(updatedProfile);
+      _updatedProfile =
+          _updatedProfile.copyWith(partnerDob: DateService.toTimestamp(date));
     });
   }
 
   void _updateWeddingDate(DateTime date) {
     setState(() {
       _weddingDate = date;
-      var updatedProfile =
-          widget.profile.copyWith(weddingDate: DateService.toTimestamp(date));
-      context.read<ProfilesCubit>().emitUpdateProfile(updatedProfile);
-      context.read<UserDataCubit>().emitPrimaryUserUpdate(updatedProfile);
+      _updatedProfile =
+          _updatedProfile.copyWith(weddingDate: DateService.toTimestamp(date));
     });
   }
 
@@ -224,5 +228,18 @@ class _EditProfileEnState extends State<EditProfileEn> {
     return _weddingDate == null
         ? Globals.instance.language.weddingDate
         : DateService.getFormattedDate(_weddingDate);
+  }
+
+  Widget _buildContinueBtn() {
+    return buildStandardButton(
+      text: Globals.instance.getLanguage().continueText,
+      color: yellowButtonColor,
+      onPressed: _onContinue,
+    );
+  }
+
+  void _onContinue() {
+    context.read<ProfilesCubit>().emitUpdateProfile(_updatedProfile);
+    context.read<UserDataCubit>().emitPrimaryUserUpdate(_updatedProfile);
   }
 }

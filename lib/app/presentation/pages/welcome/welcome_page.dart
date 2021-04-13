@@ -114,7 +114,7 @@ class _WelcomePageState extends State<WelcomePage> {
   }
 
   _buildContinueButton(BuildContext context) {
-    return buildContinueButton(
+    return buildStandardButton(
       text: Globals.instance.getLanguage().continueText,
       color: yellowButtonColor,
       onPressed: _onContinuePressed,

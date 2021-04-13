@@ -3,7 +3,7 @@ import 'package:numerology/app/constants/text_styles.dart';
 
 import 'custom_button.dart';
 
-Widget buildContinueButton({
+Widget buildStandardButton({
   String text,
   Color color,
   Function onPressed,
