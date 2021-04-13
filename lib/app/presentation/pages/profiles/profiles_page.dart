@@ -103,57 +103,19 @@ class _ProfilesPageState extends State<ProfilesPage> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
-                        child: Row(
-                          children: [
-                            Text('F.Name - ', style: profilesBlueText),
-                            Text(profile.firstName, style: profilesWhiteText),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 16.0),
-                        child: Row(
-                          children: [
-                            Text(
-                              'L.Name - ',
-                              style: profilesBlueText,
-                            ),
-                            Text(profile.lastName, style: profilesWhiteText),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-                        child: Row(
-                          children: [
-                            Text('M.Name - ', style: profilesBlueText),
-                            Text(profile.middleName, style: profilesWhiteText),
-                          ],
-                        ),
-                      ),
+                      _buildSecondaryInfo('F.Name - ', profile.firstName),
+                      _buildSecondaryInfo('L.Name - ', profile.lastName),
+                      _buildSecondaryInfo('M.Name - ', profile.middleName),
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: width * 0.4),
+                    padding: EdgeInsets.only(left: width * 0.05),
                     child: Column(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 16.0),
-                          child: Text(
-                            'Partner - ',
-                            style: profilesBlueText,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: Text('W.Date - ', style: profilesBlueText),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-                          child: Text('', style: profilesBlueText),
-                        ),
+                        _buildSecondaryInfo('Partner - ', 'profile.partnerDob',
+                            widthDelta: 0.25),
+                        _buildSecondaryInfo('W.Date - ', '', widthDelta: 0.25),
+                        _buildSecondaryInfo('', '', widthDelta: 0.25),
                       ],
                     ),
                   )
@@ -164,6 +126,26 @@ class _ProfilesPageState extends State<ProfilesPage> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildSecondaryInfo(String header, String value,
+      {double widthDelta = 0.2}) {
+    var width = MediaQuery.of(context).size.width;
+
+    return Padding(
+      padding: const EdgeInsets.only(
+        top: 8.0,
+      ),
+      child: Row(
+        children: [
+          Text(header, style: profilesBlueText),
+          SizedBox(
+              width: width * widthDelta,
+              child: Text(value,
+                  overflow: TextOverflow.ellipsis, style: profilesWhiteText)),
+        ],
       ),
     );
   }
