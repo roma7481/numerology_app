@@ -79,6 +79,9 @@ class _EditProfileEnState extends State<EditProfileEn> {
           _buildUsernameSettings(),
           _buildDobSettings(),
           _buildSecondarySettings(),
+          SizedBox(
+            height: 30.0,
+          ),
           _buildButtons(),
         ],
       ),
@@ -86,14 +89,17 @@ class _EditProfileEnState extends State<EditProfileEn> {
   }
 
   Widget _buildSecondarySettings() {
-    return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
       _buildPartnerDobSettings(),
+      SizedBox(
+        width: 40.0,
+      ),
       _buildWeddingDateSettings(),
     ]);
   }
 
   Widget _buildButtons() {
-    return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
       _buildContinueBtn(),
       _buildCancelBtn(),
     ]);
