@@ -116,4 +116,6 @@ abstract class Languages {
   String get profiles;
 
   String get defaultProfileName;
+
+  String get profileName;
 }

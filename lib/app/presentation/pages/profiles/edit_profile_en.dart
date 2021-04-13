@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/data/models/profile.dart';
@@ -52,19 +53,18 @@ class _EditProfileEnState extends State<EditProfileEn> {
     return SliverToBoxAdapter(
       child: Column(
         children: [
-          _buildHeader('Profile name'),
-          _buildInputField( widget.profile.profileName, profileNameController),
+          _buildHeader(Globals.instance.language.profileName),
+          _buildInputField(widget.profile.profileName, profileNameController),
         ],
       ),
     );
   }
 
   Center _buildInputField(String text, TextEditingController controller) {
-    if(text != null && text.isNotEmpty){
+    if (text != null && text.isNotEmpty) {
       controller.text = text;
     }
-    return buildTextInputTile(
-        context, widget.profile.profileName, controller);
+    return buildTextInputTile(context, widget.profile.profileName, controller);
   }
 
   Widget _buildHeader(String text) {
