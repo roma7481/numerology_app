@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
         title: numerology,
         theme: ThemeData(
           unselectedWidgetColor: Colors.white,
-          primarySwatch: Colors.blue,
+          primarySwatch: MaterialColor(appBarColor, appBarColorMap),
         ),
         home: PageDecider(),
       ),

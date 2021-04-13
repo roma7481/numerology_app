@@ -2,6 +2,21 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
+var appBarColor = 0xFF00203b;
+
+Map<int, Color> appBarColorMap = {
+  50: Color.fromRGBO(4, 131, 184, .1),
+  100: Color.fromRGBO(4, 131, 184, .2),
+  200: Color.fromRGBO(4, 131, 184, .3),
+  300: Color.fromRGBO(4, 131, 184, .4),
+  400: Color.fromRGBO(4, 131, 184, .5),
+  500: Color.fromRGBO(4, 131, 184, .6),
+  600: Color.fromRGBO(4, 131, 184, .7),
+  700: Color.fromRGBO(4, 131, 184, .8),
+  800: Color.fromRGBO(4, 131, 184, .9),
+  900: Color.fromRGBO(4, 131, 184, 1),
+};
+
 const Color backgroundColor = Color.fromRGBO(0, 32, 59, 1);
 const Color pickerHeaderColor = Color.fromRGBO(128, 202, 255, 1);
 const Color dateOfBirthButtonColor = Color.fromRGBO(75, 161, 222, 1);
