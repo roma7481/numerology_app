@@ -22,7 +22,8 @@ class EditProfileEn extends StatefulWidget {
 }
 
 class _EditProfileEnState extends State<EditProfileEn> {
-  var _birthdayDate = DateTime.now();
+  var _dob = DateTime.now();
+  var _partnerDob;
 
   final controllerProfileName = TextEditingController();
   final controllerFirstName = TextEditingController();
@@ -42,7 +43,11 @@ class _EditProfileEnState extends State<EditProfileEn> {
   Widget build(BuildContext context) {
     BlocListener<UserDataCubit, UserDataState>(listener: (context, state) {
       if (state is UserDataReady) {
-        _birthdayDate = DateService.fromTimestamp(state.profile.dob);
+        _dob = DateService.fromTimestamp(state.profile.dob);
+
+        if (state.profile.partnerDob != null) {
+          _partnerDob = DateService.fromTimestamp(state.profile.partnerDob);
+        }
       }
     });
 
@@ -71,6 +76,7 @@ class _EditProfileEnState extends State<EditProfileEn> {
           _buildProfileSettings(),
           _buildUsernameSettings(),
           _buildDobSettings(),
+          _buildPartnerDobSettings(),
         ],
       ),
     );
@@ -129,6 +135,15 @@ class _EditProfileEnState extends State<EditProfileEn> {
     );
   }
 
+  Widget _buildPartnerDobSettings() {
+    return Column(
+      children: [
+        _buildHeader(Globals.instance.language.partnersDob),
+        _buildDOBPicker(_getPartnerDobText(), _updatePartnerDob),
+      ],
+    );
+  }
+
   _buildDOBPicker(String btnText, Function onClick) {
     return Padding(
       padding: const EdgeInsets.only(top: 16.0),
@@ -152,7 +167,7 @@ class _EditProfileEnState extends State<EditProfileEn> {
 
   void _updateDob(DateTime date) {
     setState(() {
-      _birthdayDate = date;
+      _dob = date;
       var updatedProfile =
           widget.profile.copyWith(dob: DateService.toTimestamp(date));
       context.read<ProfilesCubit>().emitUpdateProfile(updatedProfile);
@@ -160,7 +175,23 @@ class _EditProfileEnState extends State<EditProfileEn> {
     });
   }
 
+  void _updatePartnerDob(DateTime date) {
+    setState(() {
+      _partnerDob = date;
+      var updatedProfile =
+          widget.profile.copyWith(partnerDob: DateService.toTimestamp(date));
+      context.read<ProfilesCubit>().emitUpdateProfile(updatedProfile);
+      context.read<UserDataCubit>().emitPrimaryUserUpdate(updatedProfile);
+    });
+  }
+
   String _getDobText() {
-    return DateService.getFormattedDate(_birthdayDate);
+    return DateService.getFormattedDate(_dob);
+  }
+
+  String _getPartnerDobText() {
+    return _partnerDob == null
+        ? Globals.instance.language.partnersDob
+        : DateService.getFormattedDate(_partnerDob);
   }
 }
