@@ -24,6 +24,7 @@ const Color dateOfBirthButtonColor = Color.fromRGBO(75, 161, 222, 1);
 const Color weddingDateButtonColor = Color.fromRGBO(75, 161, 222, 1);
 const Color partnerDobButtonColor = Color.fromRGBO(75, 161, 222, 1);
 const Color yellowButtonColor = Color.fromRGBO(255, 228, 92, 1);
+const Color greyButtonColor = Color.fromRGBO(199, 199, 199, 1);
 const Color hintColor = Color.fromRGBO(140, 140, 140, 0.7);
 const Color inputTextUnfocused = Color.fromRGBO(140, 140, 140, 0.7);
 const Color inputTextFocused = Color.fromRGBO(75, 161, 222, 0.7);

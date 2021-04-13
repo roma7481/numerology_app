@@ -183,4 +183,7 @@ class LanguageEs extends Languages {
 
   @override
   String get dob => 'Date of Birth ES';
+
+  @override
+  String get cancel => 'cancel ES';
 }

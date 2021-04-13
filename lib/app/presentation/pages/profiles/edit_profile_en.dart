@@ -95,6 +95,7 @@ class _EditProfileEnState extends State<EditProfileEn> {
   Widget _buildButtons() {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
       _buildContinueBtn(),
+      _buildCancelBtn(),
     ]);
   }
 
@@ -241,5 +242,13 @@ class _EditProfileEnState extends State<EditProfileEn> {
   void _onContinue() {
     context.read<ProfilesCubit>().emitUpdateProfile(_updatedProfile);
     context.read<UserDataCubit>().emitPrimaryUserUpdate(_updatedProfile);
+  }
+
+  Widget _buildCancelBtn() {
+    return buildStandardButton(
+      text: Globals.instance.getLanguage().cancel,
+      color: greyButtonColor,
+      onPressed: () {},
+    );
   }
 }

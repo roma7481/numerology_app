@@ -13,6 +13,8 @@ abstract class Languages {
 
   String get continueText;
 
+  String get cancel;
+
   String get welcomeToNumerology;
 
   String get selectLanguage;

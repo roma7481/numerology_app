@@ -183,4 +183,7 @@ class LanguageRu extends Languages {
 
   @override
   String get dob => 'Date of Birth RU';
+
+  @override
+  String get cancel => 'cancel RU';
 }

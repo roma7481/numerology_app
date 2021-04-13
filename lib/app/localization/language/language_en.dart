@@ -190,4 +190,7 @@ class LanguageEn extends Languages {
 
   @override
   String get dob => 'Date of Birth';
+
+  @override
+  String get cancel => 'cancel';
 }
