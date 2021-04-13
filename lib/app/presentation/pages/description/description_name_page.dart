@@ -132,7 +132,7 @@ class _DescriptionNameBasedPageState extends State<DescriptionNameBasedPage> {
               child: Container(
                 child: buildCustomButton(
                   Globals.instance.getLanguage().continueText,
-                  continueButtonColor,
+                  yellowButtonColor,
                   () => _onNextPressed(context),
                   continueButtonTextStyle,
                   padding: 32.0,

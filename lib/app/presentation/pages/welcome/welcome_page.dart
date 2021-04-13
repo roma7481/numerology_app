@@ -8,6 +8,7 @@ import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_button.dart';
 import 'package:numerology/app/presentation/common_widgets/line_widget.dart';
+import 'package:numerology/app/presentation/common_widgets/standard_button.dart';
 import 'package:numerology/app/presentation/common_widgets/toast.dart';
 import 'package:numerology/app/presentation/navigators/navigator.dart';
 
@@ -113,33 +114,14 @@ class _WelcomePageState extends State<WelcomePage> {
   }
 
   _buildContinueButton(BuildContext context) {
-    return Expanded(
-      child: Align(
-        alignment: Alignment.bottomCenter,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: Container(
-                child: buildCustomButton(
-                  Globals.instance.getLanguage().continueText,
-                  continueButtonColor,
-                  () {
-                    _onContinuePressed(context);
-                  },
-                  continueButtonTextStyle,
-                  padding: 32.0,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+    return buildContinueButton(
+      text: Globals.instance.getLanguage().continueText,
+      color: yellowButtonColor,
+      onPressed: _onContinuePressed,
     );
   }
 
-  void _onContinuePressed(BuildContext context) async {
+  void _onContinuePressed() async {
     if (!isBirthdaySet) {
       showToast(Globals.instance.language.enterBirthdayWarning);
     } else {
