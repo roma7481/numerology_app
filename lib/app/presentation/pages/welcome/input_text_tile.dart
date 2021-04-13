@@ -10,6 +10,7 @@ Center buildTextInputTile(BuildContext context, String hintText,
     child: Padding(
       padding: EdgeInsets.only(left: padding, right: padding),
       child: TextField(
+        cursorColor: cursorColor,
         controller: textController,
         inputFormatters: LocaleUtils.keyboardInputFormatter(),
         style: TextStyle(color: inputTextColor),

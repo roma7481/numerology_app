@@ -19,6 +19,7 @@ Map<int, Color> appBarColorMap = {
 
 const Color backgroundColor = Color.fromRGBO(0, 32, 59, 1);
 const Color pickerHeaderColor = Color.fromRGBO(128, 202, 255, 1);
+const Color cursorColor = Colors.white;
 const Color dateOfBirthButtonColor = Color.fromRGBO(75, 161, 222, 1);
 const Color weddingDateButtonColor = Color.fromRGBO(75, 161, 222, 1);
 const Color partnerDobButtonColor = Color.fromRGBO(75, 161, 222, 1);
