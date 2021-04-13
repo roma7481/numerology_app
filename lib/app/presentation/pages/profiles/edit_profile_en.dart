@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:numerology/app/business_logic/cubit/language/language_cubit.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
+import 'package:numerology/app/business_logic/services/date_service.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/data/models/profile.dart';
+import 'package:numerology/app/presentation/common_widgets/custom_button.dart';
 import 'package:numerology/app/presentation/pages/welcome/input_text_tile.dart';
 
 class EditProfileEn extends StatefulWidget {
@@ -15,6 +20,9 @@ class EditProfileEn extends StatefulWidget {
 }
 
 class _EditProfileEnState extends State<EditProfileEn> {
+  var _selectedDate;
+  int dob;
+
   final controllerProfileName = TextEditingController();
   final controllerFirstName = TextEditingController();
   final controllerLastName = TextEditingController();
@@ -55,6 +63,7 @@ class _EditProfileEnState extends State<EditProfileEn> {
         children: [
           _buildProfileSettings(),
           _buildUsernameSettings(),
+          _buildDobSettings(),
         ],
       ),
     );
@@ -70,7 +79,7 @@ class _EditProfileEnState extends State<EditProfileEn> {
 
   Widget _buildHeader(String text) {
     return Padding(
-      padding: const EdgeInsets.only(top: 20.0),
+      padding: const EdgeInsets.only(top: 24.0),
       child: Text(
         text,
         style: headerTextStyle,
@@ -102,5 +111,51 @@ class _EditProfileEnState extends State<EditProfileEn> {
             language.middleName),
       ],
     );
+  }
+
+  Widget _buildDobSettings() {
+    return Column(
+      children: [
+        _buildHeader(Globals.instance.language.dob),
+        _buildDOBPicker(),
+      ],
+    );
+  }
+
+  _buildDOBPicker() {
+    _selectedDate = DateService.fromTimestamp(widget.profile.dob);
+    return Padding(
+      padding: const EdgeInsets.only(top: 16.0),
+      child: BlocListener<LanguageCubit, LanguageState>(
+          listener: (context, state) {},
+          child:
+              buildCustomButton(_getButtonText(), dateOfBirthButtonColor, () {
+            DatePicker.showDatePicker(
+              context,
+              showTitleActions: true,
+              onConfirm: (date) {
+                setState(() {
+                  _selectedDate = date;
+                  updateBirthday(date);
+                });
+              },
+              locale: Globals.instance.getLocaleType(),
+              currentTime: DateService.getDateTimeMinusNumYear(25),
+            );
+          }, dateOfBirthButtonTextStyle)),
+    );
+  }
+
+  void updateBirthday(DateTime date) {
+    setState(() {
+      dob = DateService.toTimestamp(date);
+    });
+  }
+
+  String _getButtonText() {
+    if (_selectedDate == null) {
+      return Globals.instance.language.dateOfBirth;
+    }
+    return DateService.getFormattedDate(_selectedDate);
   }
 }

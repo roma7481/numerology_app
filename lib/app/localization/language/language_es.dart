@@ -180,4 +180,7 @@ class LanguageEs extends Languages {
 
   @override
   String get usersName => 'usersName ES';
+
+  @override
+  String get dob => 'Date of Birth ES';
 }

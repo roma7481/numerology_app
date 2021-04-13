@@ -120,4 +120,6 @@ abstract class Languages {
   String get profileName;
 
   String get usersName;
+
+  String get dob;
 }

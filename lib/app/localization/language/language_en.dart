@@ -187,4 +187,7 @@ class LanguageEn extends Languages {
 
   @override
   String get usersName => 'User\'s Name';
+
+  @override
+  String get dob => 'Date of Birth';
 }
