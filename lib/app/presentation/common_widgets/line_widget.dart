@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Padding buildLine(BuildContext context) {
+Widget buildLine(BuildContext context) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 16.0),
     child: Container(

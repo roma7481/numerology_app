@@ -180,3 +180,17 @@ var buttonTextStyle = GoogleFonts.sourceSansPro(
   fontSize: 15.0,
   color: Colors.white,
 ));
+
+/// PROFILES ///
+
+var profilesWhiteText = GoogleFonts.sourceSansPro(
+    textStyle: TextStyle(
+  fontSize: 15.0,
+  color: Colors.white,
+));
+
+var profilesBlueText = GoogleFonts.sourceSansPro(
+    textStyle: TextStyle(
+  fontSize: 15.0,
+  color: itemTapPressedColor,
+));
