@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:numerology/app/business_logic/cubit/language/language_cubit.dart';
+import 'package:numerology/app/business_logic/cubit/profiles/profiles_cubit.dart';
+import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/business_logic/services/date_service.dart';
 import 'package:numerology/app/constants/colors.dart';
@@ -20,7 +22,7 @@ class EditProfileEn extends StatefulWidget {
 }
 
 class _EditProfileEnState extends State<EditProfileEn> {
-  var _selectedDate;
+  var _selectedDate = DateTime.now();
   int dob;
 
   final controllerProfileName = TextEditingController();
@@ -39,6 +41,12 @@ class _EditProfileEnState extends State<EditProfileEn> {
 
   @override
   Widget build(BuildContext context) {
+    BlocListener<UserDataCubit, UserDataState>(listener: (context, state) {
+      if (state is UserDataReady) {
+        _selectedDate = DateService.fromTimestamp(state.profile.dob);
+      }
+    });
+
     return SafeArea(
       child: Scaffold(
         body: _buildPageBody(),
@@ -123,7 +131,6 @@ class _EditProfileEnState extends State<EditProfileEn> {
   }
 
   _buildDOBPicker() {
-    _selectedDate = DateService.fromTimestamp(widget.profile.dob);
     return Padding(
       padding: const EdgeInsets.only(top: 16.0),
       child: BlocListener<LanguageCubit, LanguageState>(
@@ -148,7 +155,12 @@ class _EditProfileEnState extends State<EditProfileEn> {
 
   void updateBirthday(DateTime date) {
     setState(() {
+      _selectedDate = date;
       dob = DateService.toTimestamp(date);
+      var updatedProfile =
+          widget.profile.copyWith(dob: DateService.toTimestamp(date));
+      context.read<ProfilesCubit>().emitUpdateProfile(updatedProfile);
+      context.read<UserDataCubit>().emitPrimaryUserUpdate(updatedProfile);
     });
   }
 
