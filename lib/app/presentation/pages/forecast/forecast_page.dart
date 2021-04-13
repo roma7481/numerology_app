@@ -30,7 +30,6 @@ class _ForecastPageState extends State<ForecastPage> {
 
   @override
   Widget build(BuildContext context) {
-    context.read<ProfilesCubit>().emitGetProfiles();
     return BlocBuilder<ForecastCubit, ForecastState>(builder: (context, state) {
       if (state is ForecastReady) {
         _daily = state.daily;
@@ -41,6 +40,7 @@ class _ForecastPageState extends State<ForecastPage> {
       } else if (state is ForecastError) {
         return errorDialog();
       }
+      context.read<ProfilesCubit>().emitGetProfiles();
       return progressBar();
     });
   }

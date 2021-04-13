@@ -9,6 +9,10 @@ import 'package:numerology/app/data/models/profile.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
 import 'package:numerology/app/presentation/common_widgets/error_dialog.dart';
 import 'package:numerology/app/presentation/common_widgets/progress_bar.dart';
+import 'package:numerology/app/presentation/navigators/navigator.dart';
+import 'package:numerology/app/presentation/pages/home/custom_raised_button.dart';
+
+import 'edit_profile_en.dart';
 
 class ProfilesPage extends StatefulWidget {
   @override
@@ -66,7 +70,7 @@ class _ProfilesPageState extends State<ProfilesPage> {
               Stack(children: [_buildPrimInfo(profile), _buildCheckbox()]),
               _buildSecondaryInfo(profile, width),
               _buildLine(),
-              _buildEditBtn(),
+              _buildEditBtn(profile),
             ],
           ),
         ),
@@ -165,16 +169,22 @@ class _ProfilesPageState extends State<ProfilesPage> {
     );
   }
 
-  Widget _buildEditBtn() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8.0, bottom: 12.0),
-      child: Row(
-        children: [
-          Icon(
-            Icons.edit,
-            color: Colors.white,
-          ),
-        ],
+  Widget _buildEditBtn(Profile profile) {
+    return CustomButton(
+      onPressed: () => navigateToPage(
+        context,
+        EditProfileEn(profile: profile),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.only(top: 8.0, bottom: 12.0),
+        child: Row(
+          children: [
+            Icon(
+              Icons.edit,
+              color: Colors.white,
+            ),
+          ],
+        ),
       ),
     );
   }

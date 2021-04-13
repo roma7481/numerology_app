@@ -29,7 +29,7 @@ void navigateToBioGraphsPage(BuildContext context) async {
       .push(MaterialPageRoute(builder: (context) => BioGraphsPage()));
 }
 
-void navigateToDescription(BuildContext context, Widget page) async {
+void navigateToPage(BuildContext context, Widget page) async {
   Navigator.of(context, rootNavigator: true)
       .push(MaterialPageRoute(builder: (context) => page));
 }

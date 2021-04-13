@@ -100,7 +100,7 @@ class HomePage extends StatelessWidget {
         text: category.text,
         content: category.content,
         onPressed: () async {
-          navigateToDescription(context, category.page);
+          navigateToPage(context, category.page);
         },
         imagePath: category.imagePath,
       ),
@@ -132,7 +132,7 @@ class HomePage extends StatelessWidget {
     return buildCategoryTile(
         text: text,
         onPressed: () {
-          navigateToDescription(context, page);
+          navigateToPage(context, page);
         },
         imagePath: iconPath);
   }
