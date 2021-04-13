@@ -41,11 +41,11 @@ class _ProfilesPageState extends State<ProfilesPage> {
     return SliverToBoxAdapter(
       child: CustomCard(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.only(left: 12.0),
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 8.0),
+                padding: const EdgeInsets.only(top: 4.0),
                 child: Row(
                   children: [
                     Icon(
@@ -59,11 +59,12 @@ class _ProfilesPageState extends State<ProfilesPage> {
                         style: profilesWhiteText,
                       ),
                     ),
+                    _buildCheckbox(),
                   ],
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 8.0),
+                padding: const EdgeInsets.only(top: 4.0),
                 child: Row(
                   children: [
                     Icon(Icons.event, color: Colors.white),
@@ -144,7 +145,7 @@ class _ProfilesPageState extends State<ProfilesPage> {
 
   Widget _buildEditBtn() {
     return Padding(
-      padding: const EdgeInsets.only(top: 8.0, bottom: 4.0),
+      padding: const EdgeInsets.only(top: 8.0, bottom: 12.0),
       child: Row(
         children: [
           Icon(
@@ -153,6 +154,14 @@ class _ProfilesPageState extends State<ProfilesPage> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildCheckbox() {
+    var width = MediaQuery.of(context).size.width;
+    return Padding(
+      padding: EdgeInsets.only(left: width * 0.55),
+      child: Checkbox(value: true, onChanged: (value) {}),
     );
   }
 }
