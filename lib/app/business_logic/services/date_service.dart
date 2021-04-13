@@ -43,4 +43,10 @@ class DateService {
   static DateTime fromTimestamp(int timestamp) {
     return new DateTime.fromMillisecondsSinceEpoch(timestamp);
   }
+
+  static String fromTimestampToString(int timestamp) {
+    return timestamp != null
+        ? getFormattedDate(DateTime.fromMillisecondsSinceEpoch(timestamp))
+        : '';
+  }
 }

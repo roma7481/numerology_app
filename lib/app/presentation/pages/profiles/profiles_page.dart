@@ -63,48 +63,56 @@ class _ProfilesPageState extends State<ProfilesPage> {
           padding: const EdgeInsets.only(left: 12.0),
           child: Column(
             children: [
-              Stack(children: [
-                _buildPrimeInfo(Icons.person, profile.profileName),
-                _buildCheckbox()
-              ]),
-              _buildPrimeInfo(
-                  Icons.event,
-                  DateService.getFormattedDate(
-                      DateService.fromTimestamp(profile.dob))),
-              Padding(
-                padding: const EdgeInsets.only(top: 12.0),
-                child: Row(
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _buildSecondaryInfo('F.Name - ', profile.firstName),
-                        _buildSecondaryInfo('L.Name - ', profile.lastName),
-                        _buildSecondaryInfo('M.Name - ', profile.middleName),
-                      ],
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: width * 0.05),
-                      child: Column(
-                        children: [
-                          _buildSecondaryInfo(
-                              'Partner - ', 'profile.partnerDob',
-                              widthDelta: 0.25),
-                          _buildSecondaryInfo('W.Date - ', '',
-                              widthDelta: 0.25),
-                          _buildSecondaryInfo('', '', widthDelta: 0.25),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
+              Stack(children: [_buildPrimInfo(profile), _buildCheckbox()]),
+              _buildSecondaryInfo(profile, width),
               _buildLine(),
               _buildEditBtn(),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Padding _buildSecondaryInfo(Profile profile, double width) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 12.0),
+      child: Row(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildSecondary('F.Name - ', profile.firstName),
+              _buildSecondary('L.Name - ', profile.lastName),
+              _buildSecondary('M.Name - ', profile.middleName),
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: width * 0.05),
+            child: Column(
+              children: [
+                _buildSecondary('Partner - ',
+                    DateService.fromTimestampToString(profile.partnerDob),
+                    widthDelta: 0.25),
+                _buildSecondary('W.Date - ',
+                    DateService.fromTimestampToString(profile.weddingDate),
+                    widthDelta: 0.25),
+                _buildSecondary('', '', widthDelta: 0.25),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Column _buildPrimInfo(Profile profile) {
+    return Column(
+      children: [
+        _buildPrimeInfo(Icons.person, profile.profileName),
+        _buildPrimeInfo(
+            Icons.event, DateService.fromTimestampToString(profile.dob))
+      ],
     );
   }
 
@@ -126,7 +134,7 @@ class _ProfilesPageState extends State<ProfilesPage> {
     );
   }
 
-  Widget _buildSecondaryInfo(String header, String value,
+  Widget _buildSecondary(String header, String value,
       {double widthDelta = 0.2}) {
     var width = MediaQuery.of(context).size.width;
 
@@ -148,10 +156,10 @@ class _ProfilesPageState extends State<ProfilesPage> {
 
   Widget _buildLine() {
     return Padding(
-      padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+      padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 8.0),
       child: Container(
         height: 1.0,
-        width: MediaQuery.of(context).size.width * 0.90,
+        width: MediaQuery.of(context).size.width * 0.9,
         color: Colors.white,
       ),
     );
