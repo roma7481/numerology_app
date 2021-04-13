@@ -24,6 +24,7 @@ class EditProfileEn extends StatefulWidget {
 class _EditProfileEnState extends State<EditProfileEn> {
   var _dob = DateTime.now();
   var _partnerDob;
+  var _weddingDate;
 
   final controllerProfileName = TextEditingController();
   final controllerFirstName = TextEditingController();
@@ -44,10 +45,8 @@ class _EditProfileEnState extends State<EditProfileEn> {
     BlocListener<UserDataCubit, UserDataState>(listener: (context, state) {
       if (state is UserDataReady) {
         _dob = DateService.fromTimestamp(state.profile.dob);
-
-        if (state.profile.partnerDob != null) {
-          _partnerDob = DateService.fromTimestamp(state.profile.partnerDob);
-        }
+        _partnerDob = DateService.fromTimestamp(state.profile.partnerDob);
+        _weddingDate = DateService.fromTimestamp(state.profile.weddingDate);
       }
     });
 
@@ -76,10 +75,17 @@ class _EditProfileEnState extends State<EditProfileEn> {
           _buildProfileSettings(),
           _buildUsernameSettings(),
           _buildDobSettings(),
-          _buildPartnerDobSettings(),
+          _buildSecondarySettings(),
         ],
       ),
     );
+  }
+
+  Widget _buildSecondarySettings() {
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+      _buildPartnerDobSettings(),
+      _buildWeddingDateSettings(),
+    ]);
   }
 
   Center _buildInputField(
@@ -144,6 +150,15 @@ class _EditProfileEnState extends State<EditProfileEn> {
     );
   }
 
+  Widget _buildWeddingDateSettings() {
+    return Column(
+      children: [
+        _buildHeader(Globals.instance.language.weddingDate),
+        _buildDOBPicker(_getWeddingDateText(), _updateWeddingDate),
+      ],
+    );
+  }
+
   _buildDOBPicker(String btnText, Function onClick) {
     return Padding(
       padding: const EdgeInsets.only(top: 16.0),
@@ -185,6 +200,16 @@ class _EditProfileEnState extends State<EditProfileEn> {
     });
   }
 
+  void _updateWeddingDate(DateTime date) {
+    setState(() {
+      _weddingDate = date;
+      var updatedProfile =
+          widget.profile.copyWith(weddingDate: DateService.toTimestamp(date));
+      context.read<ProfilesCubit>().emitUpdateProfile(updatedProfile);
+      context.read<UserDataCubit>().emitPrimaryUserUpdate(updatedProfile);
+    });
+  }
+
   String _getDobText() {
     return DateService.getFormattedDate(_dob);
   }
@@ -193,5 +218,11 @@ class _EditProfileEnState extends State<EditProfileEn> {
     return _partnerDob == null
         ? Globals.instance.language.partnersDob
         : DateService.getFormattedDate(_partnerDob);
+  }
+
+  String _getWeddingDateText() {
+    return _weddingDate == null
+        ? Globals.instance.language.weddingDate
+        : DateService.getFormattedDate(_weddingDate);
   }
 }
