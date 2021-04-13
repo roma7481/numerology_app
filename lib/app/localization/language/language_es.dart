@@ -168,4 +168,7 @@ class LanguageEs extends Languages {
 
   @override
   String get yearNumber => 'yearNumber ES';
+
+  @override
+  String get profiles => 'Profiles ES';
 }

@@ -112,4 +112,6 @@ abstract class Languages {
   String get monthNumber;
 
   String get yearNumber;
+
+  String get profiles;
 }

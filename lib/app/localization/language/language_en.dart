@@ -175,4 +175,7 @@ class LanguageEn extends Languages {
 
   @override
   String get yearNumber => 'Year Number';
+
+  @override
+  String get profiles => 'Profiles';
 }

@@ -168,4 +168,7 @@ class LanguageRu extends Languages {
 
   @override
   String get yearNumber => 'yearNumber RU';
+
+  @override
+  String get profiles => 'profiles RU';
 }
