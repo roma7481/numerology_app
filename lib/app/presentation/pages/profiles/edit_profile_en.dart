@@ -22,8 +22,7 @@ class EditProfileEn extends StatefulWidget {
 }
 
 class _EditProfileEnState extends State<EditProfileEn> {
-  var _selectedDate = DateTime.now();
-  int dob;
+  var _birthdayDate = DateTime.now();
 
   final controllerProfileName = TextEditingController();
   final controllerFirstName = TextEditingController();
@@ -43,7 +42,7 @@ class _EditProfileEnState extends State<EditProfileEn> {
   Widget build(BuildContext context) {
     BlocListener<UserDataCubit, UserDataState>(listener: (context, state) {
       if (state is UserDataReady) {
-        _selectedDate = DateService.fromTimestamp(state.profile.dob);
+        _birthdayDate = DateService.fromTimestamp(state.profile.dob);
       }
     });
 
@@ -125,25 +124,23 @@ class _EditProfileEnState extends State<EditProfileEn> {
     return Column(
       children: [
         _buildHeader(Globals.instance.language.dob),
-        _buildDOBPicker(),
+        _buildDOBPicker(_getDobText(), _updateDob),
       ],
     );
   }
 
-  _buildDOBPicker() {
+  _buildDOBPicker(String btnText, Function onClick) {
     return Padding(
       padding: const EdgeInsets.only(top: 16.0),
       child: BlocListener<LanguageCubit, LanguageState>(
           listener: (context, state) {},
-          child:
-              buildCustomButton(_getButtonText(), dateOfBirthButtonColor, () {
+          child: buildCustomButton(btnText, dateOfBirthButtonColor, () {
             DatePicker.showDatePicker(
               context,
               showTitleActions: true,
               onConfirm: (date) {
                 setState(() {
-                  _selectedDate = date;
-                  updateBirthday(date);
+                  onClick(date);
                 });
               },
               locale: Globals.instance.getLocaleType(),
@@ -153,10 +150,9 @@ class _EditProfileEnState extends State<EditProfileEn> {
     );
   }
 
-  void updateBirthday(DateTime date) {
+  void _updateDob(DateTime date) {
     setState(() {
-      _selectedDate = date;
-      dob = DateService.toTimestamp(date);
+      _birthdayDate = date;
       var updatedProfile =
           widget.profile.copyWith(dob: DateService.toTimestamp(date));
       context.read<ProfilesCubit>().emitUpdateProfile(updatedProfile);
@@ -164,10 +160,7 @@ class _EditProfileEnState extends State<EditProfileEn> {
     });
   }
 
-  String _getButtonText() {
-    if (_selectedDate == null) {
-      return Globals.instance.language.dateOfBirth;
-    }
-    return DateService.getFormattedDate(_selectedDate);
+  String _getDobText() {
+    return DateService.getFormattedDate(_birthdayDate);
   }
 }
