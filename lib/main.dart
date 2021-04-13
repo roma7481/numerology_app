@@ -34,11 +34,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     initializeDateFormatting('en');
-    var userDataCubit = UserDataCubit();
+    var profilesCubit = ProfilesCubit();
     return MultiProvider(
       providers: [
         BlocProvider<UserDataCubit>(
-          create: (context) => userDataCubit,
+          create: (context) => UserDataCubit(),
           lazy: false,
         ),
         BlocProvider<LanguageCubit>(
@@ -52,11 +52,11 @@ class MyApp extends StatelessWidget {
           create: (context) => BioSecondCubit(),
         ),
         BlocProvider<ProfilesCubit>(
-          create: (context) => ProfilesCubit(),
+          create: (context) => profilesCubit,
           lazy: false,
         ),
         BlocProvider<ForecastCubit>(
-          create: (context) => ForecastCubit(userDataCubit),
+          create: (context) => ForecastCubit(profilesCubit),
         ),
       ],
       child: MaterialApp(
