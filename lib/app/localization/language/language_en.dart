@@ -36,13 +36,13 @@ class LanguageEn extends Languages {
   String get enterName => 'Please enter your name';
 
   @override
-  String get firstName => 'First name';
+  String get firstName => 'F.Name';
 
   @override
-  String get lastName => 'Last name';
+  String get lastName => 'L.Name';
 
   @override
-  String get middleName => 'Middle name';
+  String get middleName => 'M.Name';
 
   @override
   String get nameSettingsNotice =>

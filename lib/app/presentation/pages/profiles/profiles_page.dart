@@ -79,6 +79,7 @@ class _ProfilesPageState extends State<ProfilesPage> {
   }
 
   Padding _buildSecondaryInfo(Profile profile, double width) {
+    var language = Globals.instance.language;
     return Padding(
       padding: const EdgeInsets.only(top: 12.0),
       child: Row(
@@ -86,9 +87,9 @@ class _ProfilesPageState extends State<ProfilesPage> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildSecondary('F.Name - ', profile.firstName),
-              _buildSecondary('L.Name - ', profile.lastName),
-              _buildSecondary('M.Name - ', profile.middleName),
+              _buildSecondary('${language.firstName} - ', profile.firstName),
+              _buildSecondary('${language.lastName} - ', profile.lastName),
+              _buildSecondary('${language.middleName} - ', profile.middleName),
             ],
           ),
           Padding(

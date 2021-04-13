@@ -50,19 +50,20 @@ class _EditProfileEnState extends State<EditProfileEn> {
   }
 
   Widget _buildProfileName() {
+    var language = Globals.instance.language;
     return SliverToBoxAdapter(
       child: Column(
         children: [
           _buildHeader(Globals.instance.language.profileName),
           _buildInputField(widget.profile.profileName, controllerProfileName,
-              'Profile name'),
+              language.profileName),
           _buildHeader(Globals.instance.language.usersName),
+          _buildInputField(widget.profile.firstName, controllerFirstName,
+              language.firstName),
           _buildInputField(
-              widget.profile.firstName, controllerFirstName, 'F.Name'),
-          _buildInputField(
-              widget.profile.middleName, controllerMiddleName, 'M.Name'),
-          _buildInputField(
-              widget.profile.lastName, controllerLastName, 'L.Name'),
+              widget.profile.lastName, controllerLastName, language.lastName),
+          _buildInputField(widget.profile.middleName, controllerMiddleName,
+              language.middleName),
         ],
       ),
     );
