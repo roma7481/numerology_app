@@ -24,9 +24,11 @@ class _ProfilesPageState extends State<ProfilesPage> {
 
   @override
   Widget build(BuildContext context) {
-    context.read<ProfilesCubit>().emitGetProfiles();
     return BlocBuilder<ProfilesCubit, ProfilesState>(builder: (context, state) {
       if (state is ProfilesReady) {
+        _profiles = state.profiles;
+        return _buildContent();
+      } if (state is ProfilesUpdate) {
         _profiles = state.profiles;
         return _buildContent();
       } else if (state is ProfilesError) {
