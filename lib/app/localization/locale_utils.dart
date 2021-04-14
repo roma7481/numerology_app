@@ -33,6 +33,13 @@ class LocaleUtils {
     return [formatter];
   }
 
+  static List<TextInputFormatter> keyboardInputFormatterWithNumbers() {
+    /// Need to add a keyboard formatter for every language we add ///
+    var formatter = new FilteringTextInputFormatter.allow(
+        RegExp(r"[a-zA-Z0-9]+|[А-Яа-я0-9]+|[Ñ0-9]+|[ñ0-9]+|\s"));
+    return [formatter];
+  }
+
   static Map<int, LanguageItem> allLanguages = {
     0: LanguageItem(en, english),
     1: LanguageItem(ru, russian),

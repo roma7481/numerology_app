@@ -123,12 +123,13 @@ class _EditProfileEnState extends State<EditProfileEn> {
   }
 
   Center _buildInputField(
-      String text, TextEditingController controller, String hint) {
+      String text, TextEditingController controller, String hint,
+      {bool canInputNumbers = false}) {
     return buildTextInputTile(context, hint, controller, onChanged: () {
       setState(() {
         _wasUpdated = true;
       });
-    });
+    }, canInputNumbers: canInputNumbers);
   }
 
   Widget _buildHeader(String text) {
@@ -147,7 +148,8 @@ class _EditProfileEnState extends State<EditProfileEn> {
       children: [
         _buildHeader(Globals.instance.language.profileName),
         _buildInputField(controllerProfileName.text, controllerProfileName,
-            language.profileName),
+            language.profileName,
+            canInputNumbers: true),
       ],
     );
   }

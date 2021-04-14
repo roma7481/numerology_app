@@ -4,7 +4,7 @@ import 'package:numerology/app/localization/locale_utils.dart';
 
 Center buildTextInputTile(
     BuildContext context, String hintText, TextEditingController textController,
-    {Function onChanged}) {
+    {Function onChanged, bool canInputNumbers = false}) {
   var padding = MediaQuery.of(context).size.width * 0.2;
 
   return Center(
@@ -14,7 +14,9 @@ Center buildTextInputTile(
         onChanged: onChanged == null ? (_) {} : (_) => onChanged(),
         cursorColor: cursorColor,
         controller: textController,
-        inputFormatters: LocaleUtils.keyboardInputFormatter(),
+        inputFormatters: canInputNumbers
+            ? LocaleUtils.keyboardInputFormatterWithNumbers()
+            : LocaleUtils.keyboardInputFormatter(),
         style: TextStyle(color: inputTextColor),
         decoration: InputDecoration(
           hintStyle: TextStyle(fontSize: 17.0, color: hintColor),
