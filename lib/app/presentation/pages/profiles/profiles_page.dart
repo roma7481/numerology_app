@@ -28,7 +28,7 @@ class _ProfilesPageState extends State<ProfilesPage> {
       if (state is ProfilesReady) {
         _profiles = state.profiles;
         return _buildContent();
-      } if (state is ProfilesUpdate) {
+      } else if (state is ProfilesUpdate) {
         _profiles = state.profiles;
         return _buildContent();
       } else if (state is ProfilesError) {
