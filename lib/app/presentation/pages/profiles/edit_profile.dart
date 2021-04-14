@@ -9,24 +9,27 @@ import 'package:numerology/app/business_logic/services/date_service.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/data/models/profile.dart';
+import 'package:numerology/app/localization/language/language_es.dart';
+import 'package:numerology/app/localization/language/language_ru.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_button.dart';
 import 'package:numerology/app/presentation/common_widgets/standard_button.dart';
 import 'package:numerology/app/presentation/pages/welcome/input_text_tile.dart';
 
-class EditProfileEn extends StatefulWidget {
+class EditProfile extends StatefulWidget {
   final Profile profile;
 
-  const EditProfileEn({Key key, this.profile}) : super(key: key);
+  const EditProfile({Key key, this.profile}) : super(key: key);
 
   @override
-  _EditProfileEnState createState() => _EditProfileEnState();
+  _EditProfileState createState() => _EditProfileState();
 }
 
-class _EditProfileEnState extends State<EditProfileEn> {
+class _EditProfileState extends State<EditProfile> {
   var _dob = DateTime.now();
   var _partnerDob;
   var _weddingDate;
   var _updatedProfile;
+  var _coupleDate;
   var _wasUpdated = false;
 
   final controllerProfileName = TextEditingController();
@@ -44,8 +47,9 @@ class _EditProfileEnState extends State<EditProfileEn> {
     if (widget.profile.weddingDate != null) {
       _weddingDate = DateService.fromTimestamp(widget.profile.weddingDate);
     }
-
-    _updatedProfile = widget.profile;
+    if (widget.profile.coupleDate != null) {
+      _coupleDate = DateService.fromTimestamp(widget.profile.coupleDate);
+    }
 
     controllerProfileName.value = controllerProfileName.value.copyWith(
       text: widget.profile.profileName ?? '',
@@ -106,6 +110,15 @@ class _EditProfileEnState extends State<EditProfileEn> {
   }
 
   Widget _buildSecondarySettings() {
+    if (Globals.instance.language is LanguageRu) {
+      return _buildRu();
+    } else if (Globals.instance.language is LanguageEs) {
+      return _buildEs();
+    }
+    return _buildEn();
+  }
+
+  Widget _buildEn() {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
       _buildPartnerDobSettings(),
       SizedBox(
@@ -113,6 +126,14 @@ class _EditProfileEnState extends State<EditProfileEn> {
       ),
       _buildWeddingDateSettings(),
     ]);
+  }
+
+  Widget _buildRu() {
+    return _buildPartnerDobSettings();
+  }
+
+  Widget _buildEs() {
+    return _buildCoupleDateSettings();
   }
 
   Widget _buildButtons() {
@@ -187,6 +208,15 @@ class _EditProfileEnState extends State<EditProfileEn> {
     );
   }
 
+  Widget _buildCoupleDateSettings() {
+    return Column(
+      children: [
+        _buildHeader(Globals.instance.language.coupleDateProfiles),
+        _buildDOBPicker(_getCoupleText(), _updateCoupleDate),
+      ],
+    );
+  }
+
   Widget _buildWeddingDateSettings() {
     return Column(
       children: [
@@ -231,6 +261,13 @@ class _EditProfileEnState extends State<EditProfileEn> {
     });
   }
 
+  void _updateCoupleDate(DateTime date) {
+    setState(() {
+      _wasUpdated = true;
+      _coupleDate = date;
+    });
+  }
+
   void _updateWeddingDate(DateTime date) {
     setState(() {
       _wasUpdated = true;
@@ -246,6 +283,12 @@ class _EditProfileEnState extends State<EditProfileEn> {
     return _partnerDob == null
         ? Globals.instance.language.partnersDob
         : DateService.getFormattedDate(_partnerDob);
+  }
+
+  String _getCoupleText() {
+    return _coupleDate == null
+        ? Globals.instance.language.coupleDateProfiles
+        : DateService.getFormattedDate(_coupleDate);
   }
 
   String _getWeddingDateText() {
@@ -272,6 +315,8 @@ class _EditProfileEnState extends State<EditProfileEn> {
           middleName: controllerMiddleName.text,
           partnerDob:
               _partnerDob != null ? DateService.toTimestamp(_partnerDob) : null,
+          coupleDate:
+              _coupleDate != null ? DateService.toTimestamp(_coupleDate) : null,
           weddingDate: _weddingDate != null
               ? DateService.toTimestamp(_weddingDate)
               : null);

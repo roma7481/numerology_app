@@ -15,7 +15,7 @@ import 'package:numerology/app/presentation/common_widgets/progress_bar.dart';
 import 'package:numerology/app/presentation/navigators/navigator.dart';
 import 'package:numerology/app/presentation/pages/home/custom_raised_button.dart';
 
-import 'edit_profile_en.dart';
+import 'edit_profile.dart';
 
 class ProfilesPage extends StatefulWidget {
   @override
@@ -122,7 +122,7 @@ class _ProfilesPageState extends State<ProfilesPage> {
 
     var language = Globals.instance.language;
     return Padding(
-      padding: EdgeInsets.only(left: width * 0.05),
+      padding: EdgeInsets.only(left: width * 0.001),
       child: Column(
         children: [
           _buildSecondary('${language.partnerProfiles} - ',
@@ -139,7 +139,7 @@ class _ProfilesPageState extends State<ProfilesPage> {
     var width = MediaQuery.of(context).size.width;
     var language = Globals.instance.language;
     return Padding(
-      padding: EdgeInsets.only(left: width * 0.05),
+      padding: EdgeInsets.only(left: width * 0.001),
       child: Column(
         children: [
           _buildSecondary('${language.coupleDateProfiles} - ',
@@ -156,7 +156,7 @@ class _ProfilesPageState extends State<ProfilesPage> {
     var width = MediaQuery.of(context).size.width;
     var language = Globals.instance.language;
     return Padding(
-      padding: EdgeInsets.only(left: width * 0.05),
+      padding: EdgeInsets.only(left: width * 0.001),
       child: Column(
         children: [
           _buildSecondary('${language.partnerProfiles} - ',
@@ -234,7 +234,7 @@ class _ProfilesPageState extends State<ProfilesPage> {
     return CustomButton(
       onPressed: () => navigateToPage(
         context,
-        EditProfileEn(profile: profile),
+        EditProfile(profile: profile),
       ),
       child: Padding(
         padding: const EdgeInsets.only(top: 8.0, bottom: 12.0),
