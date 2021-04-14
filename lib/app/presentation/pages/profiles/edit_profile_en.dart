@@ -27,6 +27,7 @@ class _EditProfileEnState extends State<EditProfileEn> {
   var _partnerDob;
   var _weddingDate;
   var _updatedProfile;
+  var _wasUpdated = false;
 
   final controllerProfileName = TextEditingController();
   final controllerFirstName = TextEditingController();
@@ -44,14 +45,17 @@ class _EditProfileEnState extends State<EditProfileEn> {
 
   @override
   Widget build(BuildContext context) {
-    BlocListener<UserDataCubit, UserDataState>(listener: (context, state) {
-      if (state is UserDataReady) {
-        _updatedProfile = state.profile;
-        _dob = DateService.fromTimestamp(state.profile.dob);
-        _partnerDob = DateService.fromTimestamp(state.profile.partnerDob);
-        _weddingDate = DateService.fromTimestamp(state.profile.weddingDate);
+    if (_wasUpdated == false) {
+      _updatedProfile = widget.profile;
+      _dob = DateService.fromTimestamp(widget.profile.dob);
+      if (widget.profile.partnerDob != null) {
+        _partnerDob = DateService.fromTimestamp(widget.profile.partnerDob);
       }
-    });
+      if (widget.profile.weddingDate != null) {
+        _weddingDate = DateService.fromTimestamp(widget.profile.weddingDate);
+      }
+      _updatedProfile = widget.profile;
+    }
 
     return SafeArea(
       child: Scaffold(
@@ -89,17 +93,17 @@ class _EditProfileEnState extends State<EditProfileEn> {
   }
 
   Widget _buildSecondarySettings() {
-    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
       _buildPartnerDobSettings(),
       SizedBox(
-        width: 40.0,
+        width: 10.0,
       ),
       _buildWeddingDateSettings(),
     ]);
   }
 
   Widget _buildButtons() {
-    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
       _buildContinueBtn(),
       _buildCancelBtn(),
     ]);
@@ -199,25 +203,22 @@ class _EditProfileEnState extends State<EditProfileEn> {
 
   void _updateDob(DateTime date) {
     setState(() {
+      _wasUpdated = true;
       _dob = date;
-      _updatedProfile =
-          _updatedProfile.copyWith(dob: DateService.toTimestamp(date));
     });
   }
 
   void _updatePartnerDob(DateTime date) {
     setState(() {
+      _wasUpdated = true;
       _partnerDob = date;
-      _updatedProfile =
-          _updatedProfile.copyWith(partnerDob: DateService.toTimestamp(date));
     });
   }
 
   void _updateWeddingDate(DateTime date) {
     setState(() {
+      _wasUpdated = true;
       _weddingDate = date;
-      _updatedProfile =
-          _updatedProfile.copyWith(weddingDate: DateService.toTimestamp(date));
     });
   }
 
@@ -246,15 +247,31 @@ class _EditProfileEnState extends State<EditProfileEn> {
   }
 
   void _onContinue() {
-    context.read<ProfilesCubit>().emitUpdateProfile(_updatedProfile);
-    context.read<UserDataCubit>().emitPrimaryUserUpdate(_updatedProfile);
+    if (_updatedProfile != null && _wasUpdated) {
+      _updatedProfile = _updatedProfile.copyWith(
+          dob: DateService.toTimestamp(_dob),
+          partnerDob:
+              _partnerDob != null ? DateService.toTimestamp(_partnerDob) : null,
+          weddingDate: _weddingDate != null
+              ? DateService.toTimestamp(_weddingDate)
+              : null);
+
+      context.read<ProfilesCubit>().emitUpdateProfile(_updatedProfile);
+      context.read<UserDataCubit>().emitPrimaryUserUpdate(_updatedProfile);
+    }
+
+    Navigator.of(context).pop();
+    _wasUpdated = false;
   }
 
   Widget _buildCancelBtn() {
     return buildStandardButton(
       text: Globals.instance.getLanguage().cancel,
       color: greyButtonColor,
-      onPressed: () {},
+      onPressed: () {
+        _wasUpdated = false;
+        Navigator.of(context).pop();
+      },
     );
   }
 }

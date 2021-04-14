@@ -15,7 +15,7 @@ Center buildTextInputTile(BuildContext context, String hintText,
         inputFormatters: LocaleUtils.keyboardInputFormatter(),
         style: TextStyle(color: inputTextColor),
         decoration: InputDecoration(
-          hintStyle: TextStyle(fontSize: 20.0, color: hintColor),
+          hintStyle: TextStyle(fontSize: 17.0, color: hintColor),
           hintText: hintText,
           enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: inputTextUnfocused),
