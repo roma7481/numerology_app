@@ -7,6 +7,8 @@ import 'package:numerology/app/business_logic/cubit/forecast/forecast.dart';
 import 'package:numerology/app/business_logic/cubit/profiles/profiles_cubit.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/data/models/profile.dart';
+import 'package:numerology/app/presentation/common_widgets/error_dialog.dart';
+import 'package:numerology/app/presentation/common_widgets/progress_bar.dart';
 
 part 'forecast_state.dart';
 
@@ -20,7 +22,16 @@ class ForecastCubit extends Cubit<ForecastState> {
         var primaryProfile =
             state.profiles.firstWhere((profile) => profile.isSelected == 1);
         await initForecast(primaryProfile);
+      } else if (state is ProfilesInit) {
+        await initForecast(state.profile);
+      } else if (state is ProfilesUpdate) {
+        var primaryProfile =
+        state.profiles.firstWhere((profile) => profile.isSelected == 1);
+        await initForecast(primaryProfile);
+      } else if (state is ProfilesError) {
+        return errorDialog();
       }
+      return progressBar();
     });
   }
 
