@@ -6,6 +6,9 @@ import 'package:numerology/app/business_logic/services/date_service.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/data/models/profile.dart';
+import 'package:numerology/app/localization/language/language_es.dart';
+import 'package:numerology/app/localization/language/language_ru.dart';
+import 'package:numerology/app/localization/language/languages.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
 import 'package:numerology/app/presentation/common_widgets/error_dialog.dart';
 import 'package:numerology/app/presentation/common_widgets/progress_bar.dart';
@@ -64,8 +67,6 @@ class _ProfilesPageState extends State<ProfilesPage> {
   }
 
   Widget _buildProfile(Profile profile) {
-    var width = MediaQuery.of(context).size.width;
-
     return SliverToBoxAdapter(
       child: CustomCard(
         child: Padding(
@@ -73,7 +74,7 @@ class _ProfilesPageState extends State<ProfilesPage> {
           child: Column(
             children: [
               Stack(children: [_buildPrimInfo(profile), _buildCheckbox()]),
-              _buildSecondaryInfo(profile, width),
+              _buildSecondaryInfo(profile),
               _buildLine(),
               _buildEditBtn(profile),
             ],
@@ -83,34 +84,88 @@ class _ProfilesPageState extends State<ProfilesPage> {
     );
   }
 
-  Padding _buildSecondaryInfo(Profile profile, double width) {
+  Padding _buildSecondaryInfo(Profile profile) {
     var language = Globals.instance.language;
     return Padding(
       padding: const EdgeInsets.only(top: 12.0),
       child: Row(
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildSecondary('${language.firstName} - ', profile.firstName),
-              _buildSecondary('${language.lastName} - ', profile.lastName),
-              _buildSecondary('${language.middleName} - ', profile.middleName),
-            ],
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: width * 0.05),
-            child: Column(
-              children: [
-                _buildSecondary('Partner - ',
-                    DateService.fromTimestampToString(profile.partnerDob),
-                    widthDelta: 0.25),
-                _buildSecondary('W.Date - ',
-                    DateService.fromTimestampToString(profile.weddingDate),
-                    widthDelta: 0.25),
-                _buildSecondary('', '', widthDelta: 0.25),
-              ],
-            ),
-          )
+          _buildNameInfo(language, profile),
+          _buildCustomInfo(profile)
+        ],
+      ),
+    );
+  }
+
+  Column _buildNameInfo(Languages language, Profile profile) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildSecondary('${language.firstName} - ', profile.firstName),
+        _buildSecondary('${language.lastName} - ', profile.lastName),
+        _buildSecondary('${language.middleName} - ', profile.middleName),
+      ],
+    );
+  }
+
+  Padding _buildCustomInfo(Profile profile) {
+    if (Globals.instance.language is LanguageRu) {
+      return _buildRu(profile);
+    } else if (Globals.instance.language is LanguageEs) {
+      return _buildEs(profile);
+    }
+    return _buildEn(profile);
+  }
+
+  Padding _buildRu(Profile profile) {
+    var width = MediaQuery.of(context).size.width;
+
+    var language = Globals.instance.language;
+    return Padding(
+      padding: EdgeInsets.only(left: width * 0.05),
+      child: Column(
+        children: [
+          _buildSecondary('${language.partnerProfiles} - ',
+              DateService.fromTimestampToString(profile.partnerDob),
+              widthDelta: 0.25),
+          _buildSecondary('', '', widthDelta: 0.25),
+          _buildSecondary('', '', widthDelta: 0.25),
+        ],
+      ),
+    );
+  }
+
+  Padding _buildEs(Profile profile) {
+    var width = MediaQuery.of(context).size.width;
+    var language = Globals.instance.language;
+    return Padding(
+      padding: EdgeInsets.only(left: width * 0.05),
+      child: Column(
+        children: [
+          _buildSecondary('${language.coupleDateProfiles} - ',
+              DateService.fromTimestampToString(profile.coupleDate),
+              widthDelta: 0.25),
+          _buildSecondary('', '', widthDelta: 0.25),
+          _buildSecondary('', '', widthDelta: 0.25),
+        ],
+      ),
+    );
+  }
+
+  Padding _buildEn(Profile profile) {
+    var width = MediaQuery.of(context).size.width;
+    var language = Globals.instance.language;
+    return Padding(
+      padding: EdgeInsets.only(left: width * 0.05),
+      child: Column(
+        children: [
+          _buildSecondary('${language.partnerProfiles} - ',
+              DateService.fromTimestampToString(profile.partnerDob),
+              widthDelta: 0.25),
+          _buildSecondary('${language.weddingDateProfiles} - ',
+              DateService.fromTimestampToString(profile.weddingDate),
+              widthDelta: 0.25),
+          _buildSecondary('', '', widthDelta: 0.25),
         ],
       ),
     );

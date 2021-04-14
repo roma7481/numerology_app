@@ -124,4 +124,10 @@ abstract class Languages {
   String get usersName;
 
   String get dob;
+
+  String get partnerProfiles;
+
+  String get weddingDateProfiles;
+
+  String get coupleDateProfiles;
 }

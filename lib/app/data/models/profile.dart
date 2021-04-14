@@ -7,6 +7,7 @@ class Profile {
   final String middleName;
   final int dob;
   final int weddingDate;
+  final int coupleDate;
   final int partnerDob;
   final int isSelected;
 
@@ -18,6 +19,7 @@ class Profile {
     this.middleName = '',
     this.dob,
     this.weddingDate,
+    this.coupleDate,
     this.partnerDob,
     this.isSelected = 0,
   });
@@ -31,6 +33,7 @@ class Profile {
       middleName: map['middleName'] as String,
       dob: map['dob'] as int,
       weddingDate: map['weddingDate'] as int,
+      coupleDate: map['coupleDate'] as int,
       partnerDob: map['partnerDob'] as int,
       isSelected: map['isSelected'] as int,
     );
@@ -46,6 +49,7 @@ class Profile {
       'middleName': this.middleName,
       'dob': this.dob,
       'weddingDate': this.weddingDate,
+      'coupleDate': this.coupleDate,
       'partnerDob': this.partnerDob,
       'isSelected': this.isSelected,
     } as Map<String, dynamic>;
@@ -59,6 +63,7 @@ class Profile {
     String middleName,
     int dob,
     int weddingDate,
+    int coupleDate,
     int partnerDob,
     int isSelected,
   }) {
@@ -69,6 +74,7 @@ class Profile {
         (middleName == null || identical(middleName, this.middleName)) &&
         (dob == null || identical(dob, this.dob)) &&
         (weddingDate == null || identical(weddingDate, this.weddingDate)) &&
+        (coupleDate == null || identical(coupleDate, this.coupleDate)) &&
         (partnerDob == null || identical(partnerDob, this.partnerDob)) &&
         (isSelected == null || identical(isSelected, this.isSelected))) {
       return this;
@@ -82,6 +88,7 @@ class Profile {
       middleName: middleName ?? this.middleName,
       dob: dob ?? this.dob,
       weddingDate: weddingDate ?? this.weddingDate,
+      coupleDate: coupleDate ?? this.coupleDate,
       partnerDob: partnerDob ?? this.partnerDob,
       isSelected: isSelected ?? this.isSelected,
     );
