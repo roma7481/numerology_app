@@ -24,18 +24,11 @@ class _ProfilesPageState extends State<ProfilesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<ProfilesCubit, ProfilesState>(listener:
-        (context, state) {
-      if (state is ProfilesReady) {
-        _profiles = state.profiles;
-        return _buildContent();
-      }
-    }, child:
-        BlocBuilder<ProfilesCubit, ProfilesState>(builder: (context, state) {
+    return BlocBuilder<ProfilesCubit, ProfilesState>(builder: (context, state) {
       if (state is ProfilesUpdate) {
         _profiles = state.profiles;
         return _buildContent();
-      }else if (state is ProfilesInit) {
+      } else if (state is ProfilesInit) {
         _profiles = [state.profile];
         return _buildContent();
       } else if (state is ProfilesError) {
@@ -45,8 +38,7 @@ class _ProfilesPageState extends State<ProfilesPage> {
         return _buildContent();
       }
       return progressBar();
-    }));
-
+    });
   }
 
   Widget _buildContent() {
