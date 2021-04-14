@@ -35,6 +35,31 @@ class _EditProfileEnState extends State<EditProfileEn> {
   final controllerMiddleName = TextEditingController();
 
   @override
+  void initState() {
+    _updatedProfile = widget.profile.copyWith();
+    _dob = DateService.fromTimestamp(widget.profile.dob);
+    if (widget.profile.partnerDob != null) {
+      _partnerDob = DateService.fromTimestamp(widget.profile.partnerDob);
+    }
+    if (widget.profile.weddingDate != null) {
+      _weddingDate = DateService.fromTimestamp(widget.profile.weddingDate);
+    }
+
+    _updatedProfile = widget.profile;
+
+    controllerProfileName.value = controllerProfileName.value.copyWith(
+      text: widget.profile.profileName ?? '',
+    );
+    controllerFirstName.value = controllerProfileName.value
+        .copyWith(text: widget.profile.firstName ?? '');
+    controllerLastName.value = controllerProfileName.value
+        .copyWith(text: widget.profile.lastName ?? '');
+    controllerMiddleName.value = controllerProfileName.value
+        .copyWith(text: widget.profile.middleName ?? '');
+    super.initState();
+  }
+
+  @override
   void dispose() {
     controllerProfileName.dispose();
     controllerFirstName.dispose();
@@ -45,24 +70,6 @@ class _EditProfileEnState extends State<EditProfileEn> {
 
   @override
   Widget build(BuildContext context) {
-    if (_wasUpdated == false) {
-      _updatedProfile = widget.profile.copyWith();
-      _dob = DateService.fromTimestamp(widget.profile.dob);
-      if (widget.profile.partnerDob != null) {
-        _partnerDob = DateService.fromTimestamp(widget.profile.partnerDob);
-      }
-      if (widget.profile.weddingDate != null) {
-        _weddingDate = DateService.fromTimestamp(widget.profile.weddingDate);
-      }
-
-      controllerProfileName.text = widget.profile.profileName ?? '';
-      controllerFirstName.text = widget.profile.firstName ?? '';
-      controllerLastName.text = widget.profile.lastName ?? '';
-      controllerMiddleName.text = widget.profile.middleName ?? '';
-
-      _updatedProfile = widget.profile;
-    }
-
     return SafeArea(
       child: Scaffold(
         body: _buildPageBody(),
@@ -117,9 +124,6 @@ class _EditProfileEnState extends State<EditProfileEn> {
 
   Center _buildInputField(
       String text, TextEditingController controller, String hint) {
-    if (text != null && text.isNotEmpty) {
-      controller.text = text;
-    }
     return buildTextInputTile(context, hint, controller, onChanged: () {
       setState(() {
         _wasUpdated = true;
