@@ -46,7 +46,7 @@ class _EditProfileEnState extends State<EditProfileEn> {
   @override
   Widget build(BuildContext context) {
     if (_wasUpdated == false) {
-      _updatedProfile = widget.profile;
+      _updatedProfile = widget.profile.copyWith();
       _dob = DateService.fromTimestamp(widget.profile.dob);
       if (widget.profile.partnerDob != null) {
         _partnerDob = DateService.fromTimestamp(widget.profile.partnerDob);

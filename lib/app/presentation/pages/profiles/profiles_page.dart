@@ -40,6 +40,9 @@ class _ProfilesPageState extends State<ProfilesPage> {
         return _buildContent();
       } else if (state is ProfilesError) {
         return errorDialog();
+      } else if (state is ProfilesReady) {
+        _profiles = state.profiles;
+        return _buildContent();
       }
       return progressBar();
     }));
