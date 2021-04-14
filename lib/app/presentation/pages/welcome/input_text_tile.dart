@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/localization/locale_utils.dart';
 
-Center buildTextInputTile(BuildContext context, String hintText,
-    TextEditingController textController) {
+Center buildTextInputTile(
+    BuildContext context, String hintText, TextEditingController textController,
+    {Function onChanged}) {
   var padding = MediaQuery.of(context).size.width * 0.2;
 
   return Center(
     child: Padding(
       padding: EdgeInsets.only(left: padding, right: padding),
       child: TextField(
+        onChanged: onChanged == null ? (_) {} : (_) => onChanged(),
         cursorColor: cursorColor,
         controller: textController,
         inputFormatters: LocaleUtils.keyboardInputFormatter(),

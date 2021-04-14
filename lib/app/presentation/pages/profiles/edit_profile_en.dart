@@ -54,6 +54,12 @@ class _EditProfileEnState extends State<EditProfileEn> {
       if (widget.profile.weddingDate != null) {
         _weddingDate = DateService.fromTimestamp(widget.profile.weddingDate);
       }
+
+      controllerProfileName.text = widget.profile.profileName ?? '';
+      controllerFirstName.text = widget.profile.firstName ?? '';
+      controllerLastName.text = widget.profile.lastName ?? '';
+      controllerMiddleName.text = widget.profile.middleName ?? '';
+
       _updatedProfile = widget.profile;
     }
 
@@ -114,7 +120,11 @@ class _EditProfileEnState extends State<EditProfileEn> {
     if (text != null && text.isNotEmpty) {
       controller.text = text;
     }
-    return buildTextInputTile(context, hint, controller);
+    return buildTextInputTile(context, hint, controller, onChanged: () {
+      setState(() {
+        _wasUpdated = true;
+      });
+    });
   }
 
   Widget _buildHeader(String text) {
@@ -132,7 +142,7 @@ class _EditProfileEnState extends State<EditProfileEn> {
     return Column(
       children: [
         _buildHeader(Globals.instance.language.profileName),
-        _buildInputField(widget.profile.profileName, controllerProfileName,
+        _buildInputField(controllerProfileName.text, controllerProfileName,
             language.profileName),
       ],
     );
@@ -250,6 +260,10 @@ class _EditProfileEnState extends State<EditProfileEn> {
     if (_updatedProfile != null && _wasUpdated) {
       _updatedProfile = _updatedProfile.copyWith(
           dob: DateService.toTimestamp(_dob),
+          profileName: controllerProfileName.text,
+          firstName: controllerFirstName.text,
+          lastName: controllerLastName.text,
+          middleName: controllerMiddleName.text,
           partnerDob:
               _partnerDob != null ? DateService.toTimestamp(_partnerDob) : null,
           weddingDate: _weddingDate != null
