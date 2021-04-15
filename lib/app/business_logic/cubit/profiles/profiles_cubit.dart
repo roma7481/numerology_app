@@ -33,6 +33,16 @@ class ProfilesCubit extends Cubit<ProfilesState> {
     }
   }
 
+  void emitDeleteProfile(Profile profile) async {
+    try {
+      await ProfileDBProvider.instance.deleteProfile(profile);
+      var profiles = await ProfileDBProvider.instance.getAllProfiles();
+      emit(ProfilesUpdate(profiles));
+    } catch (e) {
+      emitProfilesException(e);
+    }
+  }
+
   void emitUpdateProfile(Profile profile) async {
     try {
       emit(ProfilesUpdate([profile]));

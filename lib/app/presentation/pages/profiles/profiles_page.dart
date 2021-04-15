@@ -111,7 +111,7 @@ class _ProfilesPageState extends State<ProfilesPage> {
               children: [
                 _buildSecondaryInfo(profile),
                 _buildLine(),
-                _buildEditBtn(profile),
+                _buildEditDeleteBtn(profile),
               ],
             ),
           )
@@ -266,7 +266,14 @@ class _ProfilesPageState extends State<ProfilesPage> {
     );
   }
 
-  Widget _buildEditBtn(Profile profile) {
+  Widget _buildEditDeleteBtn(Profile profile) {
+    return Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+      _buildEdit(profile),
+      _buildDelete(profile),
+    ]);
+  }
+
+  Widget _buildEdit(Profile profile) {
     return CustomButton(
       onPressed: () => navigateToPage(
         context,
@@ -274,13 +281,9 @@ class _ProfilesPageState extends State<ProfilesPage> {
       ),
       child: Padding(
         padding: const EdgeInsets.only(top: 8.0, bottom: 12.0),
-        child: Row(
-          children: [
-            Icon(
-              Icons.edit,
-              color: Colors.white,
-            ),
-          ],
+        child: Icon(
+          Icons.edit,
+          color: Colors.white,
         ),
       ),
     );
@@ -292,6 +295,23 @@ class _ProfilesPageState extends State<ProfilesPage> {
     return Padding(
       padding: EdgeInsets.only(left: width * 0.68, top: height * 0.005),
       child: Checkbox(value: profile.isSelected == 1, onChanged: (value) {}),
+    );
+  }
+
+  Widget _buildDelete(Profile profile) {
+    if (_profiles.length <= 1) {
+      return Container();
+    }
+    return CustomButton(
+      onPressed: () =>
+          {context.read<ProfilesCubit>().emitDeleteProfile(profile)},
+      child: Padding(
+        padding: const EdgeInsets.only(top: 8.0, bottom: 12.0),
+        child: Icon(
+          Icons.delete,
+          color: Colors.white,
+        ),
+      ),
     );
   }
 }
