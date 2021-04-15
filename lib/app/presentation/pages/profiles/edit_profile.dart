@@ -105,7 +105,7 @@ class _EditProfileState extends State<EditProfile> {
           _buildDobSettings(),
           _buildSecondarySettings(),
           SizedBox(
-            height: 30.0,
+            height: 15.0,
           ),
           _buildButtons(),
         ],
