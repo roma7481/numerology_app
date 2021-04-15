@@ -66,9 +66,8 @@ var noticeTextStyle = GoogleFonts.sourceSansPro(
 
 var categoryTileHeader = GoogleFonts.philosopher(
   textStyle: TextStyle(
-    fontSize: 19.0,
+    fontSize: 17.0,
     color: categoryTileText,
-    fontWeight: FontWeight.bold,
   ),
 );
 

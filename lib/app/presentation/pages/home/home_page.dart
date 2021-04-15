@@ -69,7 +69,7 @@ class HomePage extends StatelessWidget {
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 childAspectRatio: MediaQuery.of(context).size.width /
-                    (MediaQuery.of(context).size.height / 2.8),
+                    (MediaQuery.of(context).size.height / 2.2),
               ),
             )
           ],
@@ -130,6 +130,7 @@ class HomePage extends StatelessWidget {
     Widget page,
   ) {
     return buildCategoryTile(
+        context: context,
         text: text,
         onPressed: () {
           navigateToPage(context, page);

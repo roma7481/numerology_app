@@ -6,10 +6,12 @@ import 'package:numerology/app/constants/text_styles.dart';
 import 'custom_raised_button.dart';
 
 Widget buildCategoryTile({
+  @required BuildContext context,
   @required String text,
   @required Function onPressed,
   @required String imagePath,
 }) {
+  var width = MediaQuery.of(context).size.width;
   return CustomButton(
     onPressed: onPressed,
     child: Stack(
@@ -20,7 +22,7 @@ Widget buildCategoryTile({
           right: -4.0,
           child: SvgPicture.asset(
             imagePath,
-            height: 70.0,
+            height: width * 0.22,
           ),
         ),
         Positioned(
