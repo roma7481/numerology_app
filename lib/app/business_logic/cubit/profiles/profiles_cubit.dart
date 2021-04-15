@@ -33,6 +33,25 @@ class ProfilesCubit extends Cubit<ProfilesState> {
     }
   }
 
+  void emitAddPrimProfile(Profile profile) async {
+    try {
+      var profiles = await ProfileDBProvider.instance.getAllProfiles();
+
+      var currentPrim =
+          profiles.firstWhere((element) => element.isSelected == 1);
+      currentPrim = currentPrim.copyWith(isSelected: 0);
+      await ProfileDBProvider.instance.updateProfile(currentPrim);
+
+      profile = profile.copyWith(isSelected: 1);
+      await ProfileDBProvider.instance.insertProfile(profile);
+
+      var newProfiles = await ProfileDBProvider.instance.getAllProfiles();
+      emit(ProfilesUpdate(newProfiles));
+    } catch (e) {
+      emitProfilesException(e);
+    }
+  }
+
   void emitDeleteProfile(Profile profile) async {
     try {
       await ProfileDBProvider.instance.deleteProfile(profile);

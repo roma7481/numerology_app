@@ -355,9 +355,15 @@ class _EditProfileState extends State<EditProfile> {
   Future _addNewProfile(Profile profile) async {
     bool setAsPrim = await showProfileDialog(context);
     if (setAsPrim) {
-      profile = profile.copyWith(isSelected: 1);
-      context.read<ProfilesCubit>().emitAddProfile(profile);
-      context.read<UserDataCubit>().emitPrimaryUserUpdate(profile);
+      context.read<ProfilesCubit>().emitAddPrimProfile(profile);
+
+      BlocListener<ProfilesCubit, ProfilesState>(listener: (context, state) {
+        if (state is ProfilesUpdate) {
+          var primProfile =
+              state.profiles.firstWhere((element) => element.isSelected == 1);
+          context.read<UserDataCubit>().emitPrimaryUserUpdate(primProfile);
+        }
+      });
     } else {
       context.read<ProfilesCubit>().emitAddProfile(profile);
     }
