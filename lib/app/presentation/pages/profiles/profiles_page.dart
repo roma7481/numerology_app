@@ -57,6 +57,7 @@ class _ProfilesPageState extends State<ProfilesPage> {
           context,
           EditProfile(
             profile: Profile(),
+            isNewProfile: true,
           ),
         ),
         child: new IconTheme(

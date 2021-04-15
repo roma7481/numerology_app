@@ -20,8 +20,13 @@ import 'package:numerology/app/presentation/pages/welcome/input_text_tile.dart';
 
 class EditProfile extends StatefulWidget {
   final Profile profile;
+  final bool isNewProfile;
 
-  const EditProfile({Key key, this.profile}) : super(key: key);
+  const EditProfile({
+    Key key,
+    this.profile,
+    this.isNewProfile = false,
+  }) : super(key: key);
 
   @override
   _EditProfileState createState() => _EditProfileState();
@@ -338,16 +343,26 @@ class _EditProfileState extends State<EditProfile> {
               ? DateService.toTimestamp(_weddingDate)
               : null);
 
-      context.read<ProfilesCubit>().emitUpdateProfile(_updatedProfile);
-
-      bool setAsPrim = await showProfileDialog(context);
-      if (setAsPrim) {
-        context.read<UserDataCubit>().emitPrimaryUserUpdate(_updatedProfile);
-      }
+      widget.isNewProfile
+          ? await _addNewProfile(_updatedProfile)
+          : _updateExistingProfile(_updatedProfile);
     }
 
     Navigator.of(context).pop();
     _wasUpdated = false;
+  }
+
+  Future _addNewProfile(Profile profile) async {
+    bool setAsPrim = await showProfileDialog(context);
+    context.read<ProfilesCubit>().emitAddProfile(profile);
+    if (setAsPrim) {
+      context.read<UserDataCubit>().emitPrimaryUserUpdate(profile);
+    }
+  }
+
+  void _updateExistingProfile(Profile profile) {
+    context.read<ProfilesCubit>().emitUpdateProfile(profile);
+    context.read<UserDataCubit>().emitPrimaryUserUpdate(profile);
   }
 
   Widget _buildCancelBtn() {
