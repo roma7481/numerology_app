@@ -105,3 +105,7 @@ const List<Color> aestheticColors = [
 /// GRAPH ///
 
 const Color graphDates = Colors.white;
+
+/// PROFILES ///
+
+const Color fabColor = Color.fromRGBO(243, 190, 0, 1);

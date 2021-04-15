@@ -52,6 +52,16 @@ class _ProfilesPageState extends State<ProfilesPage> {
         title: Text(Globals.instance.language.profiles),
       ),
       body: _buildPageBody(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Add your onPressed code here!
+        },
+        child: new IconTheme(
+          data: new IconThemeData(color: Colors.black),
+          child: new Icon(Icons.add),
+        ),
+        backgroundColor: fabColor,
+      ),
     );
   }
 
