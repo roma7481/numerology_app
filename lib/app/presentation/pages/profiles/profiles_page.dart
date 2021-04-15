@@ -93,16 +93,28 @@ class _ProfilesPageState extends State<ProfilesPage> {
 
   Widget _buildProfile(Profile profile) {
     return CustomCard(
-      child: Padding(
-        padding: const EdgeInsets.only(left: 12.0),
-        child: Column(
-          children: [
-            Stack(children: [_buildPrimInfo(profile), _buildCheckbox(profile)]),
-            _buildSecondaryInfo(profile),
-            _buildLine(),
-            _buildEditBtn(profile),
-          ],
+      child: ExpansionTile(
+        title: Padding(
+          padding: const EdgeInsets.only(left: 12.0, bottom: 8.0),
+          child: Column(
+            children: [
+              Stack(
+                  children: [_buildPrimInfo(profile), _buildCheckbox(profile)]),
+            ],
+          ),
         ),
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 12.0),
+            child: Column(
+              children: [
+                _buildSecondaryInfo(profile),
+                _buildLine(),
+                _buildEditBtn(profile),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }
@@ -275,8 +287,9 @@ class _ProfilesPageState extends State<ProfilesPage> {
 
   Widget _buildCheckbox(Profile profile) {
     var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
     return Padding(
-      padding: EdgeInsets.only(left: width * 0.78),
+      padding: EdgeInsets.only(left: width * 0.68, top: height * 0.005),
       child: Checkbox(value: profile.isSelected == 1, onChanged: (value) {}),
     );
   }
