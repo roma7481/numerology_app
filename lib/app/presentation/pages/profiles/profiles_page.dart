@@ -53,9 +53,12 @@ class _ProfilesPageState extends State<ProfilesPage> {
       ),
       body: _buildPageBody(),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Add your onPressed code here!
-        },
+        onPressed: () => navigateToPage(
+          context,
+          EditProfile(
+            profile: Profile(),
+          ),
+        ),
         child: new IconTheme(
           data: new IconThemeData(color: Colors.black),
           child: new Icon(Icons.add),

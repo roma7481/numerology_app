@@ -195,4 +195,16 @@ class LanguageEs extends Languages {
 
   @override
   String get weddingDateProfiles => 'W.Date ES';
+
+  @override
+  String get applyProfile => 'Apply Profile ES';
+
+  @override
+  String get no => 'No ES';
+
+  @override
+  String get setProfileAsPrimary => 'Set this profile as primary ES';
+
+  @override
+  String get yes => 'yes ES';
 }

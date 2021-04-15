@@ -202,4 +202,16 @@ class LanguageEn extends Languages {
 
   @override
   String get weddingDateProfiles => 'W.Date';
+
+  @override
+  String get applyProfile => 'Apply Profile';
+
+  @override
+  String get no => 'No';
+
+  @override
+  String get setProfileAsPrimary => 'Set this profile as primary';
+
+  @override
+  String get yes => 'yes';
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -13,6 +14,7 @@ import 'package:numerology/app/localization/language/language_es.dart';
 import 'package:numerology/app/localization/language/language_ru.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_button.dart';
 import 'package:numerology/app/presentation/common_widgets/standard_button.dart';
+import 'package:numerology/app/presentation/common_widgets/toast.dart';
 import 'package:numerology/app/presentation/pages/welcome/input_text_tile.dart';
 
 class EditProfile extends StatefulWidget {
@@ -25,7 +27,7 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
-  var _dob = DateTime.now();
+  var _dob;
   var _partnerDob;
   var _weddingDate;
   var _updatedProfile;
@@ -40,7 +42,9 @@ class _EditProfileState extends State<EditProfile> {
   @override
   void initState() {
     _updatedProfile = widget.profile.copyWith();
-    _dob = DateService.fromTimestamp(widget.profile.dob);
+    if (widget.profile.dob != null) {
+      _dob = DateService.fromTimestamp(widget.profile.dob);
+    }
     if (widget.profile.partnerDob != null) {
       _partnerDob = DateService.fromTimestamp(widget.profile.partnerDob);
     }
@@ -276,7 +280,9 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   String _getDobText() {
-    return DateService.getFormattedDate(_dob);
+    return _dob == null
+        ? Globals.instance.language.dob
+        : DateService.getFormattedDate(_dob);
   }
 
   String _getPartnerDobText() {
@@ -306,6 +312,11 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   void _onContinue() {
+    if (_dob == null) {
+      showToast(Globals.instance.language.enterBirthdayWarning);
+      return;
+    }
+
     if (_updatedProfile != null && _wasUpdated) {
       _updatedProfile = _updatedProfile.copyWith(
           dob: DateService.toTimestamp(_dob),

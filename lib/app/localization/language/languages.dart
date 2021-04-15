@@ -130,4 +130,12 @@ abstract class Languages {
   String get weddingDateProfiles;
 
   String get coupleDateProfiles;
+
+  String get applyProfile;
+
+  String get setProfileAsPrimary;
+
+  String get yes;
+
+  String get no;
 }

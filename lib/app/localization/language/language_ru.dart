@@ -195,4 +195,16 @@ class LanguageRu extends Languages {
 
   @override
   String get weddingDateProfiles => 'W.Date RU';
+
+  @override
+  String get applyProfile => 'Apply Profile RU';
+
+  @override
+  String get no => 'No RU';
+
+  @override
+  String get setProfileAsPrimary => 'Set this profile as primary RU';
+
+  @override
+  String get yes => 'yes RU';
 }
