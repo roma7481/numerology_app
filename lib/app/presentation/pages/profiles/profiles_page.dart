@@ -70,29 +70,39 @@ class _ProfilesPageState extends State<ProfilesPage> {
   }
 
   Widget _buildPageBody() {
-    var mainProfile =
-        _profiles.firstWhere((profile) => profile.isSelected == 1);
+    ;
     return Container(
       color: backgroundColor,
       child: CustomScrollView(
-        slivers: [_buildProfile(mainProfile)],
+        slivers: [
+          _buildList(),
+        ],
       ),
     );
   }
 
+  Widget _buildList() {
+    return SliverList(
+        delegate: SliverChildBuilderDelegate(
+      (context, index) {
+        var profile = _profiles[index];
+        return _buildProfile(profile);
+      },
+      childCount: _profiles.length,
+    ));
+  }
+
   Widget _buildProfile(Profile profile) {
-    return SliverToBoxAdapter(
-      child: CustomCard(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 12.0),
-          child: Column(
-            children: [
-              Stack(children: [_buildPrimInfo(profile), _buildCheckbox()]),
-              _buildSecondaryInfo(profile),
-              _buildLine(),
-              _buildEditBtn(profile),
-            ],
-          ),
+    return CustomCard(
+      child: Padding(
+        padding: const EdgeInsets.only(left: 12.0),
+        child: Column(
+          children: [
+            Stack(children: [_buildPrimInfo(profile), _buildCheckbox()]),
+            _buildSecondaryInfo(profile),
+            _buildLine(),
+            _buildEditBtn(profile),
+          ],
         ),
       ),
     );
