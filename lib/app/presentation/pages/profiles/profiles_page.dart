@@ -97,7 +97,7 @@ class _ProfilesPageState extends State<ProfilesPage> {
         padding: const EdgeInsets.only(left: 12.0),
         child: Column(
           children: [
-            Stack(children: [_buildPrimInfo(profile), _buildCheckbox()]),
+            Stack(children: [_buildPrimInfo(profile), _buildCheckbox(profile)]),
             _buildSecondaryInfo(profile),
             _buildLine(),
             _buildEditBtn(profile),
@@ -273,11 +273,11 @@ class _ProfilesPageState extends State<ProfilesPage> {
     );
   }
 
-  Widget _buildCheckbox() {
+  Widget _buildCheckbox(Profile profile) {
     var width = MediaQuery.of(context).size.width;
     return Padding(
       padding: EdgeInsets.only(left: width * 0.78),
-      child: Checkbox(value: true, onChanged: (value) {}),
+      child: Checkbox(value: profile.isSelected == 1, onChanged: (value) {}),
     );
   }
 }
