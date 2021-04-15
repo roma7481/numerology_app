@@ -70,7 +70,6 @@ class _ProfilesPageState extends State<ProfilesPage> {
   }
 
   Widget _buildPageBody() {
-    ;
     return Container(
       color: backgroundColor,
       child: CustomScrollView(
