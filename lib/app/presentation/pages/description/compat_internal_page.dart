@@ -166,6 +166,7 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
           context, widget.yourLifePath.toString(), _language.yourLifePathNum),
       _buildNumberIcon(context, widget.partnersLifePath.toString(),
           _language.partnerLifePathNum),
+      _buildPadding(),
       _buildList(widget.lifePathDescription),
     ];
   }
@@ -246,5 +247,12 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
         ),
       ),
     );
+  }
+
+  Widget _buildPadding() {
+    return SliverToBoxAdapter(
+        child: SizedBox(
+      height: 30.0,
+    ));
   }
 }

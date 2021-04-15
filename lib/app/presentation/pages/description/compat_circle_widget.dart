@@ -25,12 +25,12 @@ class CompatCircle extends CustomPainter {
           text: text,
           style: calcNumberCompat,
         ),
-        textAlign: TextAlign.center,
+        // textAlign: TextAlign.center,
         textDirection: TextDirection.ltr)
       ..layout(maxWidth: size.width - 12.0 - 12.0);
     textPainter.paint(
         canvas,
-        Offset((size.width - textPainter.width) * 0.39,
+        Offset(center.dx - (textPainter.width * 0.5),
             40 - textPainter.height * 0.6));
   }
 
