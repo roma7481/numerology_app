@@ -1,23 +1,26 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
 
-void showYesNoDialog(BuildContext context, Function onYes) {
+Future<bool> showProfileDialog(BuildContext context) async {
   var language = Globals.instance.getLanguage();
-  showCupertinoDialog(
+  bool setAsPrim = await showDialog(
     context: context,
     builder: (BuildContext context) => CupertinoAlertDialog(
       title: new Text(language.applyProfile),
       content: new Text(language.setProfileAsPrimary),
       actions: <Widget>[
         CupertinoDialogAction(
-          onPressed: () => onYes(),
+          isDefaultAction: true,
+          onPressed: () => Navigator.pop(context, true),
           child: Text(language.yes),
         ),
         CupertinoDialogAction(
-          onPressed: () {},
+          onPressed: () => Navigator.pop(context, false),
           child: Text(language.no),
         )
       ],
     ),
   );
+  return setAsPrim;
 }

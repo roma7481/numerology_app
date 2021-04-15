@@ -15,6 +15,7 @@ import 'package:numerology/app/localization/language/language_ru.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_button.dart';
 import 'package:numerology/app/presentation/common_widgets/standard_button.dart';
 import 'package:numerology/app/presentation/common_widgets/toast.dart';
+import 'package:numerology/app/presentation/pages/profiles/set_prim_dialog.dart';
 import 'package:numerology/app/presentation/pages/welcome/input_text_tile.dart';
 
 class EditProfile extends StatefulWidget {
@@ -311,7 +312,7 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
-  void _onContinue() {
+  void _onContinue() async {
     if (_dob == null) {
       showToast(Globals.instance.language.enterBirthdayWarning);
       return;
@@ -333,7 +334,11 @@ class _EditProfileState extends State<EditProfile> {
               : null);
 
       context.read<ProfilesCubit>().emitUpdateProfile(_updatedProfile);
-      context.read<UserDataCubit>().emitPrimaryUserUpdate(_updatedProfile);
+
+      bool setAsPrim = await showProfileDialog(context);
+      if (setAsPrim) {
+        context.read<UserDataCubit>().emitPrimaryUserUpdate(_updatedProfile);
+      }
     }
 
     Navigator.of(context).pop();
