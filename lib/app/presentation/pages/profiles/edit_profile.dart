@@ -105,12 +105,17 @@ class _EditProfileState extends State<EditProfile> {
           _buildUsernameSettings(),
           _buildDobSettings(),
           _buildSecondarySettings(),
-          SizedBox(
-            height: 15.0,
-          ),
+          _padding(),
           _buildButtons(),
         ],
       ),
+    );
+  }
+
+  Widget _padding() {
+    double height = MediaQuery.of(context).size.height;
+    return SizedBox(
+      height: height * 0.13,
     );
   }
 
