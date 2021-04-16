@@ -7,13 +7,13 @@ import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/data/models/profile.dart';
-import 'package:numerology/app/localization/locale_utils.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_button.dart';
 import 'package:numerology/app/presentation/common_widgets/line_widget.dart';
 import 'package:numerology/app/presentation/common_widgets/toast.dart';
 import 'package:numerology/app/presentation/navigators/navigator.dart';
 
 import 'input_text_tile.dart';
+import 'name_utils.dart';
 
 class NameSettingsPage extends StatefulWidget {
   final int dob;
@@ -156,7 +156,11 @@ class _NameSettingsPageState extends State<NameSettingsPage> {
   Future<void> _onNextPressed(
     BuildContext context,
   ) async {
-    if (shouldContainVowels()) {
+    if (shouldContainVowels(
+      controllerMiddleName.text,
+      controllerFirstName.text,
+      controllerLastName.text,
+    )) {
       showToast(Globals.instance.language.nameShouldContainVowels);
     } else {
       context.read<ProfilesCubit>().emitInitProfile(Profile(
@@ -168,28 +172,5 @@ class _NameSettingsPageState extends State<NameSettingsPage> {
             lastName: controllerLastName.text,
           ));
     }
-  }
-
-  bool shouldContainVowels() {
-    if ((controllerMiddleName.text == null ||
-            controllerMiddleName.text.isEmpty) &&
-        (controllerFirstName.text == null ||
-            controllerFirstName.text.isEmpty) &&
-        (controllerLastName.text == null || controllerLastName.text.isEmpty)) {
-      return false;
-    }
-
-    return !(_containsVowels(controllerMiddleName.text) ||
-        _containsVowels(controllerFirstName.text) ||
-        _containsVowels(controllerLastName.text));
-  }
-
-  bool _containsVowels(String str) {
-    if (str != null && str.isNotEmpty) {
-      if (LocaleUtils.containsVowels(controllerMiddleName.text)) {
-        return true;
-      }
-    }
-    return false;
   }
 }

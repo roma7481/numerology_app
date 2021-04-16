@@ -19,6 +19,7 @@ import 'package:numerology/app/presentation/common_widgets/standard_button.dart'
 import 'package:numerology/app/presentation/common_widgets/toast.dart';
 import 'package:numerology/app/presentation/pages/profiles/set_prim_dialog.dart';
 import 'package:numerology/app/presentation/pages/welcome/input_text_tile.dart';
+import 'package:numerology/app/presentation/pages/welcome/name_utils.dart';
 
 class EditProfile extends StatefulWidget {
   final Profile profile;
@@ -339,6 +340,19 @@ class _EditProfileState extends State<EditProfile> {
       return;
     }
 
+    if (shouldContainVowels(
+      controllerMiddleName.text,
+      controllerFirstName.text,
+      controllerLastName.text,
+    )) {
+      showToast(Globals.instance.language.nameShouldContainVowels);
+    } else {
+      await _updateProfile();
+    }
+
+  }
+
+  Future _updateProfile() async {
     if (_updatedProfile != null && _wasUpdated) {
       _updatedProfile = _updatedProfile.copyWith(
           dob: DateService.toTimestamp(_dob),
