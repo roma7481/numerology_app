@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:numerology/app/business_logic/cubit/profiles/profiles_cubit.dart';
+import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/business_logic/services/date_service.dart';
 import 'package:numerology/app/constants/colors.dart';
@@ -293,8 +294,13 @@ class _ProfilesPageState extends State<ProfilesPage> {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Padding(
-      padding: EdgeInsets.only(left: width * 0.68, top: height * 0.005),
-      child: Checkbox(value: profile.isSelected == 1, onChanged: (value) {}),
+      padding: EdgeInsets.only(left: width * 0.62, top: height * 0.005),
+      child: Checkbox(
+          value: profile.isSelected == 1,
+          onChanged: (value) async {
+            await context.read<ProfilesCubit>().emitSetPrimProfile(profile);
+            context.read<UserDataCubit>().emitPrimaryUserUpdate(profile);
+          }),
     );
   }
 
