@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:numerology/app/business_logic/cubit/bio/bio_cubit.dart';
-import 'package:numerology/app/business_logic/cubit/forecast/forecast_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/profiles/profiles_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.dart';
 import 'package:path_provider/path_provider.dart';
@@ -54,9 +53,6 @@ class MyApp extends StatelessWidget {
         BlocProvider<ProfilesCubit>(
           create: (context) => profilesCubit,
           lazy: false,
-        ),
-        BlocProvider<ForecastCubit>(
-          create: (context) => ForecastCubit(profilesCubit),
         ),
       ],
       child: MaterialApp(
