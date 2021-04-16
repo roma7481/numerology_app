@@ -192,7 +192,7 @@ class LanguageEn extends Languages {
   String get dob => 'Date of Birth';
 
   @override
-  String get cancel => 'cancel';
+  String get cancel => 'Cancel';
 
   @override
   String get coupleDateProfiles => 'Couple';

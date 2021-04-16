@@ -356,7 +356,7 @@ class _EditProfileState extends State<EditProfile> {
 
       widget.isNewProfile
           ? await _addNewProfile(_updatedProfile)
-          : _updateExistingProfile(_updatedProfile);
+          : await _updateExistingProfile(_updatedProfile);
     }
 
     Navigator.of(context).pop();
