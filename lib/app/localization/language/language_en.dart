@@ -180,7 +180,7 @@ class LanguageEn extends Languages {
   String get profiles => 'Profiles';
 
   @override
-  String get defaultProfileName => 'Profile1';
+  String get defaultProfileName => 'Profile_1';
 
   @override
   String get profileName => 'Profile Name';
