@@ -56,7 +56,7 @@ class LanguageEn extends Languages {
   String get homeTabText => 'Home';
 
   @override
-  String get profileTabText => 'Profile';
+  String get profile => 'Profile';
 
   @override
   String get settingsTabText => 'Settings';

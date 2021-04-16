@@ -50,7 +50,7 @@ class LanguageRu extends Languages {
   String get homeTabText => 'homeTabText RU';
 
   @override
-  String get profileTabText => 'profileTabText RU';
+  String get profile => 'profileTabText RU';
 
   @override
   String get settingsTabText => 'settingsTabText RU';

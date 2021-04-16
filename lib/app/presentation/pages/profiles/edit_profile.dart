@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -62,7 +64,9 @@ class _EditProfileState extends State<EditProfile> {
     }
 
     controllerProfileName.value = controllerProfileName.value.copyWith(
-      text: widget.profile.profileName ?? '',
+      text: widget.profile.profileName.isEmpty
+          ? getDefaultProfileName()
+          : widget.profile.profileName,
     );
     controllerFirstName.value = controllerProfileName.value
         .copyWith(text: widget.profile.firstName ?? '');
@@ -71,6 +75,13 @@ class _EditProfileState extends State<EditProfile> {
     controllerMiddleName.value = controllerProfileName.value
         .copyWith(text: widget.profile.middleName ?? '');
     super.initState();
+  }
+
+  String getDefaultProfileName() {
+    var random = Random.secure();
+    return Globals.instance.language.profile +
+        '_' +
+        (random.nextInt(899) + 100).toString();
   }
 
   @override

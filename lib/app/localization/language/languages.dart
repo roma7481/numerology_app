@@ -39,7 +39,7 @@ abstract class Languages {
 
   String get forecastTabText;
 
-  String get profileTabText;
+  String get profile;
 
   String get settingsTabText;
 

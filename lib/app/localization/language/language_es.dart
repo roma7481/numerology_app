@@ -50,7 +50,7 @@ class LanguageEs extends Languages {
   String get homeTabText => 'homeTabText ES';
 
   @override
-  String get profileTabText => 'profileTabText ES';
+  String get profile => 'profileTabText ES';
 
   @override
   String get settingsTabText => 'settingsTabText ES';

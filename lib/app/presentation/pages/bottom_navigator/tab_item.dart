@@ -21,9 +21,11 @@ class TabItemDataMap {
   Map<TabItem, TabItemData> getAllTabs() {
     return {
       TabItem.home: TabItemData(title: language.homeTabText, icon: Icons.home),
-      TabItem.forecast: TabItemData(title: language.forecastTabText, icon: Icons.date_range),
-      TabItem.profile: TabItemData(title: language.profileTabText, icon: Icons.person),
-      TabItem.settings: TabItemData(title: language.settingsTabText, icon: Icons.more_vert),
+      TabItem.forecast:
+          TabItemData(title: language.forecastTabText, icon: Icons.date_range),
+      TabItem.profile: TabItemData(title: language.profile, icon: Icons.person),
+      TabItem.settings:
+          TabItemData(title: language.settingsTabText, icon: Icons.more_vert),
     };
   }
 }
