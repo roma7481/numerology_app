@@ -37,18 +37,19 @@ class ProfilesCubit extends Cubit<ProfilesState> {
     var newPrim;
     try {
       var profiles = await ProfileDBProvider.instance.getAllProfiles();
+      var currentPrim = profiles.firstWhere((element) => element.isSelected == 1);
 
-      var currentPrim =
-          profiles.firstWhere((element) => element.isSelected == 1);
       currentPrim = currentPrim.copyWith(isSelected: 0);
-      await ProfileDBProvider.instance.updateProfile(currentPrim);
+      newPrim = profile.copyWith(isSelected: 1);
 
-      profile = profile.copyWith(isSelected: 1);
-      await ProfileDBProvider.instance.insertProfile(profile);
+      await ProfileDBProvider.instance.updateProfile(currentPrim);
+      await ProfileDBProvider.instance.insertProfile(newPrim);
 
       var newProfiles = await ProfileDBProvider.instance.getAllProfiles();
+
       emit(ProfilesUpdate(newProfiles));
-      newPrim =  newProfiles.firstWhere((element) => element.isSelected == 1);
+      newPrim = profiles.firstWhere((element) => element.isSelected == 1);
+
     } catch (e) {
       emitProfilesException(e);
     }
@@ -63,6 +64,23 @@ class ProfilesCubit extends Cubit<ProfilesState> {
     } catch (e) {
       emitProfilesException(e);
     }
+  }
+
+  Future<Profile> emitDeletePrimProfile(Profile profile) async {
+    var newPrim;
+    try {
+      await ProfileDBProvider.instance.deleteProfile(profile);
+
+      var profiles = await ProfileDBProvider.instance.getAllProfiles();
+      newPrim = profiles.first.copyWith(isSelected: 1);
+      await ProfileDBProvider.instance.updateProfile(newPrim);
+
+      var newProfiles = await ProfileDBProvider.instance.getAllProfiles();
+      emit(ProfilesUpdate(newProfiles));
+    } catch (e) {
+      emitProfilesException(e);
+    }
+    return newPrim;
   }
 
   Future<void> emitSetPrimProfile(Profile profile) async {

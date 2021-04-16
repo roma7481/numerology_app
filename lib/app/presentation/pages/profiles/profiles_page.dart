@@ -309,8 +309,14 @@ class _ProfilesPageState extends State<ProfilesPage> {
       return Container();
     }
     return CustomButton(
-      onPressed: () =>
-          {context.read<ProfilesCubit>().emitDeleteProfile(profile)},
+      onPressed: () async{
+        if(profile.isSelected == 1){
+          var newPrim = await context.read<ProfilesCubit>().emitDeletePrimProfile(profile);
+          context.read<UserDataCubit>().emitPrimaryUserUpdate(newPrim);
+        }else{
+          context.read<ProfilesCubit>().emitDeleteProfile(profile);
+        }
+      },
       child: Padding(
         padding: const EdgeInsets.only(top: 8.0, bottom: 12.0),
         child: Icon(
