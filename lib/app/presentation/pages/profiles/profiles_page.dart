@@ -294,7 +294,7 @@ class _ProfilesPageState extends State<ProfilesPage> {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Padding(
-      padding: EdgeInsets.only(left: width * 0.62, top: height * 0.005),
+      padding: EdgeInsets.only(left: width * 0.60, top: height * 0.005),
       child: Checkbox(
           value: profile.isSelected == 1,
           onChanged: (value) async {
