@@ -355,7 +355,7 @@ class _EditProfileState extends State<EditProfile> {
   Future _addNewProfile(Profile profile) async {
     bool setAsPrim = await showProfileDialog(context);
     if (setAsPrim) {
-      context.read<ProfilesCubit>().emitAddPrimProfile(profile);
+      await context.read<ProfilesCubit>().emitAddPrimProfile(profile);
 
       BlocListener<ProfilesCubit, ProfilesState>(listener: (context, state) {
         if (state is ProfilesUpdate) {
@@ -365,13 +365,13 @@ class _EditProfileState extends State<EditProfile> {
         }
       });
     } else {
-      context.read<ProfilesCubit>().emitAddProfile(profile);
+      await context.read<ProfilesCubit>().emitAddProfile(profile);
     }
   }
 
-  void _updateExistingProfile(Profile profile) {
-    context.read<ProfilesCubit>().emitUpdateProfile(profile);
-    context.read<UserDataCubit>().emitPrimaryUserUpdate(profile);
+  Future<void> _updateExistingProfile(Profile profile) async {
+    await context.read<ProfilesCubit>().emitUpdateProfile(profile);
+    await context.read<UserDataCubit>().emitPrimaryUserUpdate(profile);
   }
 
   Widget _buildCancelBtn() {

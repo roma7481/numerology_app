@@ -15,7 +15,7 @@ class UserDataCubit extends Cubit<UserDataState> {
     _updateUserData();
   }
 
-  Future _updateUserData() async {
+  Future<void> _updateUserData() async {
     try {
       var primaryProfileId =
           await SharedPref.instance.getValue(key: primaryUserKey);

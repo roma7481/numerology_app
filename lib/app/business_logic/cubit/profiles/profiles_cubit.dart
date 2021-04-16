@@ -23,7 +23,7 @@ class ProfilesCubit extends Cubit<ProfilesState> {
         exception: exception,
       ));
 
-  void emitAddProfile(Profile profile) async {
+  Future<void> emitAddProfile(Profile profile) async {
     try {
       await ProfileDBProvider.instance.insertProfile(profile);
       var profiles = await ProfileDBProvider.instance.getAllProfiles();
@@ -33,7 +33,7 @@ class ProfilesCubit extends Cubit<ProfilesState> {
     }
   }
 
-  void emitAddPrimProfile(Profile profile) async {
+  Future<void> emitAddPrimProfile(Profile profile) async {
     try {
       var profiles = await ProfileDBProvider.instance.getAllProfiles();
 
@@ -52,7 +52,7 @@ class ProfilesCubit extends Cubit<ProfilesState> {
     }
   }
 
-  void emitDeleteProfile(Profile profile) async {
+  Future<void> emitDeleteProfile(Profile profile) async {
     try {
       await ProfileDBProvider.instance.deleteProfile(profile);
       var profiles = await ProfileDBProvider.instance.getAllProfiles();
@@ -62,7 +62,7 @@ class ProfilesCubit extends Cubit<ProfilesState> {
     }
   }
 
-  void emitUpdateProfile(Profile profile) async {
+  Future<void> emitUpdateProfile(Profile profile) async {
     try {
       await ProfileDBProvider.instance.updateProfile(profile);
       var profiles = await ProfileDBProvider.instance.getAllProfiles();
@@ -72,7 +72,7 @@ class ProfilesCubit extends Cubit<ProfilesState> {
     }
   }
 
-  void emitInitProfile(Profile profile) async {
+  Future<void> emitInitProfile(Profile profile) async {
     try {
       await ProfileDBProvider.instance.insertProfile(profile);
       var profiles = await ProfileDBProvider.instance.getAllProfiles();

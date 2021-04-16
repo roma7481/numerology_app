@@ -94,6 +94,7 @@ class _ProfilesPageState extends State<ProfilesPage> {
   Widget _buildProfile(Profile profile) {
     return CustomCard(
       child: ExpansionTile(
+        initiallyExpanded: true,
         title: Padding(
           padding: const EdgeInsets.only(left: 12.0, bottom: 8.0),
           child: Column(
