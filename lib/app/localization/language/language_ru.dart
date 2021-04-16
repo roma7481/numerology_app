@@ -215,4 +215,8 @@ class LanguageRu extends Languages {
   String doYouWantToDelete(String profileName) {
     return 'Are you sure delete $profileName ? RU';
   }
+
+  @override
+  String get nameShouldContainVowels =>
+      'Name settings should contain vowels RU';
 }

@@ -7,8 +7,10 @@ import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/data/models/profile.dart';
+import 'package:numerology/app/localization/locale_utils.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_button.dart';
 import 'package:numerology/app/presentation/common_widgets/line_widget.dart';
+import 'package:numerology/app/presentation/common_widgets/toast.dart';
 import 'package:numerology/app/presentation/navigators/navigator.dart';
 
 import 'input_text_tile.dart';
@@ -154,13 +156,40 @@ class _NameSettingsPageState extends State<NameSettingsPage> {
   Future<void> _onNextPressed(
     BuildContext context,
   ) async {
-    context.read<ProfilesCubit>().emitInitProfile(Profile(
-          isSelected: 1,
-          dob: widget.dob,
-          profileName: Globals.instance.language.defaultProfileName,
-          middleName: controllerMiddleName.text,
-          firstName: controllerFirstName.text,
-          lastName: controllerLastName.text,
-        ));
+    if (shouldContainVowels()) {
+      showToast(Globals.instance.language.nameShouldContainVowels);
+    } else {
+      context.read<ProfilesCubit>().emitInitProfile(Profile(
+            isSelected: 1,
+            dob: widget.dob,
+            profileName: Globals.instance.language.defaultProfileName,
+            middleName: controllerMiddleName.text,
+            firstName: controllerFirstName.text,
+            lastName: controllerLastName.text,
+          ));
+    }
+  }
+
+  bool shouldContainVowels() {
+    if ((controllerMiddleName.text == null ||
+            controllerMiddleName.text.isEmpty) &&
+        (controllerFirstName.text == null ||
+            controllerFirstName.text.isEmpty) &&
+        (controllerLastName.text == null || controllerLastName.text.isEmpty)) {
+      return false;
+    }
+
+    return !(_containsVowels(controllerMiddleName.text) ||
+        _containsVowels(controllerFirstName.text) ||
+        _containsVowels(controllerLastName.text));
+  }
+
+  bool _containsVowels(String str) {
+    if (str != null && str.isNotEmpty) {
+      if (LocaleUtils.containsVowels(controllerMiddleName.text)) {
+        return true;
+      }
+    }
+    return false;
   }
 }

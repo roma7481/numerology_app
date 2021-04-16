@@ -21,6 +21,8 @@ abstract class Languages {
 
   String get enterBirthdayWarning;
 
+  String get nameShouldContainVowels;
+
   String get nameSettings;
 
   String get nameSettingsText;

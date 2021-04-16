@@ -222,4 +222,7 @@ class LanguageEn extends Languages {
   String doYouWantToDelete(String profileName) {
     return 'Are you sure delete $profileName ?';
   }
+
+  @override
+  String get nameShouldContainVowels => 'Name settings should contain vowels';
 }
