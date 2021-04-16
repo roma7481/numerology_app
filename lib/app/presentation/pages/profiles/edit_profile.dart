@@ -366,8 +366,9 @@ class _EditProfileState extends State<EditProfile> {
   Future<void> _addNewProfile(Profile profile) async {
     bool setAsPrim = await showProfileDialog(context);
     if (setAsPrim) {
-      var prim = await context.read<ProfilesCubit>().emitAddPrimProfile(profile);
-      context.read<UserDataCubit>().emitPrimaryUserUpdate(prim);
+      var prim =
+          await context.read<ProfilesCubit>().emitAddPrimProfile(profile);
+      await context.read<UserDataCubit>().emitPrimaryUserUpdate(prim);
     } else {
       await context.read<ProfilesCubit>().emitAddProfile(profile);
     }
