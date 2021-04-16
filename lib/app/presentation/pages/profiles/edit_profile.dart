@@ -333,7 +333,7 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
-  void _onContinue() async {
+  Future<void> _onContinue() async {
     if (_dob == null) {
       showToast(Globals.instance.language.enterBirthdayWarning);
       return;
@@ -363,18 +363,11 @@ class _EditProfileState extends State<EditProfile> {
     _wasUpdated = false;
   }
 
-  Future _addNewProfile(Profile profile) async {
+  Future<void> _addNewProfile(Profile profile) async {
     bool setAsPrim = await showProfileDialog(context);
     if (setAsPrim) {
       await context.read<ProfilesCubit>().emitAddPrimProfile(profile);
-
-      BlocListener<ProfilesCubit, ProfilesState>(listener: (context, state) {
-        if (state is ProfilesUpdate) {
-          var primProfile =
-              state.profiles.firstWhere((element) => element.isSelected == 1);
-          context.read<UserDataCubit>().emitPrimaryUserUpdate(primProfile);
-        }
-      });
+      // context.read<UserDataCubit>().emitPrimaryUserUpdate(primProfile);
     } else {
       await context.read<ProfilesCubit>().emitAddProfile(profile);
     }

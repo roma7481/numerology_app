@@ -4,7 +4,7 @@ import 'package:numerology/app/business_logic/globals/globals.dart';
 
 Future<bool> showProfileDialog(BuildContext context) async {
   var language = Globals.instance.getLanguage();
-  bool setAsPrim = await showDialog(
+  return showDialog(
     context: context,
     builder: (BuildContext context) => CupertinoAlertDialog(
       title: new Text(language.applyProfile),
@@ -22,5 +22,4 @@ Future<bool> showProfileDialog(BuildContext context) async {
       ],
     ),
   );
-  return setAsPrim;
 }
