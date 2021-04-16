@@ -214,4 +214,12 @@ class LanguageEn extends Languages {
 
   @override
   String get yes => 'yes';
+
+  @override
+  String get deleteProfile => 'Delete profile';
+
+  @override
+  String doYouWantToDelete(String profileName) {
+    return 'Are you sure delete $profileName ?';
+  }
 }

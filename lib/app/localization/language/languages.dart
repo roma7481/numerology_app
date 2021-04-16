@@ -138,4 +138,8 @@ abstract class Languages {
   String get yes;
 
   String get no;
+
+  String get deleteProfile;
+
+  String doYouWantToDelete(String profileName);
 }

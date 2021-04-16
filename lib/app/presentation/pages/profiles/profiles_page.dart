@@ -16,6 +16,7 @@ import 'package:numerology/app/presentation/common_widgets/progress_bar.dart';
 import 'package:numerology/app/presentation/navigators/navigator.dart';
 import 'package:numerology/app/presentation/pages/home/custom_raised_button.dart';
 
+import 'delete_dialog.dart';
 import 'edit_profile.dart';
 
 class ProfilesPage extends StatefulWidget {
@@ -310,11 +311,14 @@ class _ProfilesPageState extends State<ProfilesPage> {
     }
     return CustomButton(
       onPressed: () async{
-        if(profile.isSelected == 1){
-          var newPrim = await context.read<ProfilesCubit>().emitDeletePrimProfile(profile);
-          context.read<UserDataCubit>().emitPrimaryUserUpdate(newPrim);
-        }else{
-          context.read<ProfilesCubit>().emitDeleteProfile(profile);
+        bool shouldDelete = await deleteProfileDialog(context,profile);
+        if(shouldDelete){
+          if(profile.isSelected == 1){
+            var newPrim = await context.read<ProfilesCubit>().emitDeletePrimProfile(profile);
+            context.read<UserDataCubit>().emitPrimaryUserUpdate(newPrim);
+          }else{
+            context.read<ProfilesCubit>().emitDeleteProfile(profile);
+          }
         }
       },
       child: Padding(
