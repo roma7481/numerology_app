@@ -33,7 +33,8 @@ class ProfilesCubit extends Cubit<ProfilesState> {
     }
   }
 
-  Future<void> emitAddPrimProfile(Profile profile) async {
+  Future<Profile> emitAddPrimProfile(Profile profile) async {
+    var newPrim;
     try {
       var profiles = await ProfileDBProvider.instance.getAllProfiles();
 
@@ -47,9 +48,11 @@ class ProfilesCubit extends Cubit<ProfilesState> {
 
       var newProfiles = await ProfileDBProvider.instance.getAllProfiles();
       emit(ProfilesUpdate(newProfiles));
+      newPrim =  newProfiles.firstWhere((element) => element.isSelected == 1);
     } catch (e) {
       emitProfilesException(e);
     }
+    return newPrim;
   }
 
   Future<void> emitDeleteProfile(Profile profile) async {
