@@ -300,7 +300,7 @@ class _ProfilesPageState extends State<ProfilesPage> {
           value: profile.isSelected == 1,
           onChanged: (value) async {
             await context.read<ProfilesCubit>().emitSetPrimProfile(profile);
-            context.read<UserDataCubit>().emitPrimaryUserUpdate(profile);
+            await context.read<UserDataCubit>().emitPrimaryUserUpdate(profile);
           }),
     );
   }
@@ -310,13 +310,15 @@ class _ProfilesPageState extends State<ProfilesPage> {
       return Container();
     }
     return CustomButton(
-      onPressed: () async{
-        bool shouldDelete = await deleteProfileDialog(context,profile);
-        if(shouldDelete){
-          if(profile.isSelected == 1){
-            var newPrim = await context.read<ProfilesCubit>().emitDeletePrimProfile(profile);
+      onPressed: () async {
+        bool shouldDelete = await deleteProfileDialog(context, profile);
+        if (shouldDelete) {
+          if (profile.isSelected == 1) {
+            var newPrim = await context
+                .read<ProfilesCubit>()
+                .emitDeletePrimProfile(profile);
             context.read<UserDataCubit>().emitPrimaryUserUpdate(newPrim);
-          }else{
+          } else {
             context.read<ProfilesCubit>().emitDeleteProfile(profile);
           }
         }
