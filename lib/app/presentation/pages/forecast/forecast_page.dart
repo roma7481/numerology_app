@@ -21,6 +21,7 @@ class ForecastPage extends StatefulWidget {
 
 class _ForecastPageState extends State<ForecastPage> {
   var _daily;
+  var _profile;
   var _lucky;
   var _monthly;
   var _annual;
@@ -33,8 +34,11 @@ class _ForecastPageState extends State<ForecastPage> {
   Widget build(BuildContext context) {
     return BlocBuilder<UserDataCubit, UserDataState>(builder: (context, state) {
       if (state is UserDataReady) {
-        context.read<ForecastCubit>().updateForecast(state.profile);
-        return BlocBuilder<ForecastCubit, ForecastState>(
+        if(state.profile != _profile){
+          context.read<ForecastCubit>().updateForecast(state.profile);
+        }
+        _profile = state.profile;
+      return BlocBuilder<ForecastCubit, ForecastState>(
             builder: (context, state) {
           if (state is ForecastReady) {
             _daily = state.daily;
