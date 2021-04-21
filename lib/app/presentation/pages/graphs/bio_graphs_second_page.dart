@@ -5,6 +5,7 @@ import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.da
 import 'package:numerology/app/business_logic/services/date_service.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/data/models/profile.dart';
+import 'package:numerology/app/presentation/common_widgets/error_dialog.dart';
 import 'package:numerology/app/presentation/common_widgets/foldable_card_widget.dart';
 import 'package:numerology/app/presentation/common_widgets/progress_bar.dart';
 
@@ -25,6 +26,7 @@ class _BioGraphsSecondPageState extends State<BioGraphsSecondPage> {
     return BlocBuilder<UserDataCubit, UserDataState>(builder: (context, state) {
       if (state is UserDataReady) {
         profile = state.profile;
+        context.read<BioSecondCubit>().emitBioInit(profile);
       } else if (state is UserDataLoading) {
         showCupertinoProgressBar();
       }
@@ -33,34 +35,39 @@ class _BioGraphsSecondPageState extends State<BioGraphsSecondPage> {
   }
 
   Widget _buildPageContent(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        brightness: Brightness.dark,
-        title: _buildHeader(),
-      ),
-      body: _buildContent(context),
-    ));
-  }
-
-  Widget _buildHeader() {
     return BlocBuilder<BioSecondCubit, BioSecondState>(
         builder: (context, state) {
-      header =
-          DateService.getFormattedDate(DateService.fromTimestamp(state.date));
-      return Text(header);
+      if (state is BioSecondStateReady) {
+        return SafeArea(
+            child: Scaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            brightness: Brightness.dark,
+            title: _buildHeader(state),
+          ),
+          body: _buildContent(context, state),
+        ));
+      } else if (state is BioSecondStateError) {
+        return errorDialog();
+      }
+      return progressBar();
     });
   }
 
-  Widget _buildContent(BuildContext context) {
+  Widget _buildHeader(BioSecondStateReady state) {
+    header =
+        DateService.getFormattedDate(DateService.fromTimestamp(state.date));
+    return Text(header);
+  }
+
+  Widget _buildContent(BuildContext context, BioSecondStateReady state) {
     return Container(
       color: backgroundColor,
       child: CustomScrollView(
         slivers: [
           _buildGraphs(),
-          _buildPiCharts(),
-          _buildList(),
+          _buildPiCharts(state),
+          _buildList(state),
         ],
       ),
     );
@@ -75,32 +82,26 @@ class _BioGraphsSecondPageState extends State<BioGraphsSecondPage> {
     );
   }
 
-  Widget _buildPiCharts() {
-    return BlocBuilder<BioSecondCubit, BioSecondState>(
-        builder: (context, state) {
-      return SliverToBoxAdapter(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 24.0),
-          child: buildBioPiChartsSecond(
-            context,
-            state.bio,
-          ),
+  Widget _buildPiCharts(BioSecondStateReady state) {
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: const EdgeInsets.only(top: 24.0),
+        child: buildBioPiChartsSecond(
+          context,
+          state.bio,
         ),
-      );
-    });
+      ),
+    );
   }
 
-  Widget _buildList() {
-    return BlocBuilder<BioSecondCubit, BioSecondState>(
-        builder: (context, state) {
-      return SliverList(
-          delegate: SliverChildBuilderDelegate(
-        (context, index) {
-          var data = state.description[index];
-          return buildExpandCard(data.header, data.description, data.iconPath);
-        },
-        childCount: state.description.length,
-      ));
-    });
+  Widget _buildList(BioSecondStateReady state) {
+    return SliverList(
+        delegate: SliverChildBuilderDelegate(
+      (context, index) {
+        var data = state.description[index];
+        return buildExpandCard(data.header, data.description, data.iconPath);
+      },
+      childCount: state.description.length,
+    ));
   }
 }

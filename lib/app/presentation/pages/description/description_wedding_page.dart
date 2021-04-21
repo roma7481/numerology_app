@@ -16,10 +16,13 @@ import 'package:numerology/app/presentation/common_widgets/toast.dart';
 
 class DescriptionWeddingBasedPage extends StatefulWidget {
   final String categoryName;
-  final Widget page;
+  final Function getPage;
 
-  const DescriptionWeddingBasedPage({Key key, this.categoryName, this.page})
-      : super(key: key);
+  const DescriptionWeddingBasedPage({
+    Key key,
+    this.categoryName,
+    this.getPage,
+  }) : super(key: key);
 
   @override
   _DescriptionWeddingBasedPageState createState() =>
@@ -57,13 +60,18 @@ class _DescriptionWeddingBasedPageState
   }
 
   Widget _sowDescriptionPage(UserDataReady state) {
-    var categories = state.categories
-        .where((category) => category.text == widget.categoryName)
-        .toList();
-    if (categories.isEmpty) {
-      return errorDialog();
-    }
-    return (categories.first.page as DescriptionWeddingBasedPage).page;
+    return FutureBuilder(
+      future: widget.getPage(state.profile, widget.categoryName),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return snapshot.data;
+        } else if (snapshot.hasError) {
+          return errorDialog();
+        } else {
+          return progressBar();
+        }
+      },
+    );
   }
 
   Widget _showForm(BuildContext context) {

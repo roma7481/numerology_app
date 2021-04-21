@@ -38,13 +38,18 @@ Widget _buildHeader(String header, String iconPath) {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SvgPicture.asset(iconPath, height: 20.0),
+          iconPath != null
+              ? SvgPicture.asset(iconPath, height: 20.0)
+              : Container(),
           Text(
             header,
             style: descriptionHeaderStyle,
           ),
           Opacity(
-              opacity: 0.0, child: SvgPicture.asset(iconPath, height: 20.0)),
+              opacity: 0.0,
+              child: iconPath != null
+                  ? SvgPicture.asset(iconPath, height: 20.0)
+                  : Container()),
         ],
       ),
     ),

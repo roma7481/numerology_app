@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:numerology/app/business_logic/cubit/bio/bio_cubit.dart';
-import 'package:numerology/app/business_logic/cubit/bio_second/bio_second_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/language/language_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.dart';
 import 'package:numerology/app/business_logic/services/date_service.dart';
 import 'package:numerology/app/constants/colors.dart';
+import 'package:numerology/app/data/language/calc_utils.dart';
 import 'package:numerology/app/data/models/category_model.dart';
 import 'package:numerology/app/data/models/profile.dart';
 import 'package:numerology/app/presentation/common_widgets/error_dialog.dart';
@@ -28,8 +28,8 @@ class HomePage extends StatelessWidget {
   Widget _buildPageContent(BuildContext context) {
     return BlocBuilder<UserDataCubit, UserDataState>(builder: (context, state) {
       if (state is UserDataReady) {
-        context.read<BioCubit>().emitBioInit(state.profile);
-        context.read<BioSecondCubit>().emitBioInit(state.profile);
+        // context.read<BioCubit>().emitBioInit(state.profile);
+        // context.read<BioSecondCubit>().emitBioInit(state.profile);
         return SafeArea(
           child: Scaffold(
             appBar: AppBar(
@@ -54,18 +54,17 @@ class HomePage extends StatelessWidget {
     return Text(DateService.getFormattedDate(DateTime.now()));
   }
 
-  Widget _buildContent(BuildContext context, UserDataReady userDataState) {
+  Widget _buildContent(BuildContext context, UserDataReady state) {
     return Container(
       color: backgroundColor,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: CustomScrollView(
           slivers: [
-            _buildBioCategory(
-                context, userDataState.bio, userDataState.profile),
-            _buildDailyCategory(context, userDataState.dayCategory),
+            _buildBioCategory(context, state.bio, state.profile),
+            _buildDailyCategory(context, state),
             SliverGrid(
-              delegate: _buildList(userDataState.categories),
+              delegate: _buildList(state),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 childAspectRatio: MediaQuery.of(context).size.width /
@@ -87,6 +86,7 @@ class HomePage extends StatelessWidget {
           bio,
         ),
         onPressed: () async {
+          context.read<BioCubit>().emitBioInit(profile);
           navigateToBioGraphsPage(context);
         },
       ),
@@ -94,47 +94,44 @@ class HomePage extends StatelessWidget {
   }
 
   SliverToBoxAdapter _buildDailyCategory(
-      BuildContext context, CategoryModel category) {
+      BuildContext context, UserDataReady state) {
+    var category = state.dayCategory;
     return SliverToBoxAdapter(
       child: buildDayCategory(
-        text: category.text,
-        content: category.content,
-        onPressed: () async {
-          navigateToPage(context, category.page);
-        },
+        header: category.name,
+        content: category.dayContent,
+        onPressed: () => CategoryProvider.instance.onCategoryPressed(
+            context, state.profile, category.type, category.name),
         imagePath: category.imagePath,
       ),
     );
   }
 
-  SliverChildBuilderDelegate _buildList(List<CategoryModel> categories) {
+  SliverChildBuilderDelegate _buildList(UserDataReady state) {
     return SliverChildBuilderDelegate(
       (context, index) {
-        var category = categories[index];
+        var category = state.categories[index];
         return _buildListTile(
           context,
-          category.text,
-          category.imagePath,
-          category.page,
+          state.profile,
+          category,
         );
       },
-      childCount: categories.length,
+      childCount: state.categories.length,
       addAutomaticKeepAlives: false,
     );
   }
 
   Widget _buildListTile(
     BuildContext context,
-    String text,
-    String iconPath,
-    Widget page,
+    Profile profile,
+    CategoryModel category,
   ) {
     return buildCategoryTile(
         context: context,
-        text: text,
-        onPressed: () {
-          navigateToPage(context, page);
-        },
-        imagePath: iconPath);
+        text: category.name,
+        onPressed: () => CategoryProvider.instance
+            .onCategoryPressed(context, profile, category.type, category.name),
+        imagePath: category.imagePath);
   }
 }

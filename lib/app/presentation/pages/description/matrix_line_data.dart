@@ -1,11 +1,11 @@
 class CardData {
-  final int lineSum;
+  final int calculation;
   final String header;
   final String description;
   final String iconPath;
 
   CardData({
-    this.lineSum = 0,
+    this.calculation = 0,
     this.header,
     this.description,
     this.iconPath,

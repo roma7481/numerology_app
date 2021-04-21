@@ -5,7 +5,7 @@ class Forecast {
   final List<String> btnTitles;
   final List<String> contents;
   final List<int> calc;
-  final Map<String, String> info;
+  final String info;
 
   Forecast({
     this.info,

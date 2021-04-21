@@ -4,18 +4,20 @@ import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/presentation/common_widgets/castom_category_card.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
+import 'package:numerology/app/presentation/common_widgets/foldable_card_widget.dart';
 
 import 'circle_widget.dart';
+import 'matrix_line_data.dart';
 
 class DescriptionPage extends StatelessWidget {
   final String header;
   final String calculation;
-  final Map<String, String> description;
+  final List<CardData> data;
 
   DescriptionPage({
     this.calculation = '',
     this.header = '',
-    this.description = const {},
+    this.data = const [],
   });
 
   @override
@@ -37,7 +39,7 @@ class DescriptionPage extends StatelessWidget {
       child: CustomScrollView(
         slivers: [
           _buildNumberIcon(context, calculation),
-          SliverList(delegate: _buildList(description))
+          _buildList(data),
         ],
       ),
     );
@@ -114,13 +116,14 @@ class DescriptionPage extends StatelessWidget {
     );
   }
 
-  SliverChildDelegate _buildList(Map<String, String> cards) {
-    return SliverChildBuilderDelegate(
+  Widget _buildList(List<CardData> dataList) {
+    return SliverList(
+        delegate: SliverChildBuilderDelegate(
       (context, index) {
-        var card = cards.entries.toList()[index];
-        return _buildCard(card.key, card.value);
+        var data = dataList[index];
+        return buildExpandCard(data.header, data.description, data.iconPath);
       },
-      childCount: cards.length,
-    );
+      childCount: dataList.length,
+    ));
   }
 }

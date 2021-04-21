@@ -16,9 +16,9 @@ import 'package:numerology/app/presentation/pages/welcome/input_text_tile.dart';
 
 class DescriptionNameBasedPage extends StatefulWidget {
   final String categoryName;
-  final Widget page;
+  final Function getPage;
 
-  const DescriptionNameBasedPage({Key key, this.categoryName, this.page})
+  const DescriptionNameBasedPage({Key key, this.categoryName, this.getPage})
       : super(key: key);
 
   @override
@@ -56,7 +56,7 @@ class _DescriptionNameBasedPageState extends State<DescriptionNameBasedPage> {
           currentProfile = state.profile;
           return _showForm(context);
         } else {
-          return _sowDescriptionPage(state);
+          return _showDescriptionPage(state);
         }
       } else if (state is UserDataError) {
         return errorDialog();
@@ -65,14 +65,17 @@ class _DescriptionNameBasedPageState extends State<DescriptionNameBasedPage> {
     });
   }
 
-  Widget _sowDescriptionPage(UserDataReady state) {
-    var categories = state.categories
-        .where((category) => category.text == widget.categoryName)
-        .toList();
-    if (categories.isEmpty) {
-      return errorDialog();
-    }
-    return (categories.first.page as DescriptionNameBasedPage).page;
+  FutureBuilder _showDescriptionPage(UserDataReady state) {
+    return FutureBuilder(
+      future: widget.getPage(state.profile, widget.categoryName),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return snapshot.data;
+        } else {
+          return progressBar();
+        }
+      },
+    );
   }
 
   SafeArea _showForm(BuildContext context) {

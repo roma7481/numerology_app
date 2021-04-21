@@ -6,10 +6,10 @@ import 'package:numerology/app/constants/text_styles.dart';
 import 'custom_raised_button.dart';
 
 Widget buildDayCategory({
-  @required String text,
+  @required String header,
   @required Function onPressed,
   @required String imagePath,
-  content,
+  @required content,
 }) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 4.0),
@@ -21,7 +21,7 @@ Widget buildDayCategory({
             children: [
               Column(
                 children: [
-                  _buildHeader(text),
+                  _buildHeader(header),
                   _buildContent(content),
                 ],
               ),

@@ -69,28 +69,25 @@ class CalcUtilsRu extends ForecastCalcUtils {
     return calcUtils.getDailyBtnTitles();
   }
 
-  Future<Map<String, String>> _getDayInfo() async {
+  Future<String> _getDayInfo() async {
     return _getInfo('PERSONAL_DAY_RUS');
   }
 
-  Future<Map<String, String>> _getLuckyInfo() async {
+  Future<String> _getLuckyInfo() async {
     return _getInfo('DAILY_LUCKY_NUMBER_RUS');
   }
 
-  Future<Map<String, String>> _getMonthlyInfo() async {
+  Future<String> _getMonthlyInfo() async {
     return _getInfo('PERSONAL_MONTH_RUS');
   }
 
-  Future<Map<String, String>> _getYearInfo() async {
+  Future<String> _getYearInfo() async {
     return _getInfo('PERSONAL_YEAR_RUS');
   }
 
-  Future<Map<String, String>> _getInfo(String table) async {
-    var language = Globals.instance.language;
-
-    var info = await getEntityRawQuery(
+  Future<String> _getInfo(String table) async {
+    return await getEntityRawQuery(
         'select description from TABLE_DESCRIPTION where table_name =  "$table"');
-    return {language.info: info};
   }
 
   Future<List<String>> _getDailyContent(Profile profile) async {

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:numerology/app/data/language/data_parser_en.dart';
 
 class CategoryModel {
-  final String text;
-  final String content;
+  final String name;
   final String imagePath;
-  final Widget page;
+  final String dayContent;
+  final CategoryType type;
 
   CategoryModel({
-    this.page,
-    this.content = '',
-    @required this.text,
+    @required this.type,
+    @required this.name,
     @required this.imagePath,
+    this.dayContent,
   });
 }

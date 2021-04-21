@@ -15,23 +15,25 @@ import 'matrix_utils.dart';
 class CompatInternalPage extends StatefulWidget {
   final List<int> yourMatrix;
   final List<int> partnerMatrix;
-  final List<CardData> matrixDescription;
-  final List<CardData> lifePathDescription;
-  final List<CardData> bioDescription;
+  final List<CardData> matrixData;
+  final List<CardData> lifePathData;
+  final List<CardData> bioData;
   final List<double> bioCompat;
   final int yourLifePath;
   final int partnersLifePath;
+  final Function getPage;
 
   const CompatInternalPage({
     Key key,
     this.yourMatrix,
     this.partnerMatrix,
-    this.matrixDescription,
-    this.lifePathDescription,
+    this.matrixData,
+    this.lifePathData,
     this.yourLifePath,
     this.partnersLifePath,
-    this.bioDescription,
+    this.bioData,
     this.bioCompat,
+    this.getPage,
   }) : super(key: key);
 
   @override
@@ -155,7 +157,7 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
     return [
       _buildTopNav(),
       _buildPiCharts(),
-      _buildList(widget.bioDescription),
+      _buildList(widget.bioData),
     ];
   }
 
@@ -167,7 +169,7 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
       _buildNumberIcon(context, widget.partnersLifePath.toString(),
           _language.partnerLifePathNum),
       _buildPadding(),
-      _buildList(widget.lifePathDescription),
+      _buildList(widget.lifePathData),
     ];
   }
 
@@ -175,7 +177,7 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
     return [
       _buildTopNav(),
       _buildMatrixContent(),
-      _buildList(widget.matrixDescription),
+      _buildList(widget.matrixData),
     ];
   }
 

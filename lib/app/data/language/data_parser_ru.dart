@@ -1,88 +1,87 @@
-import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/business_logic/services/category_calc.dart';
 import 'package:numerology/app/constants/icon_path.dart';
 import 'package:numerology/app/data/language/data_parser.dart';
 import 'package:numerology/app/data/models/profile.dart';
-import 'package:numerology/app/presentation/pages/description/description_page.dart';
 
 import '../models/category_model.dart';
-import 'parser_utils.dart';
 
 class DataParserRu extends DataParser {
   @override
   Future<List<CategoryModel>> getCategories(Profile profile) async {
     List<CategoryModel> categories = [];
     categories
-        .add(CategoryModel(imagePath: compatibility, text: 'Совместимость'));
+        .add(CategoryModel(imagePath: compatibility, name: 'Совместимость'));
     categories.add(CategoryModel(
-        imagePath: secondaryBio, text: 'Второстепенные Биоритмы'));
+        imagePath: secondaryBio, name: 'Второстепенные Биоритмы'));
     categories.add(CategoryModel(
-        imagePath: bioCompatibility, text: 'Совместимость биоритмов'));
-    categories.add(CategoryModel(imagePath: matrix, text: 'Квадрат Пифагора'));
+        imagePath: bioCompatibility, name: 'Совместимость биоритмов'));
+    categories.add(CategoryModel(imagePath: matrix, name: 'Квадрат Пифагора'));
     categories
-        .add(CategoryModel(imagePath: matrixLines, text: 'Линии Психоматрицы'));
+        .add(CategoryModel(imagePath: matrixLines, name: 'Линии Психоматрицы'));
     categories
-        .add(CategoryModel(imagePath: lifePath, text: 'Число жизненного Пути'));
-    categories.add(CategoryModel(imagePath: soul, text: 'Число Души'));
-    categories.add(CategoryModel(imagePath: achievement, text: 'Число Пика'));
+        .add(CategoryModel(imagePath: lifePath, name: 'Число жизненного Пути'));
+    categories.add(CategoryModel(imagePath: soul, name: 'Число Души'));
+    categories.add(CategoryModel(imagePath: achievement, name: 'Число Пика'));
     categories
-        .add(CategoryModel(imagePath: challenge, text: 'Число Испытания'));
-    categories.add(CategoryModel(imagePath: name, text: 'Число имени'));
-    categories.add(CategoryModel(imagePath: marriage, text: 'Число Брака'));
-    categories.add(CategoryModel(imagePath: love, text: 'Число Любви'));
+        .add(CategoryModel(imagePath: challenge, name: 'Число Испытания'));
+    categories.add(CategoryModel(imagePath: name, name: 'Число имени'));
+    categories.add(CategoryModel(imagePath: marriage, name: 'Число Брака'));
+    categories.add(CategoryModel(imagePath: love, name: 'Число Любви'));
     categories
-        .add(CategoryModel(imagePath: character, text: 'Число Характера'));
+        .add(CategoryModel(imagePath: character, name: 'Число Характера'));
     categories
-        .add(CategoryModel(imagePath: expression, text: 'Число Экспрессии'));
-    categories.add(CategoryModel(imagePath: work, text: 'Число Реализации'));
+        .add(CategoryModel(imagePath: expression, name: 'Число Экспрессии'));
+    categories.add(CategoryModel(imagePath: work, name: 'Число Реализации'));
     categories
-        .add(CategoryModel(imagePath: personality, text: 'Число Личности'));
+        .add(CategoryModel(imagePath: personality, name: 'Число Личности'));
     categories
-        .add(CategoryModel(imagePath: intelligence, text: 'Число Разума'));
-    categories.add(CategoryModel(imagePath: balance, text: 'Число Равновесия'));
-    categories.add(CategoryModel(imagePath: maturity, text: 'Число Зрелости'));
+        .add(CategoryModel(imagePath: intelligence, name: 'Число Разума'));
+    categories.add(CategoryModel(imagePath: balance, name: 'Число Равновесия'));
+    categories.add(CategoryModel(imagePath: maturity, name: 'Число Зрелости'));
     categories
-        .add(CategoryModel(imagePath: birthdayCode, text: 'Код дня рождения'));
+        .add(CategoryModel(imagePath: birthdayCode, name: 'Код дня рождения'));
     categories
-        .add(CategoryModel(imagePath: birthdayNum, text: 'Число Дня Рождения'));
-    categories.add(CategoryModel(imagePath: money, text: 'Число Денег'));
-    categories.add(CategoryModel(imagePath: luckyGem, text: 'Камень Удачи'));
+        .add(CategoryModel(imagePath: birthdayNum, name: 'Число Дня Рождения'));
+    categories.add(CategoryModel(imagePath: money, name: 'Число Денег'));
+    categories.add(CategoryModel(imagePath: luckyGem, name: 'Камень Удачи'));
 
     return categories;
   }
 
   @override
   Future<CategoryModel> getPersonalDay(Profile profile) async {
-    var calculation = CategoryCalc.instance.calcPersonalDay(profile).toString();
+    // var calculation = CategoryCalc.instance.calcPersonalDay(profile).toString();
+    //
+    // var description = await getEntity(
+    //     table: 'PERSONAL_DAY_RUS',
+    //     queryColumn: 'number',
+    //     resColumn: 'description',
+    //     value: calculation);
+    // var info = await getEntity(
+    //     table: 'TABLE_DESCRIPTION',
+    //     queryColumn: 'table_name',
+    //     resColumn: 'description',
+    //     value: '\"PERSONAL_DAY_RUS\"');
+    //
+    // String categoryName = 'Число дня';
+    //
+    // var language = Globals.instance.language;
+    // Map<String, String> cards = {
+    //   language.description: description,
+    //   language.info: info
+    // };
 
-    var description = await getEntity(
-        table: 'PERSONAL_DAY_RUS',
-        queryColumn: 'number',
-        resColumn: 'description',
-        value: calculation);
-    var info = await getEntity(
-        table: 'TABLE_DESCRIPTION',
-        queryColumn: 'table_name',
-        resColumn: 'description',
-        value: '\"PERSONAL_DAY_RUS\"');
+    // return CategoryModel(
+    //     imagePath: day,
+    //     text: categoryName,
+    //     content: description,
+    //     page: DescriptionPage(
+    //       header: categoryName,
+    //       calculation: calculation,
+    //       description: cards,
+    //     ));
 
-    String categoryName = 'Число дня';
-
-    var language = Globals.instance.language;
-    Map<String, String> cards = {
-      language.description: description,
-      language.info: info
-    };
-
-    return CategoryModel(
-        imagePath: day,
-        text: categoryName,
-        content: description,
-        page: DescriptionPage(
-          header: categoryName,
-          calculation: calculation,
-          description: cards,
-        ));
+    return null;
   }
 
   @override
