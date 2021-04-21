@@ -10,13 +10,9 @@ import 'package:numerology/app/data/models/profile.dart';
 part 'forecast_state.dart';
 
 class ForecastCubit extends Cubit<ForecastState> {
-  final Profile profile;
+  ForecastCubit() : super(ForecastLoading());
 
-  ForecastCubit(this.profile) : super(ForecastLoading()) {
-    initForecast(profile);
-  }
-
-  Future<void> initForecast(Profile profile) async {
+  Future<void> updateForecast(Profile profile) async {
     var forecastUtils = Globals.instance.getForecastUtils();
 
     try {

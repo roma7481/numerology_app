@@ -30,7 +30,7 @@ class _ProfilesPageState extends State<ProfilesPage> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProfilesCubit, ProfilesState>(builder: (context, state) {
-      if (state is ProfilesUpdate) {
+      if (state is ProfilesReady) {
         _profiles = state.profiles;
         return _buildContent();
       } else if (state is ProfilesInit) {
@@ -38,9 +38,6 @@ class _ProfilesPageState extends State<ProfilesPage> {
         return _buildContent();
       } else if (state is ProfilesError) {
         return errorDialog();
-      } else if (state is ProfilesReady) {
-        _profiles = state.profiles;
-        return _buildContent();
       }
       return progressBar();
     });

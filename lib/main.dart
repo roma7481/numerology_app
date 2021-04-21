@@ -10,6 +10,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'app/business_logic/cubit/bio_second/bio_second_cubit.dart';
+import 'app/business_logic/cubit/forecast/forecast_cubit.dart';
 import 'app/business_logic/cubit/language/language_cubit.dart';
 import 'app/constants/colors.dart';
 import 'app/constants/strings.dart';
@@ -53,6 +54,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<ProfilesCubit>(
           create: (context) => profilesCubit,
           lazy: false,
+        ),
+        BlocProvider<ForecastCubit>(
+          create: (context) => ForecastCubit(),
         ),
       ],
       child: MaterialApp(

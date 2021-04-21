@@ -27,7 +27,7 @@ class ProfilesCubit extends Cubit<ProfilesState> {
     try {
       await ProfileDBProvider.instance.insertProfile(profile);
       var profiles = await ProfileDBProvider.instance.getAllProfiles();
-      emit(ProfilesUpdate(profiles));
+      emit(ProfilesReady(profiles));
     } catch (e) {
       emitProfilesException(e);
     }
@@ -50,7 +50,7 @@ class ProfilesCubit extends Cubit<ProfilesState> {
       newPrim = newProfiles
           .firstWhere((element) => element.profileName == profile.profileName);
 
-      emit(ProfilesUpdate(newProfiles));
+      emit(ProfilesReady(newProfiles));
     } catch (e) {
       emitProfilesException(e);
     }
@@ -61,7 +61,7 @@ class ProfilesCubit extends Cubit<ProfilesState> {
     try {
       await ProfileDBProvider.instance.deleteProfile(profile);
       var profiles = await ProfileDBProvider.instance.getAllProfiles();
-      emit(ProfilesUpdate(profiles));
+      emit(ProfilesReady(profiles));
     } catch (e) {
       emitProfilesException(e);
     }
@@ -77,7 +77,7 @@ class ProfilesCubit extends Cubit<ProfilesState> {
       await ProfileDBProvider.instance.updateProfile(newPrim);
 
       var newProfiles = await ProfileDBProvider.instance.getAllProfiles();
-      emit(ProfilesUpdate(newProfiles));
+      emit(ProfilesReady(newProfiles));
     } catch (e) {
       emitProfilesException(e);
     }
@@ -98,7 +98,7 @@ class ProfilesCubit extends Cubit<ProfilesState> {
       await ProfileDBProvider.instance.updateProfile(newPrim);
 
       var newProfiles = await ProfileDBProvider.instance.getAllProfiles();
-      emit(ProfilesUpdate(newProfiles));
+      emit(ProfilesReady(newProfiles));
     } catch (e) {
       emitProfilesException(e);
     }
@@ -108,7 +108,7 @@ class ProfilesCubit extends Cubit<ProfilesState> {
     try {
       await ProfileDBProvider.instance.updateProfile(profile);
       var profiles = await ProfileDBProvider.instance.getAllProfiles();
-      emit(ProfilesUpdate(profiles));
+      emit(ProfilesReady(profiles));
     } catch (e) {
       emitProfilesException(e);
     }

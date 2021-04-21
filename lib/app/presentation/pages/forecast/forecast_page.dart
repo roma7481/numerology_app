@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:numerology/app/business_logic/cubit/forecast/forecast.dart';
 import 'package:numerology/app/business_logic/cubit/forecast/forecast_cubit.dart';
-import 'package:numerology/app/business_logic/cubit/profiles/profiles_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/constants/colors.dart';
@@ -34,23 +33,20 @@ class _ForecastPageState extends State<ForecastPage> {
   Widget build(BuildContext context) {
     return BlocBuilder<UserDataCubit, UserDataState>(builder: (context, state) {
       if (state is UserDataReady) {
-        return BlocProvider<ForecastCubit>(
-          create: (BuildContext context) => ForecastCubit(state.profile),
-          child: BlocBuilder<ForecastCubit, ForecastState>(
-              builder: (context, state) {
-            if (state is ForecastReady) {
-              _daily = state.daily;
-              _lucky = state.lucky;
-              _monthly = state.monthly;
-              _annual = state.annual;
-              return _buildContent();
-            } else if (state is ForecastError) {
-              return errorDialog();
-            }
-            context.read<ProfilesCubit>().emitGetProfiles();
-            return progressBar();
-          }),
-        );
+        context.read<ForecastCubit>().updateForecast(state.profile);
+        return BlocBuilder<ForecastCubit, ForecastState>(
+            builder: (context, state) {
+          if (state is ForecastReady) {
+            _daily = state.daily;
+            _lucky = state.lucky;
+            _monthly = state.monthly;
+            _annual = state.annual;
+            return _buildContent();
+          } else if (state is ForecastError) {
+            return errorDialog();
+          }
+          return progressBar();
+        });
       } else if (state is UserDataError) {
         return errorDialog();
       }
