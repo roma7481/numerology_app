@@ -42,6 +42,7 @@ enum CategoryType {
   /// only RU ///
   achievementCategory,
   characterCategory,
+  intelligenceCategory,
 }
 
 class CategoryProvider {
@@ -157,7 +158,28 @@ class CategoryProvider {
         navigateToPage(context,
             await CategoryProvider.instance.getCharacterPage(profile, header));
         break;
+      case CategoryType.intelligenceCategory:
+        navigateToPage(
+            context,
+            await CategoryProvider.instance
+                .getIntelligenceNumPage(profile, header));
+        break;
     }
+  }
+
+  Future<Widget> getIntelligenceNumPage(Profile profile, String header) async {
+    return DescriptionNameBasedPage(
+      categoryName: header,
+      getPage: (profile, header) async =>
+          await _getIntelligenceNumPage(profile, header),
+    );
+  }
+
+  Future<Widget> _getIntelligenceNumPage(Profile profile, String header) async {
+    var calc = CategoryCalc.instance.calcIntelligenceNumber(profile);
+    var tableName = 'INTELLIGENCE_NUMBER_RUS';
+
+    return await _getDescriptionPage(tableName, calc, header);
   }
 
   Future<Widget> getCharacterPage(Profile profile, String header) async {

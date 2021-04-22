@@ -12,6 +12,15 @@ class CategoryCalc {
 
   static final instance = CategoryCalc._();
 
+  int calcIntelligenceNumber(Profile profile) {
+    var birthday = DateService.fromTimestamp(profile.dob);
+    var day = _calcToSingleDigit(birthday.day);
+    var name = profile.firstName.toLowerCase();
+
+    var nameNum = _calcToSingleDigit(_convertCharsAndSum(name));
+    return _calcToSingleDigit(day + nameNum);
+  }
+
   int calcCharacterNumber(Profile profile) {
     var birthday = DateService.fromTimestamp(profile.dob);
     var day = _calcToSingleDigit(birthday.day);
