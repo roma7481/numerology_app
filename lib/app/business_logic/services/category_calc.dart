@@ -12,6 +12,59 @@ class CategoryCalc {
 
   static final instance = CategoryCalc._();
 
+  List<String> calcAchievementPeriods(Profile profile) {
+    var period1 = 36 - _calcAchievementPeriod1(profile);
+    var period2 = period1 + 9;
+    var period3 = period2 + 9;
+
+    var text1 =
+        'Продолжительность первого пика от рождения до $period1 лет\n\n';
+    var text2 = 'Продолжительность второго пика с $period1 до $period2 \n\n';
+    var text3 = 'Продолжительность второго пика с $period2 до $period3 \n\n';
+    var text4 = 'Продолжительность четвертого пика с $period3 и далее \n\n';
+
+    return [text1, text2, text3, text4];
+  }
+
+  int _calcAchievementPeriod1(Profile profile) {
+    return _calcToSingleDigit(calcLifePathNumberMethod1(profile));
+  }
+
+  List<String> calcAchievementNums(Profile profile) {
+    return [
+      calcAchievementNum1(profile).toString(),
+      calcAchievementNum2(profile).toString(),
+      calcAchievementNum3(profile).toString(),
+      calcAchievementNum4(profile).toString(),
+    ];
+  }
+
+  int calcAchievementNum1(Profile profile) {
+    var birthday = DateService.fromTimestamp(profile.dob);
+    var month = _calcToSingleDigit(birthday.month);
+    var day = _calcToSingleDigit(birthday.day);
+    return _calcToSingleDigit(day + month);
+  }
+
+  int calcAchievementNum2(Profile profile) {
+    var birthday = DateService.fromTimestamp(profile.dob);
+    var day = _calcToSingleDigit(birthday.day);
+    var year = _calcToSingleDigit(birthday.year);
+    return _calcToSingleDigit(day + year);
+  }
+
+  int calcAchievementNum3(Profile profile) {
+    int ach3 = calcAchievementNum1(profile) + calcAchievementNum2(profile);
+    return _calcToSingleDigit(ach3);
+  }
+
+  int calcAchievementNum4(Profile profile) {
+    var birthday = DateService.fromTimestamp(profile.dob);
+    var year = _calcToSingleDigit(birthday.year);
+    var month = _calcToSingleDigit(birthday.month);
+    return _calcToSingleDigit(year + month);
+  }
+
   List<double> calcBio(Profile profile) {
     return calcBioPrimByDate(profile.dob);
   }
@@ -430,6 +483,15 @@ class CategoryCalc {
       sum = sum + vowLetterToNumber(ch);
     });
     return sum;
+  }
+
+  List<String> calcChallengeNums(Profile profile) {
+    return [
+      calcChallengeNum1(profile).toString(),
+      calcChallengeNum2(profile).toString(),
+      calcChallengeNum3(profile).toString(),
+      calcChallengeNum4(profile).toString(),
+    ];
   }
 
   int calcChallengeNum1(Profile profile) {

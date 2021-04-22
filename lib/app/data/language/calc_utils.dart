@@ -38,6 +38,9 @@ enum CategoryType {
   compatCategory,
   bioSecondCategory,
   dayCategory,
+
+  /// only RU ///
+  achievementCategory,
 }
 
 class CategoryProvider {
@@ -142,6 +145,12 @@ class CategoryProvider {
             context,
             await CategoryProvider.instance
                 .getPersonalDayPage(profile, header));
+        break;
+      case CategoryType.achievementCategory:
+        navigateToPage(
+            context,
+            await CategoryProvider.instance
+                .getAchievementNumPage(profile, header));
         break;
     }
   }
@@ -777,13 +786,46 @@ class CategoryProvider {
     return await _getDescriptionPage(tableName, calc, header);
   }
 
-  Future<Widget> getChallengeNumPage(Profile profile, String header) async {
-    var calc1 = CategoryCalc.instance.calcChallengeNum1(profile).toString();
-    var calc2 = CategoryCalc.instance.calcChallengeNum2(profile).toString();
-    var calc3 = CategoryCalc.instance.calcChallengeNum3(profile).toString();
-    var calc4 = CategoryCalc.instance.calcChallengeNum4(profile).toString();
+  Future<Widget> getAchievementNumPage(Profile profile, String header) async {
+    var calc = CategoryCalc.instance.calcAchievementNums(profile);
+    var period = CategoryCalc.instance.calcAchievementPeriods(profile);
 
-    var calc = [calc1, calc2, calc3, calc4];
+    var tableName = 'ACHIEVEMENT_NUMBER_RUS';
+
+    var descriptions = [];
+    var headers = [
+      'Первый Пик - ${calc[0]}',
+      'Второй Пик - ${calc[1]}',
+      'Третий Пик - ${calc[2]}',
+      'Четвёртый Пик - ${calc[3]}',
+    ];
+
+    for (var i = 0; i < calc.length; i++) {
+      var description = await getEntityRawQuery(
+          'select description from "$tableName"  where  number = ${calc[i]}');
+      descriptions.add(period[i] + description);
+    }
+
+    var info = await getEntityRawQuery(
+        'select description from TABLE_DESCRIPTION where table_name =  "$tableName"');
+
+    List<CardData> data = [];
+
+    for (var i = 0; i < 4; i++) {
+      data.add(CardData(header: headers[i], description: descriptions[i]));
+    }
+
+    data.add(
+        CardData(header: Globals.instance.language.info, description: info));
+
+    return DescriptionPage(
+      header: header,
+      data: data,
+    );
+  }
+
+  Future<Widget> getChallengeNumPage(Profile profile, String header) async {
+    var calc = CategoryCalc.instance.calcChallengeNums(profile);
 
     var descriptions = [];
 

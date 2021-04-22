@@ -14,7 +14,7 @@ class DataParserRu extends DataParser {
     // categories.add(CategoryModel(
     //     imagePath: bioCompatibility, name: 'Совместимость биоритмов'));
     // categories
-    // categories.add(CategoryModel(imagePath: achievement, name: 'Число Пика'));
+
     // categories.add(CategoryModel(imagePath: marriage, name: 'Число Брака'));
     // categories.add(CategoryModel(imagePath: love, name: 'Число Любви'));
     // categories
@@ -26,6 +26,7 @@ class DataParserRu extends DataParser {
     // categories.add(CategoryModel(imagePath: balance, name: 'Число Равновесия'));
     // categories.add(CategoryModel(imagePath: money, name: 'Число Денег'));
 
+    categories.add(await _getAchievement(profile));
     categories.add(await _getCompat(profile));
     categories.add(await _getSecondBio(profile));
     categories.add(await _getMatrix(profile));
@@ -43,6 +44,14 @@ class DataParserRu extends DataParser {
     categories.add(await _getMaturityNumber(profile));
 
     return categories;
+  }
+
+  Future<CategoryModel> _getAchievement(Profile profile) async {
+    return CategoryModel(
+      name: 'Число Пика',
+      imagePath: achievement,
+      type: CategoryType.achievementCategory,
+    );
   }
 
   Future<CategoryModel> _getCompat(Profile profile) async {
