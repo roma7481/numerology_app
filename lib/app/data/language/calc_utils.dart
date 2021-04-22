@@ -38,12 +38,13 @@ enum CategoryType {
   compatCategory,
   bioSecondCategory,
   dayCategory,
+  moneyCategory,
 
   /// only RU ///
   achievementCategory,
   characterCategory,
   intelligenceCategory,
-  moneyCategory,
+  balanceCategory,
 }
 
 class CategoryProvider {
@@ -169,7 +170,26 @@ class CategoryProvider {
         navigateToPage(context,
             await CategoryProvider.instance.getMoneyNumPage(profile, header));
         break;
+      case CategoryType.balanceCategory:
+        navigateToPage(context,
+            await CategoryProvider.instance.getBalanceNumPage(profile, header));
+        break;
     }
+  }
+
+  Future<Widget> getBalanceNumPage(Profile profile, String header) async {
+    return DescriptionNameBasedPage(
+      categoryName: header,
+      getPage: (profile, header) async =>
+          await _getBalanceNumPage(profile, header),
+    );
+  }
+
+  Future<Widget> _getBalanceNumPage(Profile profile, String header) async {
+    var calc = CategoryCalc.instance.calcBalanceNumber(profile);
+    var tableName = 'BALANCE_NUMBER_RUS';
+
+    return await _getDescriptionPage(tableName, calc, header);
   }
 
   Future<Widget> getMoneyNumPage(Profile profile, String header) async {

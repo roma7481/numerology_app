@@ -14,8 +14,7 @@ class DataParserRu extends DataParser {
     // categories.add(CategoryModel(imagePath: marriage, name: 'Число Брака'));
     // categories.add(CategoryModel(imagePath: love, name: 'Число Любви'));
 
-    // categories.add(CategoryModel(imagePath: balance, name: 'Число Равновесия'));
-
+    categories.add(await _getBalanceNumber(profile));
     categories.add(await _getMoneyNumber(profile));
     categories.add(await _getIntelligence(profile));
     categories.add(await _getCharacter(profile));
@@ -37,6 +36,14 @@ class DataParserRu extends DataParser {
     categories.add(await _getMaturityNumber(profile));
 
     return categories;
+  }
+
+  Future<CategoryModel> _getBalanceNumber(Profile profile) async {
+    return CategoryModel(
+      name: 'Число Равновесия',
+      imagePath: balance,
+      type: CategoryType.balanceCategory,
+    );
   }
 
   Future<CategoryModel> _getMoneyNumber(Profile profile) async {

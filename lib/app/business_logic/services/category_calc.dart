@@ -12,6 +12,14 @@ class CategoryCalc {
 
   static final instance = CategoryCalc._();
 
+  int calcBalanceNumber(Profile profile) {
+    var fName = profile.firstName.toLowerCase().trim();
+    var lName = profile.lastName.toLowerCase().trim();
+    var mName = profile.middleName.toLowerCase().trim();
+    var balanceNumber = (fName + mName + lName).length;
+    return _calcToSingleDigitWithMagicNums(balanceNumber);
+  }
+
   int calcMoneyNumber(Profile profile) {
     var birthday = DateService.fromTimestamp(profile.dob);
     var day = _calcToSingleDigit(birthday.day);
