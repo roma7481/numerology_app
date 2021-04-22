@@ -10,8 +10,6 @@ class DataParserRu extends DataParser {
   @override
   Future<List<CategoryModel>> getCategories(Profile profile) async {
     List<CategoryModel> categories = [];
-    // categories
-    //     .add(CategoryModel(imagePath: compatibility, name: 'Совместимость'));
 
     // categories.add(CategoryModel(
     //     imagePath: bioCompatibility, name: 'Совместимость биоритмов'));
@@ -28,6 +26,7 @@ class DataParserRu extends DataParser {
     // categories.add(CategoryModel(imagePath: balance, name: 'Число Равновесия'));
     // categories.add(CategoryModel(imagePath: money, name: 'Число Денег'));
 
+    categories.add(await _getCompat(profile));
     categories.add(await _getSecondBio(profile));
     categories.add(await _getMatrix(profile));
     categories.add(await _getMatrixLines(profile));
@@ -44,6 +43,14 @@ class DataParserRu extends DataParser {
     categories.add(await _getMaturityNumber(profile));
 
     return categories;
+  }
+
+  Future<CategoryModel> _getCompat(Profile profile) async {
+    return CategoryModel(
+      name: 'Совместимость',
+      imagePath: compatibility,
+      type: CategoryType.compatCategory,
+    );
   }
 
   Future<CategoryModel> _getSecondBio(Profile profile) async {

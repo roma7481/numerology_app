@@ -344,7 +344,35 @@ class CategoryProvider {
         .calcMatrixCompat(yourMatrixLines, partnerMatrixLines);
 
     var table = 'PSYCHOMATRIX_COMPAT_ENG';
+    var mtxTable = 'PSYCHOMATRIX_ENG';
     var matrixTable = 'PSYCHOMATRIX_LINES_ENG';
+
+    var headers = [
+      'Purpose',
+      'Family',
+      'stability',
+      'Esteem',
+      'Finance',
+      'Talents',
+      'Temperament',
+      'Spirituality',
+    ];
+
+    if (Globals.instance.getLanguage() is LanguageRu) {
+      table = 'PSYCHOMATRIX_COMPAT_RUS';
+      mtxTable = 'PSYCHOMATRIX_RUS';
+      matrixTable = 'PSYCHOMATRIX_LINES_RUS';
+      headers = [
+        'Целеустремлённость',
+        'Семья',
+        'Стабильность',
+        'Самооценка',
+        'Финансы',
+        'Талант',
+        'Темперамент',
+        'Духовность',
+      ];
+    }
 
     List<CardData> matrixCompatData = [];
 
@@ -355,12 +383,12 @@ class CategoryProvider {
           'select description from TABLE_DESCRIPTION where table_name = "$matrixTable" and category = "${categories[i].toLowerCase()}"');
       matrixCompatData.add(CardData(
           description: description + "\n\n" + info,
-          header: _capitalize(categories[i]),
+          header: headers[i],
           iconPath: icons[i]));
     }
 
     var matrInfo = await getEntityRawQuery(
-        'select description from TABLE_DESCRIPTION where table_name = "PSYCHOMATRIX_ENG" and category = "info"');
+        'select description from TABLE_DESCRIPTION where table_name = "$mtxTable" and category = "info"');
 
     matrixCompatData.add(CardData(
         description: matrInfo,
@@ -370,20 +398,22 @@ class CategoryProvider {
     return matrixCompatData;
   }
 
-  String _capitalize(String str) {
-    return "${str.substring(0, 1).toUpperCase()}${str.substring(1).toLowerCase()}";
-  }
-
   Future<List<CardData>> _getPathCompat(
       int yourLifePath, int partnerLifePath) async {
     var lifePathCompat = '';
     var path1 = yourLifePath < partnerLifePath ? yourLifePath : partnerLifePath;
     var path2 = yourLifePath < partnerLifePath ? partnerLifePath : yourLifePath;
+
+    var table = 'LIFE_PATH_NUMBER_COMPAT_ENG';
+    if (Globals.instance.getLanguage() is LanguageRu) {
+      table = 'LIFE_PATH_NUMBER_COMPAT_RUS';
+    }
+
     lifePathCompat = await getEntityRawQuery(
-        'select description from "LIFE_PATH_NUMBER_COMPAT_ENG" where number1 = $path1 and number2 = $path2');
+        'select description from "$table" where number1 = "$path1" and number2 = "$path2"');
 
     var lifePathInfo = await getEntityRawQuery(
-        'select description from "TABLE_DESCRIPTION" where table_name = "LIFE_PATH_NUMBER_COMPAT_ENG"');
+        'select description from "TABLE_DESCRIPTION" where table_name = "$table"');
 
     List<CardData> lifePathData = [];
     lifePathData.add(CardData(
@@ -402,6 +432,11 @@ class CategoryProvider {
       Profile profile, List<double> bioCompat) async {
     var bioLevels = CategoryCalc.instance.calcBioCompatLevel(profile);
     var language = Globals.instance.language;
+
+    var table = 'BIORITHM_COMPATIBILITY_ENG';
+    if (Globals.instance.getLanguage() is LanguageRu) {
+      table = 'BIORITHM_COMPATIBILITY_RUS';
+    }
 
     List<CardData> bioData = [];
     var bioIcons = [
@@ -422,7 +457,7 @@ class CategoryProvider {
 
     for (var i = 0; i < bioCompat.length; i++) {
       var description = await getEntityRawQuery(
-          'select description from BIORITHM_COMPATIBILITY_ENG  where  type = "${categories[i]}" and level = "${bioLevels[i]}"');
+          'select description from $table  where  type = "${categories[i]}" and level = "${bioLevels[i]}"');
       bioData.add(CardData(
           description: description,
           header: bioHeaders[i],
@@ -430,10 +465,13 @@ class CategoryProvider {
     }
 
     var bioInfo = await getEntityRawQuery(
-        'select description from "TABLE_DESCRIPTION" where table_name = "BIORITHM_COMPATIBILITY_ENG"');
+        'select description from "TABLE_DESCRIPTION" where table_name = "$table"');
 
     bioData.add(CardData(
-        description: bioInfo, header: language.info, iconPath: infoIcon));
+      description: bioInfo,
+      header: language.info,
+      iconPath: infoIcon,
+    ));
 
     return bioData;
   }
