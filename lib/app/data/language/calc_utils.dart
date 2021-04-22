@@ -46,6 +46,7 @@ enum CategoryType {
   intelligenceCategory,
   balanceCategory,
   marriageCategory,
+  loveCategory,
 }
 
 class CategoryProvider {
@@ -181,7 +182,32 @@ class CategoryProvider {
             await CategoryProvider.instance
                 .getMarriageNumPage(profile, header));
         break;
+      case CategoryType.loveCategory:
+        navigateToPage(context,
+            await CategoryProvider.instance.getLoveNumPage(profile, header));
+        break;
     }
+  }
+
+  Future<Widget> getLoveNumPage(Profile profile, String header) async {
+    return DescriptionPartnerDobBasedPage(
+      categoryName: header,
+      getPage: (profile, header) async =>
+          await _getLoveNumPage(profile, header),
+    );
+  }
+
+  Future<Widget> _getLoveNumPage(Profile profile, String header) async {
+    var calc = CategoryCalc.instance.calcLoveNumberRu(profile);
+    var calcLove = CategoryCalc.instance.calcLoveCompatNumberRu(profile);
+    var tableName = 'LOVE_NUMBER_RUS';
+    var tableLove = 'LOVE_COMPATIBILITY_RUS';
+
+    var partnerDob = DateService.getFormattedDate(
+        DateService.fromTimestamp(profile.partnerDob));
+
+    return await _getLoveDescriptionPage(
+        tableName, tableLove, calc, calcLove, header, partnerDob);
   }
 
   Future<Widget> getMarriageNumPage(Profile profile, String header) async {
@@ -193,7 +219,7 @@ class CategoryProvider {
   }
 
   Future<Widget> _getMarriageNumPage(Profile profile, String header) async {
-    var calc = CategoryCalc.instance.calcMarriageNumber(profile);
+    var calc = CategoryCalc.instance.calcMarriageNumberRu(profile);
     var tableName = 'MARRIAGE_NUMBER_RUS';
 
     return await _getMarriageDescriptionPage(tableName, calc, header);
@@ -1158,6 +1184,53 @@ class CategoryProvider {
     return DescriptionPage(
       header: header,
       calculation: calc.toString(),
+      data: data,
+    );
+  }
+
+  Future<DescriptionPage> _getLoveDescriptionPage(
+    String table,
+    String tableLove,
+    int calc,
+    int calcLove,
+    String header,
+    String partnerDob,
+  ) async {
+    Map<String, String> _fromMapLifePath(Map<String, dynamic> map) {
+      return {
+        'Описание': map['description'] as String,
+        'Подробное описание': map['detailedDescription'] as String,
+        'Мужчина': map['man'] as String,
+        'Женщина': map['woman'] as String,
+      };
+    }
+
+    Map<String, String> descriptions =
+        await NumerologyDBProvider.instance.getEntity(
+      'select * from "$table"  where  number = $calc',
+      (map) => _fromMapLifePath(map),
+    );
+
+    var description = await getEntityRawQuery(
+        'select description from $tableLove where number = $calcLove');
+
+    var dob =
+        'День рождения партнёра $partnerDob (Вы можете изменить это в настройках)';
+
+    var info = await getEntityRawQuery(
+        'select description from TABLE_DESCRIPTION where table_name =  "$table"');
+
+    List<CardData> data = [];
+    data.add(CardData(
+        header: 'Совместимость', description: description + '\n\n' + dob));
+    descriptions.forEach((key, value) {
+      data.add(CardData(header: key, description: value));
+    });
+    data.add(
+        CardData(header: Globals.instance.language.info, description: info));
+
+    return DescriptionPage(
+      header: header,
       data: data,
     );
   }

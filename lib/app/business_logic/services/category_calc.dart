@@ -12,7 +12,24 @@ class CategoryCalc {
 
   static final instance = CategoryCalc._();
 
-  int calcMarriageNumber(Profile profile) {
+  int calcLoveCompatNumberRu(Profile profile) {
+    var birthday = DateService.fromTimestamp(profile.partnerDob);
+    var day = _calcToSingleDigitWithMagicNums(birthday.day);
+    var month = _calcToSingleDigitWithMagicNums(birthday.month);
+    var year = _calcToSingleDigitWithMagicNums(birthday.year);
+
+    var loveNum = _calcToSingleDigitWithMagicNums(day + month + year);
+    loveNum = loveNum + calcLifePathNumberMethod1(profile);
+    return _calcToSingleDigit(loveNum);
+  }
+
+  int calcLoveNumberRu(Profile profile) {
+    var birthday = DateService.fromTimestamp(profile.partnerDob);
+    return _calcToSingleDigit(
+        _calcToSingleDigit(birthday.day) + _calcToSingleDigit(birthday.month));
+  }
+
+  int calcMarriageNumberRu(Profile profile) {
     int marriageNum = calcRealizationNumber(profile);
     return _calcToSingleDigit(marriageNum);
   }
