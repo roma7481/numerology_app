@@ -11,20 +11,12 @@ class DataParserRu extends DataParser {
   Future<List<CategoryModel>> getCategories(Profile profile) async {
     List<CategoryModel> categories = [];
 
-    // categories.add(CategoryModel(
-    //     imagePath: bioCompatibility, name: 'Совместимость биоритмов'));
-    // categories
-
     // categories.add(CategoryModel(imagePath: marriage, name: 'Число Брака'));
     // categories.add(CategoryModel(imagePath: love, name: 'Число Любви'));
-    // categories
-    //     .add(CategoryModel(imagePath: character, name: 'Число Характера'));
 
-    // categories
-    //     .add(CategoryModel(imagePath: intelligence, name: 'Число Разума'));
     // categories.add(CategoryModel(imagePath: balance, name: 'Число Равновесия'));
-    // categories.add(CategoryModel(imagePath: money, name: 'Число Денег'));
 
+    categories.add(await _getMoneyNumber(profile));
     categories.add(await _getIntelligence(profile));
     categories.add(await _getCharacter(profile));
     categories.add(await _getAchievement(profile));
@@ -47,6 +39,14 @@ class DataParserRu extends DataParser {
     return categories;
   }
 
+  Future<CategoryModel> _getMoneyNumber(Profile profile) async {
+    return CategoryModel(
+      name: 'Число Денег',
+      imagePath: money,
+      type: CategoryType.moneyCategory,
+    );
+  }
+
   Future<CategoryModel> _getIntelligence(Profile profile) async {
     return CategoryModel(
       name: 'Число Разума',
@@ -57,7 +57,7 @@ class DataParserRu extends DataParser {
 
   Future<CategoryModel> _getCharacter(Profile profile) async {
     return CategoryModel(
-      name: 'Число Личности',
+      name: 'Число Характера',
       imagePath: character,
       type: CategoryType.characterCategory,
     );

@@ -28,6 +28,7 @@ class DataParserEn extends DataParser {
     categories.add(await _getPersonalityNumber(profile));
     categories.add(await _getMaturityNumber(profile));
     categories.add(await _getBirthdayCode(profile));
+    categories.add(await _getMoneyNumber(profile));
     categories.add(await _getBirthdayNumber(profile));
     categories.add(await _getLuckyGemModel(profile));
 
@@ -46,6 +47,14 @@ class DataParserEn extends DataParser {
       imagePath: day,
       type: CategoryType.dayCategory,
       dayContent: await CategoryProvider.instance.getDayContent(profile),
+    );
+  }
+
+  Future<CategoryModel> _getMoneyNumber(Profile profile) async {
+    return CategoryModel(
+      name: 'Money Number',
+      imagePath: money,
+      type: CategoryType.moneyCategory,
     );
   }
 

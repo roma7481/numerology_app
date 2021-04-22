@@ -43,6 +43,7 @@ enum CategoryType {
   achievementCategory,
   characterCategory,
   intelligenceCategory,
+  moneyCategory,
 }
 
 class CategoryProvider {
@@ -164,7 +165,22 @@ class CategoryProvider {
             await CategoryProvider.instance
                 .getIntelligenceNumPage(profile, header));
         break;
+      case CategoryType.moneyCategory:
+        navigateToPage(context,
+            await CategoryProvider.instance.getMoneyNumPage(profile, header));
+        break;
     }
+  }
+
+  Future<Widget> getMoneyNumPage(Profile profile, String header) async {
+    var calc = CategoryCalc.instance.calcMoneyNumber(profile);
+    var tableName = 'MONEY_NUMBER_ENG';
+
+    if (Globals.instance.getLanguage() is LanguageRu) {
+      tableName = 'MONEY_NUMBER_RUS';
+    }
+
+    return await _getDescriptionPage(tableName, calc, header);
   }
 
   Future<Widget> getIntelligenceNumPage(Profile profile, String header) async {

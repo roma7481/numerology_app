@@ -12,6 +12,14 @@ class CategoryCalc {
 
   static final instance = CategoryCalc._();
 
+  int calcMoneyNumber(Profile profile) {
+    var birthday = DateService.fromTimestamp(profile.dob);
+    var day = _calcToSingleDigit(birthday.day);
+    var month = _calcToSingleDigit(birthday.month);
+
+    return _calcToSingleDigit(day + month);
+  }
+
   int calcIntelligenceNumber(Profile profile) {
     var birthday = DateService.fromTimestamp(profile.dob);
     var day = _calcToSingleDigit(birthday.day);
