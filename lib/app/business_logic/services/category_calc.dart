@@ -12,6 +12,11 @@ class CategoryCalc {
 
   static final instance = CategoryCalc._();
 
+  int calcMarriageNumber(Profile profile) {
+    int marriageNum = calcRealizationNumber(profile);
+    return _calcToSingleDigit(marriageNum);
+  }
+
   int calcBalanceNumber(Profile profile) {
     var fName = profile.firstName.toLowerCase().trim();
     var lName = profile.lastName.toLowerCase().trim();

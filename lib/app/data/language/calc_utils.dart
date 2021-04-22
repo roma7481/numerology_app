@@ -45,6 +45,7 @@ enum CategoryType {
   characterCategory,
   intelligenceCategory,
   balanceCategory,
+  marriageCategory,
 }
 
 class CategoryProvider {
@@ -174,7 +175,28 @@ class CategoryProvider {
         navigateToPage(context,
             await CategoryProvider.instance.getBalanceNumPage(profile, header));
         break;
+      case CategoryType.marriageCategory:
+        navigateToPage(
+            context,
+            await CategoryProvider.instance
+                .getMarriageNumPage(profile, header));
+        break;
     }
+  }
+
+  Future<Widget> getMarriageNumPage(Profile profile, String header) async {
+    return DescriptionNameBasedPage(
+      categoryName: header,
+      getPage: (profile, header) async =>
+          await _getMarriageNumPage(profile, header),
+    );
+  }
+
+  Future<Widget> _getMarriageNumPage(Profile profile, String header) async {
+    var calc = CategoryCalc.instance.calcMarriageNumber(profile);
+    var tableName = 'MARRIAGE_NUMBER_RUS';
+
+    return await _getMarriageDescriptionPage(tableName, calc, header);
   }
 
   Future<Widget> getBalanceNumPage(Profile profile, String header) async {
@@ -1082,6 +1104,38 @@ class CategoryProvider {
       return {
         'Описание': map['description'] as String,
         'Ваша Характеристика': map['person_characteristic'] as String,
+      };
+    }
+
+    Map<String, String> descriptions =
+        await NumerologyDBProvider.instance.getEntity(
+      'select * from "$tableName"  where  number = $calc',
+      (map) => _fromMapLifePath(map),
+    );
+
+    var info = await getEntityRawQuery(
+        'select description from TABLE_DESCRIPTION where table_name =  "$tableName"');
+
+    List<CardData> data = [];
+    descriptions.forEach((key, value) {
+      data.add(CardData(header: key, description: value));
+    });
+    data.add(
+        CardData(header: Globals.instance.language.info, description: info));
+
+    return DescriptionPage(
+      header: header,
+      calculation: calc.toString(),
+      data: data,
+    );
+  }
+
+  Future<DescriptionPage> _getMarriageDescriptionPage(
+      String tableName, int calc, String header) async {
+    Map<String, String> _fromMapLifePath(Map<String, dynamic> map) {
+      return {
+        'Женщина': map['woman'] as String,
+        'Мужчина': map['man'] as String,
       };
     }
 

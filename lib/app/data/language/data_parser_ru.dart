@@ -11,9 +11,9 @@ class DataParserRu extends DataParser {
   Future<List<CategoryModel>> getCategories(Profile profile) async {
     List<CategoryModel> categories = [];
 
-    // categories.add(CategoryModel(imagePath: marriage, name: 'Число Брака'));
     // categories.add(CategoryModel(imagePath: love, name: 'Число Любви'));
 
+    categories.add(await _getMarriageNumber(profile));
     categories.add(await _getBalanceNumber(profile));
     categories.add(await _getMoneyNumber(profile));
     categories.add(await _getIntelligence(profile));
@@ -36,6 +36,14 @@ class DataParserRu extends DataParser {
     categories.add(await _getMaturityNumber(profile));
 
     return categories;
+  }
+
+  Future<CategoryModel> _getMarriageNumber(Profile profile) async {
+    return CategoryModel(
+      name: 'Число Брака',
+      imagePath: marriage,
+      type: CategoryType.marriageCategory,
+    );
   }
 
   Future<CategoryModel> _getBalanceNumber(Profile profile) async {
