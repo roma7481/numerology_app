@@ -30,6 +30,26 @@ class CategoryCalc {
     return bioLevels;
   }
 
+  List<String> calcBioPrimLevelRu(List<double> bio) {
+    var bioLevels = ['hight', 'hight', 'hight'];
+
+    for (int i = 0; i < bio.length; i++) {
+      if (bio[i] <= 100.0 && bio[i] >= 80.0) {
+        bioLevels[i] = 'max';
+      } else if (bio[i] > 5.0 && bio[i] < 80.0) {
+        bioLevels[i] = 'hight';
+      } else if (bio[i] <= 5.0 && bio[i] >= -5.0) {
+        bioLevels[i] = 'critical';
+      } else if (bio[i] < -5.0 && bio[i] > -80.0) {
+        bioLevels[i] = 'low';
+      } else {
+        bioLevels[i] = 'min';
+      }
+    }
+
+    return bioLevels;
+  }
+
   List<String> calcBioCompatLevel(Profile profile) {
     var bioCompat = calcBioCompat(profile);
     var bioLevels = ['max', 'max', 'max'];

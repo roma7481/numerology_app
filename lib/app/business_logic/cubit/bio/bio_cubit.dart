@@ -1,9 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/business_logic/services/category_calc.dart';
 import 'package:numerology/app/business_logic/services/date_service.dart';
-import 'package:numerology/app/constants/icon_path.dart';
-import 'package:numerology/app/data/language/parser_utils.dart';
+import 'package:numerology/app/data/language/calc_utils.dart';
 import 'package:numerology/app/data/models/profile.dart';
 import 'package:numerology/app/presentation/pages/description/matrix_line_data.dart';
 
@@ -24,45 +22,12 @@ class BioCubit extends Cubit<BioState> {
     emit(BioState(
       bio: bio,
       date: date,
-      description: await _getDescription(bio),
+      description: await CategoryProvider.instance.getPrimBio(bio),
     ));
   }
 
   void emitBioInit(Profile profile) {
     var bio = CategoryCalc.instance.calcBioPrimByDate(profile.dob);
     emitBioUpdate(bio);
-  }
-
-  Future<List<CardData>> _getDescription(List<double> bio) async {
-    var bioLevel = CategoryCalc.instance.calcBioPrimLevel(bio);
-
-    var table = 'BIORITHMS_ENG';
-    var description1 = await getEntityRawQuery(
-        'select description from $table where type = "physical" AND level = "${bioLevel[0]}"');
-    var description2 = await getEntityRawQuery(
-        'select description from $table where type = "emotional" AND level = "${bioLevel[1]}"');
-    var description3 = await getEntityRawQuery(
-        'select description from $table where type = "intellectual" AND level = "${bioLevel[2]}"');
-    var info = await getEntityRawQuery(
-        'select description from "TABLE_DESCRIPTION" where table_name = "$table" ');
-
-    return [
-      CardData(
-          description: description1,
-          header: Globals.instance.language.physicalBio,
-          iconPath: physical),
-      CardData(
-          description: description2,
-          header: Globals.instance.language.emotionalBio,
-          iconPath: emotional),
-      CardData(
-          description: description3,
-          header: Globals.instance.language.intellectBio,
-          iconPath: intel),
-      CardData(
-          description: info,
-          header: Globals.instance.language.info,
-          iconPath: infoIcon),
-    ];
   }
 }

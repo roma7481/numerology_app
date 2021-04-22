@@ -138,13 +138,63 @@ class CategoryProvider {
             await CategoryProvider.instance.getBioSecondPage(profile, header));
         break;
       case CategoryType.dayCategory:
-      case CategoryType.bioSecondCategory:
         navigateToPage(
             context,
             await CategoryProvider.instance
                 .getPersonalDayPage(profile, header));
         break;
     }
+  }
+
+  Future<List<CardData>> getPrimBio(List<double> bio) async {
+    var bioLevel = CategoryCalc.instance.calcBioPrimLevel(bio);
+    var language = Globals.instance.language;
+
+    var table = 'BIORITHMS_ENG';
+    if (Globals.instance.getLanguage() is LanguageRu) {
+      table = 'BIORITHMS_RUS';
+      bioLevel = CategoryCalc.instance.calcBioPrimLevelRu(bio);
+    }
+
+    var categories = [
+      'physical',
+      'emotional',
+      'intellectual',
+    ];
+
+    var icons = [
+      physical,
+      emotional,
+      intel,
+    ];
+
+    var headers = [
+      language.physicalBio,
+      language.emotionalBio,
+      language.intellectBio,
+    ];
+
+    var descriptions = [];
+    List<CardData> data = [];
+    for (var i = 0; i < categories.length; i++) {
+      var description = await getEntityRawQuery(
+          'select description from $table where type = "${categories[i]}" AND level = "${bioLevel[i]}"');
+      descriptions.add(description);
+    }
+
+    for (var i = 0; i < descriptions.length; i++) {
+      data.add(CardData(
+          description: descriptions[i],
+          header: headers[i],
+          iconPath: icons[i]));
+    }
+    var info = await getEntityRawQuery(
+        'select description from "TABLE_DESCRIPTION" where table_name = "$table" ');
+
+    data.add(
+        CardData(description: info, header: language.info, iconPath: infoIcon));
+
+    return data;
   }
 
   Future<List<CardData>> getSecondaryBio(List<double> bio) async {
@@ -195,10 +245,8 @@ class CategoryProvider {
           iconPath: icons[i]));
     }
 
-    data.add(CardData(
-        description: info,
-        header: Globals.instance.language.info,
-        iconPath: infoIcon));
+    data.add(
+        CardData(description: info, header: language.info, iconPath: infoIcon));
 
     return data;
   }
