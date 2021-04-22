@@ -6,27 +6,6 @@ import 'package:numerology/app/data/models/profile.dart';
 import '../models/category_model.dart';
 import 'calc_utils.dart';
 
-enum CategoryType {
-  luckyGemCategory,
-  birthdayNumCategory,
-  birthdayCodeCategory,
-  maturityNumCategory,
-  personalityNumCategory,
-  lifePathNumCategory,
-  challengeNumCategory,
-  realizationNumCategory,
-  expressionNumCategory,
-  nameNumCategory,
-  desireNumCategory,
-  soulNumCategory,
-  weddingNumCategory,
-  matrixLinesCategory,
-  matrixCategory,
-  compatCategory,
-  bioSecondCategory,
-  dayCategory,
-}
-
 class DataParserEn extends DataParser {
   const DataParserEn();
 

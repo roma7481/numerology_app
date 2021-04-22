@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:numerology/app/data/language/data_parser_en.dart';
+import 'package:numerology/app/data/language/calc_utils.dart';
 
 class CategoryModel {
   final String name;

@@ -4,9 +4,9 @@ import 'package:numerology/app/business_logic/services/category_calc.dart';
 import 'package:numerology/app/business_logic/services/date_service.dart';
 import 'package:numerology/app/constants/icon_path.dart';
 import 'package:numerology/app/data/data_provider/numerology_helper.dart';
-import 'package:numerology/app/data/language/data_parser_en.dart';
 import 'package:numerology/app/data/language/parser_utils.dart';
 import 'package:numerology/app/data/models/profile.dart';
+import 'package:numerology/app/localization/language/language_ru.dart';
 import 'package:numerology/app/presentation/navigators/navigator.dart';
 import 'package:numerology/app/presentation/pages/description/compat_internal_page.dart';
 import 'package:numerology/app/presentation/pages/description/description_compat_page.dart';
@@ -18,6 +18,27 @@ import 'package:numerology/app/presentation/pages/description/matrix_line_data.d
 import 'package:numerology/app/presentation/pages/description/matrix_lines_page.dart';
 import 'package:numerology/app/presentation/pages/description/matrix_page.dart';
 import 'package:numerology/app/presentation/pages/graphs/bio_graphs_second_page.dart';
+
+enum CategoryType {
+  luckyGemCategory,
+  birthdayNumCategory,
+  birthdayCodeCategory,
+  maturityNumCategory,
+  personalityNumCategory,
+  lifePathNumCategory,
+  challengeNumCategory,
+  realizationNumCategory,
+  expressionNumCategory,
+  nameNumCategory,
+  desireNumCategory,
+  soulNumCategory,
+  weddingNumCategory,
+  matrixLinesCategory,
+  matrixCategory,
+  compatCategory,
+  bioSecondCategory,
+  dayCategory,
+}
 
 class CategoryProvider {
   final NumerologyDBProvider db;
@@ -338,6 +359,21 @@ class CategoryProvider {
       'Memory'
     ];
 
+    if (Globals.instance.getLanguage() is LanguageRu) {
+      table = 'PSYCHOMATRIX_RUS';
+      headers = [
+        'Характер',
+        'Энергия',
+        'Интерес',
+        'Здоровье',
+        'Логика',
+        'Труд',
+        'Удача',
+        'Долг',
+        'Память'
+      ];
+    }
+
     for (var i = 0; i < categories.length; i++) {
       var description = await getEntityRawQuery(
           'select description from $table where characteristic =  "${categories[i]}" and number = ${_convertMatrixNums(calcs[i])}');
@@ -345,7 +381,7 @@ class CategoryProvider {
     }
 
     var query =
-        'select description from TABLE_DESCRIPTION where table_name = "PSYCHOMATRIX_ENG" and category = 1';
+        'select description from TABLE_DESCRIPTION where table_name = "$table" and category = 1';
     var infoStr = await getEntityRawQuery(query);
     info.add(infoStr);
 
@@ -392,9 +428,6 @@ class CategoryProvider {
     var calcs = CategoryCalc.instance.calcMatrixLines(profile);
     var matrix = CategoryCalc.instance.calcMatrix(profile);
 
-    var table = 'PSYCHOMATRIX_LINES_ENG';
-    var matrixTable = 'PSYCHOMATRIX_ENG';
-
     List<CardData> data = [];
     var icons = [
       matrix1,
@@ -408,6 +441,8 @@ class CategoryProvider {
     ];
     var description = [];
     var info = [];
+    var table = 'PSYCHOMATRIX_LINES_ENG';
+    var matrixTable = 'PSYCHOMATRIX_ENG';
     var categories = [
       'purpose',
       'family',
@@ -418,16 +453,32 @@ class CategoryProvider {
       'temperament',
       'spirituality',
     ];
+
     var headers = [
       'Purpose',
       'Family',
-      'Stability',
+      'stability',
       'Esteem',
       'Finance',
       'Talents',
       'Temperament',
       'Spirituality',
     ];
+
+    if (Globals.instance.getLanguage() is LanguageRu) {
+      table = 'PSYCHOMATRIX_LINES_RUS';
+      matrixTable = 'PSYCHOMATRIX_RUS';
+      headers = [
+        'Целеустремлённость',
+        'Семья',
+        'Стабильность',
+        'Самооценка',
+        'Финансы',
+        'Талант',
+        'Темперамент',
+        'Духовность',
+      ];
+    }
 
     calcs.forEach((calc) async {
       var descriptionStr = await getEntityRawQuery(
@@ -496,7 +547,12 @@ class CategoryProvider {
 
   Future<Widget> _getSoulNumPage(Profile profile, String header) async {
     var calc = CategoryCalc.instance.calcSoulNumber(profile);
+
     var tableName = 'SOUL_URGE_NUMBER_ENG';
+    if (Globals.instance.getLanguage() is LanguageRu) {
+      tableName = 'SOUL_URGE_NUMBER_RUS';
+      return await _getSoulDescriptionPage(tableName, calc, header);
+    }
 
     return await _getDescriptionPage(tableName, calc, header);
   }
@@ -528,6 +584,10 @@ class CategoryProvider {
     var calc = CategoryCalc.instance.calcNameNumber(profile);
     var tableName = 'NAME_NUMBER_ENG';
 
+    if (Globals.instance.getLanguage() is LanguageRu) {
+      tableName = 'NAME_NUMBER_RUS';
+    }
+
     return await _getDescriptionPage(tableName, calc, header);
   }
 
@@ -542,6 +602,10 @@ class CategoryProvider {
   Future<Widget> _getExpressionNumPage(Profile profile, String header) async {
     var calc = CategoryCalc.instance.calcExpressionNumber(profile);
     var tableName = 'EXPRESSION_NUMBER_ENG';
+
+    if (Globals.instance.getLanguage() is LanguageRu) {
+      tableName = 'EXPRESSION_NUMBER_RUS';
+    }
 
     return await _getDescriptionPage(tableName, calc, header);
   }
@@ -558,6 +622,10 @@ class CategoryProvider {
     var calc = CategoryCalc.instance.calcRealizationNumber(profile);
     var tableName = 'REALIZATION_NUMBER_ENG';
 
+    if (Globals.instance.getLanguage() is LanguageRu) {
+      tableName = 'REALIZATION_NUMBER_RUS';
+    }
+
     return await _getDescriptionPage(tableName, calc, header);
   }
 
@@ -571,21 +639,38 @@ class CategoryProvider {
 
     var descriptions = [];
 
+    var headers = [
+      'The First Challenge - ',
+      'The Second Challenge - ',
+      'The Third Challenge - ',
+      'The Forth Challenge - ',
+    ];
+
+    var tableName = 'CHALLENGE_NUMBER_ENG';
+    if (Globals.instance.getLanguage() is LanguageRu) {
+      tableName = 'CHALLENGE_NUMBER_RUS';
+      headers = [
+        'Первое испытание - ',
+        'Второе испытание - ',
+        'Третье испытание - ',
+        'Четвёртое испытание - ',
+      ];
+    }
+
     calc.forEach((calc) async {
       var description = await getEntityRawQuery(
-          'select description from "CHALLENGE_NUMBER_ENG"  where  number = $calc');
+          'select description from "$tableName"  where  number = $calc');
       descriptions.add(description);
     });
 
     var info = await getEntityRawQuery(
-        'select description from TABLE_DESCRIPTION where table_name =  "CHALLENGE_NUMBER_ENG"');
+        'select description from TABLE_DESCRIPTION where table_name =  "$tableName"');
 
     List<CardData> data = [];
 
     for (var i = 0; i < 4; i++) {
-      data.add(CardData(
-          header: 'The First Challenge - ${calc[i]}',
-          description: descriptions[i]));
+      data.add(
+          CardData(header: headers[i] + calc[i], description: descriptions[i]));
     }
 
     data.add(
@@ -599,6 +684,15 @@ class CategoryProvider {
 
   Future<Widget> lifePathNumPage(Profile profile, String header) async {
     Map<String, String> _fromMapLifePath(Map<String, dynamic> map) {
+      if (Globals.instance.getLanguage() is LanguageRu) {
+        return {
+          'Описание': map['description'] as String,
+          'Любовь': map['love'] as String,
+          'Мужчина': map['man'] as String,
+          'Женщина': map['women'] as String,
+        };
+      }
+
       return {
         'Description': map['description'] as String,
         'Profession': map['profession'] as String,
@@ -609,16 +703,21 @@ class CategoryProvider {
       };
     }
 
+    var tableName = 'LIFE_PATH_NUMBER_ENG';
+    if (Globals.instance.getLanguage() is LanguageRu) {
+      tableName = 'LIFE_PATH_NUMBER_RUS';
+    }
+
     var calc = CategoryCalc.instance.calcLifePathNumberMethod1(profile);
 
     Map<String, String> descriptions =
         await NumerologyDBProvider.instance.getEntity(
-      'select * from "LIFE_PATH_NUMBER_ENG"  where  number = $calc',
+      'select * from "$tableName"  where  number = $calc',
       (map) => _fromMapLifePath(map),
     );
 
     var info = await getEntityRawQuery(
-        'select description from TABLE_DESCRIPTION where table_name =  "LIFE_PATH_NUMBER_ENG"');
+        'select description from TABLE_DESCRIPTION where table_name =  "$tableName"');
 
     List<CardData> data = [];
 
@@ -648,12 +747,20 @@ class CategoryProvider {
     var calc = CategoryCalc.instance.calcPersonalityNumber(profile);
     var tableName = 'PERSONALITY_NUMBER_ENG';
 
+    if (Globals.instance.getLanguage() is LanguageRu) {
+      tableName = 'PERSONALITY_NUMBER_RUS';
+    }
+
     return await _getDescriptionPage(tableName, calc, header);
   }
 
   Future<Widget> getLuckyGemPage(Profile profile, String header) async {
     var calc = CategoryCalc.instance.calcLuckGem(profile);
+
     var tableName = 'LUCKY_GEM_ENG';
+    if (Globals.instance.getLanguage() is LanguageRu) {
+      tableName = 'LUCKY_GEM_RUS';
+    }
 
     return await _getDescriptionPage(tableName, calc, header);
   }
@@ -661,6 +768,9 @@ class CategoryProvider {
   Future<Widget> getBirthdayNumPage(Profile profile, String header) async {
     var calc = DateService.fromTimestamp(profile.dob).day;
     var tableName = 'BIRTHDAY_NUMBER_ENG';
+    if (Globals.instance.getLanguage() is LanguageRu) {
+      tableName = 'BIRTHDAY_NUMBER_RUS';
+    }
 
     return await _getDescriptionPage(tableName, calc, header);
   }
@@ -668,6 +778,9 @@ class CategoryProvider {
   Future<Widget> getBirthdayCodePage(Profile profile, String header) async {
     var calc = CategoryCalc.instance.calcBirthdayCode(profile);
     var tableName = 'BIRTHDAY_CODE_ENG';
+    if (Globals.instance.getLanguage() is LanguageRu) {
+      tableName = 'BIRTHDAY_CODE_RUS';
+    }
 
     return await _getDescriptionPage(tableName, calc, header);
   }
@@ -675,6 +788,9 @@ class CategoryProvider {
   Future<Widget> getMaturityNumPage(Profile profile, String header) async {
     var calc = CategoryCalc.instance.calcMaturityNumber(profile);
     var tableName = 'MATURITY_NUMBER_ENG';
+    if (Globals.instance.getLanguage() is LanguageRu) {
+      tableName = 'MATURITY_NUMBER_RUS';
+    }
 
     return await _getDescriptionPage(tableName, calc, header);
   }
@@ -690,6 +806,38 @@ class CategoryProvider {
     data.add(CardData(
         header: Globals.instance.language.description,
         description: description));
+    data.add(
+        CardData(header: Globals.instance.language.info, description: info));
+
+    return DescriptionPage(
+      header: header,
+      calculation: calc.toString(),
+      data: data,
+    );
+  }
+
+  Future<DescriptionPage> _getSoulDescriptionPage(
+      String tableName, int calc, String header) async {
+    Map<String, String> _fromMapLifePath(Map<String, dynamic> map) {
+      return {
+        'Описание': map['description'] as String,
+        'Ваша Характеристика': map['person_characteristic'] as String,
+      };
+    }
+
+    Map<String, String> descriptions =
+        await NumerologyDBProvider.instance.getEntity(
+      'select * from "$tableName"  where  number = $calc',
+      (map) => _fromMapLifePath(map),
+    );
+
+    var info = await getEntityRawQuery(
+        'select description from TABLE_DESCRIPTION where table_name =  "$tableName"');
+
+    List<CardData> data = [];
+    descriptions.forEach((key, value) {
+      data.add(CardData(header: key, description: value));
+    });
     data.add(
         CardData(header: Globals.instance.language.info, description: info));
 
