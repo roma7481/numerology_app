@@ -147,6 +147,62 @@ class CategoryProvider {
     }
   }
 
+  Future<List<CardData>> getSecondaryBio(List<double> bio) async {
+    var bioLevel = CategoryCalc.instance.calcBioSecondLevel(bio);
+    var language = Globals.instance.language;
+
+    var table = 'SECONDARY_BIORITHMS_ENG';
+    if (Globals.instance.getLanguage() is LanguageRu) {
+      table = 'SECONDARY_BIORITHMS_RUS';
+    }
+
+    var categories = [
+      'spiritual',
+      'intuitive',
+      'self-awareness',
+      'aesthetic',
+    ];
+
+    var headers = [
+      language.spiritBio,
+      language.intuitBio,
+      language.awareBio,
+      language.aestheticBio,
+    ];
+
+    var icons = [
+      spirit,
+      intuit,
+      awareness,
+      aesthetic,
+    ];
+
+    var descriptions = [];
+    List<CardData> data = [];
+    for (var i = 0; i < categories.length; i++) {
+      var description = await getEntityRawQuery(
+          'select description from $table where type = "${categories[i]}" AND level = "${bioLevel[i]}"');
+      descriptions.add(description);
+    }
+
+    var info = await getEntityRawQuery(
+        'select description from "TABLE_DESCRIPTION" where table_name = "$table"');
+
+    for (var i = 0; i < descriptions.length; i++) {
+      data.add(CardData(
+          description: descriptions[i],
+          header: headers[i],
+          iconPath: icons[i]));
+    }
+
+    data.add(CardData(
+        description: info,
+        header: Globals.instance.language.info,
+        iconPath: infoIcon));
+
+    return data;
+  }
+
   Future<Widget> getPersonalDayPage(Profile profile, String header) async {
     var calc = CategoryCalc.instance.calcPersonalDay(profile);
     var tableName = 'PERSONAL_DAY_ENG';
