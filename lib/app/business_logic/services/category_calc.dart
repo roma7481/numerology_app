@@ -12,6 +12,12 @@ class CategoryCalc {
 
   static final instance = CategoryCalc._();
 
+  int calcCharacterNumber(Profile profile) {
+    var birthday = DateService.fromTimestamp(profile.dob);
+    var day = _calcToSingleDigit(birthday.day);
+    return _calcToSingleDigit(day);
+  }
+
   List<String> calcAchievementPeriods(Profile profile) {
     var period1 = 36 - _calcAchievementPeriod1(profile);
     var period2 = period1 + 9;

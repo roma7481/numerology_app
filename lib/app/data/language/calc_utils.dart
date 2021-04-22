@@ -41,6 +41,7 @@ enum CategoryType {
 
   /// only RU ///
   achievementCategory,
+  characterCategory,
 }
 
 class CategoryProvider {
@@ -152,7 +153,18 @@ class CategoryProvider {
             await CategoryProvider.instance
                 .getAchievementNumPage(profile, header));
         break;
+      case CategoryType.characterCategory:
+        navigateToPage(context,
+            await CategoryProvider.instance.getCharacterPage(profile, header));
+        break;
     }
+  }
+
+  Future<Widget> getCharacterPage(Profile profile, String header) async {
+    var calc = CategoryCalc.instance.calcCharacterNumber(profile);
+    var tableName = 'CHARACTER_NUMBER_RUS';
+
+    return await _getDescriptionPage(tableName, calc, header);
   }
 
   Future<List<CardData>> getPrimBio(List<double> bio) async {
