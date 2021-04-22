@@ -160,39 +160,8 @@ class DataParserRu extends DataParser {
 
   @override
   Future<CategoryModel> getPersonalDay(Profile profile) async {
-    // var calculation = CategoryCalc.instance.calcPersonalDay(profile).toString();
-    //
-    // var description = await getEntity(
-    //     table: 'PERSONAL_DAY_RUS',
-    //     queryColumn: 'number',
-    //     resColumn: 'description',
-    //     value: calculation);
-    // var info = await getEntity(
-    //     table: 'TABLE_DESCRIPTION',
-    //     queryColumn: 'table_name',
-    //     resColumn: 'description',
-    //     value: '\"PERSONAL_DAY_RUS\"');
-    //
-    // String categoryName = 'Число дня';
-    //
-    // var language = Globals.instance.language;
-    // Map<String, String> cards = {
-    //   language.description: description,
-    //   language.info: info
-    // };
-
-    // return CategoryModel(
-    //     imagePath: day,
-    //     text: categoryName,
-    //     content: description,
-    //     page: DescriptionPage(
-    //       header: categoryName,
-    //       calculation: calculation,
-    //       description: cards,
-    //     ));
-
     return CategoryModel(
-      name: 'Day number',
+      name: 'Число дня',
       imagePath: day,
       type: CategoryType.dayCategory,
       dayContent: await CategoryProvider.instance.getDayContent(profile),

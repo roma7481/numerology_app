@@ -206,6 +206,9 @@ class CategoryProvider {
   Future<Widget> getPersonalDayPage(Profile profile, String header) async {
     var calc = CategoryCalc.instance.calcPersonalDay(profile);
     var tableName = 'PERSONAL_DAY_ENG';
+    if (Globals.instance.getLanguage() is LanguageRu) {
+      tableName = 'PERSONAL_DAY_RUS';
+    }
 
     return await _getDescriptionPage(tableName, calc, header);
   }
@@ -213,6 +216,9 @@ class CategoryProvider {
   Future<String> getDayContent(Profile profile) async {
     var calc = CategoryCalc.instance.calcPersonalDay(profile);
     var tableName = 'PERSONAL_DAY_ENG';
+    if (Globals.instance.getLanguage() is LanguageRu) {
+      tableName = 'PERSONAL_DAY_RUS';
+    }
 
     var description = await getEntityRawQuery(
         'select description from "$tableName"  where  number = $calc');
