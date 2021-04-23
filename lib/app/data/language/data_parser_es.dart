@@ -17,7 +17,7 @@ class DataParserEs extends DataParser {
     //     CategoryModel(imagePath: secondaryBio, name: 'Biorritmos secundarios'));
     // categories.add(
     //     CategoryModel(imagePath: lifePath, name: 'Número del camino de vida'));
-    // categories.add(CategoryModel(imagePath: soul, name: 'Numero del alma'));
+
     // categories.add(CategoryModel(
     //     imagePath: achievement, name: 'Números de los Pináculos'));
     // categories
@@ -27,6 +27,7 @@ class DataParserEs extends DataParser {
     //     .add(CategoryModel(imagePath: potential, name: 'Numero Potencial'));
     // categories.add(CategoryModel(imagePath: karma, name: 'Ley Karmica'));
 
+    categories.add(await _getSoulNumber(profile));
     categories.add(await _getNameNumber(profile));
     categories.add(await _getExpressionNumber(profile));
     categories.add(await _getPersonalityNumber(profile));
@@ -34,6 +35,14 @@ class DataParserEs extends DataParser {
     categories.add(await _getMaturityNumber(profile));
     categories.add(await _getBirthdayCode(profile));
     return categories;
+  }
+
+  Future<CategoryModel> _getSoulNumber(Profile profile) async {
+    return CategoryModel(
+      name: 'Numero del alma',
+      imagePath: soul,
+      type: CategoryType.soulNumCategory,
+    );
   }
 
   Future<CategoryModel> _getNameNumber(Profile profile) async {

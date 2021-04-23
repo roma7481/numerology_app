@@ -832,6 +832,8 @@ class CategoryProvider {
     if (Globals.instance.getLanguage() is LanguageRu) {
       tableName = 'SOUL_URGE_NUMBER_RUS';
       return await _getSoulDescriptionPage(tableName, calc, header);
+    } else if (Globals.instance.getLanguage() is LanguageEs) {
+      tableName = 'SOUL_URGE_NUMBER_ESP';
     }
 
     return await _getDescriptionPage(tableName, calc, header);
