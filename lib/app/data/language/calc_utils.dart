@@ -6,6 +6,7 @@ import 'package:numerology/app/constants/icon_path.dart';
 import 'package:numerology/app/data/data_provider/numerology_helper.dart';
 import 'package:numerology/app/data/language/parser_utils.dart';
 import 'package:numerology/app/data/models/profile.dart';
+import 'package:numerology/app/localization/language/language_es.dart';
 import 'package:numerology/app/localization/language/language_ru.dart';
 import 'package:numerology/app/presentation/navigators/navigator.dart';
 import 'package:numerology/app/presentation/pages/description/compat_internal_page.dart';
@@ -383,6 +384,8 @@ class CategoryProvider {
     var tableName = 'PERSONAL_DAY_ENG';
     if (Globals.instance.getLanguage() is LanguageRu) {
       tableName = 'PERSONAL_DAY_RUS';
+    } else if (Globals.instance.getLanguage() is LanguageEs) {
+      tableName = 'PERSONAL_DAY_ESP';
     }
 
     return await _getDescriptionPage(tableName, calc, header);
@@ -393,6 +396,8 @@ class CategoryProvider {
     var tableName = 'PERSONAL_DAY_ENG';
     if (Globals.instance.getLanguage() is LanguageRu) {
       tableName = 'PERSONAL_DAY_RUS';
+    } else if (Globals.instance.getLanguage() is LanguageEs) {
+      tableName = 'PERSONAL_DAY_ESP';
     }
 
     var description = await getEntityRawQuery(
@@ -1088,6 +1093,8 @@ class CategoryProvider {
     var tableName = 'BIRTHDAY_CODE_ENG';
     if (Globals.instance.getLanguage() is LanguageRu) {
       tableName = 'BIRTHDAY_CODE_RUS';
+    } else if (Globals.instance.getLanguage() is LanguageEs) {
+      tableName = 'BIRTHDAY_CODE_ESP';
     }
 
     return await _getDescriptionPage(tableName, calc, header);
