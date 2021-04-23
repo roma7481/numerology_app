@@ -885,6 +885,8 @@ class CategoryProvider {
 
     if (Globals.instance.getLanguage() is LanguageRu) {
       tableName = 'EXPRESSION_NUMBER_RUS';
+    } else if (Globals.instance.getLanguage() is LanguageRu) {
+      tableName = 'EXPRESSION_NUMBER_ESP';
     }
 
     return await _getDescriptionPage(tableName, calc, header);
