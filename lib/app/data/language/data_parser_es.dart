@@ -25,17 +25,24 @@ class DataParserEs extends DataParser {
     // categories.add(CategoryModel(imagePath: name, name: 'Numero de Nombre'));
     // categories
     //     .add(CategoryModel(imagePath: expression, name: 'Número de Expresión'));
-    // categories.add(
-    //     CategoryModel(imagePath: personality, name: 'Numero de Personalidad'));
 
     // categories
     //     .add(CategoryModel(imagePath: potential, name: 'Numero Potencial'));
     // categories.add(CategoryModel(imagePath: karma, name: 'Ley Karmica'));
 
+    categories.add(await _getPersonalityNumber(profile));
     categories.add(await _getBirthdayNumber(profile));
     categories.add(await _getMaturityNumber(profile));
     categories.add(await _getBirthdayCode(profile));
     return categories;
+  }
+
+  Future<CategoryModel> _getPersonalityNumber(Profile profile) async {
+    return CategoryModel(
+      name: 'Numero de Personalidad',
+      imagePath: personality,
+      type: CategoryType.personalityNumCategory,
+    );
   }
 
   Future<CategoryModel> _getBirthdayNumber(Profile profile) async {
