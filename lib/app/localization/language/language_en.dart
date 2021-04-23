@@ -195,9 +195,6 @@ class LanguageEn extends Languages {
   String get cancel => 'Cancel';
 
   @override
-  String get coupleDateProfiles => 'Couple';
-
-  @override
   String get partnerProfiles => 'Partner';
 
   @override

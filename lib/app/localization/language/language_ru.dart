@@ -188,9 +188,6 @@ class LanguageRu extends Languages {
   String get cancel => 'cancel RU';
 
   @override
-  String get coupleDateProfiles => 'Couple RU';
-
-  @override
   String get partnerProfiles => 'Partner RU';
 
   @override

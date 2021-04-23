@@ -11,9 +11,7 @@ class DataParserEs extends DataParser {
   Future<List<CategoryModel>> getCategories(Profile profile) async {
     List<CategoryModel> categories = [];
 
-    // categories.add(
-    //     CategoryModel(imagePath: compatibility, name: 'Compatibilidad total'));
-
+    categories.add(await _getCompat(profile));
     categories.add(await _getKarma(profile));
     categories.add(await _getPotential(profile));
     categories.add(await _getSecondBio(profile));
@@ -28,6 +26,14 @@ class DataParserEs extends DataParser {
     categories.add(await _getMaturityNumber(profile));
     categories.add(await _getBirthdayCode(profile));
     return categories;
+  }
+
+  Future<CategoryModel> _getCompat(Profile profile) async {
+    return CategoryModel(
+      name: 'Compatibilidad total',
+      imagePath: compatibility,
+      type: CategoryType.compatCategory,
+    );
   }
 
   Future<CategoryModel> _getKarma(Profile profile) async {

@@ -13,6 +13,16 @@ class CategoryCalc {
 
   static final instance = CategoryCalc._();
 
+  int calcCoupleNum(Profile profile) {
+    var birthday = DateService.fromTimestamp(profile.dob);
+    var pBirthday = DateService.fromTimestamp(profile.partnerDob);
+    var coupleNum1 =
+        _calcToSingleDigit(birthday.day + birthday.month + birthday.year);
+    var coupleNum2 =
+        _calcToSingleDigit(pBirthday.day + pBirthday.month + pBirthday.year);
+    return _calcToSingleDigit(coupleNum1 + coupleNum2);
+  }
+
   List<int> calcKarmicNum(Profile profile) {
     var fName = profile.firstName.toLowerCase();
     var mName = profile.middleName.toLowerCase();

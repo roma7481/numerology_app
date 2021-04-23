@@ -40,7 +40,6 @@ class _EditProfileState extends State<EditProfile> {
   var _partnerDob;
   var _weddingDate;
   var _updatedProfile;
-  var _coupleDate;
   var _wasUpdated = false;
 
   final controllerProfileName = TextEditingController();
@@ -59,9 +58,6 @@ class _EditProfileState extends State<EditProfile> {
     }
     if (widget.profile.weddingDate != null) {
       _weddingDate = DateService.fromTimestamp(widget.profile.weddingDate);
-    }
-    if (widget.profile.coupleDate != null) {
-      _coupleDate = DateService.fromTimestamp(widget.profile.coupleDate);
     }
 
     controllerProfileName.value = controllerProfileName.value.copyWith(
@@ -160,7 +156,7 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   Widget _buildEs() {
-    return _buildCoupleDateSettings();
+    return _buildPartnerDobSettings();
   }
 
   Widget _buildButtons() {
@@ -235,15 +231,6 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
-  Widget _buildCoupleDateSettings() {
-    return Column(
-      children: [
-        _buildHeader(Globals.instance.language.coupleDateProfiles),
-        _buildDOBPicker(_getCoupleText(), _updateCoupleDate),
-      ],
-    );
-  }
-
   Widget _buildWeddingDateSettings() {
     return Column(
       children: [
@@ -288,13 +275,6 @@ class _EditProfileState extends State<EditProfile> {
     });
   }
 
-  void _updateCoupleDate(DateTime date) {
-    setState(() {
-      _wasUpdated = true;
-      _coupleDate = date;
-    });
-  }
-
   void _updateWeddingDate(DateTime date) {
     setState(() {
       _wasUpdated = true;
@@ -312,12 +292,6 @@ class _EditProfileState extends State<EditProfile> {
     return _partnerDob == null
         ? Globals.instance.language.partnersDob
         : DateService.getFormattedDate(_partnerDob);
-  }
-
-  String _getCoupleText() {
-    return _coupleDate == null
-        ? Globals.instance.language.coupleDateProfiles
-        : DateService.getFormattedDate(_coupleDate);
   }
 
   String _getWeddingDateText() {
@@ -349,7 +323,6 @@ class _EditProfileState extends State<EditProfile> {
     } else {
       await _updateProfile();
     }
-
   }
 
   Future _updateProfile() async {
@@ -362,8 +335,6 @@ class _EditProfileState extends State<EditProfile> {
           middleName: controllerMiddleName.text,
           partnerDob:
               _partnerDob != null ? DateService.toTimestamp(_partnerDob) : null,
-          coupleDate:
-              _coupleDate != null ? DateService.toTimestamp(_coupleDate) : null,
           weddingDate: _weddingDate != null
               ? DateService.toTimestamp(_weddingDate)
               : null);

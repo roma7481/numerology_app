@@ -477,12 +477,20 @@ class CategoryProvider {
         CategoryCalc.instance.calcMatrixLinesByDob(profile.partnerDob);
     var partnerMatrix =
         CategoryCalc.instance.calcMatrixByDob(profile.partnerDob);
+    var coupleNumSpanish;
 
     List<CardData> bioCompatData = await _getBioCompat(profile, bioCompat);
     List<CardData> lifePathData =
         await _getPathCompat(yourLifePath, partnerLifePath);
-    List<CardData> matrixCompData =
-        await _getMtxCompat(yourMatrixLines, partnerMatrixLines);
+
+    List<CardData> matrixCompData;
+    List<CardData> coupleCompData;
+    if (Globals.instance.language is LanguageEs) {
+      coupleNumSpanish = CategoryCalc.instance.calcCoupleNum(profile);
+      coupleCompData = await _getCoupleCompat(coupleNumSpanish);
+    } else {
+      matrixCompData = await _getMtxCompat(yourMatrixLines, partnerMatrixLines);
+    }
 
     return CompatInternalPage(
       bioCompat: bioCompat,
@@ -493,7 +501,26 @@ class CategoryProvider {
       matrixData: matrixCompData,
       bioData: bioCompatData,
       lifePathData: lifePathData,
+      coupleNumSpanish: coupleNumSpanish,
+      coupleNumData: coupleCompData,
     );
+  }
+
+  Future<List<CardData>> _getCoupleCompat(calc) async {
+    var tableName = 'COUPLE_NUMBER_ESP';
+    var description = await getEntityRawQuery(
+        'select description from "$tableName"  where  number = $calc');
+    var info = await getEntityRawQuery(
+        'select description from TABLE_DESCRIPTION where table_name =  "$tableName"');
+
+    List<CardData> data = [];
+    data.add(CardData(
+        header: Globals.instance.language.description,
+        description: description));
+    data.add(
+        CardData(header: Globals.instance.language.info, description: info));
+
+    return data;
   }
 
   Future<List<CardData>> _getMtxCompat(

@@ -8,6 +8,7 @@ import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
 import 'package:numerology/app/presentation/common_widgets/foldable_card_widget.dart';
 import 'package:numerology/app/presentation/pages/graphs/bio_pi_charts.dart';
 
+import 'circle_widget.dart';
 import 'compat_circle_widget.dart';
 import 'matrix_line_data.dart';
 import 'matrix_utils.dart';
@@ -21,6 +22,8 @@ class CompatInternalPage extends StatefulWidget {
   final List<double> bioCompat;
   final int yourLifePath;
   final int partnersLifePath;
+  final int coupleNumSpanish;
+  final List<CardData> coupleNumData;
   final Function getPage;
 
   const CompatInternalPage({
@@ -34,6 +37,8 @@ class CompatInternalPage extends StatefulWidget {
     this.bioData,
     this.bioCompat,
     this.getPage,
+    this.coupleNumSpanish,
+    this.coupleNumData,
   }) : super(key: key);
 
   @override
@@ -70,6 +75,9 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
 
   List<Widget> _buildPageDescription() {
     if (_selectedIndex == 0) {
+      if (widget.coupleNumSpanish != null) {
+        return _buildCoupleNumCompat();
+      }
       return _buildMatrixCompat();
     } else if (_selectedIndex == 1) {
       return _buildBioCompat();
@@ -79,7 +87,7 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
 
   SliverFixedExtentList _buildTopNav() {
     return SliverFixedExtentList(
-        itemExtent: 100.0,
+        itemExtent: 80.0,
         delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
           return new Container(
             alignment: Alignment.center,
@@ -151,6 +159,41 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
         ),
       ),
     );
+  }
+
+  List<Widget> _buildCoupleNumCompat() {
+    return [
+      _buildTopNav(),
+      _buildCoupleNumberIcon(context, widget.coupleNumSpanish.toString()),
+      SliverToBoxAdapter(
+        child: SizedBox(
+          height: 150.0,
+        ),
+      ),
+      _buildCoupleList(widget.coupleNumData),
+    ];
+  }
+
+  Widget _buildCoupleNumberIcon(BuildContext context, String calculation) {
+    return SliverToBoxAdapter(
+      child: Container(
+        height: 30,
+        child: CustomPaint(
+          painter: OpenPainter(context, calculation),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCoupleList(List<CardData> dataList) {
+    return SliverList(
+        delegate: SliverChildBuilderDelegate(
+      (context, index) {
+        var data = dataList[index];
+        return buildExpandCard(data.header, data.description, data.iconPath);
+      },
+      childCount: dataList.length,
+    ));
   }
 
   List<Widget> _buildBioCompat() {

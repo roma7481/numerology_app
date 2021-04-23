@@ -177,8 +177,8 @@ class _ProfilesPageState extends State<ProfilesPage> {
       padding: EdgeInsets.only(left: width * 0.001),
       child: Column(
         children: [
-          _buildSecondary('${language.coupleDateProfiles} - ',
-              DateService.fromTimestampToString(profile.coupleDate),
+          _buildSecondary('${language.partnersDob} - ',
+              DateService.fromTimestampToString(profile.partnerDob),
               widthDelta: 0.25),
           _buildSecondary('', '', widthDelta: 0.25),
           _buildSecondary('', '', widthDelta: 0.25),
