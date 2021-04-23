@@ -866,6 +866,8 @@ class CategoryProvider {
 
     if (Globals.instance.getLanguage() is LanguageRu) {
       tableName = 'NAME_NUMBER_RUS';
+    } else if (Globals.instance.getLanguage() is LanguageEs) {
+      tableName = 'NAME_NUMBER_ESP';
     }
 
     return await _getDescriptionPage(tableName, calc, header);
@@ -885,7 +887,7 @@ class CategoryProvider {
 
     if (Globals.instance.getLanguage() is LanguageRu) {
       tableName = 'EXPRESSION_NUMBER_RUS';
-    } else if (Globals.instance.getLanguage() is LanguageRu) {
+    } else if (Globals.instance.getLanguage() is LanguageEs) {
       tableName = 'EXPRESSION_NUMBER_ESP';
     }
 
@@ -1064,7 +1066,7 @@ class CategoryProvider {
 
     if (Globals.instance.getLanguage() is LanguageRu) {
       tableName = 'PERSONALITY_NUMBER_RUS';
-    } else if (Globals.instance.getLanguage() is LanguageRu) {
+    } else if (Globals.instance.getLanguage() is LanguageEs) {
       tableName = 'PERSONALITY_NUMBER_ESP';
     }
 

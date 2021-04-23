@@ -22,18 +22,26 @@ class DataParserEs extends DataParser {
     //     imagePath: achievement, name: 'Números de los Pináculos'));
     // categories
     //     .add(CategoryModel(imagePath: challenge, name: 'Números de desafío'));
-    // categories.add(CategoryModel(imagePath: name, name: 'Numero de Nombre'));
 
     // categories
     //     .add(CategoryModel(imagePath: potential, name: 'Numero Potencial'));
     // categories.add(CategoryModel(imagePath: karma, name: 'Ley Karmica'));
 
+    categories.add(await _getNameNumber(profile));
     categories.add(await _getExpressionNumber(profile));
     categories.add(await _getPersonalityNumber(profile));
     categories.add(await _getBirthdayNumber(profile));
     categories.add(await _getMaturityNumber(profile));
     categories.add(await _getBirthdayCode(profile));
     return categories;
+  }
+
+  Future<CategoryModel> _getNameNumber(Profile profile) async {
+    return CategoryModel(
+      name: 'Numero de Nombre',
+      imagePath: name,
+      type: CategoryType.nameNumCategory,
+    );
   }
 
   Future<CategoryModel> _getExpressionNumber(Profile profile) async {
