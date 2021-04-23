@@ -332,6 +332,8 @@ class CategoryProvider {
     var table = 'SECONDARY_BIORITHMS_ENG';
     if (Globals.instance.getLanguage() is LanguageRu) {
       table = 'SECONDARY_BIORITHMS_RUS';
+    } else if (Globals.instance.getLanguage() is LanguageEs) {
+      table = 'SECONDARY_BIORITHMS_ESP';
     }
 
     var categories = [
