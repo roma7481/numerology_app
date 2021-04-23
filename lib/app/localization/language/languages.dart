@@ -25,6 +25,8 @@ abstract class Languages {
 
   String get nameSettings;
 
+  String get settings;
+
   String get nameSettingsText;
 
   String get enterName;

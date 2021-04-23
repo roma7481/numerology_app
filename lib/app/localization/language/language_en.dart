@@ -222,4 +222,7 @@ class LanguageEn extends Languages {
 
   @override
   String get nameShouldContainVowels => 'Name settings should contain vowels';
+
+  @override
+  String get settings => 'Settings';
 }

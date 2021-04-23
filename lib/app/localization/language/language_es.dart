@@ -216,4 +216,7 @@ class LanguageEs extends Languages {
   @override
   String get nameShouldContainVowels =>
       'Name settings should contain vowels ES';
+
+  @override
+  String get settings => 'Settings ES';
 }

@@ -216,4 +216,7 @@ class LanguageRu extends Languages {
   @override
   String get nameShouldContainVowels =>
       'Name settings should contain vowels RU';
+
+  @override
+  String get settings => 'Settings RU';
 }

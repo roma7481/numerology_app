@@ -3,6 +3,7 @@ import 'package:numerology/app/presentation/pages/bottom_navigator/tab_item.dart
 import 'package:numerology/app/presentation/pages/forecast/forecast_page.dart';
 import 'package:numerology/app/presentation/pages/home/home_page.dart';
 import 'package:numerology/app/presentation/pages/profiles/profiles_page.dart';
+import 'package:numerology/app/presentation/pages/settings/settings_page.dart';
 
 import 'cuppertino_home_scaffold.dart';
 
@@ -31,7 +32,7 @@ class _MainPageState extends State<MainPage> {
       TabItem.home: (_) => HomePage(),
       TabItem.forecast: (_) => ForecastPage(),
       TabItem.profile: (_) => ProfilesPage(),
-      TabItem.settings: (_) => Container(),
+      TabItem.settings: (_) => SettingsPage(),
     };
   }
 
