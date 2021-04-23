@@ -48,6 +48,9 @@ enum CategoryType {
   balanceCategory,
   marriageCategory,
   loveCategory,
+
+  /// ES ///
+  potentialCategory,
 }
 
 class CategoryProvider {
@@ -187,7 +190,28 @@ class CategoryProvider {
         navigateToPage(context,
             await CategoryProvider.instance.getLoveNumPage(profile, header));
         break;
+      case CategoryType.potentialCategory:
+        navigateToPage(
+            context,
+            await CategoryProvider.instance
+                .getPotentialNumPage(profile, header));
+        break;
     }
+  }
+
+  Future<Widget> getPotentialNumPage(Profile profile, String header) async {
+    return DescriptionNameBasedPage(
+      categoryName: header,
+      getPage: (profile, header) async =>
+          await _getPotentialNumPage(profile, header),
+    );
+  }
+
+  Future<Widget> _getPotentialNumPage(Profile profile, String header) async {
+    var calc = CategoryCalc.instance.calcPotentialNum(profile);
+    var tableName = 'POTENTIAL_NUMBER_ESP';
+
+    return await _getDescriptionPage(tableName, calc, header);
   }
 
   Future<Widget> getLoveNumPage(Profile profile, String header) async {

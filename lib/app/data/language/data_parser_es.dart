@@ -13,11 +13,9 @@ class DataParserEs extends DataParser {
 
     // categories.add(
     //     CategoryModel(imagePath: compatibility, name: 'Compatibilidad total'));
-
-    // categories
-    //     .add(CategoryModel(imagePath: potential, name: 'Numero Potencial'));
     // categories.add(CategoryModel(imagePath: karma, name: 'Ley Karmica'));
 
+    categories.add(await _getPotential(profile));
     categories.add(await _getSecondBio(profile));
     categories.add(await _getAchievement(profile));
     categories.add(await _getChallengeNumber(profile));
@@ -30,6 +28,14 @@ class DataParserEs extends DataParser {
     categories.add(await _getMaturityNumber(profile));
     categories.add(await _getBirthdayCode(profile));
     return categories;
+  }
+
+  Future<CategoryModel> _getPotential(Profile profile) async {
+    return CategoryModel(
+      name: 'Numero Potencial',
+      imagePath: potential,
+      type: CategoryType.potentialCategory,
+    );
   }
 
   Future<CategoryModel> _getSecondBio(Profile profile) async {

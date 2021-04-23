@@ -13,6 +13,39 @@ class CategoryCalc {
 
   static final instance = CategoryCalc._();
 
+  int calcPotentialNum(Profile profile) {
+    var birthCode = calcBirthdayCode(profile);
+    var destinyNum = _calcDestinyNumber(profile);
+    return _calcToSingleDigitWithMagicNums(birthCode + destinyNum);
+  }
+
+  int _calcDestinyNumber(Profile profile) {
+    var isStop = false;
+
+    var fName = profile.firstName.toLowerCase();
+    var mName = profile.middleName.toLowerCase();
+    var lName = profile.lastName.toLowerCase();
+    var fNameNum = _calcToSingleDigit(_convertConCharsAndSum(fName));
+    var mNameNum = _calcToSingleDigit(_convertConCharsAndSum(mName));
+    var lNameNum = _calcToSingleDigit(_convertConCharsAndSum(lName));
+    var fNameVow = _calcToSingleDigit(_convertVowCharsAndSum(fName));
+    var mNameVow = _calcToSingleDigit(_convertVowCharsAndSum(mName));
+    var lNameVow = _calcToSingleDigit(_convertVowCharsAndSum(lName));
+
+    var destinyNumber =
+        fNameNum + mNameNum + lNameNum + fNameVow + lNameVow + mNameVow;
+
+    while (!isStop) {
+      if (destinyNumber == 11 || destinyNumber == 22 || destinyNumber < 10) {
+        isStop = true;
+      } else {
+        destinyNumber = _calcNumToDigits(destinyNumber);
+      }
+    }
+
+    return destinyNumber;
+  }
+
   int calcLoveCompatNumberRu(Profile profile) {
     var birthday = DateService.fromTimestamp(profile.partnerDob);
     var day = _calcToSingleDigitWithMagicNums(birthday.day);
