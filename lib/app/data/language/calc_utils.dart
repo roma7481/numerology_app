@@ -282,6 +282,8 @@ class CategoryProvider {
     if (Globals.instance.getLanguage() is LanguageRu) {
       table = 'BIORITHMS_RUS';
       bioLevel = CategoryCalc.instance.calcBioPrimLevelRu(bio);
+    } else if (Globals.instance.getLanguage() is LanguageEs) {
+      table = 'BIORITHMS_ESP';
     }
 
     var categories = [
