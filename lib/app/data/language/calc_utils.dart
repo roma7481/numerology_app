@@ -974,6 +974,14 @@ class CategoryProvider {
         'Третье испытание - ',
         'Четвёртое испытание - ',
       ];
+    } else if (Globals.instance.getLanguage() is LanguageEs) {
+      tableName = 'CHALLENGE_NUMBER_ESP';
+      headers = [
+        'El primer desafío - ',
+        'El segundo desafío - ',
+        'El tercer desafío - ',
+        'El cuarto desafío - ',
+      ];
     }
 
     calc.forEach((calc) async {
