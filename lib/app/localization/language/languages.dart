@@ -3,6 +3,8 @@ abstract class Languages {
 
   String get welcomeText;
 
+  String get language;
+
   String get dateOfBirth;
 
   String get weddingDate;

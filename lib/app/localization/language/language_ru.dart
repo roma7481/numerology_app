@@ -219,4 +219,7 @@ class LanguageRu extends Languages {
 
   @override
   String get settings => 'Settings RU';
+
+  @override
+  String get language => 'language RU';
 }

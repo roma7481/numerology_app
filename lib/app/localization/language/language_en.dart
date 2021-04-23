@@ -225,4 +225,7 @@ class LanguageEn extends Languages {
 
   @override
   String get settings => 'Settings';
+
+  @override
+  String get language => 'language';
 }
