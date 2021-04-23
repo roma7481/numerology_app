@@ -51,6 +51,7 @@ enum CategoryType {
 
   /// ES ///
   potentialCategory,
+  karmaCategory,
 }
 
 class CategoryProvider {
@@ -196,7 +197,26 @@ class CategoryProvider {
             await CategoryProvider.instance
                 .getPotentialNumPage(profile, header));
         break;
+      case CategoryType.karmaCategory:
+        navigateToPage(context,
+            await CategoryProvider.instance.getKarmaNumPage(profile, header));
+        break;
     }
+  }
+
+  Future<Widget> getKarmaNumPage(Profile profile, String header) async {
+    return DescriptionNameBasedPage(
+      categoryName: header,
+      getPage: (profile, header) async =>
+          await _getKarmaNumPage(profile, header),
+    );
+  }
+
+  Future<Widget> _getKarmaNumPage(Profile profile, String header) async {
+    var calc = CategoryCalc.instance.calcKarmicNum(profile);
+    var tableName = 'KARMIC_LESSON_ESP';
+
+    return await _getKarmaDescriptionPage(tableName, calc, header);
   }
 
   Future<Widget> getPotentialNumPage(Profile profile, String header) async {
@@ -1306,6 +1326,38 @@ class CategoryProvider {
     descriptions.forEach((key, value) {
       data.add(CardData(header: key, description: value));
     });
+    data.add(
+        CardData(header: Globals.instance.language.info, description: info));
+
+    return DescriptionPage(
+      header: header,
+      data: data,
+    );
+  }
+
+  Future<DescriptionPage> _getKarmaDescriptionPage(
+      String tableName, List<int> calc, String header) async {
+    List<String> descriptions = [];
+    var headers = [];
+
+    for (int i = 1; i < calc.length; i++) {
+      if (calc[i] > 0) {
+        var frequency = calc[i] > 3 ? 'lot' : 'few';
+        headers.add(frequency == 'lot' ? 'Muchos $i' : 'Pocos $i');
+        var description = await getEntityRawQuery(
+            'select description from $tableName where frequency = "$frequency" AND number = "$i"');
+        descriptions.add(description);
+      }
+    }
+
+    var info = await getEntityRawQuery(
+        'select description from TABLE_DESCRIPTION where table_name = "$tableName"');
+
+    List<CardData> data = [];
+    for (int i = 0; i < descriptions.length; i++) {
+      data.add(CardData(header: headers[i], description: descriptions[i]));
+    }
+
     data.add(
         CardData(header: Globals.instance.language.info, description: info));
 

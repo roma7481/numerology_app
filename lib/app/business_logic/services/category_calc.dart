@@ -13,6 +13,29 @@ class CategoryCalc {
 
   static final instance = CategoryCalc._();
 
+  List<int> calcKarmicNum(Profile profile) {
+    var fName = profile.firstName.toLowerCase();
+    var mName = profile.middleName.toLowerCase();
+    var lName = profile.lastName.toLowerCase();
+    var fullName = fName + mName + lName;
+
+    var lettersNum = '';
+
+    fullName.split('').forEach((ch) {
+      lettersNum = lettersNum + (letterToNumber(ch).toString());
+    });
+
+    var numDigits = 10;
+    List<int> karmic = [];
+
+    for (int digit = 0; digit < numDigits; digit++) {
+      var numDigits = digit.toString().allMatches(lettersNum).length;
+      karmic.add(numDigits);
+    }
+
+    return karmic;
+  }
+
   int calcPotentialNum(Profile profile) {
     var birthCode = calcBirthdayCode(profile);
     var destinyNum = _calcDestinyNumber(profile);
