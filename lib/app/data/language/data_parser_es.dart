@@ -16,13 +16,11 @@ class DataParserEs extends DataParser {
     // categories.add(
     //     CategoryModel(imagePath: secondaryBio, name: 'Biorritmos secundarios'));
 
-    // categories.add(CategoryModel(
-    //     imagePath: achievement, name: 'Números de los Pináculos'));
-
     // categories
     //     .add(CategoryModel(imagePath: potential, name: 'Numero Potencial'));
     // categories.add(CategoryModel(imagePath: karma, name: 'Ley Karmica'));
 
+    categories.add(await _getAchievement(profile));
     categories.add(await _getChallengeNumber(profile));
     categories.add(await _getLifePathNumber(profile));
     categories.add(await _getSoulNumber(profile));
@@ -33,6 +31,14 @@ class DataParserEs extends DataParser {
     categories.add(await _getMaturityNumber(profile));
     categories.add(await _getBirthdayCode(profile));
     return categories;
+  }
+
+  Future<CategoryModel> _getAchievement(Profile profile) async {
+    return CategoryModel(
+      name: 'Números de los Pináculos',
+      imagePath: achievement,
+      type: CategoryType.achievementCategory,
+    );
   }
 
   Future<CategoryModel> _getChallengeNumber(Profile profile) async {

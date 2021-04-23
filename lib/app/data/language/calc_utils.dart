@@ -41,7 +41,7 @@ enum CategoryType {
   dayCategory,
   moneyCategory,
 
-  /// only RU ///
+  /// RU ///
   achievementCategory,
   characterCategory,
   intelligenceCategory,
@@ -920,14 +920,24 @@ class CategoryProvider {
     var period = CategoryCalc.instance.calcAchievementPeriods(profile);
 
     var tableName = 'ACHIEVEMENT_NUMBER_RUS';
-
-    var descriptions = [];
     var headers = [
       'Первый Пик - ${calc[0]}',
       'Второй Пик - ${calc[1]}',
       'Третий Пик - ${calc[2]}',
       'Четвёртый Пик - ${calc[3]}',
     ];
+
+    if (Globals.instance.language is LanguageEs) {
+      tableName = 'ACHIEVEMENT_NUMBER_ESP';
+      headers = [
+        'Primer período - ${calc[0]}',
+        'Segundo período - ${calc[1]}',
+        'Tercer período - ${calc[2]}',
+        'Cuarto período - ${calc[3]}',
+      ];
+    }
+
+    var descriptions = [];
 
     for (var i = 0; i < calc.length; i++) {
       var description = await getEntityRawQuery(

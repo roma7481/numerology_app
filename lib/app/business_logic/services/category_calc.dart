@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/data/models/profile.dart';
+import 'package:numerology/app/localization/language/language_es.dart';
 import 'package:numerology/app/localization/language/language_ru.dart';
 
 import 'calc_utils.dart';
@@ -75,6 +76,13 @@ class CategoryCalc {
     var text2 = 'Продолжительность второго пика с $period1 до $period2 \n\n';
     var text3 = 'Продолжительность второго пика с $period2 до $period3 \n\n';
     var text4 = 'Продолжительность четвертого пика с $period3 и далее \n\n';
+
+    if (Globals.instance.language is LanguageEs) {
+      text1 = 'Primer período a partir de los $period1 años\n\n';
+      text2 = 'Segundo período de $period1 a $period2 años\n\n';
+      text3 = 'Tercer período de $period2 a $period3 años\n\n';
+      text4 = 'Cuarto período a partir de los $period3 años \n\n';
+    }
 
     return [text1, text2, text3, text4];
   }
