@@ -27,8 +27,6 @@ class DataParserEs extends DataParser {
     //     .add(CategoryModel(imagePath: expression, name: 'Número de Expresión'));
     // categories.add(
     //     CategoryModel(imagePath: personality, name: 'Numero de Personalidad'));
-    // categories
-    //     .add(CategoryModel(imagePath: maturity, name: 'Número de la madurez'));
 
     // categories.add(CategoryModel(
     //     imagePath: birthdayNum, name: 'Numero del dia de nacimiento'));
@@ -36,8 +34,17 @@ class DataParserEs extends DataParser {
     //     .add(CategoryModel(imagePath: potential, name: 'Numero Potencial'));
     // categories.add(CategoryModel(imagePath: karma, name: 'Ley Karmica'));
 
+    categories.add(await _getMaturityNumber(profile));
     categories.add(await _getBirthdayCode(profile));
     return categories;
+  }
+
+  Future<CategoryModel> _getMaturityNumber(Profile profile) async {
+    return CategoryModel(
+      name: 'Número de la madurez',
+      imagePath: maturity,
+      type: CategoryType.maturityNumCategory,
+    );
   }
 
   Future<CategoryModel> _getBirthdayCode(Profile profile) async {

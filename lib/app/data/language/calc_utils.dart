@@ -1101,10 +1101,20 @@ class CategoryProvider {
   }
 
   Future<Widget> getMaturityNumPage(Profile profile, String header) async {
+    return DescriptionNameBasedPage(
+      categoryName: header,
+      getPage: (profile, header) async =>
+          await _getMaturityNumPage(profile, header),
+    );
+  }
+
+  Future<Widget> _getMaturityNumPage(Profile profile, String header) async {
     var calc = CategoryCalc.instance.calcMaturityNumber(profile);
     var tableName = 'MATURITY_NUMBER_ENG';
     if (Globals.instance.getLanguage() is LanguageRu) {
       tableName = 'MATURITY_NUMBER_RUS';
+    } else if (Globals.instance.getLanguage() is LanguageRu) {
+      tableName = 'MATURITY_NUMBER_ES';
     }
 
     return await _getDescriptionPage(tableName, calc, header);
