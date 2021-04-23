@@ -1011,6 +1011,11 @@ class CategoryProvider {
           'Женщина': map['women'] as String,
         };
       }
+      if (Globals.instance.getLanguage() is LanguageEs) {
+        return {
+          'Descripción': map['description'] as String,
+        };
+      }
 
       return {
         'Description': map['description'] as String,
@@ -1025,6 +1030,8 @@ class CategoryProvider {
     var tableName = 'LIFE_PATH_NUMBER_ENG';
     if (Globals.instance.getLanguage() is LanguageRu) {
       tableName = 'LIFE_PATH_NUMBER_RUS';
+    } else if (Globals.instance.getLanguage() is LanguageEs) {
+      tableName = 'LIFE_PATH_NUMBER_ESP';
     }
 
     var calc = CategoryCalc.instance.calcLifePathNumberMethod1(profile);
