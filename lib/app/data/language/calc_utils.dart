@@ -1083,6 +1083,8 @@ class CategoryProvider {
     var tableName = 'BIRTHDAY_NUMBER_ENG';
     if (Globals.instance.getLanguage() is LanguageRu) {
       tableName = 'BIRTHDAY_NUMBER_RUS';
+    } else if (Globals.instance.getLanguage() is LanguageEs) {
+      tableName = 'BIRTHDAY_NUMBER_ESP';
     }
 
     return await _getDescriptionPage(tableName, calc, header);
