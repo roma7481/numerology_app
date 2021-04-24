@@ -138,7 +138,7 @@ class SettingsPage extends StatelessWidget {
                   tarotIcon, tarotAppURL, Globals.instance.language.tarotApp),
               _buildLine(context),
               buildMoreApps(
-                  runeIcon, runeAppURL, Globals.instance.language.tarotApp),
+                  runeIcon, runeAppURL, Globals.instance.language.runeApp),
             ],
           ),
         )
