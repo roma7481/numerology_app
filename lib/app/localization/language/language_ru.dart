@@ -2,278 +2,284 @@ import 'languages.dart';
 
 class LanguageRu extends Languages {
   @override
-  String get selectLanguage => 'Пожалуйста выберите язык';
+  String get selectLanguage => 'Пожалуйста, выберите язык';
 
   @override
-  String get welcomeToNumerology => 'Welcome RU';
+  String get welcomeToNumerology => 'Добро Пожаловать в Мир Нумерологии';
 
   @override
-  String get continueText => 'continueText RU';
+  String get continueText => 'Дальше';
 
   @override
-  String get selectDateOfBirth => 'selectDateOfBirth RU';
+  String get selectDateOfBirth => 'Выберите дату рождения';
 
   @override
-  String get welcomeText => 'welcomeText RU';
+  String get welcomeText =>
+      'Для начала установим язык пользования и дату рождения. Это нам понадобиться для различных нумерологических расчётов.';
 
   @override
-  String get dateOfBirth => 'dateOfBirth RU';
+  String get dateOfBirth => 'Дата Рождения';
 
   @override
-  String get enterBirthdayWarning => 'enterBirthdayWarning RU';
+  String get enterBirthdayWarning => 'Выберите дату рождения';
 
   @override
-  String get nameSettings => 'nameSettings RU';
+  String get nameSettings => 'Настройка Имени';
 
   @override
-  String get nameSettingsText => 'nameSettingsText RU';
+  String get nameSettingsText =>
+      'Некоторые категории требуют Имя, Фамилию и Отчество. Вы можете добавить их позже.';
 
   @override
-  String get enterName => 'enterName RU';
+  String get enterName => 'Внесите Имя, Фамилию и Отчество';
 
   @override
-  String get firstName => 'firstName RU';
+  String get firstName => 'Имя';
 
   @override
-  String get lastName => 'lastName RU';
+  String get lastName => 'Фамилия';
 
   @override
-  String get middleName => 'middleName RU';
+  String get middleName => 'Отчество';
 
   @override
-  String get nameSettingsNotice => 'nameSettingsNotice RU';
+  String get nameSettingsNotice =>
+      'If you have more then one Middle name, please enter all '
+      'of them inside the Middle name field with space between them.';
 
   @override
-  String get forecastTabText => 'forecastTabText RU';
+  String get forecastTabText => 'Прогноз';
 
   @override
-  String get homeTabText => 'homeTabText RU';
+  String get homeTabText => 'Дом';
 
   @override
-  String get profile => 'profileTabText RU';
+  String get profile => 'Профиль';
 
   @override
-  String get settingsTabText => 'settingsTabText RU';
+  String get settingsTabText => 'Настройки';
 
   @override
-  String get errorMessageHeader => 'errorMessageContent RU';
+  String get errorMessageContent => 'Здесь ничего';
 
   @override
-  String get errorMessageContent => 'errorMessageHeader RU';
+  String get errorMessageHeader =>
+      'Что-то пошло не так. Пожалуйста, повторите попытку позже';
 
   @override
-  String get description => 'description RU';
+  String get description => 'Описание';
 
   @override
-  String get info => 'info RU';
+  String get info => 'Информация';
 
   @override
-  String get readMore => 'readMore RU';
+  String get readMore => 'Читать Дальше…';
 
   @override
-  String get categoryRequiresName => 'categoryRequiresName RU';
+  String get categoryRequiresName =>
+      'Для этой категории нужны Фамилия, Имя, Отчество.';
 
   @override
-  String get enterMissingData => 'enterMissingData RU';
+  String get enterMissingData => 'Пожалуйста внесите свои данные';
 
   @override
-  String get enterWeddingDate => 'enterWeddingDate RU';
+  String get enterWeddingDate => 'Please enter Wedding date';
 
   @override
-  String get weddingDate => 'weddingDate RU';
+  String get weddingDate => 'Дата свадьбы';
 
   @override
-  String get numberOfDigits => 'numberOfDigits RU';
+  String get numberOfDigits => 'Количество цифр: ';
 
   @override
-  String get clickOnAnyCell => 'clickOnAnyCell RU';
+  String get clickOnAnyCell => 'Нажмите на ячейку';
 
   @override
-  String get digitsInCell => 'digitsInCell RU';
+  String get digitsInCell => 'Цифры в ячейке: ';
 
   @override
-  String get enterPartnerDob => 'enterPartnerDob RU';
+  String get enterPartnerDob => 'Пожалуйста внесите дату рождения партнёра.';
 
   @override
-  String get partnersDob => 'partnersDob RU';
+  String get partnersDob => 'Дата рождения партнёра';
 
   @override
-  String get bioCompat => 'bioCompat RU';
+  String get bioCompat => 'Совместимость Биоритмов';
 
   @override
-  String get lifePathCompat => 'lifePathCompat RU';
+  String get lifePathCompat => 'По числу Жизненного Пути';
 
   @override
-  String get matrixCompat => 'matrixCompat RU';
+  String get matrixCompat => 'Совместимость Пифагора';
 
   @override
-  String get partnerMatrix => 'partnerMatrix RU';
+  String get partnerMatrix => 'Психоматрица Партнёра';
 
   @override
-  String get yourMatrix => 'yourMatrix RU';
+  String get yourMatrix => 'Ваша Психоматрица';
 
   @override
-  String get partnerLifePathNum => 'partnerLifePathNum RU';
+  String get yourLifePathNum => 'Ваше число Жизненного пути';
 
   @override
-  String get yourLifePathNum => 'partnerLifePathNum RU';
+  String get partnerLifePathNum => 'Число Жизненного пути Партнёра';
 
   @override
-  String get dailyBio => 'dailyBio RU';
+  String get dailyBio => 'Биоритмы на Сегодня';
 
   @override
-  String get emotionalBio => 'emotionalBio RU';
+  String get emotionalBio => 'Эмоциональный';
 
   @override
-  String get intellectBio => 'intellectBio RU';
+  String get intellectBio => 'Интеллектуальный';
 
   @override
-  String get physicalBio => 'physicalBio RU';
+  String get physicalBio => 'Физический';
 
   @override
-  String get aestheticBio => 'aestheticBio RU';
+  String get aestheticBio => 'Эстетический';
 
   @override
-  String get awareBio => 'awareBio RU';
+  String get awareBio => 'Самосознание';
 
   @override
-  String get intuitBio => 'intuitBio RU';
+  String get intuitBio => 'Интуитивный';
 
   @override
-  String get spiritBio => 'spiritBio RU';
+  String get spiritBio => 'Духовный';
 
   @override
-  String get forecast => 'Forecast RU';
+  String get forecast => 'Прогноз';
 
   @override
-  String get dailyForecast => 'dailyForecast RU';
+  String get dailyForecast => 'Ежедневный прогноз';
 
   @override
-  String get personalDayNumber => 'personalDayNumber RU';
+  String get personalDayNumber => 'Число Дня';
 
   @override
-  String get dailyLuckyNumber => 'dailyLuckyNumber RU';
+  String get dailyLuckyNumber => 'Счастливое Число дня';
 
   @override
-  String get luckyForecast => 'luckyForecast RU';
+  String get luckyForecast => 'Счастливый прогноз';
 
   @override
-  String get monthNumber => 'monthNumber RU';
+  String get monthNumber => 'Число Месяца';
 
   @override
-  String get monthlyForecast => 'monthlyForecast RU';
+  String get monthlyForecast => 'Ежемесячный прогноз';
 
   @override
-  String get annualForecast => 'annualForecast RU';
+  String get annualForecast => 'Годовой прогноз';
 
   @override
-  String get yearNumber => 'yearNumber RU';
+  String get yearNumber => 'Число Года';
 
   @override
-  String get profiles => 'profiles RU';
+  String get profiles => 'Профили';
 
   @override
-  String get defaultProfileName => 'Profile_1 RU';
+  String get defaultProfileName => 'Профиль_1';
 
   @override
-  String get profileName => 'profileName RU';
+  String get profileName => 'Имя профиля';
 
   @override
-  String get usersName => 'usersName RU';
+  String get usersName => 'Данные Пользователя';
 
   @override
-  String get dob => 'Date of Birth RU';
+  String get dob => 'Дата Рождения';
 
   @override
-  String get cancel => 'cancel RU';
+  String get cancel => 'Отменить';
 
   @override
-  String get partnerProfiles => 'Partner RU';
+  String get partnerProfiles => 'Партнёр';
 
   @override
-  String get weddingDateProfiles => 'W.Date RU';
+  String get weddingDateProfiles => 'W.Date';
 
   @override
-  String get applyProfile => 'Apply Profile RU';
+  String get applyProfile => 'Применить профиль';
 
   @override
-  String get no => 'No RU';
+  String get no => 'Нет';
 
   @override
-  String get setProfileAsPrimary => 'Set this profile as primary RU';
+  String get setProfileAsPrimary => 'Установить как основной профиль';
 
   @override
-  String get yes => 'yes RU';
+  String get yes => 'Да';
 
   @override
-  String get deleteProfile => 'Delete profile RU';
+  String get deleteProfile => 'Удалить Профиль';
 
   @override
-  String get doYouWantToDelete {
-    return 'Are you sure? RU';
+  String get doYouWantToDelete{
+    return 'Вы уверены?';
   }
 
   @override
   String get nameShouldContainVowels =>
-      'Name settings should contain vowels RU';
+      'Настройки имени должны содержать гласные';
 
   @override
-  String get settings => 'Settings RU';
+  String get settings => 'Настройки';
 
   @override
-  String get language => 'language RU';
+  String get language => 'Язык';
 
   @override
-  String get notifications => 'Notifications RU';
+  String get notifications => 'Уведомления';
 
   @override
-  String get dailyReminder => 'Daily reminder RU';
+  String get dailyReminder => 'Ежедневное напоминание';
 
   @override
-  String get clickOnTheTimeToSet => 'Click on the time to set';
+  String get clickOnTheTimeToSet => 'Нажмите на время, чтобы установить';
 
   @override
-  String get numerology => 'Numerology RU';
+  String get numerology => 'Нумерология';
 
   @override
-  String get getDailyForecast => 'Get daily forecast RU';
+  String get getDailyForecast => 'Получать ежедневный прогноз';
 
   @override
-  String get moreApps => 'More apps RU';
+  String get moreApps => 'Другие приложения';
 
   @override
-  String get tarotApp => 'Tarot app RU';
+  String get tarotApp => 'Таро - Карта Дня';
 
   @override
-  String get errorTryLater => 'Something went wrong try again later RU';
+  String get errorTryLater => 'Что-то пошло не так, попробуйте позже';
 
   @override
-  String get runeApp => 'Rune app RU';
+  String get runeApp => 'Руна Дня';
 
   @override
-  String get shareApp => 'Share app RU';
+  String get shareApp => 'Поделиться приложением';
 
   @override
-  String get privacyPolicy => 'Privacy policy RU';
+  String get privacyPolicy => 'Политика конф.';
 
   @override
-  String get consent => 'Consent RU';
+  String get consent => 'Согласие';
 
   @override
-  String get restorePurchase => 'Restore purchases RU';
+  String get large => 'Большой';
 
   @override
-  String get textSize => 'Text size RU';
+  String get medium => 'Средний';
 
   @override
-  String get medium => 'Medium RU';
+  String get restorePurchase => 'Восстановить покупку';
 
   @override
-  String get selectTextSize => 'Select text size RU';
+  String get selectTextSize => 'Выберите размер текста';
 
   @override
-  String get small => 'Small RU';
+  String get small => 'Маленький';
 
   @override
-  String get large => 'Large';
+  String get textSize => 'Размер шрифта';
 }
