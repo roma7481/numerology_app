@@ -2,260 +2,265 @@ import 'languages.dart';
 
 class LanguageEs extends Languages {
   @override
-  String get welcomeToNumerology => 'Welcome ES';
+  String get selectLanguage => 'Por favor seleccione idioma';
 
   @override
-  String get selectLanguage => 'Por favor, seleccione un idioma';
+  String get welcomeToNumerology => 'Bienvenido a la Numerología';
 
   @override
-  String get continueText => 'continue ES';
+  String get continueText => 'Continuar';
 
   @override
-  String get selectDateOfBirth => 'selectDateOfBirth ES';
+  String get selectDateOfBirth => 'Por favor, introduce tu fecha de nacimiento';
 
   @override
-  String get welcomeText => 'welcomeText ES';
+  String get welcomeText =>
+      'Establezcamos tu idioma y tu fecha de nacimiento. La fecha de nacimiento es necesaria para varios cálculos numerológicos.';
 
   @override
-  String get dateOfBirth => 'dateOfBirth ES';
+  String get dateOfBirth => 'Nacido/da el';
 
   @override
-  String get enterBirthdayWarning => 'enterBirthdayWarning ES';
+  String get enterBirthdayWarning =>
+      'Por favor, introduce tu fecha de nacimiento';
 
   @override
-  String get nameSettings => 'nameSettings ES';
+  String get nameSettings => 'Configuración del nombre';
 
   @override
-  String get nameSettingsText => 'nameSettingsText ES';
+  String get nameSettingsText =>
+      'Algunas categorías requieren que se introduzca el nombre y el apellido. Puedes saltarte esta etapa pulsando el botón de continuar y configurarlo más tarde.';
 
   @override
-  String get enterName => 'enterName ES';
+  String get enterName => 'Por favor, introduzca su nombre';
 
   @override
-  String get firstName => 'firstName ES';
+  String get firstName => 'Nombre';
 
   @override
-  String get lastName => 'lastName ES';
+  String get lastName => 'Apellido';
 
   @override
-  String get middleName => 'middleName ES';
+  String get middleName => 'Segundo nombre';
 
   @override
-  String get nameSettingsNotice => 'nameSettingsNotice ES';
+  String get nameSettingsNotice =>
+      'Si tiene más de un segundo nombre, por favor, introduzca todos ellos dentro del campo de segundo nombre con un espacio entre ellos.';
 
   @override
-  String get forecastTabText => 'forecastTabText ES';
+  String get forecastTabText => 'Pronóstico';
 
   @override
-  String get homeTabText => 'homeTabText ES';
+  String get homeTabText => 'Hogar';
 
   @override
-  String get profile => 'profileTabText ES';
+  String get profile => 'Perfil';
 
   @override
-  String get settingsTabText => 'settingsTabText ES';
+  String get settingsTabText => 'Configuraciones';
 
   @override
-  String get errorMessageContent => 'errorMessageContent ES';
+  String get errorMessageContent => 'Nothing here';
 
   @override
-  String get errorMessageHeader => 'errorMessageHeader ES';
+  String get errorMessageHeader =>
+      'Something went wrong please try again later';
 
   @override
-  String get description => 'description ES';
+  String get description => 'Descripción';
 
   @override
-  String get info => 'info ES';
+  String get info => 'Info';
 
   @override
-  String get readMore => 'readMore ES';
+  String get readMore => 'Siga leyendo…';
 
   @override
-  String get categoryRequiresName => 'categoryRequiresName ES';
+  String get categoryRequiresName => 'Esta categoría requiere un nombre.';
 
   @override
-  String get enterMissingData => 'enterMissingData ES';
+  String get enterMissingData => 'Por favor, introduzca los datos que faltan';
 
   @override
-  String get enterWeddingDate => 'enterWeddingDate ES';
+  String get enterWeddingDate => 'Please enter Wedding date';
 
   @override
-  String get weddingDate => 'weddingDate ES';
+  String get weddingDate => 'La fecha de la boda';
 
   @override
-  String get numberOfDigits => 'numberOfDigits: ES';
+  String get numberOfDigits => 'Number of digits: ';
 
   @override
-  String get clickOnAnyCell => 'clickOnAnyCell ES';
+  String get clickOnAnyCell => 'Haga clic en cualquier celda';
 
   @override
-  String get digitsInCell => 'Digits in the cell: ES';
+  String get digitsInCell => 'Digits in the cell: ';
 
   @override
-  String get enterPartnerDob => 'enterPartnerDob ES';
+  String get enterPartnerDob => 'Fecha de nacimiento de la pareja';
 
   @override
-  String get partnersDob => 'partnersDob ES';
+  String get partnersDob => 'Fecha de nacimiento de la pareja';
 
   @override
-  String get bioCompat => 'bioCompat ES';
+  String get bioCompat => 'Compatibilidad con biorritmos';
 
   @override
-  String get lifePathCompat => 'lifePathCompat ES';
+  String get lifePathCompat => 'Comp. Camino de vida';
 
   @override
-  String get matrixCompat => 'matrixCompat ES';
+  String get matrixCompat => 'Psychomatrix comp.';
 
   @override
-  String get partnerMatrix => 'partnerMatrix ES';
+  String get partnerMatrix => 'Partner\'s Psychomatrix';
 
   @override
-  String get yourMatrix => 'yourMatrix ES';
+  String get yourMatrix => 'Your Psychomatrix';
 
   @override
-  String get partnerLifePathNum => 'partnerLifePathNum ES';
+  String get yourLifePathNum => 'El número de tu camino de vida';
 
   @override
-  String get yourLifePathNum => 'yourLifePathNum ES';
+  String get partnerLifePathNum => 'Número de ruta de vida de socios';
 
   @override
-  String get dailyBio => 'dailyBio ES';
+  String get dailyBio => 'Biorritmos diarios';
 
   @override
-  String get emotionalBio => 'emotionalBio ES';
+  String get emotionalBio => 'Emocional';
 
   @override
-  String get intellectBio => 'intellectBio ES';
+  String get intellectBio => 'Intelectual';
 
   @override
-  String get physicalBio => 'physicalBio ES';
+  String get physicalBio => 'Físico';
 
   @override
-  String get aestheticBio => 'aestheticBio ES';
+  String get aestheticBio => 'Estético';
 
   @override
-  String get awareBio => 'awareBio ES';
+  String get awareBio => 'Autoconciencia';
 
   @override
-  String get intuitBio => 'intuitBio ES';
+  String get intuitBio => 'Intuitivo';
 
   @override
-  String get spiritBio => 'spiritBio ES';
+  String get spiritBio => 'Espiritual';
 
   @override
-  String get forecast => 'Forecast ES';
+  String get forecast => 'Pronóstico';
 
   @override
-  String get dailyForecast => 'dailyForecast ES';
+  String get dailyForecast => 'Pronóstico diario';
 
   @override
-  String get personalDayNumber => 'personalDayNumber ES';
+  String get personalDayNumber => 'Número de día personal';
 
   @override
-  String get dailyLuckyNumber => 'dailyLuckyNumber ES';
+  String get dailyLuckyNumber => 'Número de la suerte para hoy';
 
   @override
-  String get luckyForecast => 'luckyForecast ES';
+  String get luckyForecast => 'Pronóstico de suerte';
 
   @override
-  String get monthNumber => 'monthNumber ES';
+  String get monthNumber => 'Número del Mes Personal';
 
   @override
-  String get monthlyForecast => 'monthlyForecast ES';
+  String get monthlyForecast => 'Pronóstico mensual';
 
   @override
-  String get annualForecast => 'annualForecast ES';
+  String get annualForecast => 'Pronóstico anual';
 
   @override
-  String get yearNumber => 'yearNumber ES';
+  String get yearNumber => 'Año Personal';
 
   @override
-  String get profiles => 'Profiles ES';
+  String get profiles => 'Perfiles';
 
   @override
-  String get defaultProfileName => 'Profile_1 ES';
+  String get defaultProfileName => 'Perfil_1';
 
   @override
-  String get profileName => 'profileName ES';
+  String get profileName => 'Nombre del perfil';
 
   @override
-  String get usersName => 'usersName ES';
+  String get usersName => 'Nombre de usuario';
 
   @override
-  String get dob => 'Date of Birth ES';
+  String get dob => 'Nacido/da el';
 
   @override
-  String get cancel => 'cancel ES';
+  String get cancel => 'Cancelar';
 
   @override
-  String get partnerProfiles => 'Partner ES';
+  String get partnerProfiles => 'Pareja';
 
   @override
-  String get weddingDateProfiles => 'W.Date ES';
+  String get weddingDateProfiles => 'W.Date';
 
   @override
-  String get applyProfile => 'Apply Profile ES';
+  String get applyProfile => 'Aplicar perfil';
 
   @override
-  String get no => 'No ES';
+  String get no => 'No';
 
   @override
-  String get setProfileAsPrimary => 'Set this profile as primary ES';
+  String get setProfileAsPrimary => 'Establecer este perfil como principal';
 
   @override
-  String get yes => 'yes ES';
+  String get yes => 'Si';
 
   @override
-  String get deleteProfile => 'Delete profile ES';
+  String get deleteProfile => 'Eliminar perfil';
 
   @override
   String get doYouWantToDelete {
-    return 'Are you sure? ES';
+    return '¿Estas seguro?';
   }
 
   @override
   String get nameShouldContainVowels =>
-      'Name settings should contain vowels ES';
+      'La configuración del nombre debe contener vocales';
 
   @override
-  String get settings => 'Settings ES';
+  String get settings => 'Configuraciones';
 
   @override
-  String get language => 'language ES';
+  String get language => 'Idioma';
 
   @override
-  String get notifications => 'Notifications ES';
+  String get notifications => 'Notificaciones';
 
   @override
-  String get dailyReminder => 'Daily reminder ES';
+  String get dailyReminder => 'Recordatorio diario';
 
   @override
-  String get clickOnTheTimeToSet => 'Click on the time to set';
+  String get clickOnTheTimeToSet => 'Haga clic en el tiempo para configurar';
 
   @override
-  String get numerology => 'Numerology ES';
+  String get numerology => 'Numerología';
 
   @override
-  String get getDailyForecast => 'Get daily forecast';
+  String get getDailyForecast => 'Obtener pronóstico diario';
 
   @override
-  String get moreApps => 'More apps ES';
+  String get moreApps => 'Más aplicaciones';
 
   @override
-  String get tarotApp => 'Tarot app ES';
+  String get tarotApp => 'Tarot - Carta diaria de tarot';
 
   @override
-  String get errorTryLater => 'Something went wrong try again later ES';
+  String get errorTryLater => 'Algo salió mal inténtalo de nuevo más tarde';
 
   @override
-  String get runeApp => 'Rune app ES';
+  String get runeApp => 'Rune app';
 
   @override
-  String get shareApp => 'Share app ES';
+  String get shareApp => 'Compartir aplicación';
 
   @override
-  String get privacyPolicy => 'Privacy policy ES';
+  String get privacyPolicy => 'Política de privacidad';
 
   @override
-  String get consent => 'Consent ES';
+  String get consent => 'Consentimiento';
 }
