@@ -198,10 +198,12 @@ var profilesBlueText = GoogleFonts.sourceSansPro(
 TextStyle notificationPickerTextStyle =
     TextStyle(fontSize: 60.0, color: Colors.black);
 
+TextStyle dialogHeaderTextStyle =
+    TextStyle(fontSize: 19.0, color: Colors.black);
 
 TextStyle urlLinkStyle = GoogleFonts.sourceSansPro(
     textStyle: TextStyle(
-      fontSize: 18.0,
-      color: cardUrlLinkColor,
-      decoration: TextDecoration.underline,
-    ));
+  fontSize: 18.0,
+  color: cardUrlLinkColor,
+  decoration: TextDecoration.underline,
+));

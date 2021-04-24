@@ -36,11 +36,11 @@ class _LanguageDialogState extends State<LanguageDialog> {
     return CupertinoActionSheet(
       title: Text(
         language.language,
-        style: headerTextStyle,
+        style: dialogHeaderTextStyle,
       ),
       message: Text(
         language.selectLanguage,
-        style: contentTextStyle,
+        style: dialogHeaderTextStyle,
       ),
       actions: List<Widget>.generate(allButtons.length, (int index) {
         var languageItem = allButtons[index];
