@@ -34,6 +34,10 @@ class Globals {
     this.forecastCalcUtils = LocaleUtils.getForecastUtils(localeCode);
   }
 
+  String getLocale() {
+    return localeCode;
+  }
+
   ForecastCalcUtils getForecastUtils() {
     return this.forecastCalcUtils;
   }

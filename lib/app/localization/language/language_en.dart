@@ -99,7 +99,7 @@ class LanguageEn extends Languages {
   String get digitsInCell => 'Digits in the cell: ';
 
   @override
-  String get enterPartnerDob => 'Please set partners DOB';
+  String get enterPartnerDob => 'Please set partner\'s DOB';
 
   @override
   String get partnersDob => 'Partner\'s DOB';

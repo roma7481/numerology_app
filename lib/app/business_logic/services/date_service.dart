@@ -26,7 +26,12 @@ class DateService {
         : standardFormat.format(date);
   }
 
-  static String getShortFormattedDate(DateTime date) {
+  static String getShortFormattedDate(
+    DateTime date,
+  ) {
+    var currentLocale = Globals.instance.localeCode;
+    standardShortFormat = DateFormat('dd-MMM', currentLocale);
+    usShortFormat = DateFormat('MMM-dd', currentLocale);
     return (Globals.instance.getLanguage() is LanguageEn)
         ? usShortFormat.format(date)
         : standardShortFormat.format(date);
