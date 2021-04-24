@@ -56,10 +56,10 @@ class LanguageRu extends Languages {
   String get settingsTabText => 'settingsTabText RU';
 
   @override
-  String get errorMessageContent => 'errorMessageContent RU';
+  String get errorMessageHeader => 'errorMessageContent RU';
 
   @override
-  String get errorMessageHeader => 'errorMessageHeader RU';
+  String get errorMessageContent => 'errorMessageHeader RU';
 
   @override
   String get description => 'description RU';

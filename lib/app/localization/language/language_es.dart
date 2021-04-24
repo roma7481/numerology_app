@@ -60,10 +60,10 @@ class LanguageEs extends Languages {
   String get settingsTabText => 'Configuraciones';
 
   @override
-  String get errorMessageContent => 'Nothing here';
+  String get errorMessageHeader => 'Nothing here';
 
   @override
-  String get errorMessageHeader =>
+  String get errorMessageContent =>
       'Something went wrong please try again later';
 
   @override

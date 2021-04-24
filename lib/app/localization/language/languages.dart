@@ -85,9 +85,9 @@ abstract class Languages {
 
   String get settingsTabText;
 
-  String get errorMessageHeader;
-
   String get errorMessageContent;
+
+  String get errorMessageHeader;
 
   String get description;
 
