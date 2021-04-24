@@ -11,10 +11,10 @@ import 'package:numerology/app/data/models/profile.dart';
 import 'package:numerology/app/presentation/common_widgets/error_dialog.dart';
 import 'package:numerology/app/presentation/common_widgets/progress_bar.dart';
 import 'package:numerology/app/presentation/navigators/navigator.dart';
-import 'package:numerology/app/presentation/pages/home/custom_raised_button.dart';
+import 'package:numerology/app/presentation/pages/graphs/bio_pi_charts.dart';
 
-import '../graphs/bio_pi_charts.dart';
 import 'category_tile.dart';
+import 'custom_raised_button.dart';
 import 'day_category.dart';
 
 class HomePage extends StatelessWidget {
@@ -30,17 +30,15 @@ class HomePage extends StatelessWidget {
   Widget _buildPageContent(BuildContext context) {
     return BlocBuilder<UserDataCubit, UserDataState>(builder: (context, state) {
       if (state is UserDataReady) {
-        return SafeArea(
-          child: Scaffold(
-            appBar: AppBar(
-              centerTitle: true,
-              brightness: Brightness.dark,
-              title: _buildHeader(),
-            ),
-            body: _buildContent(
-              context,
-              state,
-            ),
+        return Scaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            brightness: Brightness.dark,
+            title: _buildHeader(),
+          ),
+          body: _buildContent(
+            context,
+            state,
           ),
         );
       } else if (state is UserDataError) {
