@@ -9,6 +9,7 @@ import 'package:notification_permissions/notification_permissions.dart';
 import 'package:numerology/app/business_logic/cubit/bio/bio_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/notifications_cubit/notifications_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/profiles/profiles_cubit.dart';
+import 'package:numerology/app/business_logic/cubit/text_size_cubit/text_size_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
@@ -62,7 +63,7 @@ Future<void> _setupNotifications() async {
 Future _displayFundingDialog() async {
   WidgetsBinding.instance.addPostFrameCallback((_) async {
     ConsentInformation consentInfo =
-    await FlutterFundingChoices.requestConsentInformation();
+        await FlutterFundingChoices.requestConsentInformation();
     if (consentInfo.isConsentFormAvailable &&
         consentInfo.consentStatus == ConsentStatus.REQUIRED_IOS) {
       await FlutterFundingChoices.showConsentForm();
@@ -84,6 +85,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<NotificationsCubit>(
           create: (context) => NotificationsCubit(),
+        ),
+        BlocProvider<TextSizeCubit>(
+          create: (context) => TextSizeCubit(),
         ),
         BlocProvider<LanguageCubit>(
           create: (context) => LanguageCubit(),

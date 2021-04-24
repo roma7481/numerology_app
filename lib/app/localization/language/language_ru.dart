@@ -258,4 +258,22 @@ class LanguageRu extends Languages {
 
   @override
   String get consent => 'Consent RU';
+
+  @override
+  String get restorePurchase => 'Restore purchases RU';
+
+  @override
+  String get textSize => 'Text size RU';
+
+  @override
+  String get medium => 'Medium RU';
+
+  @override
+  String get selectTextSize => 'Select text size RU';
+
+  @override
+  String get small => 'Small RU';
+
+  @override
+  String get large => 'Large';
 }

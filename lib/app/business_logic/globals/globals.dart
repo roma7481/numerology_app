@@ -13,6 +13,7 @@ import 'package:numerology/app/localization/locale_utils.dart';
 class Globals {
   Globals._(
       {this.language = const LanguageEn(),
+      this.textSize = 18.0,
       this.localeType = LocaleType.en,
       this.dataParser = const DataParserEn(),
       this.forecastCalcUtils = const CalcUtilsEn(),
@@ -20,6 +21,7 @@ class Globals {
 
   static final instance = Globals._();
 
+  double textSize;
   Languages language;
   LocaleType localeType;
   DataParser dataParser;
@@ -52,5 +54,13 @@ class Globals {
 
   DataParser getDataParser() {
     return this.dataParser;
+  }
+
+  void setTextSize({@required double textSize}) {
+    this.textSize = textSize;
+  }
+
+  double getTextSize() {
+    return textSize;
   }
 }

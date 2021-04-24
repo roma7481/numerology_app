@@ -263,4 +263,22 @@ class LanguageEs extends Languages {
 
   @override
   String get consent => 'Consentimiento';
+
+  @override
+  String get restorePurchase => 'Restaurar las compras';
+
+  @override
+  String get textSize => 'Tamano del texto';
+
+  @override
+  String get large => 'Grande';
+
+  @override
+  String get medium => 'Medio';
+
+  @override
+  String get selectTextSize => 'Seleccionar tamaño de texto';
+
+  @override
+  String get small => 'Pequeño';
 }

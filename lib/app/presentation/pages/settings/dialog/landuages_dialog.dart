@@ -40,7 +40,7 @@ class _LanguageDialogState extends State<LanguageDialog> {
       ),
       message: Text(
         language.selectLanguage,
-        style: dialogHeaderTextStyle,
+        style: dialogContentTextStyle,
       ),
       actions: List<Widget>.generate(allButtons.length, (int index) {
         var languageItem = allButtons[index];

@@ -199,7 +199,10 @@ TextStyle notificationPickerTextStyle =
     TextStyle(fontSize: 60.0, color: Colors.black);
 
 TextStyle dialogHeaderTextStyle =
-    TextStyle(fontSize: 19.0, color: Colors.black);
+    TextStyle(fontSize: 19.0, color: Colors.blueAccent.shade700);
+
+TextStyle dialogContentTextStyle =
+    TextStyle(fontSize: 17.0, color: Colors.blueAccent.shade700);
 
 TextStyle urlLinkStyle = GoogleFonts.sourceSansPro(
     textStyle: TextStyle(

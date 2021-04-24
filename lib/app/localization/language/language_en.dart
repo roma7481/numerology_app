@@ -227,7 +227,7 @@ class LanguageEn extends Languages {
   String get settings => 'Settings';
 
   @override
-  String get language => 'language';
+  String get language => 'Language';
 
   @override
   String get notifications => 'Notifications';
@@ -264,4 +264,22 @@ class LanguageEn extends Languages {
 
   @override
   String get consent => 'Consent';
+
+  @override
+  String get restorePurchase => 'Restore purchases';
+
+  @override
+  String get textSize => 'Text size';
+
+  @override
+  String get large => 'Large';
+
+  @override
+  String get medium => 'Medium';
+
+  @override
+  String get selectTextSize => 'Select text size';
+
+  @override
+  String get small => 'Small';
 }

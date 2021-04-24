@@ -17,6 +17,7 @@ import 'package:share/share.dart';
 import 'attribution/attribution_page.dart';
 import 'dialog/landuages_dialog.dart';
 import 'dialog/notification_dialog.dart';
+import 'dialog/text_size_dialog.dart';
 import 'more_apps.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -78,8 +79,8 @@ class SettingsPage extends StatelessWidget {
                 _buildSetting(Icons.notifications_none, language.notifications,
                     context, () => _showNotificationDialog(context)),
                 _buildLine(context),
-                // _buildSetting(Icons.format_size, language.textSize, context,
-                //         () => _showTextSizeDialog(context)),
+                _buildSetting(Icons.format_size, language.textSize, context,
+                    () => _showTextSizeDialog(context)),
                 // _buildLine(context),
                 // _buildSetting(Icons.restore, language.restorePurchase, context,
                 //         () => _restorePurchase(context)),
@@ -90,6 +91,11 @@ class SettingsPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _showTextSizeDialog(BuildContext context) {
+    showCupertinoModalPopup(
+        context: context, builder: (context) => TextSizeDialog());
   }
 
   void _showNotificationDialog(BuildContext context) {
@@ -149,7 +155,6 @@ class SettingsPage extends StatelessWidget {
     return buildSettingWithIcon(onClick, customIcon, text);
   }
 
-
   Padding _buildFirstSetting2(Languages language, BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 4.0),
@@ -169,18 +174,18 @@ class SettingsPage extends StatelessWidget {
                   Icons.share,
                   language.shareApp,
                   context,
-                      () => _shareApp(context),
+                  () => _shareApp(context),
                 ),
                 _buildLine(context),
                 _buildSetting(
                   Icons.list_alt,
                   language.privacyPolicy,
                   context,
-                      () => openLink(privacyPolicyURL),
+                  () => openLink(privacyPolicyURL),
                 ),
                 _buildLine(context),
                 _buildSetting(Icons.info_outline, language.info, context,
-                        () => _goToAttribution(context)),
+                    () => _goToAttribution(context)),
                 _buildConsent(context, language),
               ],
             ),
@@ -202,7 +207,7 @@ class SettingsPage extends StatelessWidget {
                 return errorDialog();
               } else {
                 var shodShowConsent = snapshot.data;
-                if(!shodShowConsent){
+                if (!shodShowConsent) {
                   return Container();
                 }
                 return Column(
@@ -212,7 +217,7 @@ class SettingsPage extends StatelessWidget {
                       Icons.article,
                       language.consent,
                       context,
-                          () => _showConsent(),
+                      () => _showConsent(),
                     ),
                   ],
                 );
@@ -221,7 +226,7 @@ class SettingsPage extends StatelessWidget {
         });
   }
 
-  Future<void> _showConsent() async{
+  Future<void> _showConsent() async {
     await FlutterFundingChoices.showConsentForm();
   }
 
@@ -234,7 +239,7 @@ class SettingsPage extends StatelessWidget {
 
   Future<bool> _shouldShowConsent() async {
     ConsentInformation consentInfo =
-    await FlutterFundingChoices.requestConsentInformation();
+        await FlutterFundingChoices.requestConsentInformation();
     if (consentInfo.isConsentFormAvailable &&
         consentInfo.consentStatus == ConsentStatus.OBTAINED) {
       return true;
@@ -257,7 +262,7 @@ class SettingsPage extends StatelessWidget {
             Icons.send,
             telegram,
             context,
-                () => openLink(telegramURL),
+            () => openLink(telegramURL),
           ),
           _buildLine(context),
         ],
@@ -274,7 +279,7 @@ class SettingsPage extends StatelessWidget {
             Icons.web,
             ourWebsite,
             context,
-                () => openLink(websiteURL),
+            () => openLink(websiteURL),
           ),
           _buildLine(context),
         ],

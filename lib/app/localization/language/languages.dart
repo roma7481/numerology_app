@@ -1,7 +1,19 @@
 abstract class Languages {
   const Languages();
 
+  String get small;
+
+  String get medium;
+
+  String get large;
+
+  String get selectTextSize;
+
   String get welcomeText;
+
+  String get textSize;
+
+  String get restorePurchase;
 
   String get consent;
 
