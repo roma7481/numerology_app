@@ -259,9 +259,11 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text(
-                  text,
-                  style: lifePathCompat,
+                Flexible(
+                  child: Text(
+                    text,
+                    style: lifePathCompat,
+                  ),
                 ),
               ],
             ),
@@ -276,7 +278,11 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
         delegate: SliverChildBuilderDelegate(
       (context, index) {
         var data = dataList[index];
-        return buildExpandCard(data.header, data.description, data.iconPath);
+        return buildExpandCard(
+          data.header,
+          data.description,
+          data.iconPath,
+        );
       },
       childCount: dataList.length,
     ));

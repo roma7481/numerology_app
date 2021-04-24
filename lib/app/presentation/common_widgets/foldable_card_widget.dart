@@ -41,9 +41,11 @@ Widget _buildHeader(String header, String iconPath) {
           iconPath != null
               ? SvgPicture.asset(iconPath, height: 20.0)
               : Container(),
-          Text(
-            header,
-            style: descriptionHeaderStyle,
+          Flexible(
+            child: Text(
+              header,
+              style: descriptionHeaderStyle,
+            ),
           ),
           Opacity(
               opacity: 0.0,
