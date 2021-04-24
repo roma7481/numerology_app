@@ -20,9 +20,11 @@ import 'day_category.dart';
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LanguageCubit, LanguageState>(builder: (context, state) {
-      return _buildPageContent(context);
-    });
+    return BlocListener<LanguageCubit, LanguageState>(
+        listener: (context, state) {
+          context.read<UserDataCubit>().emitCalcCategoriesUpdate();
+        },
+        child: _buildPageContent(context));
   }
 
   Widget _buildPageContent(BuildContext context) {

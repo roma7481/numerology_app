@@ -50,6 +50,20 @@ class UserDataCubit extends Cubit<UserDataState> {
     }
   }
 
+  Future<void> emitCalcCategoriesUpdate() async {
+    try {
+      var primaryProfileId =
+          await SharedPref.instance.getValue(key: primaryUserKey);
+      if (primaryProfileId != null) {
+        var profile =
+            await ProfileDBProvider.instance.getProfile(primaryProfileId);
+        emitPrimaryUserUpdate(profile);
+      }
+    } catch (e) {
+      emitPrimaryUserError(e);
+    }
+  }
+
   emitPrimaryUserError(Exception e) {
     emit(UserDataError(exception: e));
   }
