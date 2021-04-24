@@ -61,7 +61,7 @@ Widget _buildCardContent({String content, bool isFolded = false}) {
     padding: const EdgeInsets.all(16.0),
     child: Text(content,
         maxLines: isFolded ? 4 : 2000,
-        style: descriptionContentStyle,
+        style: descriptionContentStyle(),
         overflow: isFolded ? TextOverflow.ellipsis : TextOverflow.visible),
   );
 }

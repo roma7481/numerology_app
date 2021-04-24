@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:numerology/app/business_logic/globals/globals.dart';
 
 import 'colors.dart';
 
@@ -50,9 +51,14 @@ var radioButtonColor = MaterialStateColor.resolveWith((states) => Colors.white);
 
 /// TIME PICKER ///
 
-TextStyle datePickerTextStyle = GoogleFonts.philosopher(
-    textStyle: TextStyle(
-        fontSize: 19.0, color: Colors.black, fontWeight: FontWeight.bold));
+TextStyle datePickerTextStyle() {
+  double textSize = Globals.instance.getTextSize();
+  return GoogleFonts.sourceSansPro(
+      textStyle: TextStyle(
+    fontSize: textSize,
+    color: Colors.black,
+  ));
+}
 
 /// NAME SETTINGS PAGE ///
 
@@ -71,12 +77,14 @@ var categoryTileHeader = GoogleFonts.philosopher(
   ),
 );
 
-var personalDayText = GoogleFonts.sourceSansPro(
-  textStyle: TextStyle(
-    fontSize: 17.0,
+TextStyle personalDayText() {
+  double textSize = Globals.instance.getTextSize();
+  return GoogleFonts.sourceSansPro(
+      textStyle: TextStyle(
+    fontSize: textSize,
     color: categoryTileText,
-  ),
-);
+  ));
+}
 
 /// DESCRIPTION PAGE ///
 
@@ -88,11 +96,14 @@ var calcNumber = GoogleFonts.arefRuqaa(
   ),
 );
 
-var descriptionContentStyle = GoogleFonts.sourceSansPro(
-    textStyle: TextStyle(
-  fontSize: 18.0,
-  color: Colors.white,
-));
+TextStyle descriptionContentStyle() {
+  double textSize = Globals.instance.getTextSize();
+  return GoogleFonts.sourceSansPro(
+      textStyle: TextStyle(
+    fontSize: textSize,
+    color: Colors.white,
+  ));
+}
 
 var descriptionHeaderStyle = GoogleFonts.philosopher(
     textStyle: TextStyle(

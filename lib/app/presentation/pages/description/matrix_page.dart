@@ -179,7 +179,7 @@ class _MatrixPageState extends State<MatrixPage> {
       padding: const EdgeInsets.all(16.0),
       child: Text(content,
           maxLines: isFolded ? 6 : 2000,
-          style: descriptionContentStyle,
+          style: descriptionContentStyle(),
           overflow: isFolded ? TextOverflow.ellipsis : TextOverflow.visible),
     );
   }

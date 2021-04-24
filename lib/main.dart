@@ -88,6 +88,7 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<TextSizeCubit>(
           create: (context) => TextSizeCubit(),
+          lazy: false,
         ),
         BlocProvider<LanguageCubit>(
           create: (context) => LanguageCubit(),

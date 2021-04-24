@@ -58,7 +58,7 @@ Widget _buildReadMore() {
         Globals.instance.language.readMore,
         maxLines: 3,
         overflow: TextOverflow.ellipsis,
-        style: personalDayText,
+        style: personalDayText(),
       ),
     ),
   );
@@ -71,7 +71,7 @@ Widget _buildContent(content) {
       content,
       maxLines: 3,
       overflow: TextOverflow.ellipsis,
-      style: personalDayText,
+      style: personalDayText(),
     ),
   );
 }

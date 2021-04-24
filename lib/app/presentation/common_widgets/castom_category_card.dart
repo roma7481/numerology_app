@@ -5,7 +5,8 @@ import 'package:numerology/app/constants/text_styles.dart';
 class CustomCategoryCard extends StatelessWidget {
   CustomCategoryCard({
     @required this.header,
-    @required this.content, this.iconPath,
+    @required this.content,
+    this.iconPath,
   });
 
   final String header;
@@ -34,7 +35,7 @@ class CustomCategoryCard extends StatelessWidget {
   Widget _buildCardContent(BuildContext context) {
     return Text(
       content,
-      style: descriptionContentStyle,
+      style: descriptionContentStyle(),
     );
   }
 
@@ -52,14 +53,15 @@ class CustomCategoryCard extends StatelessWidget {
             header,
             style: descriptionHeaderStyle,
           ),
-          Opacity(
-              opacity: 0.0, child: _buildIcon()),
+          Opacity(opacity: 0.0, child: _buildIcon()),
         ],
       ),
     );
   }
 
   Widget _buildIcon() {
-    return iconPath != null ? SvgPicture.asset(iconPath, height: 20.0) : Container();
+    return iconPath != null
+        ? SvgPicture.asset(iconPath, height: 20.0)
+        : Container();
   }
 }
