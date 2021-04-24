@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 
-Widget buildSettingWithIcon(Function onClick, Widget icon, String text) {
+Widget buildSettingWithIcon(
+  Function onClick,
+  Widget icon,
+  String text,
+) {
   return TextButton(
     onPressed: () {
       onClick();
@@ -12,15 +16,9 @@ Widget buildSettingWithIcon(Function onClick, Widget icon, String text) {
           padding: const EdgeInsets.only(left: 8.0, right: 8.0),
           child: icon,
         ),
-        Padding(
-          padding: const EdgeInsets.only(
-            left: 8.0,
-            right: 8.0,
-          ),
-          child: Text(
-            text,
-            style: headerTextStyle,
-          ),
+        Text(
+          text,
+          style: headerTextStyle,
         ),
       ],
     ),

@@ -247,7 +247,7 @@ class LanguageEs extends Languages {
   String get moreApps => 'Más aplicaciones';
 
   @override
-  String get tarotApp => 'Tarot - Carta diaria de tarot';
+  String get tarotApp => 'Tarot - Carta diaria';
 
   @override
   String get errorTryLater => 'Algo salió mal inténtalo de nuevo más tarde';
