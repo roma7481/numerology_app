@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_funding_choices/flutter_funding_choices.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:notification_permissions/notification_permissions.dart';
 import 'package:numerology/app/business_logic/cubit/bio/bio_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/notifications_cubit/notifications_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/profiles/profiles_cubit.dart';
@@ -16,6 +18,7 @@ import 'app/business_logic/cubit/forecast/forecast_cubit.dart';
 import 'app/business_logic/cubit/language/language_cubit.dart';
 import 'app/constants/colors.dart';
 import 'app/constants/strings.dart';
+import 'app/presentation/common_widgets/progress_bar.dart';
 import 'app/presentation/pages/page_decider.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -25,11 +28,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await _setupNotifications();
-
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: backgroundColor,
-    statusBarIconBrightness: Brightness.light,
-  ));
 
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: await getApplicationDocumentsDirectory(),
@@ -57,6 +55,18 @@ Future<void> _setupNotifications() async {
       onSelectNotification: (String payload) async {
     if (payload != null) {
       debugPrint('notification payload: ' + payload);
+    }
+  });
+}
+
+Future _displayFundingDialog() async {
+  WidgetsBinding.instance.addPostFrameCallback((_) async {
+    ConsentInformation consentInfo =
+    await FlutterFundingChoices.requestConsentInformation();
+    if (consentInfo.isConsentFormAvailable &&
+        consentInfo.consentStatus == ConsentStatus.REQUIRED_IOS) {
+      await FlutterFundingChoices.showConsentForm();
+      // You can check the result by calling `FlutterFundingChoices.requestConsentInformation()` again !
     }
   });
 }
@@ -99,8 +109,24 @@ class MyApp extends StatelessWidget {
           unselectedWidgetColor: Colors.white,
           primarySwatch: MaterialColor(appBarColor, appBarColorMap),
         ),
-        home: PageDecider(),
+        home: _displayHomePage(),
       ),
     );
+  }
+
+  FutureBuilder<PermissionStatus> _displayHomePage() {
+    return FutureBuilder(
+        future: NotificationPermissions.getNotificationPermissionStatus(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data == PermissionStatus.granted ||
+                snapshot.data == PermissionStatus.denied ||
+                snapshot.data == PermissionStatus.provisional) {
+              _displayFundingDialog();
+              return PageDecider();
+            }
+          }
+          return progressBar();
+        });
   }
 }

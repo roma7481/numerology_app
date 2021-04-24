@@ -249,4 +249,13 @@ class LanguageRu extends Languages {
 
   @override
   String get runeApp => 'Rune app RU';
+
+  @override
+  String get shareApp => 'Share app RU';
+
+  @override
+  String get privacyPolicy => 'Privacy policy RU';
+
+  @override
+  String get consent => 'Consent RU';
 }

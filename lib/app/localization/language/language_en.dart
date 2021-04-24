@@ -255,4 +255,13 @@ class LanguageEn extends Languages {
 
   @override
   String get runeApp => 'Rune app';
+
+  @override
+  String get shareApp => 'Share app';
+
+  @override
+  String get privacyPolicy => 'Privacy policy';
+
+  @override
+  String get consent => 'Consent';
 }

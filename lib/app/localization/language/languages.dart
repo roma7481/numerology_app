@@ -3,6 +3,12 @@ abstract class Languages {
 
   String get welcomeText;
 
+  String get consent;
+
+  String get shareApp;
+
+  String get privacyPolicy;
+
   String get moreApps;
 
   String get tarotApp;

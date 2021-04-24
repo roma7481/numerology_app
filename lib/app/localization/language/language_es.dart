@@ -249,4 +249,13 @@ class LanguageEs extends Languages {
 
   @override
   String get runeApp => 'Rune app ES';
+
+  @override
+  String get shareApp => 'Share app ES';
+
+  @override
+  String get privacyPolicy => 'Privacy policy ES';
+
+  @override
+  String get consent => 'Consent ES';
 }
