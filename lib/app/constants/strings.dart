@@ -9,3 +9,5 @@ const String spanish = 'Español';
 const String numerology = 'Numerology';
 
 const String primaryUserKey = 'primaryUserKey';
+
+const String androidAppIcon = 'ic_launcher';

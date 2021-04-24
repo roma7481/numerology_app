@@ -193,3 +193,7 @@ var profilesBlueText = GoogleFonts.sourceSansPro(
   fontSize: 15.0,
   color: itemTapPressedColor,
 ));
+
+/// SETTINGS ///
+TextStyle notificationPickerTextStyle =
+    TextStyle(fontSize: 60.0, color: Colors.black);

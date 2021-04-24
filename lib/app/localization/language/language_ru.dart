@@ -222,4 +222,19 @@ class LanguageRu extends Languages {
 
   @override
   String get language => 'language RU';
+
+  @override
+  String get notifications => 'Notifications RU';
+
+  @override
+  String get dailyReminder => 'Daily reminder RU';
+
+  @override
+  String get clickOnTheTimeToSet => 'Click on the time to set';
+
+  @override
+  String get numerology => 'Numerology RU';
+
+  @override
+  String get getDailyForecast => 'Get daily forecast';
 }

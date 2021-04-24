@@ -7,6 +7,7 @@ import 'package:numerology/app/localization/language/languages.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
 
 import 'dialog/landuages_dialog.dart';
+import 'dialog/notification_dialog.dart';
 
 class SettingsPage extends StatelessWidget {
   @override
@@ -64,9 +65,9 @@ class SettingsPage extends StatelessWidget {
                 _buildSetting(Icons.language, language.language, context,
                     () => _showLanguageDialog(context)),
                 _buildLine(context),
-                // _buildSetting(Icons.notifications_none, language.notifications,
-                //     context, () => _showNotificationDialog(context)),
-                // _buildLine(context),
+                _buildSetting(Icons.notifications_none, language.notifications,
+                    context, () => _showNotificationDialog(context)),
+                _buildLine(context),
                 // _buildSetting(Icons.format_size, language.textSize, context,
                 //         () => _showTextSizeDialog(context)),
                 // _buildLine(context),
@@ -78,6 +79,13 @@ class SettingsPage extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  void _showNotificationDialog(BuildContext context) {
+    showCupertinoDialog(
+      context: context,
+      builder: (BuildContext context) => NotificationDialog(),
     );
   }
 

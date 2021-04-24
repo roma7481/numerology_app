@@ -228,4 +228,19 @@ class LanguageEn extends Languages {
 
   @override
   String get language => 'language';
+
+  @override
+  String get notifications => 'Notifications';
+
+  @override
+  String get dailyReminder => 'Daily reminder';
+
+  @override
+  String get clickOnTheTimeToSet => 'Click on the time to set';
+
+  @override
+  String get numerology => 'Numerology';
+
+  @override
+  String get getDailyForecast => 'Get daily forecast';
 }

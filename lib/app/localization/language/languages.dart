@@ -3,6 +3,12 @@ abstract class Languages {
 
   String get welcomeText;
 
+  String get notifications;
+
+  String get dailyReminder;
+
+  String get clickOnTheTimeToSet;
+
   String get language;
 
   String get dateOfBirth;
@@ -18,6 +24,10 @@ abstract class Languages {
   String get cancel;
 
   String get welcomeToNumerology;
+
+  String get numerology;
+
+  String get getDailyForecast;
 
   String get selectLanguage;
 

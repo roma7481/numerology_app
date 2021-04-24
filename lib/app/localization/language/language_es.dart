@@ -222,4 +222,19 @@ class LanguageEs extends Languages {
 
   @override
   String get language => 'language ES';
+
+  @override
+  String get notifications => 'Notifications ES';
+
+  @override
+  String get dailyReminder => 'Daily reminder ES';
+
+  @override
+  String get clickOnTheTimeToSet => 'Click on the time to set';
+
+  @override
+  String get numerology => 'Numerology ES';
+
+  @override
+  String get getDailyForecast => 'Get daily forecast';
 }
