@@ -169,5 +169,5 @@ abstract class Languages {
 
   String get deleteProfile;
 
-  String doYouWantToDelete(String profileName);
+  String get doYouWantToDelete;
 }

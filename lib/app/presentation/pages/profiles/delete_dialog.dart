@@ -9,7 +9,7 @@ Future<bool> deleteProfileDialog(BuildContext context, Profile profile) async {
     context: context,
     builder: (BuildContext context) => CupertinoAlertDialog(
       title: new Text(language.deleteProfile),
-      content: new Text(language.doYouWantToDelete(profile.profileName)),
+      content: new Text(language.doYouWantToDelete),
       actions: <Widget>[
         CupertinoDialogAction(
           isDefaultAction: true,

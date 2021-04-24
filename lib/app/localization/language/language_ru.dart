@@ -209,8 +209,8 @@ class LanguageRu extends Languages {
   String get deleteProfile => 'Delete profile RU';
 
   @override
-  String doYouWantToDelete(String profileName) {
-    return 'Are you sure delete $profileName ? RU';
+  String get doYouWantToDelete {
+    return 'Are you sure? RU';
   }
 
   @override
