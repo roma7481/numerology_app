@@ -246,4 +246,7 @@ class LanguageEs extends Languages {
 
   @override
   String get errorTryLater => 'Something went wrong try again later ES';
+
+  @override
+  String get runeApp => 'Rune app ES';
 }

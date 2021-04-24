@@ -62,7 +62,7 @@ class SettingsPage extends StatelessWidget {
         child: CustomCard(
           child: Padding(
             padding: const EdgeInsets.only(
-                left: 12.0, right: 12.0, top: 16.0, bottom: 16.0),
+                left: 12.0, right: 12.0, top: 4.0, bottom: 16.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -126,7 +126,7 @@ class SettingsPage extends StatelessWidget {
                   tarotIcon, tarotAppURL, Globals.instance.language.tarotApp),
               _buildLine(context),
               buildMoreApps(
-                  tarotIcon, tarotAppURL, Globals.instance.language.tarotApp),
+                  runeIcon, runeAppURL, Globals.instance.language.tarotApp),
             ],
           ),
         )

@@ -61,3 +61,4 @@ const aesthetic = 'assets/graphs/graph_aest.svg';
 
 /// SETTINGS ///
 const tarotIcon = 'assets/more_apps/tarot_app_icon.png';
+const runeIcon = 'assets/more_apps/rune_app_icon.png';

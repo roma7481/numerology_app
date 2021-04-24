@@ -252,4 +252,7 @@ class LanguageEn extends Languages {
 
   @override
   String get errorTryLater => 'Something went wrong try again later';
+
+  @override
+  String get runeApp => 'Rune app';
 }

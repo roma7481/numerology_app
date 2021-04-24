@@ -13,3 +13,5 @@ const String primaryUserKey = 'primaryUserKey';
 const String androidAppIcon = 'ic_launcher';
 const String tarotAppURL =
     'https://apps.apple.com/us/app/tarot-card-of-the-day/id1556452544';
+const String runeAppURL =
+    'https://apps.apple.com/us/app/runes_daily_reading/id1558378053';

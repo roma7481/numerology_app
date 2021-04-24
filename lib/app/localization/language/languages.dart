@@ -7,6 +7,8 @@ abstract class Languages {
 
   String get tarotApp;
 
+  String get runeApp;
+
   String get errorTryLater;
 
   String get notifications;
