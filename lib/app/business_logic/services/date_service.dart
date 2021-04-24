@@ -3,13 +3,11 @@ import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/localization/language/language_en.dart';
 
 class DateService {
-  static var locale = Globals.instance.localeCode;
-
-  static var standardFormat = new DateFormat('dd-MMM-yyyy', locale);
-  static var usFormat = DateFormat('MMM-dd-yyyy', locale);
-  static var standardShortFormat = DateFormat('dd-MMM', locale);
-  static var usShortFormat = DateFormat('MMM-dd', locale);
-  static var monthFormat = DateFormat('MMM', locale);
+  static var standardFormat = 'dd-MMM-yyyy';
+  static var usFormat = 'MMM-dd-yyyy';
+  static var standardShortFormat = 'dd-MMM';
+  static var usShortFormat = 'MMM-dd';
+  static var monthFormat = 'MMM';
 
   static DateTime getCurrentDate() {
     return DateTime.now();
@@ -21,24 +19,24 @@ class DateService {
   }
 
   static String getFormattedDate(DateTime date) {
+    var locale = Globals.instance.localeCode;
     return (Globals.instance.getLanguage() is LanguageEn)
-        ? usFormat.format(date)
-        : standardFormat.format(date);
+        ? new DateFormat(usFormat, locale).format(date)
+        : new DateFormat(standardFormat, locale).format(date);
   }
 
   static String getShortFormattedDate(
     DateTime date,
   ) {
-    var currentLocale = Globals.instance.localeCode;
-    standardShortFormat = DateFormat('dd-MMM', currentLocale);
-    usShortFormat = DateFormat('MMM-dd', currentLocale);
+    var locale = Globals.instance.localeCode;
     return (Globals.instance.getLanguage() is LanguageEn)
-        ? usShortFormat.format(date)
-        : standardShortFormat.format(date);
+        ? new DateFormat(usShortFormat, locale).format(date)
+        : new DateFormat(standardShortFormat, locale).format(date);
   }
 
   static String getMonthFormattedDate(DateTime date) {
-    return monthFormat.format(date);
+    var locale = Globals.instance.localeCode;
+    return new DateFormat(monthFormat, locale).format(date);
   }
 
   static int toTimestamp(DateTime date) {
