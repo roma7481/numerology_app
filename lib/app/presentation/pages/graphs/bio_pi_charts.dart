@@ -40,7 +40,7 @@ Column _buildBio(BuildContext context, LinearGradient gradient, String text,
   return Column(
     children: [
       _buildProgressChart(context, gradient, value),
-      _buildProgressName(text, style),
+      _buildProgressName(context, text, style),
     ],
   );
 }
@@ -55,12 +55,16 @@ Widget _buildImage() {
   );
 }
 
-Widget _buildProgressName(String text, TextStyle style) {
+Widget _buildProgressName(BuildContext context, String text, TextStyle style) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
-    child: Text(
-      text,
-      style: style,
+    child: SizedBox(
+      width: MediaQuery.of(context).size.width * 0.2,
+      child: Text(
+        text,
+        overflow: TextOverflow.ellipsis,
+        style: style,
+      ),
     ),
   );
 }
