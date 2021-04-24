@@ -236,5 +236,14 @@ class LanguageRu extends Languages {
   String get numerology => 'Numerology RU';
 
   @override
-  String get getDailyForecast => 'Get daily forecast';
+  String get getDailyForecast => 'Get daily forecast RU';
+
+  @override
+  String get moreApps => 'More apps RU';
+
+  @override
+  String get tarotApp => 'Tarot app RU';
+
+  @override
+  String get errorTryLater => 'Something went wrong try again later RU';
 }

@@ -3,6 +3,12 @@ abstract class Languages {
 
   String get welcomeText;
 
+  String get moreApps;
+
+  String get tarotApp;
+
+  String get errorTryLater;
+
   String get notifications;
 
   String get dailyReminder;

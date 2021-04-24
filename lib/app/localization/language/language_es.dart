@@ -237,4 +237,13 @@ class LanguageEs extends Languages {
 
   @override
   String get getDailyForecast => 'Get daily forecast';
+
+  @override
+  String get moreApps => 'More apps ES';
+
+  @override
+  String get tarotApp => 'Tarot app ES';
+
+  @override
+  String get errorTryLater => 'Something went wrong try again later ES';
 }

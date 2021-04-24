@@ -243,4 +243,13 @@ class LanguageEn extends Languages {
 
   @override
   String get getDailyForecast => 'Get daily forecast';
+
+  @override
+  String get moreApps => 'More apps';
+
+  @override
+  String get tarotApp => 'Tarot app';
+
+  @override
+  String get errorTryLater => 'Something went wrong try again later';
 }

@@ -1,10 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/constants/colors.dart';
+import 'package:numerology/app/constants/icon_path.dart';
+import 'package:numerology/app/constants/strings.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/localization/language/languages.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'dialog/landuages_dialog.dart';
 import 'dialog/notification_dialog.dart';
@@ -42,7 +46,7 @@ class SettingsPage extends StatelessWidget {
       child: Column(
         children: [
           _buildFirstSetting1(language, context),
-          // _buildMoreApps(language, context),
+          _buildMoreApps(),
           // _buildFirstSetting2(language, context),
         ],
       ),
@@ -103,6 +107,88 @@ class SettingsPage extends StatelessWidget {
         color: cardLineColor,
       ),
     );
+  }
+
+  _buildMoreApps() {
+    var customIcon = ClipRRect(
+      borderRadius: BorderRadius.circular(4.0),
+      child: Container(
+        height: 30,
+        child: Image.asset(tarotIcon),
+      ),
+    );
+
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: Text(
+            Globals.instance.getLanguage().moreApps,
+            style: headerTextStyle,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 16.0),
+          child: Align(
+            //To make container wrap parent you can wrap it in align
+            alignment: Alignment.topCenter,
+            child: CustomCard(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 12.0, right: 12.0, top: 16.0, bottom: 16.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        _buildSettingWithIcon(
+                          () => _openLink(tarotAppURL),
+                          customIcon,
+                          Globals.instance.language.tarotApp,
+                        ),
+                        _buildAd(),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  ClipRRect _buildAd() {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(4.0),
+      child: Container(
+        color: datePickerItem,
+        child: Padding(
+          padding: const EdgeInsets.all(2.0),
+          child: Text(
+            'Ad',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _openLink(String url) async {
+    try {
+      if (await canLaunch(url)) {
+        await launch(url, forceSafariVC: false);
+      }
+    } catch (e) {
+      Fluttertoast.showToast(
+        msg: Globals.instance.language.errorTryLater,
+        gravity: ToastGravity.BOTTOM,
+        toastLength: Toast.LENGTH_SHORT,
+      );
+    }
   }
 
   Widget _buildSetting(
