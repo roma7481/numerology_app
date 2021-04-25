@@ -215,7 +215,7 @@ class LanguageRu extends Languages {
   String get deleteProfile => 'Удалить Профиль';
 
   @override
-  String get doYouWantToDelete{
+  String get doYouWantToDelete {
     return 'Вы уверены?';
   }
 
@@ -282,4 +282,34 @@ class LanguageRu extends Languages {
 
   @override
   String get textSize => 'Размер шрифта';
+
+  @override
+  String get buy => 'Купить';
+
+  @override
+  String get getCompatReport => 'Прогноз совместимости';
+
+  @override
+  String get goPremium => 'Включить премиум';
+
+  @override
+  String get oneTimePayment => 'Одноразовый платёж !!';
+
+  @override
+  String get openForecast => 'Прогноз на будущее';
+
+  @override
+  String get premium => 'Премиум';
+
+  @override
+  String get purchaseCanceled => 'Покупка отменена';
+
+  @override
+  String get purchaseError => 'Ошибке при покупке';
+
+  @override
+  String get purchaseSuccess => 'Успешная покупка';
+
+  @override
+  String get unlimitedProfiles => 'Добавление профилей пользователя';
 }

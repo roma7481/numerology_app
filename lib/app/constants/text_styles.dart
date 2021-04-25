@@ -221,3 +221,11 @@ TextStyle urlLinkStyle = GoogleFonts.sourceSansPro(
   color: cardUrlLinkColor,
   decoration: TextDecoration.underline,
 ));
+
+var settingsTextStyle = GoogleFonts.philosopher(
+  textStyle: TextStyle(
+    fontSize: 19.0,
+    color: welcomeScreenTextColor,
+    fontWeight: FontWeight.bold,
+  ),
+);

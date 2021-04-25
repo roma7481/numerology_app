@@ -61,6 +61,9 @@ const Color cupertinoSwitchActive = Color.fromRGBO(128, 202, 255, 1);
 const Color datePickerColor = Colors.white;
 const Color datePickerItem = Color.fromRGBO(0, 40, 69, 0.85);
 
+/// PURCHASE ///
+const Color buttonColor = Color.fromRGBO(66, 142, 235, 1);
+
 /// ADS ///
 
 const Color callToAction = Color.fromRGBO(255, 196, 87, 1);

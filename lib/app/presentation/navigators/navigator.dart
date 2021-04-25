@@ -4,6 +4,7 @@ import 'package:numerology/app/presentation/pages/bottom_navigator/main_page.dar
 import 'package:numerology/app/presentation/pages/description/description_page.dart';
 import 'package:numerology/app/presentation/pages/description/matrix_line_data.dart';
 import 'package:numerology/app/presentation/pages/graphs/bio_graphs_page.dart';
+import 'package:numerology/app/presentation/pages/pay_wall/pay_wall.dart';
 import 'package:numerology/app/presentation/pages/welcome/name_settings_page.dart';
 
 void navigateToNameSettings(BuildContext context, int dob) async {
@@ -24,6 +25,14 @@ void navigateToMainPage(BuildContext context) async {
       builder: (BuildContext context) => MainPage(),
     ),
   );
+}
+
+void navigateToPremium(BuildContext context) {
+  Navigator.of(context, rootNavigator: true).push(new MaterialPageRoute(
+    builder: (BuildContext context) {
+      return new PayWall();
+    },
+  ));
 }
 
 Future<void> navigateToBioGraphsPage(BuildContext context) async {

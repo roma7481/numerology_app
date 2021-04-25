@@ -1,6 +1,26 @@
 abstract class Languages {
   const Languages();
 
+  String get purchaseError;
+
+  String get purchaseSuccess;
+
+  String get purchaseCanceled;
+
+  String get premium;
+
+  String get goPremium;
+
+  String get openForecast;
+
+  String get oneTimePayment;
+
+  String get getCompatReport;
+
+  String get unlimitedProfiles;
+
+  String get buy;
+
   String get small;
 
   String get medium;

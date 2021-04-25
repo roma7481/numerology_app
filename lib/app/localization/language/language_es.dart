@@ -281,4 +281,34 @@ class LanguageEs extends Languages {
 
   @override
   String get small => 'Pequeño';
+
+  @override
+  String get buy => 'Comprar';
+
+  @override
+  String get getCompatReport => 'Predicción de compatibilidad';
+
+  @override
+  String get goPremium => 'Habilitar premium';
+
+  @override
+  String get oneTimePayment => 'Pago único !!';
+
+  @override
+  String get openForecast => 'Previsión para el futuro';
+
+  @override
+  String get premium => 'Prima';
+
+  @override
+  String get purchaseCanceled => 'Compra cancelada';
+
+  @override
+  String get purchaseError => 'Error de compra';
+
+  @override
+  String get purchaseSuccess => 'Compra exitosa';
+
+  @override
+  String get unlimitedProfiles => 'Agregar perfiles de usuario';
 }

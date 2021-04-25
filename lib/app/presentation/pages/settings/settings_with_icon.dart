@@ -18,7 +18,7 @@ Widget buildSettingWithIcon(
         ),
         Text(
           text,
-          style: headerTextStyle,
+          style: settingsTextStyle,
         ),
       ],
     ),

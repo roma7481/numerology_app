@@ -282,4 +282,34 @@ class LanguageEn extends Languages {
 
   @override
   String get small => 'Small';
+
+  @override
+  String get buy => 'Buy';
+
+  @override
+  String get getCompatReport => 'Get compatibility report';
+
+  @override
+  String get goPremium => 'Go premium';
+
+  @override
+  String get oneTimePayment => 'One time payment';
+
+  @override
+  String get openForecast => 'Open future forecast';
+
+  @override
+  String get premium => 'Premium';
+
+  @override
+  String get purchaseCanceled => 'Purchase canceled';
+
+  @override
+  String get purchaseError => 'Purchase error';
+
+  @override
+  String get purchaseSuccess => 'Purchase success';
+
+  @override
+  String get unlimitedProfiles => 'Create unlimited profiles';
 }

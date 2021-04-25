@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_funding_choices/flutter_funding_choices.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
+import 'package:numerology/app/business_logic/services/premium/premium_controller.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/icon_path.dart';
 import 'package:numerology/app/constants/strings.dart';
@@ -10,6 +11,7 @@ import 'package:numerology/app/localization/language/language_ru.dart';
 import 'package:numerology/app/localization/language/languages.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
 import 'package:numerology/app/presentation/common_widgets/error_dialog.dart';
+import 'package:numerology/app/presentation/navigators/navigator.dart';
 import 'package:numerology/app/presentation/pages/settings/open_link.dart';
 import 'package:numerology/app/presentation/pages/settings/settings_with_icon.dart';
 import 'package:share/share.dart';
@@ -81,16 +83,48 @@ class SettingsPage extends StatelessWidget {
                 _buildLine(context),
                 _buildSetting(Icons.format_size, language.textSize, context,
                     () => _showTextSizeDialog(context)),
-                // _buildLine(context),
+                _buildLine(context),
                 // _buildSetting(Icons.restore, language.restorePurchase, context,
                 //         () => _restorePurchase(context)),
-                // _buildPremium(language, context),
+                _buildPremium(language, context),
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  Widget _buildPremium(Languages language, BuildContext context) {
+    return FutureBuilder<bool>(
+        future: PremiumController.instance.isPremium(),
+        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
+              return const CircularProgressIndicator();
+            default:
+              if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
+              } else {
+                var isPremium = snapshot.data;
+                if (isPremium) {
+                  return Container();
+                } else {
+                  return Column(
+                    children: [
+                      _buildLine(context),
+                      _buildSetting(
+                        Icons.stars,
+                        language.goPremium,
+                        context,
+                        () => navigateToPremium(context),
+                      ),
+                    ],
+                  );
+                }
+              }
+          }
+        });
   }
 
   void _showTextSizeDialog(BuildContext context) {
