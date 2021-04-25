@@ -311,4 +311,7 @@ class LanguageEs extends Languages {
 
   @override
   String get unlimitedProfiles => 'Agregar perfiles de usuario';
+
+  @override
+  String get adsFree => 'Sin Anuncios';
 }

@@ -99,6 +99,8 @@ class _PayWallState extends State<PayWall> {
                         Icons.check_circle),
                     _buildContentRow(context, language.oneTimePayment,
                         Icons.monetization_on_outlined),
+                    _buildContentRow(context, language.adsFree,
+                        Icons.monetization_on_outlined),
                     _buildBuyButton()
                   ],
                 ),

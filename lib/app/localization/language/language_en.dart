@@ -312,4 +312,7 @@ class LanguageEn extends Languages {
 
   @override
   String get unlimitedProfiles => 'Unlimited profiles';
+
+  @override
+  String get adsFree => 'Ads free';
 }

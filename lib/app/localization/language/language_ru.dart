@@ -312,4 +312,7 @@ class LanguageRu extends Languages {
 
   @override
   String get unlimitedProfiles => 'Добавление профилей пользователя';
+
+  @override
+  String get adsFree => 'Убрать рекламу';
 }
