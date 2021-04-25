@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_funding_choices/flutter_funding_choices.dart';
+import 'package:numerology/app/business_logic/cubit/purchases/purchases_cubit.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/business_logic/services/premium/premium_controller.dart';
 import 'package:numerology/app/constants/colors.dart';
@@ -15,6 +16,7 @@ import 'package:numerology/app/presentation/navigators/navigator.dart';
 import 'package:numerology/app/presentation/pages/settings/open_link.dart';
 import 'package:numerology/app/presentation/pages/settings/settings_with_icon.dart';
 import 'package:share/share.dart';
+import 'package:provider/provider.dart';
 
 import 'attribution/attribution_page.dart';
 import 'dialog/landuages_dialog.dart';
@@ -84,8 +86,8 @@ class SettingsPage extends StatelessWidget {
                 _buildSetting(Icons.format_size, language.textSize, context,
                     () => _showTextSizeDialog(context)),
                 _buildLine(context),
-                // _buildSetting(Icons.restore, language.restorePurchase, context,
-                //         () => _restorePurchase(context)),
+                _buildSetting(Icons.restore, language.restorePurchase, context,
+                        () => _restorePurchase(context)),
                 _buildPremium(language, context),
               ],
             ),
@@ -93,6 +95,10 @@ class SettingsPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _restorePurchase(BuildContext context) async {
+    await context.read<PurchasesCubit>().restorePurchases();
   }
 
   Widget _buildPremium(Languages language, BuildContext context) {
