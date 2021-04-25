@@ -4,6 +4,8 @@ import 'package:numerology/app/business_logic/cubit/forecast/forecast.dart';
 import 'package:numerology/app/business_logic/cubit/forecast/forecast_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
+import 'package:numerology/app/business_logic/services/ads/native_admob_controller.dart';
+import 'package:numerology/app/business_logic/services/ads/show_native_ad.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/presentation/common_widgets/error_dialog.dart';
@@ -15,6 +17,8 @@ import 'package:numerology/app/presentation/pages/home/day_category.dart';
 import 'forecast_button.dart';
 
 class ForecastPage extends StatefulWidget {
+  final NativeAdmobController adController = NativeAdmobController();
+
   @override
   _ForecastPageState createState() => _ForecastPageState();
 }
@@ -78,11 +82,18 @@ class _ForecastPageState extends State<ForecastPage> {
           _buildLine(),
           _buildCategory(_lucky, _onLuckyPressed, _luckyBtnIndex),
           _buildLine(),
+          _showAd(),
           _buildCategory(_monthly, _onMonthlyPressed, _monthlyBtnIndex),
           _buildLine(),
           _buildCategory(_annual, _onYearPressed, _yearBtnIndex),
         ],
       ),
+    );
+  }
+
+  Widget _showAd() {
+    return SliverToBoxAdapter(
+      child: showNativeAd(widget.adController),
     );
   }
 

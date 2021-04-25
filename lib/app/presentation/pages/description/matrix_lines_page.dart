@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:numerology/app/business_logic/services/ads/native_admob_controller.dart';
+import 'package:numerology/app/business_logic/services/ads/show_native_ad.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/presentation/common_widgets/castom_category_card.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
@@ -10,15 +12,17 @@ import 'matrix_utils.dart';
 class MatrixLinesPage extends StatelessWidget {
   final String header;
   final String calculation;
-  final List<CardData> description;
+  final List<CardData> data;
   final List<int> matrix;
   final Map<String, String> info;
+  final NativeAdmobController adController;
 
-  const MatrixLinesPage({
+  MatrixLinesPage(
+    this.adController, {
     Key key,
     this.header = '',
     this.calculation = '',
-    this.description = const [],
+    this.data = const [],
     this.matrix = const [],
     this.info,
   }) : super(key: key);
@@ -54,10 +58,15 @@ class MatrixLinesPage extends StatelessWidget {
     return SliverList(
         delegate: SliverChildBuilderDelegate(
       (context, index) {
-        var data = description[index];
-        return buildExpandCard(data.header, data.description, data.iconPath);
+        var item = data[index];
+        return Column(
+          children: [
+            showAdInList(adController, data, index),
+            buildExpandCard(item.header, item.description, item.iconPath),
+          ],
+        );
       },
-      childCount: description.length,
+      childCount: data.length,
     ));
   }
 

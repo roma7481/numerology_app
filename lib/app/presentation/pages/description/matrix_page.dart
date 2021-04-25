@@ -1,5 +1,7 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:numerology/app/business_logic/services/ads/native_admob_controller.dart';
+import 'package:numerology/app/business_logic/services/ads/show_native_ad.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/data/language/matrix_tile.dart';
@@ -13,8 +15,10 @@ class MatrixPage extends StatefulWidget {
   final String guideText;
   final List<int> matrix;
   final List<MatrixData> data;
+  final NativeAdmobController adController;
 
-  const MatrixPage({
+  const MatrixPage(
+    this.adController, {
     Key key,
     this.matrix,
     this.header,
@@ -186,6 +190,11 @@ class _MatrixPageState extends State<MatrixPage> {
 
   Widget _buildInfo() {
     return SliverToBoxAdapter(
-        child: _buildCard(_infoCard.keys.first, _infoCard.values.first));
+        child: Column(
+      children: [
+        showNativeAd(widget.adController),
+        _buildCard(_infoCard.keys.first, _infoCard.values.first),
+      ],
+    ));
   }
 }

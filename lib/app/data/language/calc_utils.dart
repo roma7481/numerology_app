@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
+import 'package:numerology/app/business_logic/services/ads/native_admob_controller.dart';
 import 'package:numerology/app/business_logic/services/category_calc.dart';
 import 'package:numerology/app/business_logic/services/date_service.dart';
 import 'package:numerology/app/constants/icon_path.dart';
@@ -60,6 +61,8 @@ class CategoryProvider {
   CategoryProvider(this.db);
 
   CategoryProvider._privateConstructor(this.db);
+
+  final NativeAdmobController adController = NativeAdmobController();
 
   static final CategoryProvider instance =
       CategoryProvider._privateConstructor(NumerologyDBProvider.instance);
@@ -454,7 +457,7 @@ class CategoryProvider {
   }
 
   Future<Widget> getBioSecondPage(Profile profile, String header) async {
-    return BioGraphsSecondPage();
+    return BioGraphsSecondPage(adController);
   }
 
   Future<Widget> getCompatPage(Profile profile, String header) async {
@@ -762,6 +765,7 @@ class CategoryProvider {
     }
 
     return MatrixPage(
+      adController,
       header: header,
       matrix: calcs,
       guideText: language.clickOnAnyCell,
@@ -866,8 +870,9 @@ class CategoryProvider {
     }
 
     return MatrixLinesPage(
+      adController,
       header: header,
-      description: data,
+      data: data,
       matrix: matrix,
       info: {Globals.instance.language.info: generalInfo},
     );
@@ -1033,6 +1038,7 @@ class CategoryProvider {
         CardData(header: Globals.instance.language.info, description: info));
 
     return DescriptionPage(
+      adController,
       header: header,
       data: data,
     );
@@ -1089,6 +1095,7 @@ class CategoryProvider {
         CardData(header: Globals.instance.language.info, description: info));
 
     return DescriptionPage(
+      adController,
       header: header,
       data: data,
     );
@@ -1148,6 +1155,7 @@ class CategoryProvider {
         CardData(header: Globals.instance.language.info, description: info));
 
     return DescriptionPage(
+      adController,
       header: header,
       calculation: calc.toString(),
       data: data,
@@ -1245,6 +1253,7 @@ class CategoryProvider {
         CardData(header: Globals.instance.language.info, description: info));
 
     return DescriptionPage(
+      adController,
       header: header,
       calculation: calc.toString(),
       data: data,
@@ -1277,6 +1286,7 @@ class CategoryProvider {
         CardData(header: Globals.instance.language.info, description: info));
 
     return DescriptionPage(
+      adController,
       header: header,
       calculation: calc.toString(),
       data: data,
@@ -1309,6 +1319,7 @@ class CategoryProvider {
         CardData(header: Globals.instance.language.info, description: info));
 
     return DescriptionPage(
+      adController,
       header: header,
       calculation: calc.toString(),
       data: data,
@@ -1357,6 +1368,7 @@ class CategoryProvider {
         CardData(header: Globals.instance.language.info, description: info));
 
     return DescriptionPage(
+      adController,
       header: header,
       data: data,
     );
@@ -1389,6 +1401,7 @@ class CategoryProvider {
         CardData(header: Globals.instance.language.info, description: info));
 
     return DescriptionPage(
+      adController,
       header: header,
       data: data,
     );

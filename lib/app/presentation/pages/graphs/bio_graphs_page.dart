@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:numerology/app/business_logic/cubit/bio/bio_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.dart';
+import 'package:numerology/app/business_logic/services/ads/native_admob_controller.dart';
+import 'package:numerology/app/business_logic/services/ads/show_native_ad.dart';
 import 'package:numerology/app/business_logic/services/date_service.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/data/models/profile.dart';
@@ -20,6 +22,8 @@ class BioGraphsPage extends StatefulWidget {
 }
 
 class _BioGraphsPageState extends State<BioGraphsPage> {
+  final NativeAdmobController adController = NativeAdmobController();
+
   Profile profile;
   var header = DateService.getFormattedDate(DateTime.now());
 
@@ -95,7 +99,12 @@ class _BioGraphsPageState extends State<BioGraphsPage> {
           delegate: SliverChildBuilderDelegate(
         (context, index) {
           var data = state.description[index];
-          return buildExpandCard(data.header, data.description, data.iconPath);
+          return Column(
+            children: [
+              showAdInList(adController, state.description, index),
+              buildExpandCard(data.header, data.description, data.iconPath),
+            ],
+          );
         },
         childCount: state.description.length,
       ));

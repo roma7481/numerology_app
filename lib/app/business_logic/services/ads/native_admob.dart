@@ -30,7 +30,7 @@ class NativeAdmob extends StatefulWidget {
     this.loading,
     this.error,
     this.controller,
-    this.numberAds = 1,
+    this.numberAds = 2,
     this.type = NativeAdmobType.full,
   })  : assert(adUnitID.isNotEmpty),
         super(key: key);
