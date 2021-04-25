@@ -17,6 +17,7 @@ import 'package:provider/provider.dart';
 import 'app/business_logic/cubit/bio_second/bio_second_cubit.dart';
 import 'app/business_logic/cubit/forecast/forecast_cubit.dart';
 import 'app/business_logic/cubit/language/language_cubit.dart';
+import 'app/business_logic/services/ads/interestitial_controller.dart';
 import 'app/constants/colors.dart';
 import 'app/constants/strings.dart';
 import 'app/presentation/common_widgets/progress_bar.dart';
@@ -27,6 +28,9 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  InterestitialController interController = InterestitialController.instance;
+  interController.setInter();
 
   await _setupNotifications();
 

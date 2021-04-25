@@ -68,137 +68,137 @@ class CategoryProvider {
       CategoryType categoryType, String header) async {
     switch (categoryType) {
       case CategoryType.luckyGemCategory:
-        navigateToPage(context,
+        await navigateToPage(context,
             await CategoryProvider.instance.getLuckyGemPage(profile, header));
         break;
       case CategoryType.birthdayNumCategory:
-        navigateToPage(
+        await navigateToPage(
             context,
             await CategoryProvider.instance
                 .getBirthdayNumPage(profile, header));
         break;
       case CategoryType.birthdayCodeCategory:
-        navigateToPage(
+        await navigateToPage(
             context,
             await CategoryProvider.instance
                 .getBirthdayCodePage(profile, header));
         break;
       case CategoryType.maturityNumCategory:
-        navigateToPage(
+        await navigateToPage(
             context,
             await CategoryProvider.instance
                 .getMaturityNumPage(profile, header));
         break;
       case CategoryType.personalityNumCategory:
-        navigateToPage(
+        await navigateToPage(
             context,
             await CategoryProvider.instance
                 .getPersonalityNumPage(profile, header));
         break;
       case CategoryType.lifePathNumCategory:
-        navigateToPage(context,
+        await navigateToPage(context,
             await CategoryProvider.instance.lifePathNumPage(profile, header));
         break;
       case CategoryType.challengeNumCategory:
-        navigateToPage(
+        await navigateToPage(
             context,
             await CategoryProvider.instance
                 .getChallengeNumPage(profile, header));
         break;
       case CategoryType.realizationNumCategory:
-        navigateToPage(
+        await navigateToPage(
             context,
             await CategoryProvider.instance
                 .getRealizationNumPage(profile, header));
         break;
       case CategoryType.expressionNumCategory:
-        navigateToPage(
+        await navigateToPage(
             context,
             await CategoryProvider.instance
                 .getExpressionNumPage(profile, header));
         break;
       case CategoryType.nameNumCategory:
-        navigateToPage(context,
+        await navigateToPage(context,
             await CategoryProvider.instance.getNameNumPage(profile, header));
         break;
       case CategoryType.desireNumCategory:
-        navigateToPage(context,
+        await navigateToPage(context,
             await CategoryProvider.instance.getDesireNumPage(profile, header));
         break;
       case CategoryType.soulNumCategory:
-        navigateToPage(context,
+        await navigateToPage(context,
             await CategoryProvider.instance.getSoulNumPage(profile, header));
         break;
       case CategoryType.weddingNumCategory:
-        navigateToPage(context,
+        await navigateToPage(context,
             await CategoryProvider.instance.getWeddingNumPage(profile, header));
         break;
       case CategoryType.matrixLinesCategory:
-        navigateToPage(
+        await navigateToPage(
             context,
             await CategoryProvider.instance
                 .getMatrixLinesPage(profile, header));
         break;
       case CategoryType.matrixCategory:
-        navigateToPage(context,
+        await navigateToPage(context,
             await CategoryProvider.instance.getMatrixPage(profile, header));
         break;
       case CategoryType.compatCategory:
-        navigateToPage(context,
+        await navigateToPage(context,
             await CategoryProvider.instance.getCompatPage(profile, header));
         break;
       case CategoryType.bioSecondCategory:
-        navigateToPage(context,
+        await navigateToPage(context,
             await CategoryProvider.instance.getBioSecondPage(profile, header));
         break;
       case CategoryType.dayCategory:
-        navigateToPage(
+        await navigateToPage(
             context,
             await CategoryProvider.instance
                 .getPersonalDayPage(profile, header));
         break;
       case CategoryType.achievementCategory:
-        navigateToPage(
+        await navigateToPage(
             context,
             await CategoryProvider.instance
                 .getAchievementNumPage(profile, header));
         break;
       case CategoryType.characterCategory:
-        navigateToPage(context,
+        await navigateToPage(context,
             await CategoryProvider.instance.getCharacterPage(profile, header));
         break;
       case CategoryType.intelligenceCategory:
-        navigateToPage(
+        await navigateToPage(
             context,
             await CategoryProvider.instance
                 .getIntelligenceNumPage(profile, header));
         break;
       case CategoryType.moneyCategory:
-        navigateToPage(context,
+        await navigateToPage(context,
             await CategoryProvider.instance.getMoneyNumPage(profile, header));
         break;
       case CategoryType.balanceCategory:
-        navigateToPage(context,
+        await navigateToPage(context,
             await CategoryProvider.instance.getBalanceNumPage(profile, header));
         break;
       case CategoryType.marriageCategory:
-        navigateToPage(
+        await navigateToPage(
             context,
             await CategoryProvider.instance
                 .getMarriageNumPage(profile, header));
         break;
       case CategoryType.loveCategory:
-        navigateToPage(context,
+        await navigateToPage(context,
             await CategoryProvider.instance.getLoveNumPage(profile, header));
         break;
       case CategoryType.potentialCategory:
-        navigateToPage(
+        await navigateToPage(
             context,
             await CategoryProvider.instance
                 .getPotentialNumPage(profile, header));
         break;
       case CategoryType.karmaCategory:
-        navigateToPage(context,
+        await navigateToPage(context,
             await CategoryProvider.instance.getKarmaNumPage(profile, header));
         break;
     }

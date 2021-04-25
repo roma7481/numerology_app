@@ -85,7 +85,7 @@ class HomePage extends StatelessWidget {
         ),
         onPressed: () async {
           context.read<BioCubit>().emitBioInit(profile);
-          navigateToBioGraphsPage(context);
+          await navigateToBioGraphsPage(context);
         },
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:numerology/app/business_logic/services/ads/show_interestial_ad.dart';
 import 'package:numerology/app/presentation/pages/bottom_navigator/main_page.dart';
 import 'package:numerology/app/presentation/pages/description/description_page.dart';
 import 'package:numerology/app/presentation/pages/description/matrix_line_data.dart';
@@ -25,26 +26,27 @@ void navigateToMainPage(BuildContext context) async {
   );
 }
 
-void navigateToBioGraphsPage(BuildContext context) async {
-  Navigator.of(context, rootNavigator: true)
-      .push(MaterialPageRoute(builder: (context) => BioGraphsPage()));
+Future<void> navigateToBioGraphsPage(BuildContext context) async {
+  await showInterestialAd(() => Navigator.of(context, rootNavigator: true)
+      .push(MaterialPageRoute(builder: (context) => BioGraphsPage())));
 }
 
-void navigateToPage(BuildContext context, Widget page) async {
-  Navigator.of(context, rootNavigator: true)
-      .push(MaterialPageRoute(builder: (context) => page));
+Future<void> navigateToPage(BuildContext context, Widget page) async {
+  await showInterestialAd(() => Navigator.of(context, rootNavigator: true)
+      .push(MaterialPageRoute(builder: (context) => page)));
 }
 
-void navigateToDescriptionPage(
+Future<void> navigateToDescriptionPage(
   BuildContext context,
   String header,
   String calculation,
   List<CardData> description,
 ) async {
-  Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
-      builder: (context) => DescriptionPage(
-            header: header,
-            calculation: calculation,
-            data: description,
-          )));
+  await showInterestialAd(
+      () => Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
+          builder: (context) => DescriptionPage(
+                header: header,
+                calculation: calculation,
+                data: description,
+              ))));
 }
