@@ -311,5 +311,5 @@ class LanguageEn extends Languages {
   String get purchaseSuccess => 'Purchase success';
 
   @override
-  String get unlimitedProfiles => 'Create unlimited profiles';
+  String get unlimitedProfiles => 'Unlimited profiles';
 }

@@ -89,14 +89,15 @@ class _PayWallState extends State<PayWall> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    _buildContentRow(language.goPremium, Icons.stars),
+                    _buildContentRow(context, language.goPremium, Icons.stars),
                     _buildLine(context),
                     _buildContentRow(
-                        language.getCompatReport, Icons.check_circle),
-                    _buildContentRow(language.openForecast, Icons.check_circle),
+                        context, language.getCompatReport, Icons.check_circle),
                     _buildContentRow(
-                        language.unlimitedProfiles, Icons.check_circle),
-                    _buildContentRow(language.oneTimePayment,
+                        context, language.openForecast, Icons.check_circle),
+                    _buildContentRow(context, language.unlimitedProfiles,
+                        Icons.check_circle),
+                    _buildContentRow(context, language.oneTimePayment,
                         Icons.monetization_on_outlined),
                     _buildBuyButton()
                   ],
@@ -135,7 +136,7 @@ class _PayWallState extends State<PayWall> {
     );
   }
 
-  Widget _buildContentRow(String text, IconData icon) {
+  Widget _buildContentRow(BuildContext context, String text, IconData icon) {
     return Row(
       children: [
         Padding(
@@ -145,12 +146,15 @@ class _PayWallState extends State<PayWall> {
             color: settingsIconColor,
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 20.0),
-          child: Text(
-            text,
-            overflow: TextOverflow.ellipsis,
-            style: settingsTextStyle,
+        SizedBox(
+          width: MediaQuery.of(context).size.width * 0.7,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 20.0),
+            child: Text(
+              text,
+              overflow: TextOverflow.ellipsis,
+              style: settingsTextStyle,
+            ),
           ),
         ),
       ],
