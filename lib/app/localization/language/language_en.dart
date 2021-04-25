@@ -293,7 +293,7 @@ class LanguageEn extends Languages {
   String get goPremium => 'Go premium';
 
   @override
-  String get oneTimePayment => 'One time payment';
+  String get oneTimePayment => 'One time payment !!';
 
   @override
   String get openForecast => 'Open future forecast';
