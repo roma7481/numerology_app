@@ -112,6 +112,7 @@ class _DescriptionNameBasedPageState extends State<DescriptionNameBasedPage> {
   SafeArea _showForm(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: _buildHeader(),
         ),

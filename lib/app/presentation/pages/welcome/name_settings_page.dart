@@ -54,6 +54,7 @@ class _NameSettingsPageState extends State<NameSettingsPage> {
   SafeArea _buildPageContent(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: _buildContent(context),
       ),
     );
