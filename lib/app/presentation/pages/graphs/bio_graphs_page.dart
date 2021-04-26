@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:numerology/app/business_logic/cubit/bio/bio_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.dart';
 import 'package:numerology/app/business_logic/services/ads/native_admob_controller.dart';
+import 'package:numerology/app/business_logic/services/ads/show_banner.dart';
 import 'package:numerology/app/business_logic/services/ads/show_native_ad.dart';
 import 'package:numerology/app/business_logic/services/date_service.dart';
 import 'package:numerology/app/constants/colors.dart';
@@ -24,11 +26,18 @@ class BioGraphsPage extends StatefulWidget {
 class _BioGraphsPageState extends State<BioGraphsPage> {
   final NativeAdmobController adController = NativeAdmobController();
 
+  BannerAd _banner;
+  AdWidget _adWidget;
+
   Profile profile;
   var header = DateService.getFormattedDate(DateTime.now());
 
   @override
   Widget build(BuildContext context) {
+    _banner = getBanner();
+    _banner.load();
+    _adWidget = AdWidget(ad: _banner);
+
     return BlocBuilder<UserDataCubit, UserDataState>(builder: (context, state) {
       if (state is UserDataReady) {
         profile = state.profile;
@@ -60,13 +69,23 @@ class _BioGraphsPageState extends State<BioGraphsPage> {
   }
 
   Widget _buildContent(BuildContext context) {
+    var listHeight = calcListHeight(context, _banner);
+
     return Container(
       color: backgroundColor,
-      child: CustomScrollView(
-        slivers: [
-          _buildGraphs(),
-          _buildPiCharts(),
-          _buildList(),
+      child: Column(
+        children: [
+          SizedBox(
+            height: listHeight,
+            child: CustomScrollView(
+              slivers: [
+                _buildGraphs(),
+                _buildPiCharts(),
+                _buildList(),
+              ],
+            ),
+          ),
+          showBanner(_adWidget, _banner),
         ],
       ),
     );

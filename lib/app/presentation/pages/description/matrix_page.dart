@@ -1,6 +1,8 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:numerology/app/business_logic/services/ads/native_admob_controller.dart';
+import 'package:numerology/app/business_logic/services/ads/show_banner.dart';
 import 'package:numerology/app/business_logic/services/ads/show_native_ad.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/text_styles.dart';
@@ -36,6 +38,9 @@ class _MatrixPageState extends State<MatrixPage> {
   var _descriptionCard = {};
   var _infoCard = {};
 
+  BannerAd _banner;
+  AdWidget _adWidget;
+
   @override
   void initState() {
     super.initState();
@@ -45,6 +50,10 @@ class _MatrixPageState extends State<MatrixPage> {
 
   @override
   Widget build(BuildContext context) {
+    _banner = getBanner();
+    _banner.load();
+    _adWidget = AdWidget(ad: _banner);
+
     return _buildPageContent(context);
   }
 
@@ -59,15 +68,25 @@ class _MatrixPageState extends State<MatrixPage> {
   }
 
   Widget _buildContext(BuildContext context) {
+    var listHeight = calcListHeight(context, _banner);
+
     return Container(
       width: double.infinity,
       color: backgroundColor,
-      child: CustomScrollView(
-        slivers: [
-          _buildMatrix(context),
-          _buildGuideText(),
-          _buildDescription(),
-          _buildInfo(),
+      child: Column(
+        children: [
+          SizedBox(
+            height: listHeight,
+            child: CustomScrollView(
+              slivers: [
+                _buildMatrix(context),
+                _buildGuideText(),
+                _buildDescription(),
+                _buildInfo(),
+              ],
+            ),
+          ),
+          showBanner(_adWidget, _banner),
         ],
       ),
     );

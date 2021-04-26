@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:numerology/app/business_logic/services/ads/native_admob_controller.dart';
+import 'package:numerology/app/business_logic/services/ads/show_banner.dart';
 import 'package:numerology/app/business_logic/services/ads/show_native_ad.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/presentation/common_widgets/castom_category_card.dart';
@@ -17,6 +19,9 @@ class MatrixLinesPage extends StatelessWidget {
   final Map<String, String> info;
   final NativeAdmobController adController;
 
+  BannerAd _banner;
+  AdWidget _adWidget;
+
   MatrixLinesPage(
     this.adController, {
     Key key,
@@ -29,6 +34,9 @@ class MatrixLinesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    _banner = getBanner();
+    _banner.load();
+    _adWidget = AdWidget(ad: _banner);
     return _buildPageContent(context);
   }
 
@@ -41,14 +49,24 @@ class MatrixLinesPage extends StatelessWidget {
   }
 
   Widget _buildContext(BuildContext context) {
+    var listHeight = calcListHeight(context, _banner);
+
     return Container(
       width: double.infinity,
       color: backgroundColor,
-      child: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(child: buildMatrix(context, matrix)),
-          _buildList(),
-          _buildInfo(),
+      child: Column(
+        children: [
+          SizedBox(
+            height: listHeight,
+            child: CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(child: buildMatrix(context, matrix)),
+                _buildList(),
+                _buildInfo(),
+              ],
+            ),
+          ),
+          showBanner(_adWidget, _banner),
         ],
       ),
     );

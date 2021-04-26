@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:numerology/app/business_logic/cubit/bio_second/bio_second_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.dart';
 import 'package:numerology/app/business_logic/services/ads/native_admob_controller.dart';
+import 'package:numerology/app/business_logic/services/ads/show_banner.dart';
 import 'package:numerology/app/business_logic/services/ads/show_native_ad.dart';
 import 'package:numerology/app/business_logic/services/date_service.dart';
 import 'package:numerology/app/constants/colors.dart';
@@ -29,8 +31,15 @@ class _BioGraphsSecondPageState extends State<BioGraphsSecondPage> {
   Profile profile;
   var header = DateService.getFormattedDate(DateTime.now());
 
+  BannerAd _banner;
+  AdWidget _adWidget;
+
   @override
   Widget build(BuildContext context) {
+    _banner = getBanner();
+    _banner.load();
+    _adWidget = AdWidget(ad: _banner);
+
     return BlocBuilder<UserDataCubit, UserDataState>(builder: (context, state) {
       if (state is UserDataReady) {
         profile = state.profile;
@@ -69,13 +78,23 @@ class _BioGraphsSecondPageState extends State<BioGraphsSecondPage> {
   }
 
   Widget _buildContent(BuildContext context, BioSecondStateReady state) {
+    var listHeight = calcListHeight(context, _banner);
+
     return Container(
       color: backgroundColor,
-      child: CustomScrollView(
-        slivers: [
-          _buildGraphs(),
-          _buildPiCharts(state),
-          _buildList(state),
+      child: Column(
+        children: [
+          SizedBox(
+            height: listHeight,
+            child: CustomScrollView(
+              slivers: [
+                _buildGraphs(),
+                _buildPiCharts(state),
+                _buildList(state),
+              ],
+            ),
+          ),
+          showBanner(_adWidget, _banner),
         ],
       ),
     );
