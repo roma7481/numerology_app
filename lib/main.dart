@@ -90,6 +90,7 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<PurchasesCubit>(
           create: (context) => PurchasesCubit(),
+          lazy: false,
         ),
         BlocProvider<NotificationsCubit>(
           create: (context) => NotificationsCubit(),

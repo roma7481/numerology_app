@@ -26,7 +26,10 @@ BannerAd getBanner() {
   );
 }
 
-Widget showBanner(AdWidget adWidget, BannerAd banner) {
+Widget showBanner(AdWidget adWidget, BannerAd banner, bool isPremium) {
+  if (isPremium) {
+    return Container();
+  }
   return Container(
     alignment: Alignment.center,
     child: adWidget,
@@ -35,9 +38,10 @@ Widget showBanner(AdWidget adWidget, BannerAd banner) {
   );
 }
 
-double calcListHeight(BuildContext context, BannerAd banner) {
+double calcListHeight(BuildContext context, BannerAd banner, bool isPremium) {
+  var bannerHeight = isPremium ? 0 : banner.size.height;
   return MediaQuery.of(context).size.height -
-      banner.size.height -
+      bannerHeight -
       AppBar().preferredSize.height -
       20.0;
 }

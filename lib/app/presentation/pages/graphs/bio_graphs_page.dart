@@ -7,9 +7,11 @@ import 'package:numerology/app/business_logic/services/ads/native_admob_controll
 import 'package:numerology/app/business_logic/services/ads/show_banner.dart';
 import 'package:numerology/app/business_logic/services/ads/show_native_ad.dart';
 import 'package:numerology/app/business_logic/services/date_service.dart';
+import 'package:numerology/app/business_logic/services/premium/premium_controller.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/data/models/profile.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
+import 'package:numerology/app/presentation/common_widgets/error_dialog.dart';
 import 'package:numerology/app/presentation/common_widgets/foldable_card_widget.dart';
 import 'package:numerology/app/presentation/common_widgets/progress_bar.dart';
 
@@ -49,15 +51,31 @@ class _BioGraphsPageState extends State<BioGraphsPage> {
   }
 
   Widget _buildPageContent(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        brightness: Brightness.dark,
-        title: _buildHeader(),
-      ),
-      body: _buildContent(context),
-    ));
+    return FutureBuilder<bool>(
+        future: PremiumController.instance.isPremium(),
+        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
+              return Container();
+            default:
+              if (snapshot.hasError) {
+                return SliverToBoxAdapter(
+                  child: errorDialog(),
+                );
+              } else {
+                var isPremium = snapshot.data;
+                return SafeArea(
+                    child: Scaffold(
+                  appBar: AppBar(
+                    centerTitle: true,
+                    brightness: Brightness.dark,
+                    title: _buildHeader(),
+                  ),
+                  body: _buildContent(context, isPremium),
+                ));
+              }
+          }
+        });
   }
 
   Widget _buildHeader() {
@@ -68,8 +86,8 @@ class _BioGraphsPageState extends State<BioGraphsPage> {
     });
   }
 
-  Widget _buildContent(BuildContext context) {
-    var listHeight = calcListHeight(context, _banner);
+  Widget _buildContent(BuildContext context, bool isPremium) {
+    var listHeight = calcListHeight(context, _banner, isPremium);
 
     return Container(
       color: backgroundColor,
@@ -81,11 +99,11 @@ class _BioGraphsPageState extends State<BioGraphsPage> {
               slivers: [
                 _buildGraphs(),
                 _buildPiCharts(),
-                _buildList(),
+                _buildList(isPremium),
               ],
             ),
           ),
-          showBanner(_adWidget, _banner),
+          showBanner(_adWidget, _banner, isPremium),
         ],
       ),
     );
@@ -112,7 +130,7 @@ class _BioGraphsPageState extends State<BioGraphsPage> {
     });
   }
 
-  Widget _buildList() {
+  Widget _buildList(bool isPremium) {
     return BlocBuilder<BioCubit, BioState>(builder: (context, state) {
       return SliverList(
           delegate: SliverChildBuilderDelegate(
@@ -120,7 +138,7 @@ class _BioGraphsPageState extends State<BioGraphsPage> {
           var data = state.description[index];
           return Column(
             children: [
-              showAdInList(adController, state.description, index),
+              showAdInList(adController, state.description, index, isPremium),
               buildExpandCard(data.header, data.description, data.iconPath),
             ],
           );

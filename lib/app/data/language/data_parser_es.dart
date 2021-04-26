@@ -12,7 +12,6 @@ class DataParserEs extends DataParser {
     List<CategoryModel> categories = [];
 
     categories.add(await _getCompat(profile));
-    categories.add(await _getKarma(profile));
     categories.add(await _getPotential(profile));
     categories.add(await _getSecondBio(profile));
     categories.add(await _getAchievement(profile));
@@ -21,6 +20,7 @@ class DataParserEs extends DataParser {
     categories.add(await _getSoulNumber(profile));
     categories.add(await _getNameNumber(profile));
     categories.add(await _getExpressionNumber(profile));
+    categories.add(await _getKarma(profile));
     categories.add(await _getPersonalityNumber(profile));
     categories.add(await _getBirthdayNumber(profile));
     categories.add(await _getMaturityNumber(profile));

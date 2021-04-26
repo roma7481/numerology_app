@@ -8,16 +8,22 @@ Widget showAdInList(
   NativeAdmobController adController,
   List<dynamic> data,
   int index,
+  bool isPremium,
 ) {
-  if (data.length <= 3 && index == 1) {
+  if (!isPremium && (data.length <= 3 && index == 1)) {
     return showNativeAd(adController);
-  } else if (data.length > 3 && (index == 1 || index == 3)) {
+  } else if (!isPremium && (data.length > 3 && (index == 1 || index == 3))) {
     return showNativeAd(adController);
   }
   return Container();
 }
 
-Widget showNativeAd(NativeAdmobController adController) {
+Widget showNativeAd(NativeAdmobController adController,
+    {bool isPremium = false}) {
+  if (isPremium) {
+    return Container();
+  }
+
   return SizedBox(
       height: 400,
       child: NativeAdmob(

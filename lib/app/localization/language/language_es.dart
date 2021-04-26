@@ -314,4 +314,7 @@ class LanguageEs extends Languages {
 
   @override
   String get adsFree => 'Sin Anuncios';
+
+  @override
+  String get purchaseRestored => 'Compra restaurada';
 }

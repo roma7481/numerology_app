@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_funding_choices/flutter_funding_choices.dart';
 import 'package:numerology/app/business_logic/cubit/purchases/purchases_cubit.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
@@ -12,11 +13,12 @@ import 'package:numerology/app/localization/language/language_ru.dart';
 import 'package:numerology/app/localization/language/languages.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
 import 'package:numerology/app/presentation/common_widgets/error_dialog.dart';
+import 'package:numerology/app/presentation/common_widgets/toast.dart';
 import 'package:numerology/app/presentation/navigators/navigator.dart';
 import 'package:numerology/app/presentation/pages/settings/open_link.dart';
 import 'package:numerology/app/presentation/pages/settings/settings_with_icon.dart';
-import 'package:share/share.dart';
 import 'package:provider/provider.dart';
+import 'package:share/share.dart';
 
 import 'attribution/attribution_page.dart';
 import 'dialog/landuages_dialog.dart';
@@ -27,7 +29,13 @@ import 'more_apps.dart';
 class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return _buildContent(context);
+    return BlocListener<PurchasesCubit, PurchasesState>(
+        listener: (context, state) {
+          if (state is PurchasesRestored) {
+            showToast(Globals.instance.getLanguage().purchaseRestored);
+          }
+        },
+        child: _buildContent(context));
   }
 
   Scaffold _buildContent(BuildContext context) {
@@ -87,7 +95,7 @@ class SettingsPage extends StatelessWidget {
                     () => _showTextSizeDialog(context)),
                 _buildLine(context),
                 _buildSetting(Icons.restore, language.restorePurchase, context,
-                        () => _restorePurchase(context)),
+                    () => _restorePurchase(context)),
                 _buildPremium(language, context),
               ],
             ),

@@ -6,6 +6,7 @@ import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.da
 import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/business_logic/services/ads/native_admob_controller.dart';
 import 'package:numerology/app/business_logic/services/ads/show_native_ad.dart';
+import 'package:numerology/app/business_logic/services/premium/premium_controller.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/presentation/common_widgets/error_dialog.dart';
@@ -144,28 +145,30 @@ class _ForecastPageState extends State<ForecastPage> {
     );
   }
 
-  void _onDailyPressed(int index) {
-    setState(() {
-      _dailyBtnIndex = index;
-    });
+  Future<void> _onDailyPressed(int index) async {
+    _onPressed(() => _dailyBtnIndex = index, index);
   }
 
-  void _onLuckyPressed(int index) {
-    setState(() {
-      _luckyBtnIndex = index;
-    });
+  Future<void> _onLuckyPressed(int index) async {
+    _onPressed(() => _luckyBtnIndex = index, index);
   }
 
-  void _onMonthlyPressed(int index) {
-    setState(() {
-      _monthlyBtnIndex = index;
-    });
+  Future<void> _onMonthlyPressed(int index) async {
+    _onPressed(() => _monthlyBtnIndex = index, index);
   }
 
-  void _onYearPressed(int index) {
-    setState(() {
-      _yearBtnIndex = index;
-    });
+  Future<void> _onYearPressed(int index) async {
+    _onPressed(() => _yearBtnIndex = index, index);
+  }
+
+  Future<void> _onPressed(Function onPressed, int index) async {
+    if (index == 0 || await PremiumController.instance.isPremium()) {
+      setState(() {
+        onPressed();
+      });
+    } else {
+      navigateToPremium(context);
+    }
   }
 
   Widget _buildLine() {

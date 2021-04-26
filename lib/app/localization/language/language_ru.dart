@@ -257,7 +257,7 @@ class LanguageRu extends Languages {
   String get runeApp => 'Руна Дня';
 
   @override
-  String get shareApp => 'Поделиться приложением';
+  String get shareApp => 'Поделиться';
 
   @override
   String get privacyPolicy => 'Политика конф.';
@@ -315,4 +315,7 @@ class LanguageRu extends Languages {
 
   @override
   String get adsFree => 'Убрать рекламу';
+
+  @override
+  String get purchaseRestored => 'Покупка восстановлена';
 }

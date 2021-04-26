@@ -18,8 +18,10 @@ class MatrixPage extends StatefulWidget {
   final List<int> matrix;
   final List<MatrixData> data;
   final NativeAdmobController adController;
+  final bool isPremium;
 
   const MatrixPage(
+    this.isPremium,
     this.adController, {
     Key key,
     this.matrix,
@@ -63,12 +65,12 @@ class _MatrixPageState extends State<MatrixPage> {
           centerTitle: true,
           title: Text(widget.header),
           brightness: Brightness.dark),
-      body: _buildContext(context),
+      body: _buildContext(context, widget.isPremium),
     );
   }
 
-  Widget _buildContext(BuildContext context) {
-    var listHeight = calcListHeight(context, _banner);
+  Widget _buildContext(BuildContext context, bool isPremium) {
+    var listHeight = calcListHeight(context, _banner, isPremium);
 
     return Container(
       width: double.infinity,
@@ -82,11 +84,11 @@ class _MatrixPageState extends State<MatrixPage> {
                 _buildMatrix(context),
                 _buildGuideText(),
                 _buildDescription(),
-                _buildInfo(),
+                _buildInfo(isPremium),
               ],
             ),
           ),
-          showBanner(_adWidget, _banner),
+          showBanner(_adWidget, _banner, isPremium),
         ],
       ),
     );
@@ -207,11 +209,11 @@ class _MatrixPageState extends State<MatrixPage> {
     );
   }
 
-  Widget _buildInfo() {
+  Widget _buildInfo(bool isPremium) {
     return SliverToBoxAdapter(
         child: Column(
       children: [
-        showNativeAd(widget.adController),
+        showNativeAd(widget.adController, isPremium: isPremium),
         _buildCard(_infoCard.keys.first, _infoCard.values.first),
       ],
     ));

@@ -3,10 +3,12 @@ import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/business_logic/services/ads/native_admob_controller.dart';
 import 'package:numerology/app/business_logic/services/category_calc.dart';
 import 'package:numerology/app/business_logic/services/date_service.dart';
+import 'package:numerology/app/business_logic/services/premium/premium_controller.dart';
 import 'package:numerology/app/constants/icon_path.dart';
 import 'package:numerology/app/data/data_provider/numerology_helper.dart';
 import 'package:numerology/app/data/language/parser_utils.dart';
 import 'package:numerology/app/data/models/profile.dart';
+import 'package:numerology/app/localization/language/language_en.dart';
 import 'package:numerology/app/localization/language/language_es.dart';
 import 'package:numerology/app/localization/language/language_ru.dart';
 import 'package:numerology/app/presentation/navigators/navigator.dart';
@@ -20,6 +22,7 @@ import 'package:numerology/app/presentation/pages/description/matrix_line_data.d
 import 'package:numerology/app/presentation/pages/description/matrix_lines_page.dart';
 import 'package:numerology/app/presentation/pages/description/matrix_page.dart';
 import 'package:numerology/app/presentation/pages/graphs/bio_graphs_second_page.dart';
+import 'package:numerology/app/presentation/pages/pay_wall/pay_wall.dart';
 
 enum CategoryType {
   luckyGemCategory,
@@ -208,11 +211,15 @@ class CategoryProvider {
   }
 
   Future<Widget> getKarmaNumPage(Profile profile, String header) async {
-    return DescriptionNameBasedPage(
-      categoryName: header,
-      getPage: (profile, header) async =>
-          await _getKarmaNumPage(profile, header),
-    );
+    var isPremium = await PremiumController.instance.isPremium();
+    if (isPremium) {
+      return DescriptionNameBasedPage(
+        categoryName: header,
+        getPage: (profile, header) async =>
+            await _getKarmaNumPage(profile, header),
+      );
+    }
+    return PayWall();
   }
 
   Future<Widget> _getKarmaNumPage(Profile profile, String header) async {
@@ -238,11 +245,15 @@ class CategoryProvider {
   }
 
   Future<Widget> getLoveNumPage(Profile profile, String header) async {
-    return DescriptionPartnerDobBasedPage(
-      categoryName: header,
-      getPage: (profile, header) async =>
-          await _getLoveNumPage(profile, header),
-    );
+    var isPremium = await PremiumController.instance.isPremium();
+    if (isPremium) {
+      return DescriptionPartnerDobBasedPage(
+        categoryName: header,
+        getPage: (profile, header) async =>
+            await _getLoveNumPage(profile, header),
+      );
+    }
+    return PayWall();
   }
 
   Future<Widget> _getLoveNumPage(Profile profile, String header) async {
@@ -461,10 +472,15 @@ class CategoryProvider {
   }
 
   Future<Widget> getCompatPage(Profile profile, String header) async {
-    return DescriptionPartnerDobBasedPage(
-      categoryName: header,
-      getPage: (profile, header) async => await _getCompatPage(profile, header),
-    );
+    var isPremium = await PremiumController.instance.isPremium();
+    if (isPremium) {
+      return DescriptionPartnerDobBasedPage(
+        categoryName: header,
+        getPage: (profile, header) async =>
+            await _getCompatPage(profile, header),
+      );
+    }
+    return PayWall();
   }
 
   Future<Widget> _getCompatPage(Profile profile, String header) async {
@@ -764,7 +780,10 @@ class CategoryProvider {
       );
     }
 
+    var isPremium = await PremiumController.instance.isPremium();
+
     return MatrixPage(
+      isPremium,
       adController,
       header: header,
       matrix: calcs,
@@ -883,11 +902,15 @@ class CategoryProvider {
   }
 
   Future<Widget> getWeddingNumPage(Profile profile, String header) async {
-    return DescriptionWeddingBasedPage(
-      categoryName: header,
-      getPage: (profile, header) async =>
-          await _getWeddingNumPage(profile, header),
-    );
+    var isPremium = await PremiumController.instance.isPremium();
+    if (isPremium || !(Globals.instance.language is LanguageEn)) {
+      return DescriptionWeddingBasedPage(
+        categoryName: header,
+        getPage: (profile, header) async =>
+            await _getWeddingNumPage(profile, header),
+      );
+    }
+    return PayWall();
   }
 
   Future<Widget> _getWeddingNumPage(Profile profile, String header) async {

@@ -315,4 +315,7 @@ class LanguageEn extends Languages {
 
   @override
   String get adsFree => 'Ads free';
+
+  @override
+  String get purchaseRestored => 'Purchase restored';
 }

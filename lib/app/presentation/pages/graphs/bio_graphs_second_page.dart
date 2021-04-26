@@ -7,6 +7,7 @@ import 'package:numerology/app/business_logic/services/ads/native_admob_controll
 import 'package:numerology/app/business_logic/services/ads/show_banner.dart';
 import 'package:numerology/app/business_logic/services/ads/show_native_ad.dart';
 import 'package:numerology/app/business_logic/services/date_service.dart';
+import 'package:numerology/app/business_logic/services/premium/premium_controller.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/data/models/profile.dart';
 import 'package:numerology/app/presentation/common_widgets/error_dialog.dart';
@@ -78,8 +79,28 @@ class _BioGraphsSecondPageState extends State<BioGraphsSecondPage> {
   }
 
   Widget _buildContent(BuildContext context, BioSecondStateReady state) {
-    var listHeight = calcListHeight(context, _banner);
+    return FutureBuilder<bool>(
+        future: PremiumController.instance.isPremium(),
+        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
+              return Container();
+            default:
+              if (snapshot.hasError) {
+                return SliverToBoxAdapter(
+                  child: errorDialog(),
+                );
+              } else {
+                var isPremium = snapshot.data;
+                return buildList(context, state, isPremium);
+              }
+          }
+        });
+  }
 
+  Container buildList(
+      BuildContext context, BioSecondStateReady state, bool isPremium) {
+    var listHeight = calcListHeight(context, _banner, isPremium);
     return Container(
       color: backgroundColor,
       child: Column(
@@ -90,11 +111,11 @@ class _BioGraphsSecondPageState extends State<BioGraphsSecondPage> {
               slivers: [
                 _buildGraphs(),
                 _buildPiCharts(state),
-                _buildList(state),
+                _buildList(state, isPremium),
               ],
             ),
           ),
-          showBanner(_adWidget, _banner),
+          showBanner(_adWidget, _banner, isPremium),
         ],
       ),
     );
@@ -121,14 +142,14 @@ class _BioGraphsSecondPageState extends State<BioGraphsSecondPage> {
     );
   }
 
-  Widget _buildList(BioSecondStateReady state) {
+  Widget _buildList(BioSecondStateReady state, bool isPremium) {
     return SliverList(
         delegate: SliverChildBuilderDelegate(
       (context, index) {
         var data = state.description[index];
         return Column(
           children: [
-            showAdInList(adController, state.description, index),
+            showAdInList(adController, state.description, index, isPremium),
             buildExpandCard(data.header, data.description, data.iconPath),
           ],
         );

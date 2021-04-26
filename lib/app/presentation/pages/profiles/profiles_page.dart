@@ -4,6 +4,7 @@ import 'package:numerology/app/business_logic/cubit/profiles/profiles_cubit.dart
 import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/business_logic/services/date_service.dart';
+import 'package:numerology/app/business_logic/services/premium/premium_controller.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/data/models/profile.dart';
@@ -52,13 +53,7 @@ class _ProfilesPageState extends State<ProfilesPage> {
       ),
       body: _buildPageBody(),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => navigateToPage(
-          context,
-          EditProfile(
-            profile: Profile(),
-            isNewProfile: true,
-          ),
-        ),
+        onPressed: () => _onFabPressed(),
         child: new IconTheme(
           data: new IconThemeData(color: Colors.black),
           child: new Icon(Icons.add),
@@ -66,6 +61,20 @@ class _ProfilesPageState extends State<ProfilesPage> {
         backgroundColor: fabColor,
       ),
     );
+  }
+
+  Future<void> _onFabPressed() async {
+    if (await PremiumController.instance.isPremium()) {
+      navigateToPage(
+        context,
+        EditProfile(
+          profile: Profile(),
+          isNewProfile: true,
+        ),
+      );
+    } else {
+      navigateToPremium(context);
+    }
   }
 
   Widget _buildPageBody() {
