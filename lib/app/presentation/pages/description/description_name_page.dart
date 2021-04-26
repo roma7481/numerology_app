@@ -214,9 +214,9 @@ class _DescriptionNameBasedPageState extends State<DescriptionNameBasedPage> {
     BuildContext context,
   ) async {
     if (!_isValidName(
-      controllerMiddleName.text,
       controllerFirstName.text,
       controllerLastName.text,
+      controllerMiddleName.text,
     )) {
       showToast(Globals.instance.language.enterMissingData);
     } else {
