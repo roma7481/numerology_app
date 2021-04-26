@@ -38,6 +38,18 @@ class LocaleUtils {
     return false;
   }
 
+  static bool containsNonVowels(String text) {
+    String vowels = "aeiouAEIOUаэыуояеёюиАЭЫУОЯЕЁЮИ";
+
+    for (int i = 0; i < text.length; i++) {
+      var char = text[i];
+      if (!vowels.contains(char)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   static List<TextInputFormatter> keyboardInputFormatter() {
     /// Need to add a keyboard formatter for every language we add ///
     var formatter = new FilteringTextInputFormatter.allow(

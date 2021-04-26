@@ -7,6 +7,7 @@ import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/data/models/profile.dart';
+import 'package:numerology/app/localization/language/language_ru.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_button.dart';
 import 'package:numerology/app/presentation/common_widgets/error_dialog.dart';
 import 'package:numerology/app/presentation/common_widgets/progress_bar.dart';
@@ -30,6 +31,13 @@ class _DescriptionNameBasedPageState extends State<DescriptionNameBasedPage> {
   final controllerLastName = TextEditingController();
   final controllerMiddleName = TextEditingController();
   Profile currentProfile;
+  bool _shouldInitName;
+
+  @override
+  void initState() {
+    super.initState();
+    _shouldInitName = true;
+  }
 
   @override
   void dispose() {
@@ -49,10 +57,19 @@ class _DescriptionNameBasedPageState extends State<DescriptionNameBasedPage> {
   Widget _buildPageContent(BuildContext context) {
     return BlocBuilder<UserDataCubit, UserDataState>(builder: (context, state) {
       if (state is UserDataReady) {
-        if (state.profile.firstName.isEmpty &&
-            state.profile.middleName.isEmpty &&
-            state.profile.lastName.isEmpty) {
+        if (!isValidName(state.profile)) {
           currentProfile = state.profile;
+
+          if (_shouldInitName) {
+            controllerFirstName.value = controllerFirstName.value
+                .copyWith(text: currentProfile.firstName);
+            controllerLastName.value = controllerLastName.value
+                .copyWith(text: currentProfile.lastName);
+            controllerMiddleName.value = controllerMiddleName.value
+                .copyWith(text: currentProfile.middleName);
+            _shouldInitName = false;
+          }
+
           return _showForm(context);
         } else {
           return _showDescriptionPage(state);
@@ -62,6 +79,21 @@ class _DescriptionNameBasedPageState extends State<DescriptionNameBasedPage> {
       }
       return progressBar();
     });
+  }
+
+  bool isValidName(Profile profile) {
+    return _isValidName(
+        profile.firstName, profile.lastName, profile.middleName);
+  }
+
+  bool _isValidName(String firstName, String lastName, String middleName) {
+    if (firstName.isEmpty || lastName.isEmpty) {
+      return false;
+    }
+    if (Globals.instance.language is LanguageRu && middleName.isEmpty) {
+      return false;
+    }
+    return true;
   }
 
   FutureBuilder _showDescriptionPage(UserDataReady state) {
@@ -181,9 +213,11 @@ class _DescriptionNameBasedPageState extends State<DescriptionNameBasedPage> {
   Future<void> _onNextPressed(
     BuildContext context,
   ) async {
-    if (controllerMiddleName.text.isEmpty &&
-        controllerFirstName.text.isEmpty &&
-        controllerLastName.text.isEmpty) {
+    if (!_isValidName(
+      controllerMiddleName.text,
+      controllerFirstName.text,
+      controllerLastName.text,
+    )) {
       showToast(Globals.instance.language.enterMissingData);
     } else {
       Profile updatedProfile = currentProfile.copyWith(
