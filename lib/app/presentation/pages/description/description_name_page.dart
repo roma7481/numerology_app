@@ -9,7 +9,6 @@ import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/data/models/profile.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_button.dart';
 import 'package:numerology/app/presentation/common_widgets/error_dialog.dart';
-import 'package:numerology/app/presentation/common_widgets/line_widget.dart';
 import 'package:numerology/app/presentation/common_widgets/progress_bar.dart';
 import 'package:numerology/app/presentation/common_widgets/toast.dart';
 import 'package:numerology/app/presentation/pages/welcome/input_text_tile.dart';
@@ -81,6 +80,9 @@ class _DescriptionNameBasedPageState extends State<DescriptionNameBasedPage> {
   SafeArea _showForm(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          title: _buildHeader(),
+        ),
         body: _buildContent(context),
       ),
     );
@@ -92,8 +94,6 @@ class _DescriptionNameBasedPageState extends State<DescriptionNameBasedPage> {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          _buildHeader(),
-          buildLine(context),
           _buildNameSettingsText(),
           _buildNameDialog(),
           _buildNotice(),
@@ -104,20 +104,18 @@ class _DescriptionNameBasedPageState extends State<DescriptionNameBasedPage> {
   }
 
   Widget _buildHeader() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 32.0, bottom: 16.0),
-      child: Text(
-        Globals.instance.getLanguage().nameSettings,
-        style: headerTextStyle,
-      ),
+    return Text(
+      Globals.instance.getLanguage().nameSettings,
+      style: headerTextStyle,
     );
   }
 
   Widget _buildNameSettingsText() {
     return Padding(
-      padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+      padding: const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
       child: Text(
         Globals.instance.getLanguage().categoryRequiresName,
+        textAlign: TextAlign.center,
         style: contentTextStyle,
       ),
     );

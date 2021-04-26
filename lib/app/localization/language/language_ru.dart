@@ -43,9 +43,7 @@ class LanguageRu extends Languages {
   String get middleName => 'Отчество';
 
   @override
-  String get nameSettingsNotice =>
-      'If you have more then one Middle name, please enter all '
-      'of them inside the Middle name field with space between them.';
+  String get nameSettingsNotice => '';
 
   @override
   String get forecastTabText => 'Прогноз';

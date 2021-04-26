@@ -105,9 +105,11 @@ Widget _buildHeader(bool isHeaderVisible) {
           opacity: 0.0,
           child: _buildImage(),
         ),
-        Text(
-          Globals.instance.language.dailyBio,
-          style: descriptionHeaderStyle,
+        Flexible(
+          child: Text(
+            Globals.instance.language.dailyBio,
+            style: descriptionHeaderStyle,
+          ),
         ),
         _buildImage(),
       ],
