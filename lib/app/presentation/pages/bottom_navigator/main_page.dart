@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:numerology/app/business_logic/cubit/rate_us/rate_us_cubit.dart';
 import 'package:numerology/app/presentation/pages/bottom_navigator/tab_item.dart';
 import 'package:numerology/app/presentation/pages/forecast/forecast_page.dart';
 import 'package:numerology/app/presentation/pages/home/home_page.dart';
 import 'package:numerology/app/presentation/pages/profiles/profiles_page.dart';
+import 'package:numerology/app/presentation/pages/settings/dialog/rate_us_dialog.dart';
 import 'package:numerology/app/presentation/pages/settings/settings_page.dart';
 
 import 'cuppertino_home_scaffold.dart';
@@ -38,14 +41,22 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async =>
-          !await navigatorKeys[_currentTab].currentState.maybePop(),
-      child: CupertinoHomeScaffold(
-        currentTab: _currentTab,
-        onSelectTab: _select,
-        widgetBuilders: widgetBuilders,
-        navigatorKeys: navigatorKeys,
+    return BlocListener<RateUsCubit, RateUsState>(
+      listener: (context, state) {
+        if (state.shouldShowDialog) {
+          RateApp.showYesNoDialog(context);
+          context.read<RateUsCubit>().emitStopShowing();
+        }
+      },
+      child: WillPopScope(
+        onWillPop: () async =>
+            !await navigatorKeys[_currentTab].currentState.maybePop(),
+        child: CupertinoHomeScaffold(
+          currentTab: _currentTab,
+          onSelectTab: _select,
+          widgetBuilders: widgetBuilders,
+          navigatorKeys: navigatorKeys,
+        ),
       ),
     );
   }

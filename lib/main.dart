@@ -18,6 +18,7 @@ import 'app/business_logic/cubit/bio_second/bio_second_cubit.dart';
 import 'app/business_logic/cubit/forecast/forecast_cubit.dart';
 import 'app/business_logic/cubit/language/language_cubit.dart';
 import 'app/business_logic/cubit/purchases/purchases_cubit.dart';
+import 'app/business_logic/cubit/rate_us/rate_us_cubit.dart';
 import 'app/business_logic/services/ads/interestitial_controller.dart';
 import 'app/constants/colors.dart';
 import 'app/constants/strings.dart';
@@ -91,6 +92,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<PurchasesCubit>(
           create: (context) => PurchasesCubit(),
           lazy: false,
+        ),
+        BlocProvider<RateUsCubit>(
+          create: (context) => RateUsCubit(),
         ),
         BlocProvider<NotificationsCubit>(
           create: (context) => NotificationsCubit(),

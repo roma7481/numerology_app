@@ -316,5 +316,24 @@ class LanguageEs extends Languages {
   String get adsFree => 'Sin Anuncios';
 
   @override
+  String get rateUs => 'Evalúa esta aplicación';
+
+  @override
+  String get pleaseRate =>
+      'Si te gusta esta aplicación, toma un momento para evaluarla. No tomará más de un minuto. ¡Gracias por tu apoyo!';
+
+  @override
+  String get doYouEnjoyTheApp => '¿Te gusta esta app?';
+
+  @override
+  String get noThanks => 'No, gracias';
+
+  @override
+  String get rateLater => 'Más tarde';
+
+  @override
+  String get rateNow => 'Evaluar';
+
+  @override
   String get purchaseRestored => 'Compra restaurada';
 }

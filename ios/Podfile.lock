@@ -90,6 +90,8 @@ PODS:
     - GoogleUtilities/Logger
   - in_app_purchase (0.0.1):
     - Flutter
+  - in_app_review (0.2.0):
+    - Flutter
   - nanopb (2.30906.0):
     - nanopb/decode (= 2.30906.0)
     - nanopb/encode (= 2.30906.0)
@@ -123,6 +125,7 @@ DEPENDENCIES:
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - google_mobile_ads (from `.symlinks/plugins/google_mobile_ads/ios`)
   - in_app_purchase (from `.symlinks/plugins/in_app_purchase/ios`)
+  - in_app_review (from `.symlinks/plugins/in_app_review/ios`)
   - notification_permissions (from `.symlinks/plugins/notification_permissions/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - share (from `.symlinks/plugins/share/ios`)
@@ -169,6 +172,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/google_mobile_ads/ios"
   in_app_purchase:
     :path: ".symlinks/plugins/in_app_purchase/ios"
+  in_app_review:
+    :path: ".symlinks/plugins/in_app_review/ios"
   notification_permissions:
     :path: ".symlinks/plugins/notification_permissions/ios"
   path_provider:
@@ -204,6 +209,7 @@ SPEC CHECKSUMS:
   GoogleUserMessagingPlatform: 1d4b6946710d18cec34742054092e2c2bddae61f
   GoogleUtilities: 31c5b01f978a70c6cff2afc6272b3f1921614b43
   in_app_purchase: 3e2155afa9d03d4fa32d9e62d567885080ce97d6
+  in_app_review: 4a97249f7a2f539a0f294c2d9196b7fe35e49541
   nanopb: 1bf24dd71191072e120b83dd02d08f3da0d65e53
   notification_permissions: b74860c2967c1579243a675e63cd55e0ae75cef7
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c

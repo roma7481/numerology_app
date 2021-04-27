@@ -318,4 +318,23 @@ class LanguageEn extends Languages {
 
   @override
   String get purchaseRestored => 'Purchase restored';
+
+  @override
+  String get rateUs => 'Rate us';
+
+  @override
+  String get pleaseRate =>
+      'If you like this app, please take a moment to rate it. It will not take more than a minute. Thanks for your support!';
+
+  @override
+  String get doYouEnjoyTheApp => 'Do you enjoy this app?';
+
+  @override
+  String get noThanks => 'No thanks';
+
+  @override
+  String get rateLater => 'Remind later';
+
+  @override
+  String get rateNow => 'Rate now';
 }

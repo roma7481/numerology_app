@@ -5,6 +5,18 @@ abstract class Languages {
 
   String get purchaseRestored;
 
+  String get rateUs;
+
+  String get rateNow;
+
+  String get rateLater;
+
+  String get doYouEnjoyTheApp;
+
+  String get noThanks;
+
+  String get pleaseRate;
+
   String get adsFree;
 
   String get purchaseSuccess;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:numerology/app/business_logic/cubit/bio/bio_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/language/language_cubit.dart';
+import 'package:numerology/app/business_logic/cubit/rate_us/rate_us_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.dart';
 import 'package:numerology/app/business_logic/services/date_service.dart';
 import 'package:numerology/app/constants/colors.dart';
@@ -17,7 +18,18 @@ import 'category_tile.dart';
 import 'custom_raised_button.dart';
 import 'day_category.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<RateUsCubit>().emitIncreaseAppLaunchedCounter();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<LanguageCubit, LanguageState>(

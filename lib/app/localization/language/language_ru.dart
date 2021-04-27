@@ -315,5 +315,24 @@ class LanguageRu extends Languages {
   String get adsFree => 'Убрать рекламу';
 
   @override
+  String get doYouEnjoyTheApp => 'Вам нравится это приложение?';
+
+  @override
+  String get noThanks => 'Нет, спасибо';
+
+  @override
+  String get pleaseRate =>
+      'Если вам понравилось это приложение, пожалуйста, найдите время, чтобы оценить его. Это не займет больше минуты. Спасибо за вашу поддержку!';
+
+  @override
+  String get rateLater => 'Напомнить позже';
+
+  @override
+  String get rateNow => 'Оk';
+
+  @override
+  String get rateUs => 'Оцените приложение';
+
+  @override
   String get purchaseRestored => 'Покупка восстановлена';
 }
