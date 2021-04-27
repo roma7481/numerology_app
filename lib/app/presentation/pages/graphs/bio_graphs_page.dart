@@ -91,19 +91,23 @@ class _BioGraphsPageState extends State<BioGraphsPage> {
 
     return Container(
       color: backgroundColor,
-      child: Column(
+      child: Wrap(
         children: [
-          SizedBox(
-            height: listHeight,
-            child: CustomScrollView(
-              slivers: [
-                _buildGraphs(),
-                _buildPiCharts(),
-                _buildList(isPremium),
-              ],
-            ),
-          ),
-          showBanner(_adWidget, _banner, isPremium),
+          Column(
+            children: [
+              SizedBox(
+                height: listHeight,
+                child: CustomScrollView(
+                  slivers: [
+                    _buildGraphs(),
+                    _buildPiCharts(),
+                    _buildList(isPremium),
+                  ],
+                ),
+              ),
+              showBanner(_adWidget, _banner, isPremium),
+            ],
+          )
         ],
       ),
     );

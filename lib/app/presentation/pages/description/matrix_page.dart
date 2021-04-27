@@ -75,20 +75,24 @@ class _MatrixPageState extends State<MatrixPage> {
     return Container(
       width: double.infinity,
       color: backgroundColor,
-      child: Column(
+      child: Wrap(
         children: [
-          SizedBox(
-            height: listHeight,
-            child: CustomScrollView(
-              slivers: [
-                _buildMatrix(context),
-                _buildGuideText(),
-                _buildDescription(),
-                _buildInfo(isPremium),
-              ],
-            ),
-          ),
-          showBanner(_adWidget, _banner, isPremium),
+          Column(
+            children: [
+              SizedBox(
+                height: listHeight,
+                child: CustomScrollView(
+                  slivers: [
+                    _buildMatrix(context),
+                    _buildGuideText(),
+                    _buildDescription(),
+                    _buildInfo(isPremium),
+                  ],
+                ),
+              ),
+              showBanner(_adWidget, _banner, isPremium),
+            ],
+          )
         ],
       ),
     );

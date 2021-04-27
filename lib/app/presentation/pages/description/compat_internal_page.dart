@@ -112,28 +112,32 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
     );
   }
 
-  Column _buildButton(double width, int index, String iconPath) {
-    return Column(
+  Widget _buildButton(double width, int index, String iconPath) {
+    return Wrap(
       children: [
-        customButton(
-          child: Container(
-            child: SvgPicture.asset(iconPath, height: width * 0.10),
-          ),
-          onPressed: () {
-            setState(() {
-              _header = index == 0
-                  ? _header = _language.matrixCompat
-                  : index == 1
-                      ? _language.bioCompat
-                      : _language.lifePathCompat;
+        Column(
+          children: [
+            customButton(
+              child: Container(
+                child: SvgPicture.asset(iconPath, height: width * 0.10),
+              ),
+              onPressed: () {
+                setState(() {
+                  _header = index == 0
+                      ? _header = _language.matrixCompat
+                      : index == 1
+                          ? _language.bioCompat
+                          : _language.lifePathCompat;
 
-              _selectedIndex = index;
-            });
-          },
-        ),
-        Opacity(
-            opacity: index == _selectedIndex ? 1 : 0,
-            child: buildLine(width * 0.2)),
+                  _selectedIndex = index;
+                });
+              },
+            ),
+            Opacity(
+                opacity: index == _selectedIndex ? 1 : 0,
+                child: buildLine(width * 0.2)),
+          ],
+        )
       ],
     );
   }

@@ -82,18 +82,22 @@ class DescriptionPage extends StatelessWidget {
 
     return Container(
         color: backgroundColor,
-        child: Column(
+        child: Wrap(
           children: [
-            SizedBox(
-              height: listHeight,
-              child: CustomScrollView(
-                slivers: [
-                  _buildNumberIcon(context, calculation),
-                  _buildList(data, isPremium),
-                ],
-              ),
-            ),
-            showBanner(adWidget, banner, isPremium),
+            Column(
+              children: [
+                SizedBox(
+                  height: listHeight,
+                  child: CustomScrollView(
+                    slivers: [
+                      _buildNumberIcon(context, calculation),
+                      _buildList(data, isPremium),
+                    ],
+                  ),
+                ),
+                showBanner(adWidget, banner, isPremium),
+              ],
+            )
           ],
         ));
   }

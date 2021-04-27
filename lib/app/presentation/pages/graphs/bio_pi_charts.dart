@@ -12,24 +12,28 @@ Widget buildBioPiCharts(BuildContext context, List<double> bio,
   var bioIntel = bio[2];
 
   return Container(
-    height: isHeaderVisible ? 210 : 150,
-    child: Column(
+    // height: isHeaderVisible ? 210 : 150,
+    child: Wrap(
       children: [
-        _buildHeader(isHeaderVisible),
-        Padding(
-          padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 12.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _buildBio(context, physicalGradient, _language.physicalBio,
-                  bioNamePhis, bioPhis),
-              _buildBio(context, emotionalGradient, _language.emotionalBio,
-                  bioNameEmotion, bioEmotion),
-              _buildBio(context, intellectGradient, _language.intellectBio,
-                  bioNameIntel, bioIntel),
-            ],
-          ),
-        ),
+        Column(
+          children: [
+            _buildHeader(isHeaderVisible),
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 12.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _buildBio(context, physicalGradient, _language.physicalBio,
+                      bioNamePhis, bioPhis),
+                  _buildBio(context, emotionalGradient, _language.emotionalBio,
+                      bioNameEmotion, bioEmotion),
+                  _buildBio(context, intellectGradient, _language.intellectBio,
+                      bioNameIntel, bioIntel),
+                ],
+              ),
+            ),
+          ],
+        )
       ],
     ),
   );
