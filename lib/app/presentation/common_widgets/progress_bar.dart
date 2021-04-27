@@ -8,7 +8,8 @@ import 'package:nuts_activity_indicator/nuts_activity_indicator.dart';
 Widget progressBar() {
   Widget progressIndicator =
       Platform.isIOS ? showCupertinoProgressBar() : CircularProgressIndicator();
-  return Center(child: progressIndicator);
+
+  return Container(color: backgroundColor, child: progressIndicator);
 }
 
 Widget showCupertinoProgressBar() {

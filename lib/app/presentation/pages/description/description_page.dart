@@ -7,6 +7,7 @@ import 'package:numerology/app/business_logic/services/premium/premium_controlle
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/presentation/common_widgets/error_dialog.dart';
 import 'package:numerology/app/presentation/common_widgets/foldable_card_widget.dart';
+import 'package:numerology/app/presentation/common_widgets/progress_bar.dart';
 
 import 'circle_widget.dart';
 import 'matrix_line_data.dart';
@@ -35,7 +36,7 @@ class DescriptionPage extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:
-              return Container();
+              return progressBar();
             default:
               if (snapshot.hasError) {
                 return SliverToBoxAdapter(

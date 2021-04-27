@@ -84,7 +84,7 @@ class _BioGraphsSecondPageState extends State<BioGraphsSecondPage> {
         builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:
-              return Container();
+              return progressBar();
             default:
               if (snapshot.hasError) {
                 return SliverToBoxAdapter(

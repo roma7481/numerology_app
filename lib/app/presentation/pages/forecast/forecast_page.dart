@@ -63,18 +63,34 @@ class _ForecastPageState extends State<ForecastPage> {
     });
   }
 
-  Scaffold _buildContent() {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        brightness: Brightness.dark,
-        title: Text(Globals.instance.language.forecast),
-      ),
-      body: _buildPageBody(),
-    );
+  Widget _buildContent() {
+    return FutureBuilder<bool>(
+        future: PremiumController.instance.isPremium(),
+        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
+              return progressBar();
+            default:
+              if (snapshot.hasError) {
+                return SliverToBoxAdapter(
+                  child: errorDialog(),
+                );
+              } else {
+                var isPremium = snapshot.data;
+                return Scaffold(
+                  appBar: AppBar(
+                    centerTitle: true,
+                    brightness: Brightness.dark,
+                    title: Text(Globals.instance.language.forecast),
+                  ),
+                  body: _buildPageBody(isPremium),
+                );
+              }
+          }
+        });
   }
 
-  Widget _buildPageBody() {
+  Widget _buildPageBody(bool isPremium) {
     return Container(
       color: backgroundColor,
       child: CustomScrollView(
@@ -83,7 +99,7 @@ class _ForecastPageState extends State<ForecastPage> {
           _buildLine(),
           _buildCategory(_lucky, _onLuckyPressed, _luckyBtnIndex),
           _buildLine(),
-          _showAd(),
+          _showAd(isPremium),
           _buildCategory(_monthly, _onMonthlyPressed, _monthlyBtnIndex),
           _buildLine(),
           _buildCategory(_annual, _onYearPressed, _yearBtnIndex),
@@ -92,9 +108,9 @@ class _ForecastPageState extends State<ForecastPage> {
     );
   }
 
-  Widget _showAd() {
+  Widget _showAd(bool isPremium) {
     return SliverToBoxAdapter(
-      child: showNativeAd(widget.adController),
+      child: showNativeAd(widget.adController, isPremium: isPremium),
     );
   }
 

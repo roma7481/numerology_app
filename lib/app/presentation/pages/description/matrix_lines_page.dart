@@ -9,6 +9,7 @@ import 'package:numerology/app/presentation/common_widgets/castom_category_card.
 import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
 import 'package:numerology/app/presentation/common_widgets/error_dialog.dart';
 import 'package:numerology/app/presentation/common_widgets/foldable_card_widget.dart';
+import 'package:numerology/app/presentation/common_widgets/progress_bar.dart';
 
 import 'matrix_line_data.dart';
 import 'matrix_utils.dart';
@@ -41,7 +42,7 @@ class MatrixLinesPage extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:
-              return Container();
+              return progressBar();
             default:
               if (snapshot.hasError) {
                 return SliverToBoxAdapter(

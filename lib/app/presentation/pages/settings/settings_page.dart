@@ -13,6 +13,7 @@ import 'package:numerology/app/localization/language/language_ru.dart';
 import 'package:numerology/app/localization/language/languages.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
 import 'package:numerology/app/presentation/common_widgets/error_dialog.dart';
+import 'package:numerology/app/presentation/common_widgets/progress_bar.dart';
 import 'package:numerology/app/presentation/common_widgets/toast.dart';
 import 'package:numerology/app/presentation/navigators/navigator.dart';
 import 'package:numerology/app/presentation/pages/settings/open_link.dart';
@@ -115,7 +116,7 @@ class SettingsPage extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:
-              return const CircularProgressIndicator();
+              return progressBar();
             default:
               if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
@@ -249,7 +250,7 @@ class SettingsPage extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:
-              return const CircularProgressIndicator();
+              return progressBar();
             default:
               if (snapshot.hasError) {
                 return errorDialog();
