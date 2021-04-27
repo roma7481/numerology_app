@@ -163,6 +163,7 @@ class _ProfilesPageState extends State<ProfilesPage> {
 
   Padding _buildRu(Profile profile) {
     var width = MediaQuery.of(context).size.width;
+    var paddingDelta = 0.1;
 
     var language = Globals.instance.language;
     return Padding(
@@ -171,9 +172,9 @@ class _ProfilesPageState extends State<ProfilesPage> {
         children: [
           _buildSecondary('${language.partnerProfiles} - ',
               DateService.fromTimestampToString(profile.partnerDob),
-              widthDelta: 0.25),
-          _buildSecondary('', '', widthDelta: 0.25),
-          _buildSecondary('', '', widthDelta: 0.25),
+              widthDelta: paddingDelta),
+          _buildSecondary('', '', widthDelta: paddingDelta),
+          _buildSecondary('', '', widthDelta: paddingDelta),
         ],
       ),
     );
@@ -182,15 +183,17 @@ class _ProfilesPageState extends State<ProfilesPage> {
   Padding _buildEs(Profile profile) {
     var width = MediaQuery.of(context).size.width;
     var language = Globals.instance.language;
+    var paddingDelta = 0.1;
+
     return Padding(
       padding: EdgeInsets.only(left: width * 0.001),
       child: Column(
         children: [
           _buildSecondary('${language.partnersDob} - ',
               DateService.fromTimestampToString(profile.partnerDob),
-              widthDelta: 0.25),
-          _buildSecondary('', '', widthDelta: 0.25),
-          _buildSecondary('', '', widthDelta: 0.25),
+              widthDelta: paddingDelta),
+          _buildSecondary('', '', widthDelta: paddingDelta),
+          _buildSecondary('', '', widthDelta: paddingDelta),
         ],
       ),
     );
@@ -199,17 +202,18 @@ class _ProfilesPageState extends State<ProfilesPage> {
   Padding _buildEn(Profile profile) {
     var width = MediaQuery.of(context).size.width;
     var language = Globals.instance.language;
+    var paddingDelta = 0.25;
     return Padding(
       padding: EdgeInsets.only(left: width * 0.001),
       child: Column(
         children: [
           _buildSecondary('${language.partnerProfiles} - ',
               DateService.fromTimestampToString(profile.partnerDob),
-              widthDelta: 0.25),
+              widthDelta: paddingDelta),
           _buildSecondary('${language.weddingDateProfiles} - ',
               DateService.fromTimestampToString(profile.weddingDate),
-              widthDelta: 0.25),
-          _buildSecondary('', '', widthDelta: 0.25),
+              widthDelta: paddingDelta),
+          _buildSecondary('', '', widthDelta: paddingDelta),
         ],
       ),
     );
