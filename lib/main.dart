@@ -66,7 +66,7 @@ Future<void> _setupNotifications() async {
   });
 }
 
-Future _displayFundingDialog() async {
+Future<void> _displayFundingDialog() async {
   WidgetsBinding.instance.addPostFrameCallback((_) async {
     ConsentInformation consentInfo =
         await FlutterFundingChoices.requestConsentInformation();
