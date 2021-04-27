@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/business_logic/services/ads/native_admob_controller.dart';
 import 'package:numerology/app/business_logic/services/category_calc.dart';
@@ -23,6 +24,7 @@ import 'package:numerology/app/presentation/pages/description/matrix_lines_page.
 import 'package:numerology/app/presentation/pages/description/matrix_page.dart';
 import 'package:numerology/app/presentation/pages/graphs/bio_graphs_second_page.dart';
 import 'package:numerology/app/presentation/pages/pay_wall/pay_wall.dart';
+import 'package:provider/provider.dart';
 
 enum CategoryType {
   luckyGemCategory,
@@ -74,84 +76,100 @@ class CategoryProvider {
       CategoryType categoryType, String header) async {
     switch (categoryType) {
       case CategoryType.luckyGemCategory:
-        await navigateToPage(context,
-            await CategoryProvider.instance.getLuckyGemPage(profile, header));
+        await navigateToPage(
+            context,
+            await CategoryProvider.instance
+                .getLuckyGemPage(context, profile, header));
         break;
       case CategoryType.birthdayNumCategory:
         await navigateToPage(
             context,
             await CategoryProvider.instance
-                .getBirthdayNumPage(profile, header));
+                .getBirthdayNumPage(context, profile, header));
         break;
       case CategoryType.birthdayCodeCategory:
         await navigateToPage(
             context,
             await CategoryProvider.instance
-                .getBirthdayCodePage(profile, header));
+                .getBirthdayCodePage(context, profile, header));
         break;
       case CategoryType.maturityNumCategory:
         await navigateToPage(
             context,
             await CategoryProvider.instance
-                .getMaturityNumPage(profile, header));
+                .getMaturityNumPage(context, profile, header));
         break;
       case CategoryType.personalityNumCategory:
         await navigateToPage(
             context,
             await CategoryProvider.instance
-                .getPersonalityNumPage(profile, header));
+                .getPersonalityNumPage(context, profile, header));
         break;
       case CategoryType.lifePathNumCategory:
-        await navigateToPage(context,
-            await CategoryProvider.instance.lifePathNumPage(profile, header));
+        await navigateToPage(
+            context,
+            await CategoryProvider.instance
+                .lifePathNumPage(context, profile, header));
         break;
       case CategoryType.challengeNumCategory:
         await navigateToPage(
             context,
             await CategoryProvider.instance
-                .getChallengeNumPage(profile, header));
+                .getChallengeNumPage(context, profile, header));
         break;
       case CategoryType.realizationNumCategory:
         await navigateToPage(
             context,
             await CategoryProvider.instance
-                .getRealizationNumPage(profile, header));
+                .getRealizationNumPage(context, profile, header));
         break;
       case CategoryType.expressionNumCategory:
         await navigateToPage(
             context,
             await CategoryProvider.instance
-                .getExpressionNumPage(profile, header));
+                .getExpressionNumPage(context, profile, header));
         break;
       case CategoryType.nameNumCategory:
-        await navigateToPage(context,
-            await CategoryProvider.instance.getNameNumPage(profile, header));
+        await navigateToPage(
+            context,
+            await CategoryProvider.instance
+                .getNameNumPage(context, profile, header));
         break;
       case CategoryType.desireNumCategory:
-        await navigateToPage(context,
-            await CategoryProvider.instance.getDesireNumPage(profile, header));
+        await navigateToPage(
+            context,
+            await CategoryProvider.instance
+                .getDesireNumPage(context, profile, header));
         break;
       case CategoryType.soulNumCategory:
-        await navigateToPage(context,
-            await CategoryProvider.instance.getSoulNumPage(profile, header));
+        await navigateToPage(
+            context,
+            await CategoryProvider.instance
+                .getSoulNumPage(context, profile, header));
         break;
       case CategoryType.weddingNumCategory:
-        await navigateToPage(context,
-            await CategoryProvider.instance.getWeddingNumPage(profile, header));
+        await navigateToPage(
+            context,
+            await CategoryProvider.instance
+                .getWeddingNumPage(context, profile, header));
         break;
       case CategoryType.matrixLinesCategory:
         await navigateToPage(
             context,
             await CategoryProvider.instance
-                .getMatrixLinesPage(profile, header));
+                .getMatrixLinesPage(context, profile, header));
         break;
       case CategoryType.matrixCategory:
-        await navigateToPage(context,
-            await CategoryProvider.instance.getMatrixPage(profile, header));
+        await navigateToPage(
+            context,
+            await CategoryProvider.instance
+                .getMatrixPage(context, profile, header));
         break;
       case CategoryType.compatCategory:
-        await navigateToPage(context,
-            await CategoryProvider.instance.getCompatPage(profile, header));
+        await navigateToPage(
+            context,
+            await CategoryProvider.instance
+                .getCompatPage(context, profile, header));
         break;
       case CategoryType.bioSecondCategory:
         await navigateToPage(context,
@@ -161,102 +179,118 @@ class CategoryProvider {
         await navigateToPage(
             context,
             await CategoryProvider.instance
-                .getPersonalDayPage(profile, header));
+                .getPersonalDayPage(context, profile, header));
         break;
       case CategoryType.achievementCategory:
         await navigateToPage(
             context,
             await CategoryProvider.instance
-                .getAchievementNumPage(profile, header));
+                .getAchievementNumPage(context, profile, header));
         break;
       case CategoryType.characterCategory:
-        await navigateToPage(context,
-            await CategoryProvider.instance.getCharacterPage(profile, header));
+        await navigateToPage(
+            context,
+            await CategoryProvider.instance
+                .getCharacterPage(context, profile, header));
         break;
       case CategoryType.intelligenceCategory:
         await navigateToPage(
             context,
             await CategoryProvider.instance
-                .getIntelligenceNumPage(profile, header));
+                .getIntelligenceNumPage(context, profile, header));
         break;
       case CategoryType.moneyCategory:
-        await navigateToPage(context,
-            await CategoryProvider.instance.getMoneyNumPage(profile, header));
+        await navigateToPage(
+            context,
+            await CategoryProvider.instance
+                .getMoneyNumPage(context, profile, header));
         break;
       case CategoryType.balanceCategory:
-        await navigateToPage(context,
-            await CategoryProvider.instance.getBalanceNumPage(profile, header));
+        await navigateToPage(
+            context,
+            await CategoryProvider.instance
+                .getBalanceNumPage(context, profile, header));
         break;
       case CategoryType.marriageCategory:
         await navigateToPage(
             context,
             await CategoryProvider.instance
-                .getMarriageNumPage(profile, header));
+                .getMarriageNumPage(context, profile, header));
         break;
       case CategoryType.loveCategory:
-        await navigateToPage(context,
-            await CategoryProvider.instance.getLoveNumPage(profile, header));
+        await navigateToPage(
+            context,
+            await CategoryProvider.instance
+                .getLoveNumPage(context, profile, header));
         break;
       case CategoryType.potentialCategory:
         await navigateToPage(
             context,
             await CategoryProvider.instance
-                .getPotentialNumPage(profile, header));
+                .getPotentialNumPage(context, profile, header));
         break;
       case CategoryType.karmaCategory:
-        await navigateToPage(context,
-            await CategoryProvider.instance.getKarmaNumPage(profile, header));
+        await navigateToPage(
+            context,
+            await CategoryProvider.instance
+                .getKarmaNumPage(context, profile, header));
         break;
     }
   }
 
-  Future<Widget> getKarmaNumPage(Profile profile, String header) async {
+  Future<Widget> getKarmaNumPage(
+      BuildContext context, Profile profile, String header) async {
     var isPremium = await PremiumController.instance.isPremium();
     if (isPremium) {
       return DescriptionNameBasedPage(
         categoryName: header,
         getPage: (profile, header) async =>
-            await _getKarmaNumPage(profile, header),
+            await _getKarmaNumPage(context, profile, header),
       );
     }
     return PayWall();
   }
 
-  Future<Widget> _getKarmaNumPage(Profile profile, String header) async {
+  Future<Widget> _getKarmaNumPage(
+      BuildContext context, Profile profile, String header) async {
     var calc = CategoryCalc.instance.calcKarmicNum(profile);
     var tableName = 'KARMIC_LESSON_ESP';
 
-    return await _getKarmaDescriptionPage(tableName, calc, header);
+    return await _getKarmaDescriptionPage(context, tableName, calc, header);
   }
 
-  Future<Widget> getPotentialNumPage(Profile profile, String header) async {
+  Future<Widget> getPotentialNumPage(
+      BuildContext context, Profile profile, String header) async {
     return DescriptionNameBasedPage(
       categoryName: header,
       getPage: (profile, header) async =>
-          await _getPotentialNumPage(profile, header),
+          await _getPotentialNumPage(context, profile, header),
     );
   }
 
-  Future<Widget> _getPotentialNumPage(Profile profile, String header) async {
+  Future<Widget> _getPotentialNumPage(
+      BuildContext context, Profile profile, String header) async {
     var calc = CategoryCalc.instance.calcPotentialNum(profile);
     var tableName = 'POTENTIAL_NUMBER_ESP';
 
-    return await _getDescriptionPage(tableName, calc, header);
+    return await _getDescriptionPage(context, tableName, calc, header);
   }
 
-  Future<Widget> getLoveNumPage(Profile profile, String header) async {
+  Future<Widget> getLoveNumPage(
+      BuildContext context, Profile profile, String header) async {
     var isPremium = await PremiumController.instance.isPremium();
     if (isPremium) {
       return DescriptionPartnerDobBasedPage(
         categoryName: header,
         getPage: (profile, header) async =>
-            await _getLoveNumPage(profile, header),
+            await _getLoveNumPage(context, profile, header),
       );
     }
     return PayWall();
   }
 
-  Future<Widget> _getLoveNumPage(Profile profile, String header) async {
+  Future<Widget> _getLoveNumPage(
+      BuildContext context, Profile profile, String header) async {
     var calc = CategoryCalc.instance.calcLoveNumberRu(profile);
     var calcLove = CategoryCalc.instance.calcLoveCompatNumberRu(profile);
     var tableName = 'LOVE_NUMBER_RUS';
@@ -266,40 +300,45 @@ class CategoryProvider {
         DateService.fromTimestamp(profile.partnerDob));
 
     return await _getLoveDescriptionPage(
-        tableName, tableLove, calc, calcLove, header, partnerDob);
+        context, tableName, tableLove, calc, calcLove, header, partnerDob);
   }
 
-  Future<Widget> getMarriageNumPage(Profile profile, String header) async {
+  Future<Widget> getMarriageNumPage(
+      BuildContext context, Profile profile, String header) async {
     return DescriptionNameBasedPage(
       categoryName: header,
       getPage: (profile, header) async =>
-          await _getMarriageNumPage(profile, header),
+          await _getMarriageNumPage(context, profile, header),
     );
   }
 
-  Future<Widget> _getMarriageNumPage(Profile profile, String header) async {
+  Future<Widget> _getMarriageNumPage(
+      BuildContext context, Profile profile, String header) async {
     var calc = CategoryCalc.instance.calcMarriageNumberRu(profile);
     var tableName = 'MARRIAGE_NUMBER_RUS';
 
-    return await _getMarriageDescriptionPage(tableName, calc, header);
+    return await _getMarriageDescriptionPage(context, tableName, calc, header);
   }
 
-  Future<Widget> getBalanceNumPage(Profile profile, String header) async {
+  Future<Widget> getBalanceNumPage(
+      BuildContext context, Profile profile, String header) async {
     return DescriptionNameBasedPage(
       categoryName: header,
       getPage: (profile, header) async =>
-          await _getBalanceNumPage(profile, header),
+          await _getBalanceNumPage(context, profile, header),
     );
   }
 
-  Future<Widget> _getBalanceNumPage(Profile profile, String header) async {
+  Future<Widget> _getBalanceNumPage(
+      BuildContext context, Profile profile, String header) async {
     var calc = CategoryCalc.instance.calcBalanceNumber(profile);
     var tableName = 'BALANCE_NUMBER_RUS';
 
-    return await _getDescriptionPage(tableName, calc, header);
+    return await _getDescriptionPage(context, tableName, calc, header);
   }
 
-  Future<Widget> getMoneyNumPage(Profile profile, String header) async {
+  Future<Widget> getMoneyNumPage(
+      BuildContext context, Profile profile, String header) async {
     var calc = CategoryCalc.instance.calcMoneyNumber(profile);
     var tableName = 'MONEY_NUMBER_ENG';
 
@@ -307,29 +346,32 @@ class CategoryProvider {
       tableName = 'MONEY_NUMBER_RUS';
     }
 
-    return await _getDescriptionPage(tableName, calc, header);
+    return await _getDescriptionPage(context, tableName, calc, header);
   }
 
-  Future<Widget> getIntelligenceNumPage(Profile profile, String header) async {
+  Future<Widget> getIntelligenceNumPage(
+      BuildContext context, Profile profile, String header) async {
     return DescriptionNameBasedPage(
       categoryName: header,
       getPage: (profile, header) async =>
-          await _getIntelligenceNumPage(profile, header),
+          await _getIntelligenceNumPage(context, profile, header),
     );
   }
 
-  Future<Widget> _getIntelligenceNumPage(Profile profile, String header) async {
+  Future<Widget> _getIntelligenceNumPage(
+      BuildContext context, Profile profile, String header) async {
     var calc = CategoryCalc.instance.calcIntelligenceNumber(profile);
     var tableName = 'INTELLIGENCE_NUMBER_RUS';
 
-    return await _getDescriptionPage(tableName, calc, header);
+    return await _getDescriptionPage(context, tableName, calc, header);
   }
 
-  Future<Widget> getCharacterPage(Profile profile, String header) async {
+  Future<Widget> getCharacterPage(
+      BuildContext context, Profile profile, String header) async {
     var calc = CategoryCalc.instance.calcCharacterNumber(profile);
     var tableName = 'CHARACTER_NUMBER_RUS';
 
-    return await _getDescriptionPage(tableName, calc, header);
+    return await _getDescriptionPage(context, tableName, calc, header);
   }
 
   Future<List<CardData>> getPrimBio(List<double> bio) async {
@@ -441,7 +483,8 @@ class CategoryProvider {
     return data;
   }
 
-  Future<Widget> getPersonalDayPage(Profile profile, String header) async {
+  Future<Widget> getPersonalDayPage(
+      BuildContext context, Profile profile, String header) async {
     var calc = CategoryCalc.instance.calcPersonalDay(profile);
     var tableName = 'PERSONAL_DAY_ENG';
     if (Globals.instance.getLanguage() is LanguageRu) {
@@ -450,7 +493,7 @@ class CategoryProvider {
       tableName = 'PERSONAL_DAY_ESP';
     }
 
-    return await _getDescriptionPage(tableName, calc, header);
+    return await _getDescriptionPage(context, tableName, calc, header);
   }
 
   Future<String> getDayContent(Profile profile) async {
@@ -471,19 +514,21 @@ class CategoryProvider {
     return BioGraphsSecondPage(adController);
   }
 
-  Future<Widget> getCompatPage(Profile profile, String header) async {
+  Future<Widget> getCompatPage(
+      BuildContext context, Profile profile, String header) async {
     var isPremium = await PremiumController.instance.isPremium();
     if (isPremium) {
       return DescriptionPartnerDobBasedPage(
         categoryName: header,
         getPage: (profile, header) async =>
-            await _getCompatPage(profile, header),
+            await _getCompatPage(context, profile, header),
       );
     }
     return PayWall();
   }
 
-  Future<Widget> _getCompatPage(Profile profile, String header) async {
+  Future<Widget> _getCompatPage(
+      BuildContext context, Profile profile, String header) async {
     var bioCompat = CategoryCalc.instance.calcBioCompat(profile);
     var yourLifePath =
         CategoryCalc.instance.calcLifePathNumberMethod(profile.dob);
@@ -498,17 +543,19 @@ class CategoryProvider {
         CategoryCalc.instance.calcMatrixByDob(profile.partnerDob);
     var coupleNumSpanish;
 
-    List<CardData> bioCompatData = await _getBioCompat(profile, bioCompat);
+    List<CardData> bioCompatData =
+        await _getBioCompat(context, profile, bioCompat);
     List<CardData> lifePathData =
-        await _getPathCompat(yourLifePath, partnerLifePath);
+        await _getPathCompat(context, yourLifePath, partnerLifePath);
 
     List<CardData> matrixCompData;
     List<CardData> coupleCompData;
     if (Globals.instance.language is LanguageEs) {
       coupleNumSpanish = CategoryCalc.instance.calcCoupleNum(profile);
-      coupleCompData = await _getCoupleCompat(coupleNumSpanish);
+      coupleCompData = await _getCoupleCompat(context, coupleNumSpanish);
     } else {
-      matrixCompData = await _getMtxCompat(yourMatrixLines, partnerMatrixLines);
+      matrixCompData =
+          await _getMtxCompat(context, yourMatrixLines, partnerMatrixLines);
     }
 
     return CompatInternalPage(
@@ -525,11 +572,11 @@ class CategoryProvider {
     );
   }
 
-  Future<List<CardData>> _getCoupleCompat(calc) async {
+  Future<List<CardData>> _getCoupleCompat(BuildContext context, calc) async {
     var tableName = 'COUPLE_NUMBER_ESP';
-    var description = await getEntityRawQuery(
-        'select description from "$tableName"  where  number = $calc');
-    var info = await getEntityRawQuery(
+    var description = await runQuery(
+        context, 'select description from "$tableName"  where  number = $calc');
+    var info = await runQuery(context,
         'select description from TABLE_DESCRIPTION where table_name =  "$tableName"');
 
     List<CardData> data = [];
@@ -542,7 +589,7 @@ class CategoryProvider {
     return data;
   }
 
-  Future<List<CardData>> _getMtxCompat(
+  Future<List<CardData>> _getMtxCompat(BuildContext context,
       List<int> yourMatrixLines, List<int> partnerMatrixLines) async {
     var categories = [
       'PURPOSE',
@@ -603,9 +650,9 @@ class CategoryProvider {
     List<CardData> matrixCompatData = [];
 
     for (var i = 0; i < categories.length; i++) {
-      var description = await getEntityRawQuery(
+      var description = await runQuery(context,
           'select description from $table where category =  "${categories[i]}" and strength =  "${matrixCompat[0]}"');
-      var info = await getEntityRawQuery(
+      var info = await runQuery(context,
           'select description from TABLE_DESCRIPTION where table_name = "$matrixTable" and category = "${categories[i].toLowerCase()}"');
       matrixCompatData.add(CardData(
           description: description + "\n\n" + info,
@@ -613,7 +660,7 @@ class CategoryProvider {
           iconPath: icons[i]));
     }
 
-    var matrInfo = await getEntityRawQuery(
+    var matrInfo = await runQuery(context,
         'select description from TABLE_DESCRIPTION where table_name = "$mtxTable" and category = "info"');
 
     matrixCompatData.add(CardData(
@@ -625,7 +672,7 @@ class CategoryProvider {
   }
 
   Future<List<CardData>> _getPathCompat(
-      int yourLifePath, int partnerLifePath) async {
+      BuildContext context, int yourLifePath, int partnerLifePath) async {
     var lifePathCompat = '';
     var path1 = yourLifePath < partnerLifePath ? yourLifePath : partnerLifePath;
     var path2 = yourLifePath < partnerLifePath ? partnerLifePath : yourLifePath;
@@ -635,10 +682,10 @@ class CategoryProvider {
       table = 'LIFE_PATH_NUMBER_COMPAT_RUS';
     }
 
-    lifePathCompat = await getEntityRawQuery(
+    lifePathCompat = await runQuery(context,
         'select description from "$table" where number1 = "$path1" and number2 = "$path2"');
 
-    var lifePathInfo = await getEntityRawQuery(
+    var lifePathInfo = await runQuery(context,
         'select description from "TABLE_DESCRIPTION" where table_name = "$table"');
 
     List<CardData> lifePathData = [];
@@ -655,7 +702,7 @@ class CategoryProvider {
   }
 
   Future<List<CardData>> _getBioCompat(
-      Profile profile, List<double> bioCompat) async {
+      BuildContext context, Profile profile, List<double> bioCompat) async {
     var bioLevels = CategoryCalc.instance.calcBioCompatLevel(profile);
     var language = Globals.instance.language;
 
@@ -682,7 +729,7 @@ class CategoryProvider {
     ];
 
     for (var i = 0; i < bioCompat.length; i++) {
-      var description = await getEntityRawQuery(
+      var description = await runQuery(context,
           'select description from $table  where  type = "${categories[i]}" and level = "${bioLevels[i]}"');
       bioData.add(CardData(
           description: description,
@@ -690,7 +737,7 @@ class CategoryProvider {
           iconPath: bioIcons[i]));
     }
 
-    var bioInfo = await getEntityRawQuery(
+    var bioInfo = await runQuery(context,
         'select description from "TABLE_DESCRIPTION" where table_name = "$table"');
 
     bioData.add(CardData(
@@ -702,7 +749,8 @@ class CategoryProvider {
     return bioData;
   }
 
-  Future<Widget> getMatrixPage(Profile profile, String header) async {
+  Future<Widget> getMatrixPage(
+      BuildContext context, Profile profile, String header) async {
     var calcs = CategoryCalc.instance.calcMatrix(profile);
 
     var table = 'PSYCHOMATRIX_ENG';
@@ -749,18 +797,18 @@ class CategoryProvider {
     }
 
     for (var i = 0; i < categories.length; i++) {
-      var description = await getEntityRawQuery(
+      var description = await runQuery(context,
           'select description from $table where characteristic =  "${categories[i]}" and number = ${_convertMatrixNums(calcs[i])}');
       descriptions.add(description);
     }
 
     var query =
         'select description from TABLE_DESCRIPTION where table_name = "$table" and category = 1';
-    var infoStr = await getEntityRawQuery(query);
+    var infoStr = await runQuery(context, query);
     info.add(infoStr);
 
     for (var i = 1; i <= categories.length; i++) {
-      var infoStr = await getEntityRawQuery(
+      var infoStr = await runQuery(context,
           'select description from TABLE_DESCRIPTION where table_name = "$table" and category = "$i"');
       info.add(infoStr);
     }
@@ -802,7 +850,8 @@ class CategoryProvider {
     return str.length > 5 ? str.substring(0, 4) : str;
   }
 
-  Future<Widget> getMatrixLinesPage(Profile profile, String header) async {
+  Future<Widget> getMatrixLinesPage(
+      BuildContext context, Profile profile, String header) async {
     var calcs = CategoryCalc.instance.calcMatrixLines(profile);
     var matrix = CategoryCalc.instance.calcMatrix(profile);
 
@@ -859,18 +908,18 @@ class CategoryProvider {
     }
 
     calcs.forEach((calc) async {
-      var descriptionStr = await getEntityRawQuery(
+      var descriptionStr = await runQuery(context,
           'select description from $table where category = "purpose" AND number = ${_convertLinesNums(calc)}');
       description.add(descriptionStr);
     });
 
     categories.forEach((category) async {
-      var infoStr = await getEntityRawQuery(
+      var infoStr = await runQuery(context,
           'select description from TABLE_DESCRIPTION where table_name = "$table" and category = "$category"');
       info.add(infoStr);
     });
 
-    var generalInfo = await getEntityRawQuery(
+    var generalInfo = await runQuery(context,
         'select description from TABLE_DESCRIPTION where table_name =  "$matrixTable" and category = "info"');
 
     var language = Globals.instance.getLanguage();
@@ -901,71 +950,79 @@ class CategoryProvider {
     return number > 6 ? 6 : number;
   }
 
-  Future<Widget> getWeddingNumPage(Profile profile, String header) async {
+  Future<Widget> getWeddingNumPage(
+      BuildContext context, Profile profile, String header) async {
     var isPremium = await PremiumController.instance.isPremium();
     if (isPremium || !(Globals.instance.language is LanguageEn)) {
       return DescriptionWeddingBasedPage(
         categoryName: header,
         getPage: (profile, header) async =>
-            await _getWeddingNumPage(profile, header),
+            await _getWeddingNumPage(context, profile, header),
       );
     }
     return PayWall();
   }
 
-  Future<Widget> _getWeddingNumPage(Profile profile, String header) async {
+  Future<Widget> _getWeddingNumPage(
+      BuildContext context, Profile profile, String header) async {
     var calc = CategoryCalc.instance.calcWeddingNumber(profile);
     var tableName = 'MARRIAGE_NUMBER_ENG';
 
-    return await _getDescriptionPage(tableName, calc, header);
+    return await _getDescriptionPage(context, tableName, calc, header);
   }
 
-  Future<Widget> getSoulNumPage(Profile profile, String header) async {
+  Future<Widget> getSoulNumPage(
+      BuildContext context, Profile profile, String header) async {
     return DescriptionNameBasedPage(
       categoryName: header,
       getPage: (profile, header) async =>
-          await _getSoulNumPage(profile, header),
+          await _getSoulNumPage(context, profile, header),
     );
   }
 
-  Future<Widget> _getSoulNumPage(Profile profile, String header) async {
+  Future<Widget> _getSoulNumPage(
+      BuildContext context, Profile profile, String header) async {
     var calc = CategoryCalc.instance.calcSoulNumber(profile);
 
     var tableName = 'SOUL_URGE_NUMBER_ENG';
     if (Globals.instance.getLanguage() is LanguageRu) {
       tableName = 'SOUL_URGE_NUMBER_RUS';
-      return await _getSoulDescriptionPage(tableName, calc, header);
+      return await _getSoulDescriptionPage(context, tableName, calc, header);
     } else if (Globals.instance.getLanguage() is LanguageEs) {
       tableName = 'SOUL_URGE_NUMBER_ESP';
     }
 
-    return await _getDescriptionPage(tableName, calc, header);
+    return await _getDescriptionPage(context, tableName, calc, header);
   }
 
-  Future<Widget> getDesireNumPage(Profile profile, String header) async {
+  Future<Widget> getDesireNumPage(
+      BuildContext context, Profile profile, String header) async {
     return DescriptionNameBasedPage(
       categoryName: header,
       getPage: (profile, header) async =>
-          await _getDesireNumPage(profile, header),
+          await _getDesireNumPage(context, profile, header),
     );
   }
 
-  Future<Widget> _getDesireNumPage(Profile profile, String header) async {
+  Future<Widget> _getDesireNumPage(
+      BuildContext context, Profile profile, String header) async {
     var calc = CategoryCalc.instance.calcDesireNumber(profile);
     var tableName = 'DESIRE_NUMBER_ENG';
 
-    return await _getDescriptionPage(tableName, calc, header);
+    return await _getDescriptionPage(context, tableName, calc, header);
   }
 
-  Future<Widget> getNameNumPage(Profile profile, String header) async {
+  Future<Widget> getNameNumPage(
+      BuildContext context, Profile profile, String header) async {
     return DescriptionNameBasedPage(
       categoryName: header,
       getPage: (profile, header) async =>
-          await _getNameNumPage(profile, header),
+          await _getNameNumPage(context, profile, header),
     );
   }
 
-  Future<Widget> _getNameNumPage(Profile profile, String header) async {
+  Future<Widget> _getNameNumPage(
+      BuildContext context, Profile profile, String header) async {
     var calc = CategoryCalc.instance.calcNameNumber(profile);
     var tableName = 'NAME_NUMBER_ENG';
 
@@ -975,18 +1032,20 @@ class CategoryProvider {
       tableName = 'NAME_NUMBER_ESP';
     }
 
-    return await _getDescriptionPage(tableName, calc, header);
+    return await _getDescriptionPage(context, tableName, calc, header);
   }
 
-  Future<Widget> getExpressionNumPage(Profile profile, String header) async {
+  Future<Widget> getExpressionNumPage(
+      BuildContext context, Profile profile, String header) async {
     return DescriptionNameBasedPage(
       categoryName: header,
       getPage: (profile, header) async =>
-          await _getExpressionNumPage(profile, header),
+          await _getExpressionNumPage(context, profile, header),
     );
   }
 
-  Future<Widget> _getExpressionNumPage(Profile profile, String header) async {
+  Future<Widget> _getExpressionNumPage(
+      BuildContext context, Profile profile, String header) async {
     var calc = CategoryCalc.instance.calcExpressionNumber(profile);
     var tableName = 'EXPRESSION_NUMBER_ENG';
 
@@ -996,18 +1055,20 @@ class CategoryProvider {
       tableName = 'EXPRESSION_NUMBER_ESP';
     }
 
-    return await _getDescriptionPage(tableName, calc, header);
+    return await _getDescriptionPage(context, tableName, calc, header);
   }
 
-  Future<Widget> getRealizationNumPage(Profile profile, String header) async {
+  Future<Widget> getRealizationNumPage(
+      BuildContext context, Profile profile, String header) async {
     return DescriptionNameBasedPage(
       categoryName: header,
       getPage: (profile, header) async =>
-          await _getRealizationNumPage(profile, header),
+          await _getRealizationNumPage(context, profile, header),
     );
   }
 
-  Future<Widget> _getRealizationNumPage(Profile profile, String header) async {
+  Future<Widget> _getRealizationNumPage(
+      BuildContext context, Profile profile, String header) async {
     var calc = CategoryCalc.instance.calcRealizationNumber(profile);
     var tableName = 'REALIZATION_NUMBER_ENG';
 
@@ -1015,10 +1076,11 @@ class CategoryProvider {
       tableName = 'REALIZATION_NUMBER_RUS';
     }
 
-    return await _getDescriptionPage(tableName, calc, header);
+    return await _getDescriptionPage(context, tableName, calc, header);
   }
 
-  Future<Widget> getAchievementNumPage(Profile profile, String header) async {
+  Future<Widget> getAchievementNumPage(
+      BuildContext context, Profile profile, String header) async {
     var calc = CategoryCalc.instance.calcAchievementNums(profile);
     var period = CategoryCalc.instance.calcAchievementPeriods(profile);
 
@@ -1043,12 +1105,12 @@ class CategoryProvider {
     var descriptions = [];
 
     for (var i = 0; i < calc.length; i++) {
-      var description = await getEntityRawQuery(
+      var description = await runQuery(context,
           'select description from "$tableName"  where  number = ${calc[i]}');
       descriptions.add(period[i] + description);
     }
 
-    var info = await getEntityRawQuery(
+    var info = await runQuery(context,
         'select description from TABLE_DESCRIPTION where table_name =  "$tableName"');
 
     List<CardData> data = [];
@@ -1067,7 +1129,8 @@ class CategoryProvider {
     );
   }
 
-  Future<Widget> getChallengeNumPage(Profile profile, String header) async {
+  Future<Widget> getChallengeNumPage(
+      BuildContext context, Profile profile, String header) async {
     var calc = CategoryCalc.instance.calcChallengeNums(profile);
 
     var descriptions = [];
@@ -1099,12 +1162,12 @@ class CategoryProvider {
     }
 
     calc.forEach((calc) async {
-      var description = await getEntityRawQuery(
+      var description = await runQuery(context,
           'select description from "$tableName"  where  number = $calc');
       descriptions.add(description);
     });
 
-    var info = await getEntityRawQuery(
+    var info = await runQuery(context,
         'select description from TABLE_DESCRIPTION where table_name =  "$tableName"');
 
     List<CardData> data = [];
@@ -1124,7 +1187,8 @@ class CategoryProvider {
     );
   }
 
-  Future<Widget> lifePathNumPage(Profile profile, String header) async {
+  Future<Widget> lifePathNumPage(
+      BuildContext context, Profile profile, String header) async {
     Map<String, String> _fromMapLifePath(Map<String, dynamic> map) {
       if (Globals.instance.getLanguage() is LanguageRu) {
         return {
@@ -1165,7 +1229,7 @@ class CategoryProvider {
       (map) => _fromMapLifePath(map),
     );
 
-    var info = await getEntityRawQuery(
+    var info = await runQuery(context,
         'select description from TABLE_DESCRIPTION where table_name =  "$tableName"');
 
     List<CardData> data = [];
@@ -1185,15 +1249,17 @@ class CategoryProvider {
     );
   }
 
-  Future<Widget> getPersonalityNumPage(Profile profile, String header) async {
+  Future<Widget> getPersonalityNumPage(
+      BuildContext context, Profile profile, String header) async {
     return DescriptionNameBasedPage(
       categoryName: header,
       getPage: (profile, header) async =>
-          await _getPersonalityNumPage(profile, header),
+          await _getPersonalityNumPage(context, profile, header),
     );
   }
 
-  Future<Widget> _getPersonalityNumPage(Profile profile, String header) async {
+  Future<Widget> _getPersonalityNumPage(
+      BuildContext context, Profile profile, String header) async {
     var calc = CategoryCalc.instance.calcPersonalityNumber(profile);
     var tableName = 'PERSONALITY_NUMBER_ENG';
 
@@ -1203,10 +1269,11 @@ class CategoryProvider {
       tableName = 'PERSONALITY_NUMBER_ESP';
     }
 
-    return await _getDescriptionPage(tableName, calc, header);
+    return await _getDescriptionPage(context, tableName, calc, header);
   }
 
-  Future<Widget> getLuckyGemPage(Profile profile, String header) async {
+  Future<Widget> getLuckyGemPage(
+      BuildContext context, Profile profile, String header) async {
     var calc = CategoryCalc.instance.calcLuckGem(profile);
 
     var tableName = 'LUCKY_GEM_ENG';
@@ -1214,10 +1281,11 @@ class CategoryProvider {
       tableName = 'LUCKY_GEM_RUS';
     }
 
-    return await _getDescriptionPage(tableName, calc, header);
+    return await _getDescriptionPage(context, tableName, calc, header);
   }
 
-  Future<Widget> getBirthdayNumPage(Profile profile, String header) async {
+  Future<Widget> getBirthdayNumPage(
+      BuildContext context, Profile profile, String header) async {
     var calc = DateService.fromTimestamp(profile.dob).day;
     var tableName = 'BIRTHDAY_NUMBER_ENG';
     if (Globals.instance.getLanguage() is LanguageRu) {
@@ -1226,10 +1294,11 @@ class CategoryProvider {
       tableName = 'BIRTHDAY_NUMBER_ESP';
     }
 
-    return await _getDescriptionPage(tableName, calc, header);
+    return await _getDescriptionPage(context, tableName, calc, header);
   }
 
-  Future<Widget> getBirthdayCodePage(Profile profile, String header) async {
+  Future<Widget> getBirthdayCodePage(
+      BuildContext context, Profile profile, String header) async {
     var calc = CategoryCalc.instance.calcBirthdayCode(profile);
     var tableName = 'BIRTHDAY_CODE_ENG';
     if (Globals.instance.getLanguage() is LanguageRu) {
@@ -1238,18 +1307,20 @@ class CategoryProvider {
       tableName = 'BIRTHDAY_CODE_ESP';
     }
 
-    return await _getDescriptionPage(tableName, calc, header);
+    return await _getDescriptionPage(context, tableName, calc, header);
   }
 
-  Future<Widget> getMaturityNumPage(Profile profile, String header) async {
+  Future<Widget> getMaturityNumPage(
+      BuildContext context, Profile profile, String header) async {
     return DescriptionNameBasedPage(
       categoryName: header,
       getPage: (profile, header) async =>
-          await _getMaturityNumPage(profile, header),
+          await _getMaturityNumPage(context, profile, header),
     );
   }
 
-  Future<Widget> _getMaturityNumPage(Profile profile, String header) async {
+  Future<Widget> _getMaturityNumPage(
+      BuildContext context, Profile profile, String header) async {
     var calc = CategoryCalc.instance.calcMaturityNumber(profile);
     var tableName = 'MATURITY_NUMBER_ENG';
     if (Globals.instance.getLanguage() is LanguageRu) {
@@ -1258,14 +1329,14 @@ class CategoryProvider {
       tableName = 'MATURITY_NUMBER_ES';
     }
 
-    return await _getDescriptionPage(tableName, calc, header);
+    return await _getDescriptionPage(context, tableName, calc, header);
   }
 
   Future<DescriptionPage> _getDescriptionPage(
-      String tableName, int calc, String header) async {
-    var description = await getEntityRawQuery(
-        'select description from "$tableName"  where  number = $calc');
-    var info = await getEntityRawQuery(
+      BuildContext context, String tableName, int calc, String header) async {
+    var description = await runQuery(
+        context, 'select description from "$tableName"  where  number = $calc');
+    var info = await runQuery(context,
         'select description from TABLE_DESCRIPTION where table_name =  "$tableName"');
 
     List<CardData> data = [];
@@ -1283,8 +1354,16 @@ class CategoryProvider {
     );
   }
 
+  Future<dynamic> runQuery(BuildContext context, String query) async {
+    try {
+      return await getEntityRawQuery(query);
+    } catch (e) {
+      context.read<UserDataCubit>().emitPrimaryUserError(e);
+    }
+  }
+
   Future<DescriptionPage> _getSoulDescriptionPage(
-      String tableName, int calc, String header) async {
+      BuildContext context, String tableName, int calc, String header) async {
     Map<String, String> _fromMapLifePath(Map<String, dynamic> map) {
       return {
         'Описание': map['description'] as String,
@@ -1298,7 +1377,7 @@ class CategoryProvider {
       (map) => _fromMapLifePath(map),
     );
 
-    var info = await getEntityRawQuery(
+    var info = await runQuery(context,
         'select description from TABLE_DESCRIPTION where table_name =  "$tableName"');
 
     List<CardData> data = [];
@@ -1317,7 +1396,7 @@ class CategoryProvider {
   }
 
   Future<DescriptionPage> _getMarriageDescriptionPage(
-      String tableName, int calc, String header) async {
+      BuildContext context, String tableName, int calc, String header) async {
     Map<String, String> _fromMapLifePath(Map<String, dynamic> map) {
       return {
         'Женщина': map['woman'] as String,
@@ -1331,7 +1410,7 @@ class CategoryProvider {
       (map) => _fromMapLifePath(map),
     );
 
-    var info = await getEntityRawQuery(
+    var info = await runQuery(context,
         'select description from TABLE_DESCRIPTION where table_name =  "$tableName"');
 
     List<CardData> data = [];
@@ -1350,6 +1429,7 @@ class CategoryProvider {
   }
 
   Future<DescriptionPage> _getLoveDescriptionPage(
+    BuildContext context,
     String table,
     String tableLove,
     int calc,
@@ -1372,13 +1452,13 @@ class CategoryProvider {
       (map) => _fromMapLifePath(map),
     );
 
-    var description = await getEntityRawQuery(
-        'select description from $tableLove where number = $calcLove');
+    var description = await runQuery(
+        context, 'select description from $tableLove where number = $calcLove');
 
     var dob =
         'День рождения партнёра $partnerDob (Вы можете изменить это в настройках)';
 
-    var info = await getEntityRawQuery(
+    var info = await runQuery(context,
         'select description from TABLE_DESCRIPTION where table_name =  "$table"');
 
     List<CardData> data = [];
@@ -1397,7 +1477,7 @@ class CategoryProvider {
     );
   }
 
-  Future<DescriptionPage> _getKarmaDescriptionPage(
+  Future<DescriptionPage> _getKarmaDescriptionPage(BuildContext context,
       String tableName, List<int> calc, String header) async {
     List<String> descriptions = [];
     var headers = [];
@@ -1406,13 +1486,13 @@ class CategoryProvider {
       if (calc[i] > 0) {
         var frequency = calc[i] > 3 ? 'lot' : 'few';
         headers.add(frequency == 'lot' ? 'Muchos $i' : 'Pocos $i');
-        var description = await getEntityRawQuery(
+        var description = await runQuery(context,
             'select description from $tableName where frequency = "$frequency" AND number = "$i"');
         descriptions.add(description);
       }
     }
 
-    var info = await getEntityRawQuery(
+    var info = await runQuery(context,
         'select description from TABLE_DESCRIPTION where table_name = "$tableName"');
 
     List<CardData> data = [];
