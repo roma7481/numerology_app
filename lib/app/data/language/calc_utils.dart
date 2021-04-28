@@ -1325,8 +1325,8 @@ class CategoryProvider {
     var tableName = 'MATURITY_NUMBER_ENG';
     if (Globals.instance.getLanguage() is LanguageRu) {
       tableName = 'MATURITY_NUMBER_RUS';
-    } else if (Globals.instance.getLanguage() is LanguageRu) {
-      tableName = 'MATURITY_NUMBER_ES';
+    } else if (Globals.instance.getLanguage() is LanguageEs) {
+      tableName = 'MATURITY_NUMBER_ESP';
     }
 
     return await _getDescriptionPage(context, tableName, calc, header);
