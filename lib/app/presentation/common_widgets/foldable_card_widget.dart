@@ -22,7 +22,7 @@ class _ExpandableTileState extends State<ExpandableTile> {
   Widget build(BuildContext context) {
     return CustomCard(
       child: ExpansionTile(
-        tilePadding: EdgeInsets.only(left: 8.0),
+        tilePadding: EdgeInsets.only(left: 0.0, right: 8.0),
         title:
             _collapsedContent(widget.header, widget.content, widget.iconPath),
         children:
@@ -38,7 +38,7 @@ class _ExpandableTileState extends State<ExpandableTile> {
 
   List<Widget> _expandedContent(
       String header, String content, String iconPath) {
-    return [];
+    return [_buildCardContent(content)];
 
     /// nothing here, header is already colapsable expandable
   }
@@ -48,7 +48,7 @@ class _ExpandableTileState extends State<ExpandableTile> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildHeader(header, iconPath),
-        _buildCardContent(content),
+        _isExpand ? Container() : _buildCardContent(content),
         _buildReadMore(),
       ],
     );
@@ -86,7 +86,8 @@ class _ExpandableTileState extends State<ExpandableTile> {
 
   Widget _buildCardContent(String content) {
     return Padding(
-      padding: const EdgeInsets.only(top: 16.0, left: 8.0, bottom: 8.0),
+      padding:
+          const EdgeInsets.only(top: 16.0, left: 16.0, right: 8.0, bottom: 8.0),
       child: Text(content,
           maxLines: !_isExpand ? 4 : 2000,
           style: descriptionContentStyle(),
@@ -99,7 +100,7 @@ class _ExpandableTileState extends State<ExpandableTile> {
       return Container();
     }
     return Padding(
-      padding: const EdgeInsets.only(left: 8.0, top: 8.0, bottom: 16.0),
+      padding: const EdgeInsets.only(left: 16.0, top: 8.0, bottom: 16.0),
       child: Text(Globals.instance.language.readMore,
           textAlign: TextAlign.start, style: readMoreStyle),
     );
