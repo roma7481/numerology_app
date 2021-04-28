@@ -103,29 +103,37 @@ class _ProfilesPageState extends State<ProfilesPage> {
     return CustomCard(
       child: ExpansionTile(
         initiallyExpanded: profile.isSelected == 1,
-        title: Padding(
-          padding: const EdgeInsets.only(left: 12.0, bottom: 8.0),
-          child: Column(
-            children: [
-              Stack(
-                  children: [_buildPrimInfo(profile), _buildCheckbox(profile)]),
-            ],
-          ),
-        ),
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 12.0),
-            child: Column(
-              children: [
-                _buildSecondaryInfo(profile),
-                _buildLine(),
-                _buildEditDeleteBtn(profile),
-              ],
-            ),
-          )
-        ],
+        title: _collapsedContent(profile),
+        children: _expandedContent(profile),
       ),
     );
+  }
+
+  List<Widget> _expandedContent(Profile profile) {
+    return [
+        Padding(
+          padding: const EdgeInsets.only(left: 12.0),
+          child: Column(
+            children: [
+              _buildSecondaryInfo(profile),
+              _buildLine(),
+              _buildEditDeleteBtn(profile),
+            ],
+          ),
+        )
+      ];
+  }
+
+  Padding _collapsedContent(Profile profile) {
+    return Padding(
+        padding: const EdgeInsets.only(left: 12.0, bottom: 8.0),
+        child: Column(
+          children: [
+            Stack(
+                children: [_buildPrimInfo(profile), _buildCheckbox(profile)]),
+          ],
+        ),
+      );
   }
 
   Padding _buildSecondaryInfo(Profile profile) {
