@@ -802,11 +802,6 @@ class CategoryProvider {
       descriptions.add(description);
     }
 
-    var query =
-        'select description from TABLE_DESCRIPTION where table_name = "$table" and category = 1';
-    var infoStr = await runQuery(context, query);
-    info.add(infoStr);
-
     for (var i = 1; i <= categories.length; i++) {
       var infoStr = await runQuery(context,
           'select description from TABLE_DESCRIPTION where table_name = "$table" and category = "$i"');
