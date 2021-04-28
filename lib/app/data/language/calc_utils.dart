@@ -879,7 +879,7 @@ class CategoryProvider {
     var headers = [
       'Purpose',
       'Family',
-      'stability',
+      'Stability',
       'Esteem',
       'Finance',
       'Talents',
@@ -902,11 +902,11 @@ class CategoryProvider {
       ];
     }
 
-    calcs.forEach((calc) async {
+    for (var i = 0; i < categories.length; i++) {
       var descriptionStr = await runQuery(context,
-          'select description from $table where category = "purpose" AND number = ${_convertLinesNums(calc)}');
+          'select description from $table where category = "${categories[i]}" AND number = ${_convertLinesNums(calcs[i])}');
       description.add(descriptionStr);
-    });
+    }
 
     categories.forEach((category) async {
       var infoStr = await runQuery(context,

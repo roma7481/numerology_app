@@ -22,6 +22,7 @@ class _ExpandableTileState extends State<ExpandableTile> {
   Widget build(BuildContext context) {
     return CustomCard(
       child: ExpansionTile(
+        tilePadding: EdgeInsets.only(left: 8.0),
         title:
             _collapsedContent(widget.header, widget.content, widget.iconPath),
         children:
