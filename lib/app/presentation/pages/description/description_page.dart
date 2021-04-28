@@ -125,7 +125,8 @@ class DescriptionPage extends StatelessWidget {
         var item = data[index];
         return Column(children: [
           showAdInList(adController, data, index, isPremium),
-          buildExpandCard(item.header, item.description, item.iconPath),
+          ExpandableTile(item.header, item.description,
+              iconPath: item.iconPath),
         ]);
       },
       childCount: data.length,

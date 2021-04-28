@@ -112,6 +112,12 @@ var descriptionHeaderStyle = GoogleFonts.philosopher(
   color: Colors.white,
 ));
 
+var readMoreStyle = GoogleFonts.sourceSansPro(
+    textStyle: TextStyle(
+  fontSize: 17.0,
+  color: itemTapPressedColor,
+));
+
 /// MATRIX ///
 var matrixTileStyle = GoogleFonts.sourceSansPro(
     textStyle: TextStyle(

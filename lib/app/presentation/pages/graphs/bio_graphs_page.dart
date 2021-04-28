@@ -143,7 +143,8 @@ class _BioGraphsPageState extends State<BioGraphsPage> {
           return Column(
             children: [
               showAdInList(adController, state.description, index, isPremium),
-              buildExpandCard(data.header, data.description, data.iconPath),
+              ExpandableTile(data.header, data.description,
+                  iconPath: data.iconPath),
             ],
           );
         },

@@ -80,19 +80,23 @@ class MatrixLinesPage extends StatelessWidget {
     return Container(
       width: double.infinity,
       color: backgroundColor,
-      child: Column(
+      child: Wrap(
         children: [
-          SizedBox(
-            height: listHeight,
-            child: CustomScrollView(
-              slivers: [
-                SliverToBoxAdapter(child: buildMatrix(context, matrix)),
-                _buildList(isPremium),
-                _buildInfo(),
-              ],
-            ),
-          ),
-          showBanner(_adWidget, _banner, isPremium),
+          Column(
+            children: [
+              SizedBox(
+                height: listHeight,
+                child: CustomScrollView(
+                  slivers: [
+                    SliverToBoxAdapter(child: buildMatrix(context, matrix)),
+                    _buildList(isPremium),
+                    _buildInfo(),
+                  ],
+                ),
+              ),
+              showBanner(_adWidget, _banner, isPremium),
+            ],
+          )
         ],
       ),
     );
@@ -106,7 +110,8 @@ class MatrixLinesPage extends StatelessWidget {
         return Column(
           children: [
             showAdInList(adController, data, index, isPremium),
-            buildExpandCard(item.header, item.description, item.iconPath),
+            ExpandableTile(item.header, item.description,
+                iconPath: item.iconPath),
           ],
         );
       },

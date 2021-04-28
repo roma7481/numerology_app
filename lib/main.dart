@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_funding_choices/flutter_funding_choices.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:notification_permissions/notification_permissions.dart';
 import 'package:numerology/app/business_logic/cubit/bio/bio_cubit.dart';
@@ -30,6 +31,8 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  InAppPurchaseConnection.enablePendingPurchases();
 
   InterestitialController interController = InterestitialController.instance;
   interController.setInter();

@@ -1,4 +1,3 @@
-import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:numerology/app/business_logic/services/ads/native_admob_controller.dart';
@@ -9,6 +8,7 @@ import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/data/language/matrix_tile.dart';
 import 'package:numerology/app/presentation/common_widgets/castom_category_card.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
+import 'package:numerology/app/presentation/common_widgets/foldable_card_widget.dart';
 
 import 'matrix_data.dart';
 
@@ -170,15 +170,7 @@ class _MatrixPageState extends State<MatrixPage> {
 
   Widget _buildCard(String header, String content) {
     if (content.length > 1000) {
-      return CustomCard(
-          child: ExpandablePanel(
-        theme: ExpandableThemeData(iconColor: arrowColor),
-        header: _buildHeader(header),
-        collapsed: _buildCardContent(content: content, isFolded: true),
-        expanded: _buildCardContent(
-          content: content,
-        ),
-      ));
+      return ExpandableTile(header, content);
     } else {
       return CustomCard(
           child: CustomCategoryCard(
@@ -186,31 +178,6 @@ class _MatrixPageState extends State<MatrixPage> {
         content: content,
       ));
     }
-  }
-
-  Widget _buildHeader(String header) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.only(
-          top: 16.0,
-          left: 24.0,
-        ),
-        child: Text(
-          header,
-          style: descriptionHeaderStyle,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildCardContent({String content, bool isFolded = false}) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Text(content,
-          maxLines: isFolded ? 6 : 2000,
-          style: descriptionContentStyle(),
-          overflow: isFolded ? TextOverflow.ellipsis : TextOverflow.visible),
-    );
   }
 
   Widget _buildInfo(bool isPremium) {

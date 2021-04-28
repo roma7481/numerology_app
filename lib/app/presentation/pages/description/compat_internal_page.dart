@@ -194,7 +194,8 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
         delegate: SliverChildBuilderDelegate(
       (context, index) {
         var data = dataList[index];
-        return buildExpandCard(data.header, data.description, data.iconPath);
+        return ExpandableTile(data.header, data.description,
+            iconPath: data.iconPath);
       },
       childCount: dataList.length,
     ));
@@ -282,10 +283,10 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
         delegate: SliverChildBuilderDelegate(
       (context, index) {
         var data = dataList[index];
-        return buildExpandCard(
+        return ExpandableTile(
           data.header,
           data.description,
-          data.iconPath,
+          iconPath: data.iconPath,
         );
       },
       childCount: dataList.length,
