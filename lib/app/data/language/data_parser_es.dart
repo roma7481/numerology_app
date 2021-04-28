@@ -12,8 +12,8 @@ class DataParserEs extends DataParser {
     List<CategoryModel> categories = [];
 
     categories.add(await _getCompat(profile));
-    categories.add(await _getPotential(profile));
     categories.add(await _getSecondBio(profile));
+    categories.add(await _getPotential(profile));
     categories.add(await _getAchievement(profile));
     categories.add(await _getChallengeNumber(profile));
     categories.add(await _getLifePathNumber(profile));

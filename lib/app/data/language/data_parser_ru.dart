@@ -12,15 +12,15 @@ class DataParserRu extends DataParser {
     List<CategoryModel> categories = [];
 
     categories.add(await _getCompat(profile));
+    categories.add(await _getSecondBio(profile));
+    categories.add(await _getMatrix(profile));
+    categories.add(await _getMatrixLines(profile));
     categories.add(await _getBalanceNumber(profile));
     categories.add(await _getMoneyNumber(profile));
     categories.add(await _getIntelligence(profile));
     categories.add(await _getMarriageNumber(profile));
     categories.add(await _getCharacter(profile));
     categories.add(await _getAchievement(profile));
-    categories.add(await _getSecondBio(profile));
-    categories.add(await _getMatrix(profile));
-    categories.add(await _getMatrixLines(profile));
     categories.add(await _getChallengeNumber(profile));
     categories.add(await _getLifePathNumber(profile));
     categories.add(await _getLoveNumber(profile));
