@@ -17,6 +17,7 @@ import 'package:provider/provider.dart';
 
 import 'app/business_logic/cubit/bio_second/bio_second_cubit.dart';
 import 'app/business_logic/cubit/forecast/forecast_cubit.dart';
+import 'app/business_logic/cubit/forecast/forecast_index_cubit.dart';
 import 'app/business_logic/cubit/language/language_cubit.dart';
 import 'app/business_logic/cubit/purchases/purchases_cubit.dart';
 import 'app/business_logic/cubit/rate_us/rate_us_cubit.dart';
@@ -98,6 +99,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<RateUsCubit>(
           create: (context) => RateUsCubit(),
+        ),
+        BlocProvider<ForecastIndexCubit>(
+          create: (context) => ForecastIndexCubit(),
         ),
         BlocProvider<NotificationsCubit>(
           create: (context) => NotificationsCubit(),

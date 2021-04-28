@@ -86,8 +86,8 @@ class _ExpandableTileState extends State<ExpandableTile> {
 
   Widget _buildCardContent(String content) {
     return Padding(
-      padding:
-          const EdgeInsets.only(top: 16.0, left: 16.0, right: 8.0, bottom: 8.0),
+      padding: const EdgeInsets.only(
+          top: 16.0, left: 16.0, right: 8.0, bottom: 16.0),
       child: Text(content,
           maxLines: !_isExpand ? 4 : 2000,
           style: descriptionContentStyle(),

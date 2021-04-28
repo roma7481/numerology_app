@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:numerology/app/business_logic/cubit/forecast/forecast.dart';
 import 'package:numerology/app/business_logic/cubit/forecast/forecast_cubit.dart';
+import 'package:numerology/app/business_logic/cubit/forecast/forecast_index_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/business_logic/services/ads/native_admob_controller.dart';
@@ -34,6 +35,15 @@ class _ForecastPageState extends State<ForecastPage> {
   var _luckyBtnIndex = 0;
   var _monthlyBtnIndex = 0;
   var _yearBtnIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<ForecastIndexCubit>().emitDayClicked(0);
+    context.read<ForecastIndexCubit>().emitLuckyClicked(0);
+    context.read<ForecastIndexCubit>().emitMonthClicked(0);
+    context.read<ForecastIndexCubit>().emitYearClicked(0);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,14 +105,14 @@ class _ForecastPageState extends State<ForecastPage> {
       color: backgroundColor,
       child: CustomScrollView(
         slivers: [
-          _buildCategory(_daily, _onDailyPressed, _dailyBtnIndex),
+          _categoryDayBuilder(_daily, _onDailyPressed),
           _buildLine(),
-          _buildCategory(_lucky, _onLuckyPressed, _luckyBtnIndex),
+          _categoryLuckyBuilder(_lucky, _onLuckyPressed),
           _buildLine(),
           _showAd(isPremium),
-          _buildCategory(_monthly, _onMonthlyPressed, _monthlyBtnIndex),
+          _categoryMonthBuilder(_monthly, _onMonthlyPressed),
           _buildLine(),
-          _buildCategory(_annual, _onYearPressed, _yearBtnIndex),
+          _categoryYearBuilder(_annual, _onYearPressed),
         ],
       ),
     );
@@ -112,6 +122,58 @@ class _ForecastPageState extends State<ForecastPage> {
     return SliverToBoxAdapter(
       child: showNativeAd(widget.adController, isPremium: isPremium),
     );
+  }
+
+  Widget _categoryLuckyBuilder(Forecast forecast, Function onPressed) {
+    return BlocBuilder<ForecastIndexCubit, ForecastIndexState>(
+        builder: (context, state) {
+      if (state is ForecastLuckyClicked) {
+        _luckyBtnIndex = state.index;
+        return _buildCategory(forecast, onPressed, state.index);
+      } else if (state is ForecastLoading) {
+        return SliverToBoxAdapter(child: progressBar());
+      }
+      return _buildCategory(forecast, onPressed, _luckyBtnIndex);
+    });
+  }
+
+  Widget _categoryMonthBuilder(Forecast forecast, Function onPressed) {
+    return BlocBuilder<ForecastIndexCubit, ForecastIndexState>(
+        builder: (context, state) {
+      if (state is ForecastMonthClicked) {
+        _monthlyBtnIndex = state.index;
+        return _buildCategory(forecast, onPressed, state.index);
+      } else if (state is ForecastLoading) {
+        return SliverToBoxAdapter(child: progressBar());
+      }
+      return _buildCategory(forecast, onPressed, _monthlyBtnIndex);
+    });
+  }
+
+  Widget _categoryYearBuilder(Forecast forecast, Function onPressed) {
+    return BlocBuilder<ForecastIndexCubit, ForecastIndexState>(
+        builder: (context, state) {
+      if (state is ForecastYearClicked) {
+        _yearBtnIndex = state.index;
+        return _buildCategory(forecast, onPressed, state.index);
+      } else if (state is ForecastLoading) {
+        return SliverToBoxAdapter(child: progressBar());
+      }
+      return _buildCategory(forecast, onPressed, _yearBtnIndex);
+    });
+  }
+
+  Widget _categoryDayBuilder(Forecast forecast, Function onPressed) {
+    return BlocBuilder<ForecastIndexCubit, ForecastIndexState>(
+        builder: (context, state) {
+      if (state is ForecastDayClicked) {
+        _dailyBtnIndex = state.index;
+        return _buildCategory(forecast, onPressed, state.index);
+      } else if (state is ForecastLoading) {
+        return SliverToBoxAdapter(child: progressBar());
+      }
+      return _buildCategory(forecast, onPressed, _dailyBtnIndex);
+    });
   }
 
   Widget _buildCategory(
@@ -162,29 +224,19 @@ class _ForecastPageState extends State<ForecastPage> {
   }
 
   Future<void> _onDailyPressed(int index) async {
-    _onPressed(() => _dailyBtnIndex = index, index);
+    await context.read<ForecastIndexCubit>().emitDayClicked(index);
   }
 
   Future<void> _onLuckyPressed(int index) async {
-    _onPressed(() => _luckyBtnIndex = index, index);
+    await context.read<ForecastIndexCubit>().emitLuckyClicked(index);
   }
 
   Future<void> _onMonthlyPressed(int index) async {
-    _onPressed(() => _monthlyBtnIndex = index, index);
+    await context.read<ForecastIndexCubit>().emitMonthClicked(index);
   }
 
   Future<void> _onYearPressed(int index) async {
-    _onPressed(() => _yearBtnIndex = index, index);
-  }
-
-  Future<void> _onPressed(Function onPressed, int index) async {
-    if (index == 0 || await PremiumController.instance.isPremium()) {
-      setState(() {
-        onPressed();
-      });
-    } else {
-      navigateToPremium(context);
-    }
+    await context.read<ForecastIndexCubit>().emitYearClicked(index);
   }
 
   Widget _buildLine() {
