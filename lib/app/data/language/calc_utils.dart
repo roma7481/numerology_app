@@ -1127,6 +1127,7 @@ class CategoryProvider {
   Future<Widget> getChallengeNumPage(
       BuildContext context, Profile profile, String header) async {
     var calc = CategoryCalc.instance.calcChallengeNums(profile);
+    var period = CategoryCalc.instance.calcChallengePeriods();
 
     var descriptions = [];
 
@@ -1156,11 +1157,11 @@ class CategoryProvider {
       ];
     }
 
-    calc.forEach((calc) async {
+    for (var i = 0; i < calc.length; i++) {
       var description = await runQuery(context,
-          'select description from "$tableName"  where  number = $calc');
-      descriptions.add(description);
-    });
+          'select description from "$tableName"  where  number = ${calc[i]}');
+      descriptions.add(period[i] + description);
+    }
 
     var info = await runQuery(context,
         'select description from TABLE_DESCRIPTION where table_name =  "$tableName"');

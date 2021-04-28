@@ -153,6 +153,39 @@ class CategoryCalc {
     return [text1, text2, text3, text4];
   }
 
+  List<String> calcChallengePeriods() {
+    var period1 = 'The First Challenge: Birth to age 30-35';
+    var period2 =
+        'The Second Challenge: Starts around 35  and lasts till 55-60';
+    var period3 =
+        'The Third Challenge: The Main Challenge, Constant challenge throughout life';
+    var period4 = 'The Fourth Challenge Age 60 and till elderly ages';
+
+    if (Globals.instance.language is LanguageRu) {
+      period1 =
+          'Первое Испытание наиболее актуально на начальном этапе жизни - в детстве, юности и начале самостоятельной жизни. Обычно его нужно преодолеть годам к 25 - 30.';
+      period2 =
+          'Еще до того, как вы завершите свое Первое Испытание, на вас начнет оказывать влияние Второе Испытание, выходящее на передний план в середине жизни.';
+      period3 =
+          'Третье, Главное Испытание, действует в течение всей жизни и обычно преобладает над другими испытаниями, более заметно, чем они.';
+      period4 =
+          'Наконец, последнее, Четвертое Испытание начинает проявлять себя в середине жизни и длится до ее окончания.';
+    } else if (Globals.instance.language is LanguageEs) {
+      period1 = 'El primer desafío: Del nacimiento a la edad de 30-35 años';
+      period2 =
+          'El segundo desafío: comienza alrededor de los 35 y dura hasta los 55-60';
+      period3 =
+          'El tercer desafío: El desafío principal, el desafío constante a lo largo de la vida';
+      period4 = 'El cuarto reto: Edad 60 y hasta la vejez';
+    }
+    return [
+      period1 + '\n\n',
+      period2 + '\n\n',
+      period3 + '\n\n',
+      period4 + '\n\n'
+    ];
+  }
+
   int _calcAchievementPeriod1(Profile profile) {
     return _calcToSingleDigit(calcLifePathNumberMethod1(profile));
   }
