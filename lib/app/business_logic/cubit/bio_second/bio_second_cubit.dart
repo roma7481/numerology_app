@@ -8,14 +8,18 @@ import 'package:numerology/app/presentation/pages/description/matrix_line_data.d
 part 'bio_second_state.dart';
 
 class BioSecondCubit extends Cubit<BioSecondState> {
-  BioSecondCubit() : super(BioSecondStateLoading());
+  BioSecondCubit()
+      : super(BioSecondState(
+          date: DateService.toTimestamp(DateTime.now()),
+          description: [],
+        ));
 
   void emitBioUpdate(List<double> bio, {int date}) async {
     if (date == null) {
       date = DateService.toTimestamp(DateTime.now());
     }
 
-    emit(BioSecondStateReady(
+    emit(BioSecondState(
       bio: bio,
       date: date,
       description: await CategoryProvider.instance.getSecondaryBio(bio),

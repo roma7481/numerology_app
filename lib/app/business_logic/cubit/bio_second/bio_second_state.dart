@@ -1,19 +1,13 @@
 part of 'bio_second_cubit.dart';
 
-abstract class BioSecondState {}
-
-class BioSecondStateLoading extends BioSecondState {}
-
-class BioSecondStateError extends BioSecondState {}
-
-class BioSecondStateReady extends BioSecondState {
+class BioSecondState {
   final int date;
   final List<double> bio;
   final List<CardData> description;
 
-  BioSecondStateReady({
+  BioSecondState({
     this.description = const [],
     this.date,
-    this.bio = const [0.0, 0.0, 0.0],
+    this.bio = const [0.0, 0.0, 0.0, 0.0],
   });
 }

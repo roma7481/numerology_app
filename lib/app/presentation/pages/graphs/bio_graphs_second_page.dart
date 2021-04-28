@@ -53,32 +53,27 @@ class _BioGraphsSecondPageState extends State<BioGraphsSecondPage> {
   }
 
   Widget _buildPageContent(BuildContext context) {
+    return SafeArea(
+        child: Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        brightness: Brightness.dark,
+        title: _buildHeader(),
+      ),
+      body: _buildContent(context),
+    ));
+  }
+
+  Widget _buildHeader() {
     return BlocBuilder<BioSecondCubit, BioSecondState>(
         builder: (context, state) {
-      if (state is BioSecondStateReady) {
-        return SafeArea(
-            child: Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            brightness: Brightness.dark,
-            title: _buildHeader(state),
-          ),
-          body: _buildContent(context, state),
-        ));
-      } else if (state is BioSecondStateError) {
-        return errorDialog();
-      }
-      return progressBar();
+      header =
+          DateService.getFormattedDate(DateService.fromTimestamp(state.date));
+      return Text(header);
     });
   }
 
-  Widget _buildHeader(BioSecondStateReady state) {
-    header =
-        DateService.getFormattedDate(DateService.fromTimestamp(state.date));
-    return Text(header);
-  }
-
-  Widget _buildContent(BuildContext context, BioSecondStateReady state) {
+  Widget _buildContent(BuildContext context) {
     return FutureBuilder<bool>(
         future: PremiumController.instance.isPremium(),
         builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
@@ -92,30 +87,33 @@ class _BioGraphsSecondPageState extends State<BioGraphsSecondPage> {
                 );
               } else {
                 var isPremium = snapshot.data;
-                return buildList(context, state, isPremium);
+                return buildList(context, isPremium);
               }
           }
         });
   }
 
-  Container buildList(
-      BuildContext context, BioSecondStateReady state, bool isPremium) {
+  Container buildList(BuildContext context, bool isPremium) {
     var listHeight = calcListHeight(context, _banner, isPremium);
     return Container(
       color: backgroundColor,
-      child: Column(
+      child: Wrap(
         children: [
-          SizedBox(
-            height: listHeight,
-            child: CustomScrollView(
-              slivers: [
-                _buildGraphs(),
-                _buildPiCharts(state),
-                _buildList(state, isPremium),
-              ],
-            ),
-          ),
-          showBanner(_adWidget, _banner, isPremium),
+          Column(
+            children: [
+              SizedBox(
+                height: listHeight,
+                child: CustomScrollView(
+                  slivers: [
+                    _buildGraphs(),
+                    _buildPiCharts(),
+                    _buildList(isPremium),
+                  ],
+                ),
+              ),
+              showBanner(_adWidget, _banner, isPremium),
+            ],
+          )
         ],
       ),
     );
@@ -130,31 +128,37 @@ class _BioGraphsSecondPageState extends State<BioGraphsSecondPage> {
     );
   }
 
-  Widget _buildPiCharts(BioSecondStateReady state) {
-    return SliverToBoxAdapter(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 24.0),
-        child: buildBioPiChartsSecond(
-          context,
-          state.bio,
+  Widget _buildPiCharts() {
+    return BlocBuilder<BioSecondCubit, BioSecondState>(
+        builder: (context, state) {
+      return SliverToBoxAdapter(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 24.0),
+          child: buildBioPiChartsSecond(
+            context,
+            state.bio,
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 
-  Widget _buildList(BioSecondStateReady state, bool isPremium) {
-    return SliverList(
-        delegate: SliverChildBuilderDelegate(
-      (context, index) {
-        var data = state.description[index];
-        return Column(
-          children: [
-            showAdInList(adController, state.description, index, isPremium),
-            buildExpandCard(data.header, data.description, data.iconPath),
-          ],
-        );
-      },
-      childCount: state.description.length,
-    ));
+  Widget _buildList(bool isPremium) {
+    return BlocBuilder<BioSecondCubit, BioSecondState>(
+        builder: (context, state) {
+      return SliverList(
+          delegate: SliverChildBuilderDelegate(
+        (context, index) {
+          var data = state.description[index];
+          return Column(
+            children: [
+              showAdInList(adController, state.description, index, isPremium),
+              buildExpandCard(data.header, data.description, data.iconPath),
+            ],
+          );
+        },
+        childCount: state.description.length,
+      ));
+    });
   }
 }
