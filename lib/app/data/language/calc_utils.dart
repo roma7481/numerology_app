@@ -1023,6 +1023,7 @@ class CategoryProvider {
 
     if (Globals.instance.getLanguage() is LanguageRu) {
       tableName = 'NAME_NUMBER_RUS';
+      return await _getRusNameDescriptionPage(context, tableName, calc, header);
     } else if (Globals.instance.getLanguage() is LanguageEs) {
       tableName = 'NAME_NUMBER_ESP';
     }
@@ -1397,6 +1398,39 @@ class CategoryProvider {
       return {
         'Женщина': map['woman'] as String,
         'Мужчина': map['man'] as String,
+      };
+    }
+
+    Map<String, String> descriptions =
+        await NumerologyDBProvider.instance.getEntity(
+      'select * from "$tableName"  where  number = $calc',
+      (map) => _fromMapLifePath(map),
+    );
+
+    var info = await runQuery(context,
+        'select description from TABLE_DESCRIPTION where table_name =  "$tableName"');
+
+    List<CardData> data = [];
+    descriptions.forEach((key, value) {
+      data.add(CardData(header: key, description: value));
+    });
+    data.add(
+        CardData(header: Globals.instance.language.info, description: info));
+
+    return DescriptionPage(
+      adController,
+      header: header,
+      calculation: calc.toString(),
+      data: data,
+    );
+  }
+
+  Future<DescriptionPage> _getRusNameDescriptionPage(
+      BuildContext context, String tableName, int calc, String header) async {
+    Map<String, String> _fromMapLifePath(Map<String, dynamic> map) {
+      return {
+        'Описание': map['description'] as String,
+        'Подробное описание': map['detailedDescription'] as String,
       };
     }
 
