@@ -620,8 +620,9 @@ class CategoryProvider {
       matrix8,
     ];
 
-    var matrixCompat = CategoryCalc.instance
-        .calcMatrixCompat(yourMatrixLines, partnerMatrixLines);
+    var matrixCompat = CategoryCalc.instance.calcMatrixCompat(
+        yourMatrixLines: yourMatrixLines,
+        partnerMatrixLines: partnerMatrixLines);
 
     var table = 'PSYCHOMATRIX_COMPAT_ENG';
     var mtxTable = 'PSYCHOMATRIX_ENG';
@@ -630,7 +631,7 @@ class CategoryProvider {
     var headers = [
       'Purpose',
       'Family',
-      'stability',
+      'Stability',
       'Esteem',
       'Finance',
       'Talents',

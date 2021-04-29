@@ -351,7 +351,7 @@ class CategoryCalc {
   }
 
   List<String> calcMatrixCompat(
-      List<int> yourMatrixLines, List<int> partnerMatrixLines) {
+      {List<int> yourMatrixLines, List<int> partnerMatrixLines}) {
     List<String> categories = ['', '', '', '', '', '', '', ''];
     for (int i = 0; i < yourMatrixLines.length; i++) {
       if (yourMatrixLines[i] < 3 && partnerMatrixLines[i] < 3) {
