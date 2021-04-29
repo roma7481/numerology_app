@@ -613,6 +613,11 @@ class CategoryCalc {
     return sum;
   }
 
+  int calcSoulNumberRu(Profile profile) {
+    var birthday = DateService.fromTimestamp(profile.dob);
+    return _calcToSingleDigitWithMagicNums(birthday.day);
+  }
+
   int calcSoulNumber(Profile profile) {
     var firstName = profile.firstName.toLowerCase();
     var lastName = profile.lastName.toLowerCase();
