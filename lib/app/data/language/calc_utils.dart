@@ -968,6 +968,12 @@ class CategoryProvider {
 
   Future<Widget> getSoulNumPage(
       BuildContext context, Profile profile, String header) async {
+    if(Globals.instance.getLanguage() is LanguageRu){
+      var tableName = 'SOUL_URGE_NUMBER_RUS';
+      var calc = CategoryCalc.instance.calcSoulNumberRu(profile);
+      return await _getSoulDescriptionPage(context, tableName, calc, header);
+    }
+
     return DescriptionNameBasedPage(
       categoryName: header,
       getPage: (profile, header) async =>
@@ -980,11 +986,7 @@ class CategoryProvider {
     var calc = CategoryCalc.instance.calcSoulNumber(profile);
 
     var tableName = 'SOUL_URGE_NUMBER_ENG';
-    if (Globals.instance.getLanguage() is LanguageRu) {
-      tableName = 'SOUL_URGE_NUMBER_RUS';
-      calc = CategoryCalc.instance.calcSoulNumberRu(profile);
-      return await _getSoulDescriptionPage(context, tableName, calc, header);
-    } else if (Globals.instance.getLanguage() is LanguageEs) {
+    if (Globals.instance.getLanguage() is LanguageEs) {
       tableName = 'SOUL_URGE_NUMBER_ESP';
     }
 
