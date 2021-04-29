@@ -105,14 +105,14 @@ class _ForecastPageState extends State<ForecastPage> {
       color: backgroundColor,
       child: CustomScrollView(
         slivers: [
-          _categoryDayBuilder(_daily, _onDailyPressed),
+          _categoryDayBuilder(_daily, _onDailyPressed, isPremium),
           _buildLine(),
-          _categoryLuckyBuilder(_lucky, _onLuckyPressed),
+          _categoryLuckyBuilder(_lucky, _onLuckyPressed, isPremium),
           _buildLine(),
           _showAd(isPremium),
-          _categoryMonthBuilder(_monthly, _onMonthlyPressed),
+          _categoryMonthBuilder(_monthly, _onMonthlyPressed, isPremium),
           _buildLine(),
-          _categoryYearBuilder(_annual, _onYearPressed),
+          _categoryYearBuilder(_annual, _onYearPressed, isPremium),
         ],
       ),
     );
@@ -124,60 +124,64 @@ class _ForecastPageState extends State<ForecastPage> {
     );
   }
 
-  Widget _categoryLuckyBuilder(Forecast forecast, Function onPressed) {
+  Widget _categoryLuckyBuilder(
+      Forecast forecast, Function onPressed, bool isPremium) {
     return BlocBuilder<ForecastIndexCubit, ForecastIndexState>(
         builder: (context, state) {
       if (state is ForecastLuckyClicked) {
         _luckyBtnIndex = state.index;
-        return _buildCategory(forecast, onPressed, state.index);
+        return _buildCategory(forecast, onPressed, state.index, isPremium);
       } else if (state is ForecastLoading) {
         return SliverToBoxAdapter(child: progressBar());
       }
-      return _buildCategory(forecast, onPressed, _luckyBtnIndex);
+      return _buildCategory(forecast, onPressed, _luckyBtnIndex, isPremium);
     });
   }
 
-  Widget _categoryMonthBuilder(Forecast forecast, Function onPressed) {
+  Widget _categoryMonthBuilder(
+      Forecast forecast, Function onPressed, bool isPremium) {
     return BlocBuilder<ForecastIndexCubit, ForecastIndexState>(
         builder: (context, state) {
       if (state is ForecastMonthClicked) {
         _monthlyBtnIndex = state.index;
-        return _buildCategory(forecast, onPressed, state.index);
+        return _buildCategory(forecast, onPressed, state.index, isPremium);
       } else if (state is ForecastLoading) {
         return SliverToBoxAdapter(child: progressBar());
       }
-      return _buildCategory(forecast, onPressed, _monthlyBtnIndex);
+      return _buildCategory(forecast, onPressed, _monthlyBtnIndex, isPremium);
     });
   }
 
-  Widget _categoryYearBuilder(Forecast forecast, Function onPressed) {
+  Widget _categoryYearBuilder(
+      Forecast forecast, Function onPressed, bool isPremium) {
     return BlocBuilder<ForecastIndexCubit, ForecastIndexState>(
         builder: (context, state) {
       if (state is ForecastYearClicked) {
         _yearBtnIndex = state.index;
-        return _buildCategory(forecast, onPressed, state.index);
+        return _buildCategory(forecast, onPressed, state.index, isPremium);
       } else if (state is ForecastLoading) {
         return SliverToBoxAdapter(child: progressBar());
       }
-      return _buildCategory(forecast, onPressed, _yearBtnIndex);
+      return _buildCategory(forecast, onPressed, _yearBtnIndex, isPremium);
     });
   }
 
-  Widget _categoryDayBuilder(Forecast forecast, Function onPressed) {
+  Widget _categoryDayBuilder(
+      Forecast forecast, Function onPressed, bool isPremium) {
     return BlocBuilder<ForecastIndexCubit, ForecastIndexState>(
         builder: (context, state) {
       if (state is ForecastDayClicked) {
         _dailyBtnIndex = state.index;
-        return _buildCategory(forecast, onPressed, state.index);
+        return _buildCategory(forecast, onPressed, state.index, isPremium);
       } else if (state is ForecastLoading) {
         return SliverToBoxAdapter(child: progressBar());
       }
-      return _buildCategory(forecast, onPressed, _dailyBtnIndex);
+      return _buildCategory(forecast, onPressed, _dailyBtnIndex, isPremium);
     });
   }
 
-  Widget _buildCategory(
-      Forecast forecast, Function onPressed, int selectedButton) {
+  Widget _buildCategory(Forecast forecast, Function onPressed,
+      int selectedButton, bool isPremium) {
     return SliverToBoxAdapter(
       child: Column(
         children: [
@@ -199,21 +203,21 @@ class _ForecastPageState extends State<ForecastPage> {
                       forecast.btnTitles[0],
                       style: buttonTextStyle,
                     ),
-                    onPressed: () => onPressed(0)),
+                    onPressed: () => onPressed(0,isPremium)),
                 ForecastButton(
                     isSelected: selectedButton == 1,
                     child: Text(
                       forecast.btnTitles[1],
                       style: buttonTextStyle,
                     ),
-                    onPressed: () => onPressed(1)),
+                    onPressed: () => onPressed(1,isPremium)),
                 ForecastButton(
                     isSelected: selectedButton == 2,
                     child: Text(
                       forecast.btnTitles[2],
                       style: buttonTextStyle,
                     ),
-                    onPressed: () => onPressed(2)),
+                    onPressed: () => onPressed(2,isPremium)),
               ],
             ),
           ),
@@ -223,20 +227,32 @@ class _ForecastPageState extends State<ForecastPage> {
     );
   }
 
-  Future<void> _onDailyPressed(int index) async {
-    await context.read<ForecastIndexCubit>().emitDayClicked(index);
+  Future<void> _onDailyPressed(int index, bool isPremium) async {
+    if(isPremium){
+      await context.read<ForecastIndexCubit>().emitDayClicked(index);
+    }
+    navigateToPremium(context);
   }
 
-  Future<void> _onLuckyPressed(int index) async {
-    await context.read<ForecastIndexCubit>().emitLuckyClicked(index);
+  Future<void> _onLuckyPressed(int index, bool isPremium) async {
+    if(isPremium){
+      await context.read<ForecastIndexCubit>().emitLuckyClicked(index);
+    }
+    navigateToPremium(context);
   }
 
-  Future<void> _onMonthlyPressed(int index) async {
-    await context.read<ForecastIndexCubit>().emitMonthClicked(index);
+  Future<void> _onMonthlyPressed(int index, bool isPremium) async {
+    if(isPremium){
+      await context.read<ForecastIndexCubit>().emitMonthClicked(index);
+    }
+    navigateToPremium(context);
   }
 
-  Future<void> _onYearPressed(int index) async {
-    await context.read<ForecastIndexCubit>().emitYearClicked(index);
+  Future<void> _onYearPressed(int index, bool isPremium) async {
+    if(isPremium){
+      await context.read<ForecastIndexCubit>().emitYearClicked(index);
+    }
+    navigateToPremium(context);
   }
 
   Widget _buildLine() {
