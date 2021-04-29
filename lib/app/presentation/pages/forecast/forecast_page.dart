@@ -230,29 +230,33 @@ class _ForecastPageState extends State<ForecastPage> {
   Future<void> _onDailyPressed(int index, bool isPremium) async {
     if(isPremium){
       await context.read<ForecastIndexCubit>().emitDayClicked(index);
+    } else{
+      navigateToPremium(context);
     }
-    navigateToPremium(context);
   }
 
   Future<void> _onLuckyPressed(int index, bool isPremium) async {
     if(isPremium){
       await context.read<ForecastIndexCubit>().emitLuckyClicked(index);
+    } else{
+      navigateToPremium(context);
     }
-    navigateToPremium(context);
   }
 
   Future<void> _onMonthlyPressed(int index, bool isPremium) async {
     if(isPremium){
       await context.read<ForecastIndexCubit>().emitMonthClicked(index);
+    } else{
+      navigateToPremium(context);
     }
-    navigateToPremium(context);
   }
 
   Future<void> _onYearPressed(int index, bool isPremium) async {
     if(isPremium){
       await context.read<ForecastIndexCubit>().emitYearClicked(index);
+    } else{
+      navigateToPremium(context);
     }
-    navigateToPremium(context);
   }
 
   Widget _buildLine() {
