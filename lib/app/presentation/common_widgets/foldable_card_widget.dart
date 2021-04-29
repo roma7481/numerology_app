@@ -70,6 +70,7 @@ class _ExpandableTileState extends State<ExpandableTile> {
             Flexible(
               child: Text(
                 header,
+                overflow: TextOverflow.ellipsis,
                 style: descriptionHeaderStyle,
               ),
             ),
