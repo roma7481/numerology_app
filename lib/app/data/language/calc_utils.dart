@@ -291,16 +291,23 @@ class CategoryProvider {
 
   Future<Widget> _getLoveNumPage(
       BuildContext context, Profile profile, String header) async {
-    var calc = CategoryCalc.instance.calcLoveNumberRu(profile);
-    var calcLove = CategoryCalc.instance.calcLoveCompatNumberRu(profile);
-    var tableName = 'LOVE_NUMBER_RUS';
-    var tableLove = 'LOVE_COMPATIBILITY_RUS';
+    var calcCompat = CategoryCalc.instance.calcLoveCompatNumberRu(profile);
+    var calcLove = CategoryCalc.instance.calcLoveNumberRu(profile);
+    var tableCompat = 'LOVE_COMPATIBILITY_RUS';
+    var tableLove = 'LOVE_NUMBER_RUS';
 
     var partnerDob = DateService.getFormattedDate(
         DateService.fromTimestamp(profile.partnerDob));
 
     return await _getLoveDescriptionPage(
-        context, tableName, tableLove, calc, calcLove, header, partnerDob);
+      context: context,
+      tableCompat: tableCompat,
+      tableLove: tableLove,
+      calcCompat: calcCompat,
+      calcLove: calcLove,
+      header: header,
+      partnerDob: partnerDob,
+    );
   }
 
   Future<Widget> getMarriageNumPage(
@@ -968,7 +975,7 @@ class CategoryProvider {
 
   Future<Widget> getSoulNumPage(
       BuildContext context, Profile profile, String header) async {
-    if(Globals.instance.getLanguage() is LanguageRu){
+    if (Globals.instance.getLanguage() is LanguageRu) {
       var tableName = 'SOUL_URGE_NUMBER_RUS';
       var calc = CategoryCalc.instance.calcSoulNumberRu(profile);
       return await _getSoulDescriptionPage(context, tableName, calc, header);
@@ -1290,7 +1297,8 @@ class CategoryProvider {
     var tableName = 'BIRTHDAY_NUMBER_ENG';
     if (Globals.instance.getLanguage() is LanguageRu) {
       tableName = 'BIRTHDAY_NUMBER_RUS';
-      return await _getRusBirthdayNumDescriptionPage(context, tableName, calc, header);
+      return await _getRusBirthdayNumDescriptionPage(
+          context, tableName, calc, header);
     } else if (Globals.instance.getLanguage() is LanguageEs) {
       tableName = 'BIRTHDAY_NUMBER_ESP';
     }
@@ -1496,15 +1504,15 @@ class CategoryProvider {
     );
   }
 
-  Future<DescriptionPage> _getLoveDescriptionPage(
+  Future<DescriptionPage> _getLoveDescriptionPage({
     BuildContext context,
-    String table,
+    String tableCompat,
     String tableLove,
-    int calc,
+    int calcCompat,
     int calcLove,
     String header,
     String partnerDob,
-  ) async {
+  }) async {
     Map<String, String> _fromMapLifePath(Map<String, dynamic> map) {
       return {
         'Описание': map['description'] as String,
@@ -1516,18 +1524,18 @@ class CategoryProvider {
 
     Map<String, String> descriptions =
         await NumerologyDBProvider.instance.getEntity(
-      'select * from "$table"  where  number = $calc',
+      'select * from "$tableLove"  where  number = $calcLove',
       (map) => _fromMapLifePath(map),
     );
 
-    var description = await runQuery(
-        context, 'select description from $tableLove where number = $calcLove');
+    var description = await runQuery(context,
+        'select description from $tableCompat where number = $calcCompat');
 
     var dob =
         'День рождения партнёра $partnerDob (Вы можете изменить это в настройках)';
 
     var info = await runQuery(context,
-        'select description from TABLE_DESCRIPTION where table_name =  "$table"');
+        'select description from TABLE_DESCRIPTION where table_name =  "$tableLove"');
 
     List<CardData> data = [];
     data.add(CardData(

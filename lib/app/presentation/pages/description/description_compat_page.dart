@@ -136,7 +136,8 @@ class _DescriptionPartnerDobBasedPageState
     return Column(
       children: [
         Padding(
-          padding: EdgeInsets.only(top: height * 0.15, bottom: 16.0),
+          padding:
+              EdgeInsets.only(left: 16.0, top: height * 0.15, bottom: 16.0),
           child: Text(
             Globals.instance.getLanguage().enterPartnerDob,
             style: radioButtonTextStyle,
