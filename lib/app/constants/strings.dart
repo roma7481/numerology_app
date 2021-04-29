@@ -25,6 +25,6 @@ const String telegramURL = 'https://t.me/dailymistika';
 const String telegram = 'Телеграм';
 const String websiteURL = 'https://dailymistika.ru';
 const String ourWebsite = 'Наш сайт';
-const String privacyPolicyURL = 'https://cbeeapps.wixsite.com/cardtarot';
+const String privacyPolicyURL = 'https://cbeeapps.wixsite.com/numerologyprivacy';
 const String linkToApp =
     'https://apps.apple.com/us/app/numerology-biorhythm/id1564315932';
