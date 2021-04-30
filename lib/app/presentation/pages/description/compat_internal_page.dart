@@ -74,15 +74,19 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
   }
 
   List<Widget> _buildPageDescription() {
+    List<Widget> previewWidgets = [_buildTopNav()];
     if (_selectedIndex == 0) {
       if (widget.coupleNumSpanish != null) {
-        return _buildCoupleNumCompat();
+        previewWidgets.addAll(_buildCoupleNumCompat());
+      } else {
+        previewWidgets.addAll(_buildMatrixCompat());
       }
-      return _buildMatrixCompat();
     } else if (_selectedIndex == 1) {
-      return _buildBioCompat();
+      previewWidgets.addAll(_buildBioCompat());
+    } else {
+      previewWidgets.addAll(_buildLifePathCompat());
     }
-    return _buildLifePathCompat();
+    return previewWidgets;
   }
 
   SliverFixedExtentList _buildTopNav() {
@@ -167,7 +171,6 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
 
   List<Widget> _buildCoupleNumCompat() {
     return [
-      _buildTopNav(),
       _buildCoupleNumberIcon(context, widget.coupleNumSpanish.toString()),
       SliverToBoxAdapter(
         child: SizedBox(
@@ -203,7 +206,6 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
 
   List<Widget> _buildBioCompat() {
     return [
-      _buildTopNav(),
       _buildPiCharts(),
       _buildList(widget.bioData),
     ];
@@ -211,7 +213,6 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
 
   List<Widget> _buildLifePathCompat() {
     return [
-      _buildTopNav(),
       _buildNumberIcon(
           context, widget.yourLifePath.toString(), _language.yourLifePathNum),
       _buildNumberIcon(context, widget.partnersLifePath.toString(),
@@ -223,7 +224,6 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
 
   List<Widget> _buildMatrixCompat() {
     return [
-      _buildTopNav(),
       _buildMatrixContent(),
       _buildList(widget.matrixData),
     ];
