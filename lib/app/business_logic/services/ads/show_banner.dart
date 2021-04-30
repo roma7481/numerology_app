@@ -20,7 +20,10 @@ BannerAd getBanner() {
       // Called when an ad opens an overlay that covers the screen.
       onAdOpened: (Ad ad) => print('Ad opened.'),
       // Called when an ad removes an overlay that covers the screen.
-      onAdClosed: (Ad ad) => print('Ad closed.'),
+      onAdClosed: (Ad ad) {
+        ad.dispose();
+        print('Ad closed.');
+      },
       // Called when an ad is in the process of leaving the application.
       onApplicationExit: (Ad ad) => print('Left application.'),
     ),
