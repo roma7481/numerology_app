@@ -659,7 +659,7 @@ class CategoryProvider {
 
     for (var i = 0; i < categories.length; i++) {
       var description = await runQuery(context,
-          'select description from $table where category =  "${categories[i]}" and strength =  "${matrixCompat[0]}"');
+          'select description from $table where category =  "${categories[i]}" and strength =  "${matrixCompat[i]}"');
       var info = await runQuery(context,
           'select description from TABLE_DESCRIPTION where table_name = "$matrixTable" and category = "${categories[i].toLowerCase()}"');
       matrixCompatData.add(CardData(
