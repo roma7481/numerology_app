@@ -337,4 +337,11 @@ class LanguageEn extends Languages {
 
   @override
   String get rateNow => 'Rate now';
+
+  @override
+  String get infoWarning =>
+      '\n\nImportant notice: If provided characteristic is not matching yours, please take a look into other numerological '
+      'parameters as well. It often happens that for different people some numerological parameters are more dominant '
+      'than the others. In order to obtain a complete numerological characteristic for a person, it is important to take '
+      ' account numerological indicators all together. Try to create a complete picture out of multiple numerological indicators.';
 }

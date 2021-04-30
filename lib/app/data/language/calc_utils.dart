@@ -12,6 +12,7 @@ import 'package:numerology/app/data/models/profile.dart';
 import 'package:numerology/app/localization/language/language_en.dart';
 import 'package:numerology/app/localization/language/language_es.dart';
 import 'package:numerology/app/localization/language/language_ru.dart';
+import 'package:numerology/app/localization/language/languages.dart';
 import 'package:numerology/app/presentation/navigators/navigator.dart';
 import 'package:numerology/app/presentation/pages/description/compat_internal_page.dart';
 import 'package:numerology/app/presentation/pages/description/description_compat_page.dart';
@@ -238,6 +239,16 @@ class CategoryProvider {
     }
   }
 
+  Languages get language => Globals.instance.language;
+
+  CardData _buildInfoData(String infoData) {
+    return CardData(
+      description: infoData + language.infoWarning,
+      header: language.info,
+      iconPath: infoIcon,
+    );
+  }
+
   Future<Widget> getKarmaNumPage(
       BuildContext context, Profile profile, String header) async {
     var isPremium = await PremiumController.instance.isPremium();
@@ -383,7 +394,6 @@ class CategoryProvider {
 
   Future<List<CardData>> getPrimBio(List<double> bio) async {
     var bioLevel = CategoryCalc.instance.calcBioPrimLevel(bio);
-    var language = Globals.instance.language;
 
     var table = 'BIORITHMS_ENG';
     if (Globals.instance.getLanguage() is LanguageRu) {
@@ -428,15 +438,13 @@ class CategoryProvider {
     var info = await getEntityRawQuery(
         'select description from "TABLE_DESCRIPTION" where table_name = "$table" ');
 
-    data.add(
-        CardData(description: info, header: language.info, iconPath: infoIcon));
+    data.add(_buildInfoData(info));
 
     return data;
   }
 
   Future<List<CardData>> getSecondaryBio(List<double> bio) async {
     var bioLevel = CategoryCalc.instance.calcBioSecondLevel(bio);
-    var language = Globals.instance.language;
 
     var table = 'SECONDARY_BIORITHMS_ENG';
     if (Globals.instance.getLanguage() is LanguageRu) {
@@ -484,8 +492,7 @@ class CategoryProvider {
           iconPath: icons[i]));
     }
 
-    data.add(
-        CardData(description: info, header: language.info, iconPath: infoIcon));
+    data.add(_buildInfoData(info));
 
     return data;
   }
@@ -557,7 +564,7 @@ class CategoryProvider {
 
     List<CardData> matrixCompData;
     List<CardData> coupleCompData;
-    if (Globals.instance.language is LanguageEs) {
+    if (language is LanguageEs) {
       coupleNumSpanish = CategoryCalc.instance.calcCoupleNum(profile);
       coupleCompData = await _getCoupleCompat(context, coupleNumSpanish);
     } else {
@@ -587,11 +594,8 @@ class CategoryProvider {
         'select description from TABLE_DESCRIPTION where table_name =  "$tableName"');
 
     List<CardData> data = [];
-    data.add(CardData(
-        header: Globals.instance.language.description,
-        description: description));
-    data.add(
-        CardData(header: Globals.instance.language.info, description: info));
+    data.add(CardData(header: language.description, description: description));
+    data.add(_buildInfoData(info));
 
     return data;
   }
@@ -639,7 +643,7 @@ class CategoryProvider {
       'Spirituality',
     ];
 
-    if (Globals.instance.getLanguage() is LanguageRu) {
+    if (language is LanguageRu) {
       table = 'PSYCHOMATRIX_COMPAT_RUS';
       mtxTable = 'PSYCHOMATRIX_RUS';
       matrixTable = 'PSYCHOMATRIX_LINES_RUS';
@@ -671,10 +675,7 @@ class CategoryProvider {
     var matrInfo = await runQuery(context,
         'select description from TABLE_DESCRIPTION where table_name = "$mtxTable" and category = "info"');
 
-    matrixCompatData.add(CardData(
-        description: matrInfo,
-        header: Globals.instance.language.info,
-        iconPath: infoIcon));
+    matrixCompatData.add(_buildInfoData(matrInfo));
 
     return matrixCompatData;
   }
@@ -686,7 +687,8 @@ class CategoryProvider {
     var path2 = yourLifePath < partnerLifePath ? partnerLifePath : yourLifePath;
 
     var table = 'LIFE_PATH_NUMBER_COMPAT_ENG';
-    if (Globals.instance.getLanguage() is LanguageRu) {
+    var language = Globals.instance.getLanguage();
+    if (language is LanguageRu) {
       table = 'LIFE_PATH_NUMBER_COMPAT_RUS';
     }
 
@@ -699,12 +701,9 @@ class CategoryProvider {
     List<CardData> lifePathData = [];
     lifePathData.add(CardData(
         description: lifePathCompat,
-        header: Globals.instance.language.lifePathCompat,
+        header: language.lifePathCompat,
         iconPath: directions));
-    lifePathData.add(CardData(
-        description: lifePathInfo,
-        header: Globals.instance.language.info,
-        iconPath: infoIcon));
+    lifePathData.add(_buildInfoData(lifePathInfo));
 
     return lifePathData;
   }
@@ -712,10 +711,9 @@ class CategoryProvider {
   Future<List<CardData>> _getBioCompat(
       BuildContext context, Profile profile, List<double> bioCompat) async {
     var bioLevels = CategoryCalc.instance.calcBioCompatLevel(profile);
-    var language = Globals.instance.language;
 
     var table = 'BIORITHM_COMPATIBILITY_ENG';
-    if (Globals.instance.getLanguage() is LanguageRu) {
+    if (language is LanguageRu) {
       table = 'BIORITHM_COMPATIBILITY_RUS';
     }
 
@@ -748,11 +746,7 @@ class CategoryProvider {
     var bioInfo = await runQuery(context,
         'select description from "TABLE_DESCRIPTION" where table_name = "$table"');
 
-    bioData.add(CardData(
-      description: bioInfo,
-      header: language.info,
-      iconPath: infoIcon,
-    ));
+    bioData.add(_buildInfoData(bioInfo));
 
     return bioData;
   }
@@ -789,7 +783,7 @@ class CategoryProvider {
       'Memory'
     ];
 
-    if (Globals.instance.getLanguage() is LanguageRu) {
+    if (language is LanguageRu) {
       table = 'PSYCHOMATRIX_RUS';
       headers = [
         'Характер',
@@ -813,10 +807,8 @@ class CategoryProvider {
     for (var i = 1; i <= categories.length; i++) {
       var infoStr = await runQuery(context,
           'select description from TABLE_DESCRIPTION where table_name = "$table" and category = "$i"');
-      info.add(infoStr);
+      info.add(infoStr + language.infoWarning);
     }
-
-    var language = Globals.instance.getLanguage();
 
     for (var i = 0; i < categories.length; i++) {
       data.add(
@@ -895,7 +887,7 @@ class CategoryProvider {
       'Spirituality',
     ];
 
-    if (Globals.instance.getLanguage() is LanguageRu) {
+    if (language is LanguageRu) {
       table = 'PSYCHOMATRIX_LINES_RUS';
       matrixTable = 'PSYCHOMATRIX_RUS';
       headers = [
@@ -925,7 +917,6 @@ class CategoryProvider {
     var generalInfo = await runQuery(context,
         'select description from TABLE_DESCRIPTION where table_name =  "$matrixTable" and category = "info"');
 
-    var language = Globals.instance.getLanguage();
     for (var i = 0; i < categories.length; i++) {
       data.add(CardData(
         iconPath: icons[i],
@@ -945,7 +936,7 @@ class CategoryProvider {
       header: header,
       data: data,
       matrix: matrix,
-      info: {Globals.instance.language.info: generalInfo},
+      info: {language.info: generalInfo + language.infoWarning},
     );
   }
 
@@ -956,7 +947,7 @@ class CategoryProvider {
   Future<Widget> getWeddingNumPage(
       BuildContext context, Profile profile, String header) async {
     var isPremium = await PremiumController.instance.isPremium();
-    if (isPremium || !(Globals.instance.language is LanguageEn)) {
+    if (isPremium || !(language is LanguageEn)) {
       return DescriptionWeddingBasedPage(
         categoryName: header,
         getPage: (profile, header) async =>
@@ -1099,7 +1090,7 @@ class CategoryProvider {
       'Четвёртый Пик - ${calc[3]}',
     ];
 
-    if (Globals.instance.language is LanguageEs) {
+    if (language is LanguageEs) {
       tableName = 'ACHIEVEMENT_NUMBER_ESP';
       headers = [
         'Primer período - ${calc[0]}',
@@ -1126,8 +1117,7 @@ class CategoryProvider {
       data.add(CardData(header: headers[i], description: descriptions[i]));
     }
 
-    data.add(
-        CardData(header: Globals.instance.language.info, description: info));
+    data.add(_buildInfoData(info));
 
     return DescriptionPage(
       adController,
@@ -1151,7 +1141,7 @@ class CategoryProvider {
     ];
 
     var tableName = 'CHALLENGE_NUMBER_ENG';
-    if (Globals.instance.getLanguage() is LanguageRu) {
+    if (language is LanguageRu) {
       tableName = 'CHALLENGE_NUMBER_RUS';
       headers = [
         'Первое испытание - ',
@@ -1159,7 +1149,7 @@ class CategoryProvider {
         'Третье испытание - ',
         'Четвёртое испытание - ',
       ];
-    } else if (Globals.instance.getLanguage() is LanguageEs) {
+    } else if (language is LanguageEs) {
       tableName = 'CHALLENGE_NUMBER_ESP';
       headers = [
         'El primer desafío - ',
@@ -1185,8 +1175,7 @@ class CategoryProvider {
           CardData(header: headers[i] + calc[i], description: descriptions[i]));
     }
 
-    data.add(
-        CardData(header: Globals.instance.language.info, description: info));
+    data.add(_buildInfoData(info));
 
     return DescriptionPage(
       adController,
@@ -1223,7 +1212,7 @@ class CategoryProvider {
     }
 
     var tableName = 'LIFE_PATH_NUMBER_ENG';
-    if (Globals.instance.getLanguage() is LanguageRu) {
+    if (language is LanguageRu) {
       tableName = 'LIFE_PATH_NUMBER_RUS';
     } else if (Globals.instance.getLanguage() is LanguageEs) {
       tableName = 'LIFE_PATH_NUMBER_ESP';
@@ -1246,8 +1235,7 @@ class CategoryProvider {
       data.add(CardData(header: key, description: value));
     });
 
-    data.add(
-        CardData(header: Globals.instance.language.info, description: info));
+    data.add(_buildInfoData(info));
 
     return DescriptionPage(
       adController,
@@ -1350,11 +1338,8 @@ class CategoryProvider {
         'select description from TABLE_DESCRIPTION where table_name =  "$tableName"');
 
     List<CardData> data = [];
-    data.add(CardData(
-        header: Globals.instance.language.description,
-        description: description));
-    data.add(
-        CardData(header: Globals.instance.language.info, description: info));
+    data.add(CardData(header: language.description, description: description));
+    data.add(_buildInfoData(info));
 
     return DescriptionPage(
       adController,
@@ -1394,8 +1379,7 @@ class CategoryProvider {
     descriptions.forEach((key, value) {
       data.add(CardData(header: key, description: value));
     });
-    data.add(
-        CardData(header: Globals.instance.language.info, description: info));
+    data.add(_buildInfoData(info));
 
     return DescriptionPage(
       adController,
@@ -1427,8 +1411,7 @@ class CategoryProvider {
     descriptions.forEach((key, value) {
       data.add(CardData(header: key, description: value));
     });
-    data.add(
-        CardData(header: Globals.instance.language.info, description: info));
+    data.add(_buildInfoData(info));
 
     return DescriptionPage(
       adController,
@@ -1460,8 +1443,7 @@ class CategoryProvider {
     descriptions.forEach((key, value) {
       data.add(CardData(header: key, description: value));
     });
-    data.add(
-        CardData(header: Globals.instance.language.info, description: info));
+    data.add(_buildInfoData(info));
 
     return DescriptionPage(
       adController,
@@ -1494,8 +1476,7 @@ class CategoryProvider {
     descriptions.forEach((key, value) {
       data.add(CardData(header: key, description: value));
     });
-    data.add(
-        CardData(header: Globals.instance.language.info, description: info));
+    data.add(_buildInfoData(info));
 
     return DescriptionPage(
       adController,
@@ -1544,8 +1525,7 @@ class CategoryProvider {
     descriptions.forEach((key, value) {
       data.add(CardData(header: key, description: value));
     });
-    data.add(
-        CardData(header: Globals.instance.language.info, description: info));
+    data.add(_buildInfoData(info));
 
     return DescriptionPage(
       adController,
@@ -1577,8 +1557,7 @@ class CategoryProvider {
       data.add(CardData(header: headers[i], description: descriptions[i]));
     }
 
-    data.add(
-        CardData(header: Globals.instance.language.info, description: info));
+    data.add(_buildInfoData(info));
 
     return DescriptionPage(
       adController,

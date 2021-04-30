@@ -336,4 +336,10 @@ class LanguageEs extends Languages {
 
   @override
   String get purchaseRestored => 'Compra restaurada';
+
+  @override
+  String get infoWarning =>
+      '\n\nAviso importante: Si la característica proporcionada no coincide con la tuya, por favor, echa un vistazo a '
+      'otros parámetros numerológicos. A menudo sucede que para diferentes personas algunos parámetros '
+      'numerológicos son más dominantes que los otros.';
 }

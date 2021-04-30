@@ -3,6 +3,8 @@ abstract class Languages {
 
   String get purchaseError;
 
+  String get infoWarning;
+
   String get purchaseRestored;
 
   String get rateUs;
