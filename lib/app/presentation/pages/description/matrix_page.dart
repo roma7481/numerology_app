@@ -9,6 +9,7 @@ import 'package:numerology/app/data/language/matrix_tile.dart';
 import 'package:numerology/app/presentation/common_widgets/castom_category_card.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
 import 'package:numerology/app/presentation/common_widgets/foldable_card_widget.dart';
+import 'package:numerology/app/presentation/common_widgets/list_space_tile.dart';
 
 import 'matrix_data.dart';
 
@@ -66,6 +67,7 @@ class _MatrixPageState extends State<MatrixPage> {
           title: Text(widget.header),
           brightness: Brightness.dark),
       body: _buildContext(context, widget.isPremium),
+      bottomNavigationBar: showBanner(_adWidget, _banner, widget.isPremium),
     );
   }
 
@@ -87,10 +89,10 @@ class _MatrixPageState extends State<MatrixPage> {
                     _buildGuideText(),
                     _buildDescription(),
                     _buildInfo(isPremium),
+                    buildSpaceBox(context),
                   ],
                 ),
               ),
-              showBanner(_adWidget, _banner, isPremium),
             ],
           )
         ],

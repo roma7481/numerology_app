@@ -12,6 +12,7 @@ import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/data/models/profile.dart';
 import 'package:numerology/app/presentation/common_widgets/error_dialog.dart';
 import 'package:numerology/app/presentation/common_widgets/foldable_card_widget.dart';
+import 'package:numerology/app/presentation/common_widgets/list_space_tile.dart';
 import 'package:numerology/app/presentation/common_widgets/progress_bar.dart';
 
 import 'bio_pi_charts_second.dart';
@@ -53,27 +54,6 @@ class _BioGraphsSecondPageState extends State<BioGraphsSecondPage> {
   }
 
   Widget _buildPageContent(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        brightness: Brightness.dark,
-        title: _buildHeader(),
-      ),
-      body: _buildContent(context),
-    ));
-  }
-
-  Widget _buildHeader() {
-    return BlocBuilder<BioSecondCubit, BioSecondState>(
-        builder: (context, state) {
-      header =
-          DateService.getFormattedDate(DateService.fromTimestamp(state.date));
-      return Text(header);
-    });
-  }
-
-  Widget _buildContent(BuildContext context) {
     return FutureBuilder<bool>(
         future: PremiumController.instance.isPremium(),
         builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
@@ -87,13 +67,31 @@ class _BioGraphsSecondPageState extends State<BioGraphsSecondPage> {
                 );
               } else {
                 var isPremium = snapshot.data;
-                return buildList(context, isPremium);
+                return Scaffold(
+                  appBar: AppBar(
+                    centerTitle: true,
+                    brightness: Brightness.dark,
+                    title: _buildHeader(),
+                  ),
+                  body: _buildContent(context, isPremium),
+                  bottomNavigationBar:
+                      showBanner(_adWidget, _banner, isPremium),
+                );
               }
           }
         });
   }
 
-  Container buildList(BuildContext context, bool isPremium) {
+  Widget _buildHeader() {
+    return BlocBuilder<BioSecondCubit, BioSecondState>(
+        builder: (context, state) {
+      header =
+          DateService.getFormattedDate(DateService.fromTimestamp(state.date));
+      return Text(header);
+    });
+  }
+
+  Container _buildContent(BuildContext context, bool isPremium) {
     var listHeight = calcListHeight(context, _banner, isPremium);
     return Container(
       color: backgroundColor,
@@ -108,10 +106,10 @@ class _BioGraphsSecondPageState extends State<BioGraphsSecondPage> {
                     _buildGraphs(),
                     _buildPiCharts(),
                     _buildList(isPremium),
+                    buildSpaceBox(context),
                   ],
                 ),
               ),
-              showBanner(_adWidget, _banner, isPremium),
             ],
           )
         ],

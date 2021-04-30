@@ -13,6 +13,7 @@ import 'package:numerology/app/data/models/profile.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
 import 'package:numerology/app/presentation/common_widgets/error_dialog.dart';
 import 'package:numerology/app/presentation/common_widgets/foldable_card_widget.dart';
+import 'package:numerology/app/presentation/common_widgets/list_space_tile.dart';
 import 'package:numerology/app/presentation/common_widgets/progress_bar.dart';
 
 import 'bio_pi_charts.dart';
@@ -64,15 +65,16 @@ class _BioGraphsPageState extends State<BioGraphsPage> {
                 );
               } else {
                 var isPremium = snapshot.data;
-                return SafeArea(
-                    child: Scaffold(
+                return Scaffold(
                   appBar: AppBar(
                     centerTitle: true,
                     brightness: Brightness.dark,
                     title: _buildHeader(),
                   ),
                   body: _buildContent(context, isPremium),
-                ));
+                  bottomNavigationBar:
+                      showBanner(_adWidget, _banner, isPremium),
+                );
               }
           }
         });
@@ -102,10 +104,10 @@ class _BioGraphsPageState extends State<BioGraphsPage> {
                     _buildGraphs(),
                     _buildPiCharts(),
                     _buildList(isPremium),
+                    buildSpaceBox(context),
                   ],
                 ),
               ),
-              showBanner(_adWidget, _banner, isPremium),
             ],
           )
         ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:numerology/app/constants/colors.dart';
 
 import 'ad_service.dart';
 
@@ -27,21 +28,18 @@ BannerAd getBanner() {
 }
 
 Widget showBanner(AdWidget adWidget, BannerAd banner, bool isPremium) {
-  if (isPremium) {
-    return Container();
-  }
-  return Container(
-    alignment: Alignment.center,
-    child: adWidget,
-    width: banner.size.width.toDouble(),
-    height: banner.size.height.toDouble(),
-  );
+  return isPremium
+      ? null
+      : Container(
+          color: backgroundColor,
+          alignment: Alignment.center,
+          child: adWidget,
+          width: banner.size.width.toDouble(),
+          height: banner.size.height.toDouble(),
+        );
 }
 
 double calcListHeight(BuildContext context, BannerAd banner, bool isPremium) {
   var bannerHeight = isPremium ? 0 : banner.size.height;
-  return MediaQuery.of(context).size.height -
-      bannerHeight -
-      AppBar().preferredSize.height -
-      20.0;
+  return MediaQuery.of(context).size.height - bannerHeight;
 }

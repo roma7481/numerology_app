@@ -7,6 +7,7 @@ import 'package:numerology/app/business_logic/services/premium/premium_controlle
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/presentation/common_widgets/error_dialog.dart';
 import 'package:numerology/app/presentation/common_widgets/foldable_card_widget.dart';
+import 'package:numerology/app/presentation/common_widgets/list_space_tile.dart';
 import 'package:numerology/app/presentation/common_widgets/progress_bar.dart';
 
 import 'circle_widget.dart';
@@ -57,7 +58,7 @@ class DescriptionPage extends StatelessWidget {
 
   Widget _buildPageContent(
     BuildContext context,
-    BannerAd myBanner,
+    BannerAd banner,
     AdWidget adWidget,
     bool isPremium,
   ) {
@@ -66,10 +67,11 @@ class DescriptionPage extends StatelessWidget {
           centerTitle: true, title: Text(header), brightness: Brightness.dark),
       body: _buildContext(
         context,
-        myBanner,
+        banner,
         adWidget,
         isPremium,
       ),
+      bottomNavigationBar: showBanner(adWidget, banner, isPremium),
     );
   }
 
@@ -93,10 +95,10 @@ class DescriptionPage extends StatelessWidget {
                     slivers: [
                       _buildNumberIcon(context, calculation),
                       _buildList(data, isPremium),
+                      buildSpaceBox(context),
                     ],
                   ),
                 ),
-                showBanner(adWidget, banner, isPremium),
               ],
             )
           ],

@@ -9,6 +9,7 @@ import 'package:numerology/app/presentation/common_widgets/castom_category_card.
 import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
 import 'package:numerology/app/presentation/common_widgets/error_dialog.dart';
 import 'package:numerology/app/presentation/common_widgets/foldable_card_widget.dart';
+import 'package:numerology/app/presentation/common_widgets/list_space_tile.dart';
 import 'package:numerology/app/presentation/common_widgets/progress_bar.dart';
 
 import 'matrix_line_data.dart';
@@ -71,6 +72,7 @@ class MatrixLinesPage extends StatelessWidget {
       appBar: AppBar(
           centerTitle: true, title: Text(header), brightness: Brightness.dark),
       body: _buildContext(context, isPremium),
+      bottomNavigationBar: showBanner(_adWidget, _banner, isPremium),
     );
   }
 
@@ -91,10 +93,10 @@ class MatrixLinesPage extends StatelessWidget {
                     SliverToBoxAdapter(child: buildMatrix(context, matrix)),
                     _buildList(isPremium),
                     _buildInfo(),
+                    buildSpaceBox(context),
                   ],
                 ),
               ),
-              showBanner(_adWidget, _banner, isPremium),
             ],
           )
         ],
