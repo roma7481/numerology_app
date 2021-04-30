@@ -689,6 +689,8 @@ class CategoryProvider {
     var language = Globals.instance.getLanguage();
     if (language is LanguageRu) {
       table = 'LIFE_PATH_NUMBER_COMPAT_RUS';
+    } else if (language is LanguageEs) {
+      table = 'LIFE_PATH_NUMBER_COMPAT_ESP';
     }
 
     lifePathCompat = await runQuery(context,
@@ -714,6 +716,8 @@ class CategoryProvider {
     var table = 'BIORITHM_COMPATIBILITY_ENG';
     if (language is LanguageRu) {
       table = 'BIORITHM_COMPATIBILITY_RUS';
+    } else if (language is LanguageEs) {
+      table = 'BIORITHM_COMPATIBILITY_ESP';
     }
 
     List<CardData> bioData = [];
