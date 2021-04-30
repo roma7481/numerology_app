@@ -7,6 +7,7 @@ import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.da
 import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/business_logic/services/date_service.dart';
 import 'package:numerology/app/constants/colors.dart';
+import 'package:numerology/app/constants/constants.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/data/models/profile.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_button.dart';
@@ -152,6 +153,7 @@ class _DescriptionWeddingBasedPageState
                 updateWeddingDate(date);
               });
             },
+            minTime: minDate,
             locale: Globals.instance.getLocaleType(),
             currentTime: DateService.getDateTimeMinusNumYear(25),
           );

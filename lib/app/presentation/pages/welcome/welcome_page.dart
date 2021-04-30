@@ -5,6 +5,7 @@ import 'package:numerology/app/business_logic/cubit/language/language_cubit.dart
 import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/business_logic/services/date_service.dart';
 import 'package:numerology/app/constants/colors.dart';
+import 'package:numerology/app/constants/constants.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_button.dart';
 import 'package:numerology/app/presentation/common_widgets/line_widget.dart';
@@ -92,6 +93,7 @@ class _WelcomePageState extends State<WelcomePage> {
               DatePicker.showDatePicker(
                 context,
                 showTitleActions: true,
+                minTime: minDate,
                 onConfirm: (date) {
                   setState(() {
                     _selectedDate = date;
