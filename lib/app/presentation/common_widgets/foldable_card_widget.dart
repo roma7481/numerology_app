@@ -1,7 +1,9 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/constants/text_styles.dart';
+import 'package:numerology/app/presentation/common_widgets/card_header.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
 
 class ExpandableTile extends StatefulWidget {
@@ -47,41 +49,10 @@ class _ExpandableTileState extends State<ExpandableTile> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildHeader(header, iconPath),
+        buildHeader(header, iconPath),
         _isExpand ? Container() : _buildCardContent(content),
         _buildReadMore(),
       ],
-    );
-  }
-
-  Widget _buildHeader(String header, String iconPath) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.only(
-          top: 16.0,
-          left: 24.0,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            iconPath != null
-                ? SvgPicture.asset(iconPath, height: 20.0)
-                : Container(),
-            Flexible(
-              child: Text(
-                header,
-                overflow: TextOverflow.ellipsis,
-                style: descriptionHeaderStyle,
-              ),
-            ),
-            Opacity(
-                opacity: 0.0,
-                child: iconPath != null
-                    ? SvgPicture.asset(iconPath, height: 20.0)
-                    : Container()),
-          ],
-        ),
-      ),
     );
   }
 

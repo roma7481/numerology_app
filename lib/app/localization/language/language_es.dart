@@ -342,4 +342,7 @@ class LanguageEs extends Languages {
       '\n\nAviso importante: Si la característica proporcionada no coincide con la tuya, por favor, echa un vistazo a '
       'otros parámetros numerológicos. A menudo sucede que para diferentes personas algunos parámetros '
       'numerológicos son más dominantes que los otros.';
+
+  @override
+  String get readMorePremium => 'Más información con premium ...';
 }

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
@@ -6,6 +8,7 @@ import 'package:numerology/app/constants/icon_path.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
 import 'package:numerology/app/presentation/common_widgets/foldable_card_widget.dart';
+import 'package:numerology/app/presentation/common_widgets/premium_card.dart';
 import 'package:numerology/app/presentation/pages/graphs/bio_pi_charts.dart';
 
 import 'circle_widget.dart';
@@ -25,6 +28,7 @@ class CompatInternalPage extends StatefulWidget {
   final int coupleNumSpanish;
   final List<CardData> coupleNumData;
   final Function getPage;
+  final bool isPremium;
 
   const CompatInternalPage({
     Key key,
@@ -39,6 +43,7 @@ class CompatInternalPage extends StatefulWidget {
     this.getPage,
     this.coupleNumSpanish,
     this.coupleNumData,
+    this.isPremium,
   }) : super(key: key);
 
   @override
@@ -197,8 +202,7 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
         delegate: SliverChildBuilderDelegate(
       (context, index) {
         var data = dataList[index];
-        return ExpandableTile(data.header, data.description,
-            iconPath: data.iconPath);
+        return buildTile(data);
       },
       childCount: dataList.length,
     ));
@@ -283,14 +287,22 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
         delegate: SliverChildBuilderDelegate(
       (context, index) {
         var data = dataList[index];
-        return ExpandableTile(
-          data.header,
-          data.description,
-          iconPath: data.iconPath,
-        );
+        return buildTile(data);
       },
       childCount: dataList.length,
     ));
+  }
+
+  Widget buildTile(CardData data) {
+    if (widget.isPremium) {
+      return ExpandableTile(
+        data.header,
+        data.description,
+        iconPath: data.iconPath,
+      );
+    }
+    return buildPremiumCard(
+        context, data.header, data.description, data.iconPath);
   }
 
   Widget _buildPiCharts() {

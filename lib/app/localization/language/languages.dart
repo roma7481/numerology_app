@@ -133,6 +133,8 @@ abstract class Languages {
 
   String get readMore;
 
+  String get readMorePremium;
+
   String get categoryRequiresName;
 
   String get enterMissingData;

@@ -530,15 +530,11 @@ class CategoryProvider {
 
   Future<Widget> getCompatPage(
       BuildContext context, Profile profile, String header) async {
-    var isPremium = await PremiumController.instance.isPremium();
-    if (isPremium) {
-      return DescriptionPartnerDobBasedPage(
-        categoryName: header,
-        getPage: (profile, header) async =>
-            await _getCompatPage(context, profile, header),
-      );
-    }
-    return PayWall();
+    return DescriptionPartnerDobBasedPage(
+      categoryName: header,
+      getPage: (profile, header) async =>
+          await _getCompatPage(context, profile, header),
+    );
   }
 
   Future<Widget> _getCompatPage(
@@ -572,6 +568,8 @@ class CategoryProvider {
           await _getMtxCompat(context, yourMatrixLines, partnerMatrixLines);
     }
 
+    var isPremium = await PremiumController.instance.isPremium();
+
     return CompatInternalPage(
       bioCompat: bioCompat,
       yourMatrix: yourMatrix,
@@ -583,6 +581,7 @@ class CategoryProvider {
       lifePathData: lifePathData,
       coupleNumSpanish: coupleNumSpanish,
       coupleNumData: coupleCompData,
+      isPremium: isPremium,
     );
   }
 
