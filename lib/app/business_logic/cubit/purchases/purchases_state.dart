@@ -5,7 +5,11 @@ abstract class PurchasesState {}
 
 class PurchasesInitLoading extends PurchasesState {}
 
-class PurchasesInitError extends PurchasesState {}
+class PurchasesInitError extends PurchasesState {
+  final Exception exception;
+
+  PurchasesInitError(this.exception);
+}
 
 class PurchasesInitSuccess extends PurchasesState {
   final ProductDetails productDetails;

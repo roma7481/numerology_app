@@ -23,20 +23,26 @@ class PurchasesCubit extends Cubit<PurchasesState> {
   void emitInitPurchases() async {
     Stream purchaseUpdates =
         InAppPurchaseConnection.instance.purchaseUpdatedStream;
+
     _subscription = purchaseUpdates.listen((purchases) {
       _listenToPurchaseUpdated(purchases);
+    }, onDone: () {
+      _subscription.cancel();
+    }, onError: (error) {
+      emit(PurchasesInitError(error));
     });
+
 
     final bool available = await _connection.isAvailable();
     if (!available) {
-      emit(PurchasesInitError());
+      emit(PurchasesInitError(Exception('InAppPurchaseConnection not available')));
     }
 
     const Set<String> _kIds = {'numerology_premium'};
     final ProductDetailsResponse response =
         await InAppPurchaseConnection.instance.queryProductDetails(_kIds);
     if (response.notFoundIDs.isNotEmpty) {
-      emit(PurchasesInitError());
+      emit(PurchasesInitError(Exception('no kIds found for numerology_premium')));
     }
     _productDetails = response.productDetails.first;
     _price = _productDetails.price;
@@ -55,7 +61,7 @@ class PurchasesCubit extends Cubit<PurchasesState> {
     final QueryPurchaseDetailsResponse response =
         await InAppPurchaseConnection.instance.queryPastPurchases();
     if (response.error != null) {
-      emit(PurchasesInitError());
+      emit(PurchasesInitError(Exception(response.error.message)));
     }
     for (PurchaseDetails purchase in response.pastPurchases) {
       if (Platform.isIOS) {
