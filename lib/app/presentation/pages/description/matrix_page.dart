@@ -54,8 +54,7 @@ class _MatrixPageState extends State<MatrixPage> {
   @override
   Widget build(BuildContext context) {
     _banner = getBanner();
-    _banner.load();
-    _adWidget = AdWidget(ad: _banner);
+    _adWidget = _banner == null ? null : AdWidget(ad: _banner);
 
     return _buildPageContent(context);
   }

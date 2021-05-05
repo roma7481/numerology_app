@@ -38,8 +38,7 @@ class _BioGraphsPageState extends State<BioGraphsPage> {
   @override
   Widget build(BuildContext context) {
     _banner = getBanner();
-    _banner.load();
-    _adWidget = AdWidget(ad: _banner);
+    _adWidget = _banner == null ? null : AdWidget(ad: _banner);
 
     return BlocBuilder<UserDataCubit, UserDataState>(builder: (context, state) {
       if (state is UserDataReady) {

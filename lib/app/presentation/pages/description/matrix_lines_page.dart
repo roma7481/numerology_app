@@ -63,8 +63,7 @@ class MatrixLinesPage extends StatelessWidget {
       return;
     }
     _banner = getBanner();
-    _banner.load();
-    _adWidget = AdWidget(ad: _banner);
+    _adWidget = _banner == null ? null : AdWidget(ad: _banner);
   }
 
   Widget _buildPageContent(BuildContext context, bool isPremium) {

@@ -29,8 +29,7 @@ class DescriptionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var banner = getBanner();
-    banner.load();
-    var adWidget = AdWidget(ad: banner);
+    var adWidget = banner == null ? null : AdWidget(ad: banner);
 
     return FutureBuilder<bool>(
         future: PremiumController.instance.isPremium(),
