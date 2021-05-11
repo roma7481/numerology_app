@@ -12,7 +12,7 @@ class PurchasesInitError extends PurchasesState {
 }
 
 class PurchasesInitSuccess extends PurchasesState {
-  final ProductDetails productDetails;
+  final List<ProductDetails> productDetails;
 
   PurchasesInitSuccess({@required this.productDetails});
 }

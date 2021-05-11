@@ -64,7 +64,7 @@ class _ProfilesPageState extends State<ProfilesPage> {
   }
 
   Future<void> _onFabPressed() async {
-    if (await PremiumController.instance.isPremium()) {
+    if ((await PremiumController.instance.isProfiles())) {
       navigateToPage(
         context,
         EditProfile(

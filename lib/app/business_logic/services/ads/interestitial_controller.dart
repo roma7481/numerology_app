@@ -23,7 +23,7 @@ class InterestitialController {
   Future<void> showInterstitialAd() async {
     _loadPage(_callback);
 
-    bool isPremium = await premiumController.isPremium();
+    bool isPremium = await premiumController.isAdsFree();
     if (!isPremium) {
       var adCounter = await AdsCounter.instance.getAdsCounter();
       if (adCounter > 5 && _isInterstitialAdReady) {

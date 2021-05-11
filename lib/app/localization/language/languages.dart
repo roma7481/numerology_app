@@ -37,7 +37,11 @@ abstract class Languages {
 
   String get unlimitedProfiles;
 
-  String get buy;
+  String get select;
+
+  String get compatibility;
+
+  String get discount;
 
   String get small;
 
@@ -198,6 +202,8 @@ abstract class Languages {
   String get yearNumber;
 
   String get profiles;
+
+  String get addProfiles;
 
   String get defaultProfileName;
 

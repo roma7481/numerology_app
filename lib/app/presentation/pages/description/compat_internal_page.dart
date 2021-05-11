@@ -1,14 +1,18 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:numerology/app/business_logic/cubit/purchases/purchases_cubit.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
+import 'package:numerology/app/business_logic/services/premium/premium_controller.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/constants/icon_path.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
 import 'package:numerology/app/presentation/common_widgets/foldable_card_widget.dart';
 import 'package:numerology/app/presentation/common_widgets/premium_card.dart';
+import 'package:numerology/app/presentation/common_widgets/progress_bar.dart';
 import 'package:numerology/app/presentation/pages/graphs/bio_pi_charts.dart';
 
 import 'circle_widget.dart';
@@ -28,7 +32,6 @@ class CompatInternalPage extends StatefulWidget {
   final int coupleNumSpanish;
   final List<CardData> coupleNumData;
   final Function getPage;
-  final bool isPremium;
 
   const CompatInternalPage({
     Key key,
@@ -43,7 +46,6 @@ class CompatInternalPage extends StatefulWidget {
     this.getPage,
     this.coupleNumSpanish,
     this.coupleNumData,
-    this.isPremium,
   }) : super(key: key);
 
   @override
@@ -52,19 +54,41 @@ class CompatInternalPage extends StatefulWidget {
 
 class _CompatInternalPageState extends State<CompatInternalPage> {
   var _language = Globals.instance.language;
+  var _isPremium = false;
   var _selectedIndex = 0;
   var _header = Globals.instance.language.matrixCompat;
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-            centerTitle: true,
-            title: Text(_header),
-            brightness: Brightness.dark),
-        body: _buildContent(context),
-      ),
+    return BlocListener<PurchasesCubit, PurchasesState>(
+        listener: (context, state) {
+          if (state is PurchasesSuccess) {
+            setState(() {});
+          }
+        },
+      child: _buildPageContent(),
+    );
+  }
+
+  FutureBuilder<bool> _buildPageContent() {
+    return FutureBuilder(
+      future: PremiumController.instance.isCompat(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          _isPremium = snapshot.data;
+          return SafeArea(
+            child: Scaffold(
+              appBar: AppBar(
+                  centerTitle: true,
+                  title: Text(_header),
+                  brightness: Brightness.dark),
+              body: _buildContent(context),
+            ),
+          );
+        } else {
+          return progressBar();
+        }
+      },
     );
   }
 
@@ -294,7 +318,7 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
   }
 
   Widget buildTile(CardData data) {
-    if (widget.isPremium) {
+    if (_isPremium) {
       return ExpandableTile(
         data.header,
         data.description,

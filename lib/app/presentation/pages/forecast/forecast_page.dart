@@ -119,9 +119,25 @@ class _ForecastPageState extends State<ForecastPage> {
   }
 
   Widget _showAd(bool isPremium) {
-    return SliverToBoxAdapter(
-      child: showNativeAd(widget.adController, isPremium: isPremium),
-    );
+    return FutureBuilder<bool>(
+        future: PremiumController.instance.isAdsFree(),
+        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
+              return SliverToBoxAdapter(child: progressBar());
+            default:
+              if (snapshot.hasError) {
+                return SliverToBoxAdapter(
+                  child: errorDialog(),
+                );
+              } else {
+                var isAddFree = snapshot.data;
+                return SliverToBoxAdapter(
+                  child: showNativeAd(widget.adController, isPremium: isPremium || isAddFree),
+                );
+              }
+          }
+        });
   }
 
   Widget _categoryLuckyBuilder(

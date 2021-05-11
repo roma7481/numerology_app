@@ -52,7 +52,7 @@ class _BioGraphsPageState extends State<BioGraphsPage> {
 
   Widget _buildPageContent(BuildContext context) {
     return FutureBuilder<bool>(
-        future: PremiumController.instance.isPremium(),
+        future: PremiumController.instance.isAdsFree(),
         builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:

@@ -228,10 +228,29 @@ TextStyle urlLinkStyle = GoogleFonts.sourceSansPro(
   decoration: TextDecoration.underline,
 ));
 
-var settingsTextStyle = GoogleFonts.philosopher(
+var priceStyle = GoogleFonts.sourceSansPro(
+    textStyle: TextStyle(
+  fontSize: 21.0,
+  color: Colors.white,
+  fontWeight: FontWeight.bold,
+));
+
+var oneTimePaymentStyle = GoogleFonts.sourceSansPro(
+    textStyle: TextStyle(
+  fontSize: 17.0,
+  color: Colors.white,
+));
+
+var settingsTextStyle = GoogleFonts.sourceSansPro(
   textStyle: TextStyle(
-    fontSize: 19.0,
+    fontSize: 17.0,
     color: welcomeScreenTextColor,
-    fontWeight: FontWeight.bold,
   ),
 );
+
+var discountTextStyle = GoogleFonts.sourceSansPro(
+    textStyle: TextStyle(
+  fontSize: 15.0,
+  color: Colors.black,
+  fontWeight: FontWeight.bold,
+));

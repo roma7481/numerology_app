@@ -32,7 +32,7 @@ class DescriptionPage extends StatelessWidget {
     var adWidget = banner == null ? null : AdWidget(ad: banner);
 
     return FutureBuilder<bool>(
-        future: PremiumController.instance.isPremium(),
+        future: PremiumController.instance.isAdsFree(),
         builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:

@@ -39,7 +39,7 @@ class MatrixLinesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<bool>(
-        future: PremiumController.instance.isPremium(),
+        future: PremiumController.instance.isAdsFree(),
         builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:

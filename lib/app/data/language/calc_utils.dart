@@ -251,7 +251,7 @@ class CategoryProvider {
 
   Future<Widget> getKarmaNumPage(
       BuildContext context, Profile profile, String header) async {
-    var isPremium = await PremiumController.instance.isPremium();
+    var isPremium = await PremiumController.instance.isCompat();
     if (isPremium) {
       return DescriptionNameBasedPage(
         categoryName: header,
@@ -289,7 +289,7 @@ class CategoryProvider {
 
   Future<Widget> getLoveNumPage(
       BuildContext context, Profile profile, String header) async {
-    var isPremium = await PremiumController.instance.isPremium();
+    var isPremium = await PremiumController.instance.isCompat();
     if (isPremium) {
       return DescriptionPartnerDobBasedPage(
         categoryName: header,
@@ -568,8 +568,6 @@ class CategoryProvider {
           await _getMtxCompat(context, yourMatrixLines, partnerMatrixLines);
     }
 
-    var isPremium = await PremiumController.instance.isPremium();
-
     return CompatInternalPage(
       bioCompat: bioCompat,
       yourMatrix: yourMatrix,
@@ -581,7 +579,6 @@ class CategoryProvider {
       lifePathData: lifePathData,
       coupleNumSpanish: coupleNumSpanish,
       coupleNumData: coupleCompData,
-      isPremium: isPremium,
     );
   }
 
@@ -826,7 +823,7 @@ class CategoryProvider {
       );
     }
 
-    var isPremium = await PremiumController.instance.isPremium();
+    var isPremium = await PremiumController.instance.isAdsFree();
 
     return MatrixPage(
       isPremium,
@@ -949,7 +946,7 @@ class CategoryProvider {
 
   Future<Widget> getWeddingNumPage(
       BuildContext context, Profile profile, String header) async {
-    var isPremium = await PremiumController.instance.isPremium();
+    var isPremium = await PremiumController.instance.isCompat();
     if (isPremium || !(language is LanguageEn)) {
       return DescriptionWeddingBasedPage(
         categoryName: header,

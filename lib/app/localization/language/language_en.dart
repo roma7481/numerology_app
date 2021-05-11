@@ -284,7 +284,7 @@ class LanguageEn extends Languages {
   String get small => 'Small';
 
   @override
-  String get buy => 'Buy';
+  String get select => 'Select';
 
   @override
   String get getCompatReport => 'Get compatibility report';
@@ -347,4 +347,13 @@ class LanguageEn extends Languages {
 
   @override
   String get readMorePremium => 'Read more with premium ...';
+
+  @override
+  String get compatibility => 'Compatibility';
+
+  @override
+  String get discount => 'Discount';
+
+  @override
+  String get addProfiles => 'Add multiple Profiles';
 }

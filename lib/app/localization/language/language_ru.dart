@@ -282,7 +282,13 @@ class LanguageRu extends Languages {
   String get textSize => 'Размер шрифта';
 
   @override
-  String get buy => 'Купить';
+  String get select => 'Выбрать';
+
+  @override
+  String get compatibility => 'Совместимость';
+
+  @override
+  String get discount => 'Скидка';
 
   @override
   String get getCompatReport => 'Прогноз совместимости';
@@ -345,4 +351,7 @@ class LanguageRu extends Languages {
 
   @override
   String get readMorePremium => 'Больше информации с премиум ...';
+
+  @override
+  String get addProfiles => 'Добавить несколько профилей пользователей';
 }
