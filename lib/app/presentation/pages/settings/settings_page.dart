@@ -24,6 +24,7 @@ import 'package:share/share.dart';
 import 'attribution/attribution_page.dart';
 import 'dialog/landuages_dialog.dart';
 import 'dialog/notification_dialog.dart';
+import 'dialog/rate_us_dialog.dart';
 import 'dialog/text_size_dialog.dart';
 import 'more_apps.dart';
 
@@ -217,6 +218,13 @@ class SettingsPage extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                _buildSetting(
+                  Icons.star,
+                  language.rateUs,
+                  context,
+                  () => RateApp.openRateUsPage(context),
+                ),
+                _buildLine(context),
                 _buildTelegramLink(context),
                 _buildWebsiteLink(context),
                 _buildSetting(
