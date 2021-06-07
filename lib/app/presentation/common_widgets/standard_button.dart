@@ -8,26 +8,24 @@ Widget buildStandardButton({
   Color color,
   Function onPressed,
 }) {
-  return Expanded(
-    child: Align(
-      alignment: Alignment.bottomCenter,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
-            child: Container(
-              child: buildCustomButton(
-                text,
-                color,
-                onPressed,
-                continueButtonTextStyle,
-                padding: 32.0,
-              ),
+  return Align(
+    alignment: Alignment.bottomCenter,
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8.0),
+          child: Container(
+            child: buildCustomButton(
+              text,
+              color,
+              onPressed,
+              continueButtonTextStyle,
+              padding: 32.0,
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     ),
   );
 }

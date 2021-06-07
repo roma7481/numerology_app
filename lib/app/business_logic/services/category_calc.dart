@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/data/models/profile.dart';
 import 'package:numerology/app/localization/language/language_es.dart';
+import 'package:numerology/app/localization/language/language_pt.dart';
 import 'package:numerology/app/localization/language/language_ru.dart';
 
 import 'calc_utils.dart';
@@ -154,7 +155,7 @@ class CategoryCalc {
   }
 
   List<String> calcChallengePeriods() {
-    var period1 = 'The First Challenge: Birth to age 30-35';
+    var period1 = 'The First Challenge: From birth to age 30-35';
     var period2 =
         'The Second Challenge: Starts around 35  and lasts till 55-60';
     var period3 =
@@ -177,6 +178,13 @@ class CategoryCalc {
       period3 =
           'El tercer desafío: El desafío principal, el desafío constante a lo largo de la vida';
       period4 = 'El cuarto reto: Edad 60 y hasta la vejez';
+    } else if (Globals.instance.language is LanguagePt) {
+      period1 = 'O primeiro desafio: do nascimento até os 30-35 anos';
+      period2 =
+          'O segundo desafio: começa por volta dos 35 e dura até 55-60';
+      period3 =
+          'O terceiro desafio: O desafio principal, desafio constante ao longo da vida';
+      period4 = 'O quarto desafio: 60 anos e até idades mais avançadas';
     }
     return [
       period1 + '\n\n',

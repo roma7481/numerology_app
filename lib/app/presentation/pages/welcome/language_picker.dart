@@ -23,6 +23,7 @@ class _LanguagePickerState extends State<LanguagePicker> {
         _buildRadioButton(0, english),
         _buildRadioButton(1, russian),
         _buildRadioButton(2, spanish),
+        _buildRadioButton(3, portuguese),
       ],
     );
   }

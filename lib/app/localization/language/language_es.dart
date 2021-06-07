@@ -103,13 +103,13 @@ class LanguageEs extends Languages {
   String get partnersDob => 'Fecha de nacimiento de la pareja';
 
   @override
-  String get bioCompat => 'Compatibilidad con biorritmos';
+  String get bioCompat => 'Comp. con biorritmos';
 
   @override
   String get lifePathCompat => 'Comp. Camino de vida';
 
   @override
-  String get matrixCompat => 'Psychomatrix comp.';
+  String get matrixCompat => 'Número de pareja';
 
   @override
   String get partnerMatrix => 'Partner\'s Psychomatrix';
@@ -304,7 +304,7 @@ class LanguageEs extends Languages {
   String get openForecast => 'Previsión para el futuro';
 
   @override
-  String get premium => 'Prima';
+  String get premium => 'Premium';
 
   @override
   String get purchaseCanceled => 'Compra cancelada';

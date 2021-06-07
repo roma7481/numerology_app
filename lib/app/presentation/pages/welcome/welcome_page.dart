@@ -43,13 +43,12 @@ class _WelcomePageState extends State<WelcomePage> {
   Widget _buildContent(BuildContext context) {
     return Container(
       color: backgroundColor,
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
+      child: CustomScrollView(
+        slivers: [
           _buildHeader(),
-          buildLine(context),
+          SliverToBoxAdapter(child: buildLine(context)),
           _buildWelcomeText(),
-          LanguagePicker(),
+          SliverToBoxAdapter(child: LanguagePicker()),
           _buildDOBPicker(context),
           _buildContinueButton(context),
         ],
@@ -58,54 +57,60 @@ class _WelcomePageState extends State<WelcomePage> {
   }
 
   _buildHeader() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 32.0, bottom: 16.0),
-      child: Text(
-        Globals.instance.getLanguage().welcomeToNumerology,
-        style: headerTextStyle,
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: const EdgeInsets.only(left: 16.0, top: 16.0, bottom: 16.0),
+        child: Text(
+          Globals.instance.getLanguage().welcomeToNumerology,
+          style: headerTextStyle,
+        ),
       ),
     );
   }
 
   _buildWelcomeText() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-      child: Text(
-        Globals.instance.getLanguage().welcomeText,
-        style: contentTextStyle,
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+        child: Text(
+          Globals.instance.getLanguage().welcomeText,
+          style: contentTextStyle,
+        ),
       ),
     );
   }
 
-  _buildDOBPicker(BuildContext context) {
-    return BlocListener<LanguageCubit, LanguageState>(
-        listener: (context, state) {},
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 8.0, bottom: 16.0),
-              child: Text(
-                Globals.instance.getLanguage().selectDateOfBirth,
-                style: radioButtonTextStyle,
+  Widget _buildDOBPicker(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: BlocListener<LanguageCubit, LanguageState>(
+          listener: (context, state) {},
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left:8.0, top: 8.0, bottom: 16.0),
+                child: Text(
+                  Globals.instance.getLanguage().selectDateOfBirth,
+                  style: radioButtonTextStyle,
+                ),
               ),
-            ),
-            buildCustomButton(_getButtonText(), dateOfBirthButtonColor, () {
-              DatePicker.showDatePicker(
-                context,
-                showTitleActions: true,
-                minTime: minDate,
-                onConfirm: (date) {
-                  setState(() {
-                    _selectedDate = date;
-                    updateBirthday(date);
-                  });
-                },
-                locale: Globals.instance.getLocaleType(),
-                currentTime: DateService.getDateTimeMinusNumYear(25),
-              );
-            }, dateOfBirthButtonTextStyle),
-          ],
-        ));
+              buildCustomButton(_getButtonText(), dateOfBirthButtonColor, () {
+                DatePicker.showDatePicker(
+                  context,
+                  showTitleActions: true,
+                  minTime: minDate,
+                  onConfirm: (date) {
+                    setState(() {
+                      _selectedDate = date;
+                      updateBirthday(date);
+                    });
+                  },
+                  locale: Globals.instance.getLocaleType(),
+                  currentTime: DateService.getDateTimeMinusNumYear(25),
+                );
+              }, dateOfBirthButtonTextStyle),
+            ],
+          )),
+    );
   }
 
   String _getButtonText() {
@@ -116,10 +121,15 @@ class _WelcomePageState extends State<WelcomePage> {
   }
 
   _buildContinueButton(BuildContext context) {
-    return buildStandardButton(
-      text: Globals.instance.getLanguage().continueText,
-      color: yellowButtonColor,
-      onPressed: _onContinuePressed,
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: const EdgeInsets.only(top: 8.0),
+        child: buildStandardButton(
+          text: Globals.instance.getLanguage().continueText,
+          color: yellowButtonColor,
+          onPressed: _onContinuePressed,
+        ),
+      ),
     );
   }
 
