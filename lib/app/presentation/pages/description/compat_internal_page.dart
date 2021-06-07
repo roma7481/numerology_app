@@ -14,6 +14,7 @@ import 'package:numerology/app/presentation/common_widgets/foldable_card_widget.
 import 'package:numerology/app/presentation/common_widgets/premium_card.dart';
 import 'package:numerology/app/presentation/common_widgets/progress_bar.dart';
 import 'package:numerology/app/presentation/pages/graphs/bio_pi_charts.dart';
+import 'package:numerology/app/presentation/pages/pay_wall/pay_wall.dart';
 
 import 'circle_widget.dart';
 import 'compat_circle_widget.dart';
@@ -76,6 +77,9 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           _isPremium = snapshot.data;
+          if(!_isPremium){
+            return PayWall();
+          }
           return SafeArea(
             child: Scaffold(
               appBar: AppBar(
