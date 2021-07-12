@@ -7,7 +7,7 @@ part 'rate_us_state.dart';
 class RateUsCubit extends Cubit<RateUsState> with HydratedMixin {
   RateUsCubit()
       : super(RateUsState(
-          minLaunches: 8,
+          minLaunches: 4,
           doNotShowAgain: false,
           remindLaunches: 8,
           numTimesLaunched: 0,
