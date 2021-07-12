@@ -130,7 +130,7 @@ class DataParserFr extends DataParser {
 
   Future<CategoryModel> _getLifePathNumber(Profile profile) async {
     return CategoryModel(
-      name: 'Número do Caminho de Vida',
+      name: 'Numéro de chemin de vie',
       imagePath: lifePath,
       type: CategoryType.lifePathNumCategory,
     );
