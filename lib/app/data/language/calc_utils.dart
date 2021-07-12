@@ -11,6 +11,7 @@ import 'package:numerology/app/data/language/parser_utils.dart';
 import 'package:numerology/app/data/models/profile.dart';
 import 'package:numerology/app/localization/language/language_en.dart';
 import 'package:numerology/app/localization/language/language_es.dart';
+import 'package:numerology/app/localization/language/language_fr.dart';
 import 'package:numerology/app/localization/language/language_pt.dart';
 import 'package:numerology/app/localization/language/language_ru.dart';
 import 'package:numerology/app/localization/language/languages.dart';
@@ -365,6 +366,8 @@ class CategoryProvider {
       tableName = 'MONEY_NUMBER_RUS';
     } else if (Globals.instance.getLanguage() is LanguagePt) {
       tableName = 'MONEY_NUMBER_PORT';
+    } else if (Globals.instance.getLanguage() is LanguageFr) {
+      tableName = 'MONEY_NUMBER_FR';
     }
 
     return await _getDescriptionPage(context, tableName, calc, header);
@@ -406,6 +409,8 @@ class CategoryProvider {
       table = 'BIORITHMS_ESP';
     } else if (Globals.instance.getLanguage() is LanguagePt) {
       table = 'BIORITHMS_PORT';
+    } else if (Globals.instance.getLanguage() is LanguageFr) {
+      table = 'BIORITHMS_FR';
     }
 
     var categories = [
@@ -458,6 +463,8 @@ class CategoryProvider {
       table = 'SECONDARY_BIORITHMS_ESP';
     } else if (Globals.instance.getLanguage() is LanguagePt) {
       table = 'SECONDARY_BIORITHMS_PORT';
+    } else if (Globals.instance.getLanguage() is LanguageFr) {
+      table = 'SECONDARY_BIORITHMS_FR';
     }
 
     var categories = [
@@ -514,6 +521,8 @@ class CategoryProvider {
       tableName = 'PERSONAL_DAY_ESP';
     } else if (Globals.instance.getLanguage() is LanguagePt) {
       tableName = 'PERSONAL_DAY_PORT';
+    } else if (Globals.instance.getLanguage() is LanguageFr) {
+      tableName = 'PERSONAL_DAY_FR';
     }
 
     return await _getDescriptionPage(context, tableName, calc, header);
@@ -528,6 +537,8 @@ class CategoryProvider {
       tableName = 'PERSONAL_DAY_ESP';
     } else if (Globals.instance.getLanguage() is LanguagePt) {
       tableName = 'PERSONAL_DAY_PORT';
+    } else if (Globals.instance.getLanguage() is LanguageFr) {
+      tableName = 'PERSONAL_DAY_FR';
     }
 
     var description = await getEntityRawQuery(
@@ -562,7 +573,7 @@ class CategoryProvider {
         CategoryCalc.instance.calcMatrixLinesByDob(profile.partnerDob);
     var partnerMatrix =
         CategoryCalc.instance.calcMatrixByDob(profile.partnerDob);
-    var coupleNumSpanish;
+    var coupleNum;
 
     List<CardData> bioCompatData =
         await _getBioCompat(context, profile, bioCompat);
@@ -571,9 +582,9 @@ class CategoryProvider {
 
     List<CardData> matrixCompData;
     List<CardData> coupleCompData;
-    if (language is LanguageEs || language is LanguagePt) {
-      coupleNumSpanish = CategoryCalc.instance.calcCoupleNum(profile);
-      coupleCompData = await _getCoupleCompat(context, coupleNumSpanish);
+    if (language is LanguageEs || language is LanguagePt || language is LanguageFr) {
+      coupleNum = CategoryCalc.instance.calcCoupleNum(profile);
+      coupleCompData = await _getCoupleCompat(context, coupleNum);
     } else {
       matrixCompData =
           await _getMtxCompat(context, yourMatrixLines, partnerMatrixLines);
@@ -588,7 +599,7 @@ class CategoryProvider {
       matrixData: matrixCompData,
       bioData: bioCompatData,
       lifePathData: lifePathData,
-      coupleNumSpanish: coupleNumSpanish,
+      coupleNumSpanish: coupleNum,
       coupleNumData: coupleCompData,
     );
   }
@@ -597,7 +608,10 @@ class CategoryProvider {
     var tableName = 'COUPLE_NUMBER_ESP';
     if (language is LanguagePt) {
       tableName = 'COUPLE_NUMBER_PORT';
+    } else if (language is LanguageFr) {
+      tableName = 'COUPLE_NUMBER_FR';
     }
+
     var description = await runQuery(
         context, 'select description from "$tableName"  where  number = $calc');
     var info = await runQuery(context,
@@ -704,6 +718,8 @@ class CategoryProvider {
       table = 'LIFE_PATH_NUMBER_COMPAT_ESP';
     } else if (language is LanguagePt) {
       table = 'LIFE_PATH_NUMBER_COMPAT_PORT';
+    } else if (language is LanguageFr) {
+      table = 'LIFE_PATH_NUMBER_COMPAT_FR';
     }
 
     lifePathCompat = await runQuery(context,
@@ -733,6 +749,8 @@ class CategoryProvider {
       table = 'BIORITHM_COMPATIBILITY_ESP';
     } else if (language is LanguagePt) {
       table = 'BIORITHM_COMPATIBILITY_PORT';
+    } else if (language is LanguageFr) {
+      table = 'BIORITHM_COMPATIBILITY_FR';
     }
 
     List<CardData> bioData = [];
@@ -981,6 +999,8 @@ class CategoryProvider {
     var tableName = 'MARRIAGE_NUMBER_ENG';
     if(language is LanguagePt){
       tableName = 'MARRIAGE_NUMBER_PORT';
+    } else if(language is LanguageFr){
+      tableName = 'MARRIAGE_NUMBER_FR';
     }
 
     return await _getDescriptionPage(context, tableName, calc, header);
@@ -1010,6 +1030,8 @@ class CategoryProvider {
       tableName = 'SOUL_URGE_NUMBER_ESP';
     } else if (language is LanguagePt){
       tableName = 'SOUL_URGE_NUMBER_PORT';
+    } else if (language is LanguageFr){
+      tableName = 'SOUL_URGE_NUMBER_FR';
     }
 
     return await _getDescriptionPage(context, tableName, calc, header);
@@ -1030,6 +1052,8 @@ class CategoryProvider {
     var tableName = 'DESIRE_NUMBER_ENG';
     if(language is LanguagePt){
       tableName = 'DESIRE_NUMBER_PORT';
+    } else if(language is LanguageFr){
+      tableName = 'DESIRE_NUMBER_FR';
     }
 
     return await _getDescriptionPage(context, tableName, calc, header);
@@ -1056,6 +1080,8 @@ class CategoryProvider {
       tableName = 'NAME_NUMBER_ESP';
     } else if (language is LanguagePt) {
       tableName = 'NAME_NUMBER_PORT';
+    } else if (language is LanguageFr) {
+      tableName = 'NAME_NUMBER_FR';
     }
 
     return await _getDescriptionPage(context, tableName, calc, header);
@@ -1081,6 +1107,8 @@ class CategoryProvider {
       tableName = 'EXPRESSION_NUMBER_ESP';
     } else if (language is LanguagePt) {
       tableName = 'EXPRESSION_NUMBER_PORT';
+    } else if (language is LanguageFr) {
+      tableName = 'EXPRESSION_NUMBER_FR';
     }
 
     return await _getDescriptionPage(context, tableName, calc, header);
@@ -1104,6 +1132,8 @@ class CategoryProvider {
       tableName = 'REALIZATION_NUMBER_RUS';
     } else if (language is LanguagePt) {
       tableName = 'REALIZATION_NUMBER_PORT';
+    } else if (language is LanguageFr) {
+      tableName = 'REALIZATION_NUMBER_FR';
     }
 
     return await _getDescriptionPage(context, tableName, calc, header);
@@ -1197,6 +1227,14 @@ class CategoryProvider {
         'O Terceiro Desafio - ',
         'O Quinto Desafio - ',
       ];
+    } else if (language is LanguageFr) {
+      tableName = 'CHALLENGE_NUMBER_FR';
+      headers = [
+        'Le premier défi - ',
+        'Le deuxième défi - ',
+        'Le troisième défio - ',
+        'Le quatrième défi - ',
+      ];
     }
 
     for (var i = 0; i < calc.length; i++) {
@@ -1242,6 +1280,10 @@ class CategoryProvider {
         return {
           'Descrição': map['description'] as String,
         };
+      } else if (language is LanguageFr) {
+        return {
+          'Description': map['description'] as String,
+        };
       }
 
       return {
@@ -1261,6 +1303,8 @@ class CategoryProvider {
       tableName = 'LIFE_PATH_NUMBER_ESP';
     } else if (language is LanguagePt) {
       tableName = 'LIFE_PATH_NUMBER_PORT';
+    } else if (language is LanguageFr) {
+      tableName = 'LIFE_PATH_NUMBER_FR';
     }
 
     var calc = CategoryCalc.instance.calcLifePathNumberMethod1(profile);
@@ -1310,6 +1354,8 @@ class CategoryProvider {
       tableName = 'PERSONALITY_NUMBER_ESP';
     } else if (language is LanguagePt) {
       tableName = 'PERSONALITY_NUMBER_PORT';
+    } else if (language is LanguageFr) {
+      tableName = 'PERSONALITY_NUMBER_FR';
     }
 
     return await _getDescriptionPage(context, tableName, calc, header);
@@ -1324,6 +1370,8 @@ class CategoryProvider {
       tableName = 'LUCKY_GEM_RUS';
     } else if (language is LanguagePt) {
       tableName = 'LUCKY_GEM_PORT';
+    } else if (language is LanguageFr) {
+      tableName = 'LUCKY_GEM_FR';
     }
 
     return await _getDescriptionPage(context, tableName, calc, header);
@@ -1341,6 +1389,8 @@ class CategoryProvider {
       tableName = 'BIRTHDAY_NUMBER_ESP';
     } else if (language is LanguagePt) {
       tableName = 'BIRTHDAY_NUMBER_PORT';
+    } else if (language is LanguageFr) {
+      tableName = 'BIRTHDAY_NUMBER_FR';
     }
 
     return await _getDescriptionPage(context, tableName, calc, header);
@@ -1356,6 +1406,8 @@ class CategoryProvider {
       tableName = 'BIRTHDAY_CODE_ESP';
     } else if (Globals.instance.getLanguage() is LanguagePt) {
       tableName = 'BIRTHDAY_CODE_PORT';
+    } else if (Globals.instance.getLanguage() is LanguageFr) {
+      tableName = 'BIRTHDAY_CODE_FR';
     }
 
     return await _getDescriptionPage(context, tableName, calc, header);
@@ -1380,6 +1432,8 @@ class CategoryProvider {
       tableName = 'MATURITY_NUMBER_ESP';
     } else if (language is LanguagePt) {
       tableName = 'MATURITY_NUMBER_PORT';
+    } else if (language is LanguageFr) {
+      tableName = 'MATURITY_NUMBER_FR';
     }
 
     return await _getDescriptionPage(context, tableName, calc, header);

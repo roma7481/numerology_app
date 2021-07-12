@@ -13,6 +13,7 @@ import 'package:numerology/app/presentation/common_widgets/error_dialog.dart';
 import 'package:numerology/app/presentation/common_widgets/progress_bar.dart';
 import 'package:numerology/app/presentation/common_widgets/toast.dart';
 import 'package:numerology/app/presentation/pages/welcome/input_text_tile.dart';
+import 'package:numerology/app/presentation/pages/welcome/name_utils.dart';
 
 class DescriptionNameBasedPage extends StatefulWidget {
   final String categoryName;
@@ -220,6 +221,12 @@ class _DescriptionNameBasedPageState extends State<DescriptionNameBasedPage> {
       controllerMiddleName.text,
     )) {
       showToast(Globals.instance.language.enterMissingData);
+    } else if (shouldContainVowels(
+      controllerMiddleName.text,
+      controllerFirstName.text,
+      controllerLastName.text,
+    )) {
+      showToast(Globals.instance.language.nameShouldContainVowels);
     } else {
       Profile updatedProfile = currentProfile.copyWith(
           firstName: controllerFirstName.text,

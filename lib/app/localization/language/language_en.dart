@@ -62,7 +62,7 @@ class LanguageEn extends Languages {
   String get settingsTabText => 'Settings';
 
   @override
-  String get errorMessageHeader => 'Nothing here';
+    String get errorMessageHeader => 'Nothing here';
 
   @override
   String get errorMessageContent =>
