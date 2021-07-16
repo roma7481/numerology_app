@@ -84,7 +84,7 @@ flutter:
     - assets/matrix/
     - assets/graphs/
     - assets/premium/
-    - assets/database/numerology.db
+    - assets/database/numerology_1.db
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
