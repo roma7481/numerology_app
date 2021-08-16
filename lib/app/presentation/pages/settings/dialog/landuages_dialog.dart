@@ -29,6 +29,7 @@ class _LanguageDialogState extends State<LanguageDialog> {
     2: LanguageItem(es, spanish),
     3: LanguageItem(pt, portuguese),
     4: LanguageItem(fr, french),
+    5: LanguageItem(de, german),
   };
 
   @override

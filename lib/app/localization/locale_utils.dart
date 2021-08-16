@@ -4,6 +4,7 @@ import 'package:numerology/app/business_logic/cubit/forecast/calc_utils.dart';
 import 'package:numerology/app/business_logic/cubit/forecast/calc_utils_en.dart';
 import 'package:numerology/app/business_logic/cubit/forecast/calc_utils_es.dart';
 import 'package:numerology/app/business_logic/cubit/forecast/calc_utils_fr.dart';
+import 'package:numerology/app/business_logic/cubit/forecast/calc_utils_de.dart';
 import 'package:numerology/app/business_logic/cubit/forecast/calc_utils_pt.dart';
 import 'package:numerology/app/business_logic/cubit/forecast/calc_utils_ru.dart';
 import 'package:numerology/app/constants/strings.dart';
@@ -11,12 +12,14 @@ import 'package:numerology/app/data/language/data_parser.dart';
 import 'package:numerology/app/data/language/data_parser_en.dart';
 import 'package:numerology/app/data/language/data_parser_es.dart';
 import 'package:numerology/app/data/language/data_parser_fr.dart';
+import 'package:numerology/app/data/language/data_parser_de.dart';
 import 'package:numerology/app/data/language/data_parser_pt.dart';
 import 'package:numerology/app/data/language/data_parser_ru.dart';
 
 import 'language/language_en.dart';
 import 'language/language_es.dart';
 import 'language/language_fr.dart';
+import 'language/language_de.dart';
 import 'language/language_pt.dart';
 import 'language/language_ru.dart';
 import 'language/languages.dart';
@@ -83,6 +86,7 @@ class LocaleUtils {
     2: LanguageItem(es, spanish),
     3: LanguageItem(pt, portuguese),
     4: LanguageItem(fr, french),
+    5: LanguageItem(de, german),
   };
 
   static ForecastCalcUtils getForecastUtils(String localeCode) {
@@ -97,6 +101,8 @@ class LocaleUtils {
         return CalcUtilsPt();
       case fr:
         return CalcUtilsFr();
+      case de:
+        return CalcUtilsDe();
       default:
         return CalcUtilsEn();
     }
@@ -114,6 +120,8 @@ class LocaleUtils {
         return LanguagePt();
       case fr:
         return LanguageFr();
+      case de:
+        return LanguageDe();
       default:
         return LanguageEn();
     }
@@ -136,6 +144,9 @@ class LocaleUtils {
       case fr:
         return LocaleType.fr;
         break;
+      case de:
+        return LocaleType.de;
+        break;
       default:
         return LocaleType.en;
     }
@@ -157,6 +168,9 @@ class LocaleUtils {
         break;
       case fr:
         return DataParserFr();
+        break;
+      case de:
+        return DataParserDe();
         break;
       default:
         return DataParserEn();

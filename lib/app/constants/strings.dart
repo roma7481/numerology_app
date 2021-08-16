@@ -3,6 +3,7 @@ const String ru = 'ru';
 const String es = 'es';
 const String pt = 'pt';
 const String fr = 'fr';
+const String de = 'de';
 
 const String small = 'Small';
 const String medium = 'Medium';
@@ -13,6 +14,7 @@ const String russian = 'Русский';
 const String spanish = 'Español';
 const String portuguese = 'Português';
 const String french = 'Français';
+const String german = 'Deutsche';
 
 const String numerology = 'Numerology';
 

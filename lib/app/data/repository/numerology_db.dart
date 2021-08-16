@@ -6,7 +6,7 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class NumerologyDBRepository {
-  static final _dbName = 'numerology_1.db';
+  static final _dbName = 'numerology_2.db';
   static final _assets = 'assets';
   static final _subPackage = 'database';
 
