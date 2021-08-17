@@ -1335,6 +1335,10 @@ class CategoryProvider {
         return {
           'Description': map['description'] as String,
         };
+      } else if (language is LanguageDe) {
+        return {
+          'Beschreibung': map['description'] as String,
+        };
       }
 
       return {
