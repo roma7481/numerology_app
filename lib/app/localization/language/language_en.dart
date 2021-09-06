@@ -207,7 +207,7 @@ class LanguageEn extends Languages {
   String get no => 'No';
 
   @override
-  String get setProfileAsPrimary => 'Set this profile as primary';
+  String get setProfileAsPrimary => 'Set profile as primary profile';
 
   @override
   String get yes => 'yes';
