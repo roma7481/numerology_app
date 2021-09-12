@@ -22,7 +22,7 @@ import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 
 import 'attribution/attribution_page.dart';
-import 'dialog/landuages_dialog.dart';
+import 'dialog/languages_dialog.dart';
 import 'dialog/notification_dialog.dart';
 import 'dialog/rate_us_dialog.dart';
 import 'dialog/text_size_dialog.dart';

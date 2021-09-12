@@ -111,36 +111,35 @@ class _ProfilesPageState extends State<ProfilesPage> {
 
   List<Widget> _expandedContent(Profile profile) {
     return [
-        Padding(
-          padding: const EdgeInsets.only(left: 12.0),
-          child: Column(
-            children: [
-              _buildSecondaryInfo(profile),
-              _buildLine(),
-              _buildEditDeleteBtn(profile),
-            ],
-          ),
-        )
-      ];
+      Padding(
+        padding: const EdgeInsets.only(left: 12.0),
+        child: Column(
+          children: [
+            _buildSecondaryInfo(profile),
+            _buildLine(),
+            _buildEditDeleteBtn(profile),
+          ],
+        ),
+      )
+    ];
   }
 
   Padding _collapsedContent(Profile profile) {
     return Padding(
-        padding: const EdgeInsets.only(left: 12.0, bottom: 8.0),
-        child: Column(
-          children: [
-            Stack(
-                children: [_buildPrimInfo(profile), _buildCheckbox(profile)]),
-          ],
-        ),
-      );
+      padding: const EdgeInsets.only(left: 12.0, bottom: 8.0),
+      child: Column(
+        children: [
+          Stack(children: [_buildPrimInfo(profile), _buildCheckbox(profile)]),
+        ],
+      ),
+    );
   }
 
   Padding _buildSecondaryInfo(Profile profile) {
     var language = Globals.instance.language;
     return Padding(
       padding: const EdgeInsets.only(top: 12.0),
-      child: Row(
+      child: Column(
         children: [
           _buildNameInfo(language, profile),
           _buildCustomInfo(profile)

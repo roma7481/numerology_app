@@ -143,7 +143,7 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   Widget _buildEn() {
-    return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+    return Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
       _buildPartnerDobSettings(),
       SizedBox(
         width: 10.0,

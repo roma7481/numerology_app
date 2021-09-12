@@ -5,6 +5,7 @@ import 'package:numerology/app/data/models/profile.dart';
 import 'package:numerology/app/localization/language/language_de.dart';
 import 'package:numerology/app/localization/language/language_es.dart';
 import 'package:numerology/app/localization/language/language_fr.dart';
+import 'package:numerology/app/localization/language/language_it.dart';
 import 'package:numerology/app/localization/language/language_pt.dart';
 import 'package:numerology/app/localization/language/language_ru.dart';
 
@@ -182,21 +183,31 @@ class CategoryCalc {
       period4 = 'El cuarto reto: Edad 60 y hasta la vejez';
     } else if (Globals.instance.language is LanguagePt) {
       period1 = 'O primeiro desafio: do nascimento até os 30-35 anos';
-      period2 =
-          'O segundo desafio: começa por volta dos 35 e dura até 55-60';
+      period2 = 'O segundo desafio: começa por volta dos 35 e dura até 55-60';
       period3 =
           'O terceiro desafio: O desafio principal, desafio constante ao longo da vida';
       period4 = 'O quarto desafio: 60 anos e até idades mais avançadas';
     } else if (Globals.instance.language is LanguageFr) {
       period1 = 'Le premier défi : de la naissance à 30-35 ans.';
-      period2 = 'Le deuxième défi : il commence vers 35 ans et dure jusqu\'à 55-60 ans.';
-      period3 = 'Le troisième défi : le défi principal, un défi constant tout au long de la vie.';
+      period2 =
+          'Le deuxième défi : il commence vers 35 ans et dure jusqu\'à 55-60 ans.';
+      period3 =
+          'Le troisième défi : le défi principal, un défi constant tout au long de la vie.';
       period4 = 'Le quatrième défi : 60 ans et jusqu\'à un âge avancé.';
     } else if (Globals.instance.language is LanguageDe) {
       period1 = 'Die erste Herausforderung: Geburt im Alter von 30-35 Jahren.';
-      period2 = 'Die zweite Herausforderung: Beginnt um 35 und dauert bis 55-60.';
-      period3 = 'Die dritte Herausforderung: Die Hauptherausforderung, die ständige Herausforderung während des gesamten Lebens.';
+      period2 =
+          'Die zweite Herausforderung: Beginnt um 35 und dauert bis 55-60.';
+      period3 =
+          'Die dritte Herausforderung: Die Hauptherausforderung, die ständige Herausforderung während des gesamten Lebens.';
       period4 = 'Die vierte Herausforderung: Alter 60 und bis ins alter.';
+    } else if (Globals.instance.language is LanguageIt) {
+      period1 = 'La prima sfida: dalla nascita all\'età di 30-35 anni';
+      period2 =
+          'La seconda sfida: inizia intorno ai 35 anni e dura fino ai 55-60';
+      period3 =
+          'La terza sfida: La sfida principale, sfida costante per tutta la vita';
+      period4 = 'La Quarta Sfida: Età 60 e fino all\'età avanzata';
     }
     return [
       period1 + '\n\n',
