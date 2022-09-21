@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:numerology/app/business_logic/cubit/bio/bio_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.dart';
-import 'package:numerology/app/business_logic/services/ads/native_admob_controller.dart';
 import 'package:numerology/app/business_logic/services/ads/show_banner.dart';
 import 'package:numerology/app/business_logic/services/ads/show_native_ad.dart';
 import 'package:numerology/app/business_logic/services/date_service.dart';
@@ -27,7 +26,6 @@ class BioGraphsPage extends StatefulWidget {
 }
 
 class _BioGraphsPageState extends State<BioGraphsPage> {
-  final NativeAdmobController adController = NativeAdmobController();
 
   BannerAd _banner;
   AdWidget _adWidget;
@@ -143,7 +141,7 @@ class _BioGraphsPageState extends State<BioGraphsPage> {
           var data = state.description[index];
           return Column(
             children: [
-              showAdInList(adController, state.description, index, isPremium),
+              showAdInList(state.description, index, isPremium),
               ExpandableTile(data.header, data.description,
                   iconPath: data.iconPath),
             ],

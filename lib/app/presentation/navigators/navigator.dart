@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:numerology/app/business_logic/services/ads/native_admob_controller.dart';
 import 'package:numerology/app/business_logic/services/ads/show_interestial_ad.dart';
 import 'package:numerology/app/presentation/pages/bottom_navigator/main_page.dart';
 import 'package:numerology/app/presentation/pages/description/description_page.dart';
@@ -55,7 +54,6 @@ Future<void> navigateToDescriptionPage(
   await showInterestialAd(
       () => Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
           builder: (context) => DescriptionPage(
-                NativeAdmobController(),
                 header: header,
                 calculation: calculation,
                 data: description,

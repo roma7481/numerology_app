@@ -5,7 +5,6 @@ import 'package:numerology/app/business_logic/cubit/forecast/forecast_cubit.dart
 import 'package:numerology/app/business_logic/cubit/forecast/forecast_index_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
-import 'package:numerology/app/business_logic/services/ads/native_admob_controller.dart';
 import 'package:numerology/app/business_logic/services/ads/show_native_ad.dart';
 import 'package:numerology/app/business_logic/services/premium/premium_controller.dart';
 import 'package:numerology/app/constants/colors.dart';
@@ -19,7 +18,6 @@ import 'package:numerology/app/presentation/pages/home/day_category.dart';
 import 'forecast_button.dart';
 
 class ForecastPage extends StatefulWidget {
-  final NativeAdmobController adController = NativeAdmobController();
 
   @override
   _ForecastPageState createState() => _ForecastPageState();
@@ -35,6 +33,7 @@ class _ForecastPageState extends State<ForecastPage> {
   var _luckyBtnIndex = 0;
   var _monthlyBtnIndex = 0;
   var _yearBtnIndex = 0;
+  bool isAdsFree = false;
 
   @override
   void initState() {
@@ -43,6 +42,10 @@ class _ForecastPageState extends State<ForecastPage> {
     context.read<ForecastIndexCubit>().emitLuckyClicked(0);
     context.read<ForecastIndexCubit>().emitMonthClicked(0);
     context.read<ForecastIndexCubit>().emitYearClicked(0);
+  }
+
+  void initAds() async {
+    isAdsFree = await PremiumController.instance.isAdsFree();
   }
 
   @override
@@ -107,24 +110,25 @@ class _ForecastPageState extends State<ForecastPage> {
         slivers: [
           _categoryDayBuilder(_daily, _onDailyPressed, isPremium),
           _buildLine(),
+          _showAd(isPremium),
           _categoryLuckyBuilder(_lucky, _onLuckyPressed, isPremium),
           _buildLine(),
-          _showAd(isPremium),
           _categoryMonthBuilder(_monthly, _onMonthlyPressed, isPremium),
           _buildLine(),
+          _showAd(isPremium),
           _categoryYearBuilder(_annual, _onYearPressed, isPremium),
         ],
       ),
     );
   }
 
-  Widget _showAd(bool isPremium) {
+  Widget _showAd(bool isPremium){
     return FutureBuilder<bool>(
-        future: PremiumController.instance.isAdsFree(),
+        future: fetchIsAdsFree(),
         builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:
-              return SliverToBoxAdapter(child: progressBar());
+              return SliverToBoxAdapter(child: Container());
             default:
               if (snapshot.hasError) {
                 return SliverToBoxAdapter(
@@ -133,12 +137,17 @@ class _ForecastPageState extends State<ForecastPage> {
               } else {
                 var isAddFree = snapshot.data;
                 return SliverToBoxAdapter(
-                  child: showNativeAd(widget.adController, isPremium: isPremium || isAddFree),
+                  child: showNativeAd(context, isPremium: isPremium || isAddFree),
                 );
               }
           }
         });
   }
+
+
+  Future<bool> fetchIsAdsFree() => Future.delayed(Duration(milliseconds: 200), () {
+    return PremiumController.instance.isAdsFree();
+  });
 
   Widget _categoryLuckyBuilder(
       Forecast forecast, Function onPressed, bool isPremium) {

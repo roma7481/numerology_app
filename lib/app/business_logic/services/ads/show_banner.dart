@@ -10,7 +10,7 @@ BannerAd getBanner() {
       adUnitId: realBannerAppId,
       size: AdSize.banner,
       request: AdRequest(),
-      listener: AdListener(
+      listener: BannerAdListener(
         // Called when an ad is successfully received.
         onAdLoaded: (Ad ad) => print('Ad loaded.'),
         // Called when an ad request failed.
@@ -26,7 +26,6 @@ BannerAd getBanner() {
           print('Ad closed.');
         },
         // Called when an ad is in the process of leaving the application.
-        onApplicationExit: (Ad ad) => print('Left application.'),
       ),
     )..load();
   } catch (e) {

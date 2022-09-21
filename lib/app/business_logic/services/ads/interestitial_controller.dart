@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:numerology/app/business_logic/services/premium/premium_controller.dart';
 
@@ -6,31 +7,51 @@ import 'ad_service.dart';
 
 class InterestitialController {
   InterestitialController._();
-
   static final instance = InterestitialController._();
-
   static final premiumController = PremiumController.instance;
 
+  int _numInterstitialLoadAttempts = 0;
+  int maxFailedLoadAttempts = 3;
   InterstitialAd _interstitialAd;
-  bool _isInterstitialAdReady = false;
   Function() _callback;
-  bool isPersonalized = false;
 
-  void _loadInterstitialAd() {
-    _interstitialAd.load();
-  }
+  static final AdRequest request = AdRequest(
+    keywords: <String>[         //TODO
+      'Online shopping',
+      'clothes online',
+      'Entertainment',
+      'free streaming',
+      'cooking',
+      'recipes',
+      'astrology',
+      'tarot',
+      'psychic reading',
+      'pharmacy',
+      'cosmetics',
+      'baby',],
+    nonPersonalizedAds: true, //TODO
+  );
 
-  Future<void> showInterstitialAd() async {
-    _loadPage(_callback);
-
-    bool isPremium = await premiumController.isAdsFree();
-    if (!isPremium) {
-      var adCounter = await AdsCounter.instance.getAdsCounter();
-      if (adCounter > 5 && _isInterstitialAdReady) {
-        _interstitialAd.show();
-        AdsCounter.instance.resetAdCounter();
-      }
-    }
+  void createInterstitialAd() {
+    InterstitialAd.load(
+        adUnitId: AdManager.interstitialAdUnitId,
+        request: request,
+        adLoadCallback: InterstitialAdLoadCallback(
+          onAdLoaded: (InterstitialAd ad) {
+            debugPrint('$ad loaded');
+            _interstitialAd = ad;
+            _numInterstitialLoadAttempts = 0;
+            _interstitialAd.setImmersiveMode(true);
+          },
+          onAdFailedToLoad: (LoadAdError error) {
+            debugPrint('InterstitialAd failed to load: $error.');
+            _numInterstitialLoadAttempts += 1;
+            _interstitialAd = null;
+            if (_numInterstitialLoadAttempts < maxFailedLoadAttempts) {
+              createInterstitialAd();
+            }
+          },
+        ));
   }
 
   void setCallback(Function() callback) {
@@ -41,53 +62,41 @@ class InterestitialController {
     callback();
   }
 
-  void setInter() {
-    AdRequest request = AdRequest(
-      keywords: <String>[
-        'Online shopping',
-        'clothes online',
-        'Entertainment',
-        'free streaming',
-        'cooking',
-        'recipes',
-        'astrology',
-        'tarot',
-        'psychic reading',
-        'pharmacy',
-        'cosmetics',
-        'baby',
-      ],
-      // contentUrl: 'http://foo.com/bar.html',
-      nonPersonalizedAds: isPersonalized,
-    );
+  Future<void> showInterstitialAd() async{
+    _loadPage(_callback);
 
-    _interstitialAd = InterstitialAd(
-      request: request,
-      adUnitId: AdManager.interstitialAdUnitId,
-      listener: AdListener(
-        onAdLoaded: (Ad ad) {
-          print('${ad.runtimeType} loaded.');
-          _isInterstitialAdReady = true;
-        },
-        onAdFailedToLoad: (Ad ad, LoadAdError error) {
-          print('${ad.runtimeType} failed to load: $error.');
-          ad.dispose();
-          _interstitialAd = null;
-          _isInterstitialAdReady = false;
-          setInter();
-        },
-        onAdOpened: (Ad ad) => print('${ad.runtimeType} onAdOpened.'),
-        onAdClosed: (Ad ad) {
-          print('${ad.runtimeType} closed.');
-          ad.dispose();
-          _interstitialAd = null;
-          _isInterstitialAdReady = false;
-          setInter();
-        },
-        onApplicationExit: (Ad ad) =>
-            print('${ad.runtimeType} onApplicationExit.'),
-      ),
+    bool isPremium = await premiumController.isPremium();
+    if (!isPremium) {
+      var adCounter = await AdsCounter.instance.getAdsCounter();
+      if (adCounter >= AdsCounter.maxNumClicks) {
+        _showRegularAdd();
+        AdsCounter.instance.resetAdCounter();
+      } else {
+        await AdsCounter.instance.increaseAdCounter();
+      }
+    }
+  }
+
+  void _showRegularAdd() {
+    if (_interstitialAd == null) {
+      debugPrint('Warning: attempt to show interstitial before loaded.');
+      return;
+    }
+    _interstitialAd.fullScreenContentCallback = FullScreenContentCallback(
+      onAdShowedFullScreenContent: (InterstitialAd ad) =>
+          debugPrint('ad onAdShowedFullScreenContent.'),
+      onAdDismissedFullScreenContent: (InterstitialAd ad) {
+        debugPrint('$ad onAdDismissedFullScreenContent.');
+        ad.dispose();
+        createInterstitialAd();
+      },
+      onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
+        debugPrint('$ad onAdFailedToShowFullScreenContent: $error');
+        ad.dispose();
+        createInterstitialAd();
+      },
     );
-    _loadInterstitialAd();
+    _interstitialAd.show();
+    _interstitialAd = null;
   }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:numerology/app/business_logic/services/ads/native_admob_controller.dart';
 import 'package:numerology/app/business_logic/services/ads/show_banner.dart';
 import 'package:numerology/app/business_logic/services/ads/show_native_ad.dart';
 import 'package:numerology/app/business_logic/services/premium/premium_controller.dart';
@@ -21,13 +20,12 @@ class MatrixLinesPage extends StatelessWidget {
   final List<CardData> data;
   final List<int> matrix;
   final Map<String, String> info;
-  final NativeAdmobController adController;
 
   BannerAd _banner;
   AdWidget _adWidget;
 
   MatrixLinesPage(
-    this.adController, {
+    {
     Key key,
     this.header = '',
     this.calculation = '',
@@ -110,7 +108,7 @@ class MatrixLinesPage extends StatelessWidget {
         var item = data[index];
         return Column(
           children: [
-            showAdInList(adController, data, index, isPremium),
+            showAdInList(data, index, isPremium),
             ExpandableTile(item.header, item.description,
                 iconPath: item.iconPath),
           ],

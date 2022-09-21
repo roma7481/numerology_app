@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:numerology/app/business_logic/cubit/bio_second/bio_second_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.dart';
-import 'package:numerology/app/business_logic/services/ads/native_admob_controller.dart';
 import 'package:numerology/app/business_logic/services/ads/show_banner.dart';
 import 'package:numerology/app/business_logic/services/ads/show_native_ad.dart';
 import 'package:numerology/app/business_logic/services/date_service.dart';
@@ -19,16 +18,12 @@ import 'bio_pi_charts_second.dart';
 import 'graph_widget.dart';
 
 class BioGraphsSecondPage extends StatefulWidget {
-  final NativeAdmobController adController;
-
-  const BioGraphsSecondPage(this.adController);
 
   @override
   _BioGraphsSecondPageState createState() => _BioGraphsSecondPageState();
 }
 
 class _BioGraphsSecondPageState extends State<BioGraphsSecondPage> {
-  final NativeAdmobController adController = NativeAdmobController();
 
   Profile profile;
   var header = DateService.getFormattedDate(DateTime.now());
@@ -149,7 +144,7 @@ class _BioGraphsSecondPageState extends State<BioGraphsSecondPage> {
           var data = state.description[index];
           return Column(
             children: [
-              showAdInList(adController, state.description, index, isPremium),
+              showAdInList(state.description, index, isPremium),
               ExpandableTile(data.header, data.description,
                   iconPath: data.iconPath),
             ],

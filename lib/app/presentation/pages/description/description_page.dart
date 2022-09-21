@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:numerology/app/business_logic/services/ads/native_admob_controller.dart';
 import 'package:numerology/app/business_logic/services/ads/show_banner.dart';
 import 'package:numerology/app/business_logic/services/ads/show_native_ad.dart';
 import 'package:numerology/app/business_logic/services/premium/premium_controller.dart';
@@ -17,10 +16,8 @@ class DescriptionPage extends StatelessWidget {
   final String header;
   final String calculation;
   final List<CardData> data;
-  final NativeAdmobController adController;
 
-  DescriptionPage(
-    this.adController, {
+  DescriptionPage({
     this.calculation = '',
     this.header = '',
     this.data = const [],
@@ -125,7 +122,7 @@ class DescriptionPage extends StatelessWidget {
       (context, index) {
         var item = data[index];
         return Column(children: [
-          showAdInList(adController, data, index, isPremium),
+          showAdInList(data, index, isPremium),
           ExpandableTile(item.header, item.description,
               iconPath: item.iconPath),
         ]);

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
-import 'package:numerology/app/business_logic/services/ads/native_admob_controller.dart';
 import 'package:numerology/app/business_logic/services/category_calc.dart';
 import 'package:numerology/app/business_logic/services/date_service.dart';
 import 'package:numerology/app/business_logic/services/premium/premium_controller.dart';
@@ -72,7 +71,6 @@ class CategoryProvider {
 
   CategoryProvider._privateConstructor(this.db);
 
-  final NativeAdmobController adController = NativeAdmobController();
 
   static final CategoryProvider instance =
       CategoryProvider._privateConstructor(NumerologyDBProvider.instance);
@@ -569,7 +567,7 @@ class CategoryProvider {
   }
 
   Future<Widget> getBioSecondPage(Profile profile, String header) async {
-    return BioGraphsSecondPage(adController);
+    return BioGraphsSecondPage();
   }
 
   Future<Widget> getCompatPage(
@@ -926,7 +924,6 @@ class CategoryProvider {
 
     return MatrixPage(
       isPremium,
-      adController,
       header: header,
       matrix: calcs,
       guideText: language.clickOnAnyCell,
@@ -1031,7 +1028,6 @@ class CategoryProvider {
     }
 
     return MatrixLinesPage(
-      adController,
       header: header,
       data: data,
       matrix: matrix,
@@ -1269,7 +1265,6 @@ class CategoryProvider {
     data.add(_buildInfoData(info));
 
     return DescriptionPage(
-      adController,
       header: header,
       data: data,
     );
@@ -1359,7 +1354,6 @@ class CategoryProvider {
     data.add(_buildInfoData(info));
 
     return DescriptionPage(
-      adController,
       header: header,
       data: data,
     );
@@ -1442,7 +1436,6 @@ class CategoryProvider {
     data.add(_buildInfoData(info));
 
     return DescriptionPage(
-      adController,
       header: header,
       calculation: calc.toString(),
       data: data,
@@ -1586,7 +1579,6 @@ class CategoryProvider {
     data.add(_buildInfoData(info));
 
     return DescriptionPage(
-      adController,
       header: header,
       calculation: calc.toString(),
       data: data,
@@ -1626,7 +1618,6 @@ class CategoryProvider {
     data.add(_buildInfoData(info));
 
     return DescriptionPage(
-      adController,
       header: header,
       calculation: calc.toString(),
       data: data,
@@ -1658,7 +1649,6 @@ class CategoryProvider {
     data.add(_buildInfoData(info));
 
     return DescriptionPage(
-      adController,
       header: header,
       calculation: calc.toString(),
       data: data,
@@ -1690,7 +1680,6 @@ class CategoryProvider {
     data.add(_buildInfoData(info));
 
     return DescriptionPage(
-      adController,
       header: header,
       calculation: calc.toString(),
       data: data,
@@ -1723,7 +1712,6 @@ class CategoryProvider {
     data.add(_buildInfoData(info));
 
     return DescriptionPage(
-      adController,
       header: header,
       calculation: calc.toString(),
       data: data,
@@ -1772,7 +1760,6 @@ class CategoryProvider {
     data.add(_buildInfoData(info));
 
     return DescriptionPage(
-      adController,
       header: header,
       data: data,
     );
@@ -1804,7 +1791,6 @@ class CategoryProvider {
     data.add(_buildInfoData(info));
 
     return DescriptionPage(
-      adController,
       header: header,
       data: data,
     );

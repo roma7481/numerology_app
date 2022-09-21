@@ -21,6 +21,7 @@ import 'app/business_logic/cubit/forecast/forecast_index_cubit.dart';
 import 'app/business_logic/cubit/language/language_cubit.dart';
 import 'app/business_logic/cubit/purchases/purchases_cubit.dart';
 import 'app/business_logic/cubit/rate_us/rate_us_cubit.dart';
+import 'app/business_logic/services/ads/ad_service.dart';
 import 'app/business_logic/services/ads/interestitial_controller.dart';
 import 'app/constants/colors.dart';
 import 'app/constants/strings.dart';
@@ -36,13 +37,15 @@ Future<void> main() async {
   InAppPurchaseConnection.enablePendingPurchases();
 
   InterestitialController interController = InterestitialController.instance;
-  interController.setInter();
+  interController.createInterstitialAd();
 
   await _setupNotifications();
 
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: await getApplicationDocumentsDirectory(),
   );
+
+  await AdManager.setup();
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
