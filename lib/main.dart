@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,6 +10,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:notification_permissions/notification_permissions.dart';
 import 'package:numerology/app/business_logic/cubit/bio/bio_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/notifications_cubit/notifications_cubit.dart';
+import 'package:numerology/app/business_logic/cubit/other_app_cubit/OtherAppCubit.dart';
 import 'package:numerology/app/business_logic/cubit/profiles/profiles_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/text_size_cubit/text_size_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.dart';
@@ -38,6 +40,8 @@ Future<void> main() async {
 
   InterestitialController interController = InterestitialController.instance;
   interController.createInterstitialAd();
+
+  await Firebase.initializeApp();
 
   await _setupNotifications();
 
@@ -129,6 +133,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<ForecastCubit>(
           create: (context) => ForecastCubit(),
+        ),
+        BlocProvider<OtherAppCubit>(
+          create: (context) => OtherAppCubit(),
         ),
       ],
       child: MaterialApp(

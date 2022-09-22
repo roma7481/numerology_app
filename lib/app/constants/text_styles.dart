@@ -248,6 +248,13 @@ var settingsTextStyle = GoogleFonts.sourceSansPro(
   ),
 );
 
+var moreAppsTextStyle = GoogleFonts.sourceSansPro(
+  textStyle: TextStyle(
+    fontSize: 14.0,
+    color: welcomeScreenTextColor,
+  ),
+);
+
 var discountTextStyle = GoogleFonts.sourceSansPro(
     textStyle: TextStyle(
   fontSize: 15.0,
