@@ -12,7 +12,7 @@ class NativeAdItem extends StatelessWidget {
     if (nativeAd == null) {
       return Container();
     }
-    return AspectRatio(aspectRatio: 4/3, child: Padding(
+    return AspectRatio(aspectRatio: 2.6, child: Padding(
       padding: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 20.0),
       child: Container(
           padding: const EdgeInsets.all(8.0),

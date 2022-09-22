@@ -8,7 +8,7 @@ BannerAd getBanner() {
   try {
     return BannerAd(
       adUnitId: realBannerAppId,
-      size: AdSize.banner,
+      size: AdSize.fullBanner,
       request: AdRequest(),
       listener: BannerAdListener(
         // Called when an ad is successfully received.
@@ -38,12 +38,12 @@ Widget showBanner(AdWidget adWidget, BannerAd banner, bool isPremium) {
   return isPremium
       ? null
       : Container(
-          color: backgroundColor,
-          alignment: Alignment.center,
-          child: adWidget,
-          width: banner == null ? 0 : banner.size.width.toDouble(),
-          height: banner == null ? 0 : banner.size.height.toDouble(),
-        );
+    color: backgroundColor,
+    alignment: Alignment.center,
+    child: adWidget,
+    width: banner == null ? 0 : banner.size.width.toDouble(),
+    height: banner == null ? 0 : banner.size.height.toDouble(),
+  );
 }
 
 double calcListHeight(BuildContext context, BannerAd banner, bool isPremium) {
