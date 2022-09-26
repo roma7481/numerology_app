@@ -2,6 +2,7 @@ import 'dart:collection';
 import 'dart:io';
 
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:numerology/app/business_logic/services/ads/ad_counter.dart';
 
 // String testBannerAppId = 'ca-app-pub-3940256099942544/6300978111';
 String realBannerAppId = 'ca-app-pub-1763151471947181/2896133568';
@@ -16,6 +17,9 @@ class AdManager {
   static int _loadNativeAdAttempts = 0;
   static final Queue<NativeAd> _admobAdQueue = Queue<NativeAd>();
   static NativeAd _admobNativeIntermediateAd;
+  static int _loadInterstitialAttempts = 0;
+  static bool _loaded = false;
+  static InterstitialAd _admobInterstitialAd;
 
   static String get nativeAdUnitId {
     if (Platform.isAndroid) {
@@ -61,7 +65,51 @@ class AdManager {
     await MobileAds.instance.initialize();
     MobileAds.instance.setAppVolume(0);
     MobileAds.instance.setAppMuted(true);
+    _loadInterstitial();
     await _loadNativeAd();
+  }
+
+  static _loadInterstitial() {
+    InterstitialAd.load(
+        adUnitId: interstitialAdUnitId,
+        request: const AdRequest(),
+        adLoadCallback: InterstitialAdLoadCallback(
+          onAdLoaded: (InterstitialAd ad) {
+            _admobInterstitialAd = ad;
+            _loaded = true;
+            ad.fullScreenContentCallback = FullScreenContentCallback(
+                onAdDismissedFullScreenContent: (InterstitialAd ad) {
+                  ad.dispose();
+                  _loaded = false;
+                  _loadInterstitial();
+                },
+                onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
+                  ad.dispose();
+                  _loaded = false;
+                  _loadInterstitial();
+                }
+            );
+          },
+          onAdFailedToLoad: (LoadAdError error) {
+            _loadInterstitialAttempts++;
+            if (_loadInterstitialAttempts < 3) {
+              _loadInterstitial();
+            }
+          },
+        ));
+  }
+
+  static showInterstitial() async{
+    var adCount = await AdsCounter.instance.getAdsCounter();
+
+    if(adCount >= AdsCounter.maxNumClicks){
+      if(_loaded){
+        _admobInterstitialAd?.show();
+        await AdsCounter.instance.resetAdCounter();
+      }
+    } else {
+      await AdsCounter.instance.increaseAdCounter();
+    }
   }
 
   static NativeAd getNativeAd() {

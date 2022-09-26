@@ -1,11 +1,8 @@
-import 'ad_counter.dart';
-import 'interestitial_controller.dart';
+import 'package:numerology/app/business_logic/services/ads/ad_service.dart';
+
 
 Future<void> showInterestialAd(Function() navigateTo) async {
-  await AdsCounter.instance.increaseAdCounter();
-  var adController = InterestitialController.instance;
+  await AdManager.showInterstitial();
 
-  adController.setCallback(() => navigateTo());
-
-  await adController.showInterstitialAd();
+  navigateTo();
 }
