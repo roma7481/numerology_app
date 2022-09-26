@@ -318,7 +318,7 @@ class _PayWallState extends State<PayWall> {
       clipper: BackgroundClipper(),
       child: Container(
         width: MediaQuery.of(context).size.width * 0.35,
-        height: MediaQuery.of(context).size.height * 0.05,
+        height: MediaQuery.of(context).size.height * 0.035,
         child: Padding(
           padding: const EdgeInsets.only(top: 4.0),
           child: Text(
