@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:numerology/app/business_logic/cubit/language/language_cubit.dart';
+import 'package:numerology/app/business_logic/services/ads/ad_service.dart';
 import 'package:numerology/app/constants/colors.dart';
 import 'package:numerology/app/presentation/pages/bottom_navigator/tab_item.dart';
 
@@ -36,7 +37,10 @@ class CupertinoHomeScaffold extends StatelessWidget {
               _buildItem(TabItem.profile),
               _buildItem(TabItem.settings),
             ],
-            onTap: (index) => onSelectTab(TabItem.values[index]),
+            onTap: (index) async {
+              await AdManager.showInterstitial();
+              onSelectTab(TabItem.values[index]);
+            },
           ),
           tabBuilder: (context, index) {
             final item = TabItem.values[index];

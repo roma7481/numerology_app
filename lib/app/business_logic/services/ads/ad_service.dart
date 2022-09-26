@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:numerology/app/business_logic/services/ads/ad_counter.dart';
+import 'package:numerology/app/business_logic/services/premium/premium_controller.dart';
 
 // String testBannerAppId = 'ca-app-pub-3940256099942544/6300978111';
 String realBannerAppId = 'ca-app-pub-1763151471947181/2896133568';
@@ -100,6 +101,12 @@ class AdManager {
   }
 
   static showInterstitial() async{
+    var isPremium = await PremiumController.instance.isPremium();
+    var isAdFree = await PremiumController.instance.isAdsFree();
+    if(isPremium || isAdFree){
+      return;
+    }
+
     var adCount = await AdsCounter.instance.getAdsCounter();
 
     if(adCount >= AdsCounter.maxNumClicks){
