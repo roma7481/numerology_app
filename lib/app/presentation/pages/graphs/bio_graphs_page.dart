@@ -42,7 +42,7 @@ class _BioGraphsPageState extends State<BioGraphsPage> {
       if (state is UserDataReady) {
         profile = state.profile;
       } else if (state is UserDataLoading) {
-        showCupertinoProgressBar();
+        progressBar();
       }
       return _buildPageContent(context);
     });

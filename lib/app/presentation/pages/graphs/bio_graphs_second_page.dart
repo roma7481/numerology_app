@@ -41,7 +41,7 @@ class _BioGraphsSecondPageState extends State<BioGraphsSecondPage> {
         profile = state.profile;
         context.read<BioSecondCubit>().emitBioInit(profile);
       } else if (state is UserDataLoading) {
-        showCupertinoProgressBar();
+        progressBar();
       }
       return _buildPageContent(context);
     });
