@@ -38,3 +38,6 @@ const String privacyPolicyURL =
 const String linkToApp = 'https://apps.apple.com/us/app/numerology-biorhythm/id1564315932';
 const String healingSoundsLink = 'https://healing.page.link/Ak8K';
 
+const String email = 'cbeeapps@gmail.com';
+const String emailSubject = 'Numerology_iOS';
+

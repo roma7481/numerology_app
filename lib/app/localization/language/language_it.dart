@@ -3,6 +3,9 @@ import 'languages.dart';
 class LanguageIt extends Languages {
 
   @override
+  String get contactUs => 'Contattaci';
+
+  @override
   String get healingSoundsPromotion1 => 'Concentrati sulle attività quotidiane con l\'app ';
 
   @override

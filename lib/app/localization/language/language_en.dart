@@ -4,6 +4,9 @@ class LanguageEn extends Languages {
   const LanguageEn();
 
   @override
+  String get contactUs => 'Contact us';
+
+  @override
   String get healingSoundsPromotion1 => 'Focus on daily tasks with ';
 
   @override

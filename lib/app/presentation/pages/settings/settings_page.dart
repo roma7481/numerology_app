@@ -94,6 +94,10 @@ class SettingsPage extends StatelessWidget {
                 _buildSetting(Icons.notifications_none, language.notifications,
                     context, () => _showNotificationDialog(context)),
                 _buildLine(context),
+                _buildSetting(Icons.email_outlined, language.contactUs,
+                  context, () => _openCommunication(),
+                ),
+                _buildLine(context),
                 _buildSetting(Icons.format_size, language.textSize, context,
                     () => _showTextSizeDialog(context)),
                 _buildLine(context),
@@ -185,6 +189,17 @@ class SettingsPage extends StatelessWidget {
         _getMoreApps(context)
       ],
     );
+  }
+
+  void _openCommunication() async {
+    final Uri emailLaunchUri = Uri(
+        scheme: 'mailto',
+        path: email,
+        queryParameters: {
+          'subject': emailSubject
+        }
+    );
+    await launchUrl(Uri.parse(emailLaunchUri.toString()));
   }
 
   Widget _getMoreApps(BuildContext context) {

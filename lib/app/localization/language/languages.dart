@@ -1,8 +1,12 @@
 abstract class Languages {
   const Languages();
 
+  String get contactUs;
+
   String get healingSoundsPromotion1;
+
   String get healingSoundsPromotion2;
+
   String get healingSoundsPromotion3;
 
   String get purchaseError;
