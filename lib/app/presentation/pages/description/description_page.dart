@@ -124,7 +124,7 @@ class DescriptionPage extends StatelessWidget {
         return Column(children: [
           showAdInList(data, index, isPremium),
           ExpandableTile(item.header, item.description,
-              iconPath: item.iconPath),
+              iconPath: item.iconPath, promotionLink: item.promotionAppLink,),
         ]);
       },
       childCount: data.length,

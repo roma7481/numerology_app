@@ -35,5 +35,6 @@ const String websiteURL = 'https://dailymistika.ru';
 const String ourWebsite = 'Наш сайт';
 const String privacyPolicyURL =
     'https://cbeeapps.wixsite.com/numerologyprivacy';
-const String linkToApp =
-    'https://apps.apple.com/us/app/numerology-biorhythm/id1564315932';
+const String linkToApp = 'https://apps.apple.com/us/app/numerology-biorhythm/id1564315932';
+const String healingSoundsLink = 'https://healing.page.link/Ak8K';
+

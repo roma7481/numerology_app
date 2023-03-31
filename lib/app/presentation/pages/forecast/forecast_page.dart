@@ -191,8 +191,7 @@ class _ForecastPageState extends State<ForecastPage> {
     });
   }
 
-  Widget _categoryDayBuilder(
-      Forecast forecast, Function onPressed, bool isPremium) {
+  Widget _categoryDayBuilder(Forecast forecast, Function onPressed, bool isPremium) {
     return BlocBuilder<ForecastIndexCubit, ForecastIndexState>(
         builder: (context, state) {
       if (state is ForecastDayClicked) {
@@ -299,11 +298,15 @@ class _ForecastPageState extends State<ForecastPage> {
 
   Widget _buildCategoryCard(Forecast forecast, int selectedBtn) {
     List<CardData> description = [];
+
     description.add(CardData(
         header: forecast.cardTitle,
-        description: forecast.contents[selectedBtn]));
+        description: forecast.contents[selectedBtn],
+        promotionAppLink: forecast.promotionAppLink));
+
     description.add(CardData(
-        header: Globals.instance.language.info, description: forecast.info));
+        header: Globals.instance.language.info,
+        description: forecast.info));
 
     return buildDayCategory(
       header: forecast.cardTitle,

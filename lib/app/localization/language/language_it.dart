@@ -1,6 +1,16 @@
 import 'languages.dart';
 
 class LanguageIt extends Languages {
+
+  @override
+  String get healingSoundsPromotion1 => 'Concentrati sulle attività quotidiane con l\'app ';
+
+  @override
+  String get healingSoundsPromotion2 => '"Suoni Curativi"';
+
+  @override
+  String get healingSoundsPromotion3 => '';
+
   @override
   String get selectLanguage => 'Per favore, seleziona la lingua';
 

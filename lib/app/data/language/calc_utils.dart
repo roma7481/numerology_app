@@ -5,6 +5,7 @@ import 'package:numerology/app/business_logic/services/category_calc.dart';
 import 'package:numerology/app/business_logic/services/date_service.dart';
 import 'package:numerology/app/business_logic/services/premium/premium_controller.dart';
 import 'package:numerology/app/constants/icon_path.dart';
+import 'package:numerology/app/constants/strings.dart';
 import 'package:numerology/app/data/data_provider/numerology_helper.dart';
 import 'package:numerology/app/data/language/parser_utils.dart';
 import 'package:numerology/app/data/models/profile.dart';
@@ -541,7 +542,7 @@ class CategoryProvider {
       tableName = 'PERSONAL_DAY_IT';
     }
 
-    return await _getDescriptionPage(context, tableName, calc, header);
+    return await _getDescriptionPage(context, tableName, calc, header, promotionLink: healingSoundsLink);
   }
 
   Future<String> getDayContent(Profile profile) async {
@@ -1568,14 +1569,14 @@ class CategoryProvider {
   }
 
   Future<DescriptionPage> _getDescriptionPage(
-      BuildContext context, String tableName, int calc, String header) async {
+      BuildContext context, String tableName, int calc, String header, {String promotionLink = ''}) async {
     var description = await runQuery(
         context, 'select description from "$tableName"  where  number = $calc');
     var info = await runQuery(context,
         'select description from TABLE_DESCRIPTION where table_name =  "$tableName"');
 
     List<CardData> data = [];
-    data.add(CardData(header: language.description, description: description));
+    data.add(CardData(header: language.description, description: description, promotionAppLink: promotionLink));
     data.add(_buildInfoData(info));
 
     return DescriptionPage(

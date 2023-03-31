@@ -12,6 +12,7 @@ import 'package:numerology/app/constants/strings.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/localization/language/language_ru.dart';
 import 'package:numerology/app/localization/language/languages.dart';
+import 'package:numerology/app/presentation/common_widgets/ad_widget_tag.dart';
 import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
 import 'package:numerology/app/presentation/common_widgets/error_dialog.dart';
 import 'package:numerology/app/presentation/common_widgets/progress_bar.dart';
@@ -246,24 +247,6 @@ class SettingsPage extends StatelessWidget {
     );
   }
 
-  Widget adWidgetTag() {
-    return Container(
-      width: 14,
-      height: 14,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4.0),
-        color: Colors.blueAccent,
-      ),
-      child: const Center(
-          child: Text(
-        'AD',
-        style: TextStyle(
-          fontSize: 10,
-          color: Colors.white,
-        ),
-      )),
-    );
-  }
 
   Widget _buildSetting(
       IconData icon, String text, BuildContext context, Function onClick) {

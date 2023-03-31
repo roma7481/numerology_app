@@ -6,6 +6,7 @@ class Forecast {
   final List<String> contents;
   final List<int> calc;
   final String info;
+  String promotionAppLink;
 
   Forecast({
     this.info,
@@ -15,5 +16,6 @@ class Forecast {
     this.iconPath,
     this.btnTitles,
     this.contents,
+    this.promotionAppLink = ''
   });
 }
