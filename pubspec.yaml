@@ -23,34 +23,34 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  firebase_core: ^1.0.4
-  firebase_analytics: ^9.3.4
+  firebase_core: ^2.9.0
+  firebase_analytics: ^10.2.0
   google_mobile_ads: ^2.0.1
 
-  google_fonts: ^2.0.0
-  flutter_bloc: ^7.0.0
-  hydrated_bloc: ^7.0.0
+  google_fonts: ^4.0.3
+  flutter_bloc: ^8.1.2
+  hydrated_bloc: ^9.1.0
   flutter_datetime_picker: ^1.5.0
-  intl: ^0.17.0
+  intl: ^0.18.0
   fluttertoast: ^8.0.6
   sqflite: ^2.0.0+3
   path: ^1.8.0
-  flutter_svg: ^0.19.3
-  flutter_svg_provider: ^0.1.8
+  flutter_svg: ^1.1.6
+  flutter_svg_provider: ^1.0.3
   shared_preferences: ^2.0.5
-  nuts_activity_indicator: ^0.1.1
-  percent_indicator: ^3.0.1
+  nuts_activity_indicator: ^1.0.0
+  percent_indicator: ^4.2.3
   fl_chart: ^0.35.0
-  flutter_local_notifications: ^5.0.0+1
-  flutter_native_timezone: ^1.0.10
+  flutter_local_notifications: ^8.2.0
+  flutter_native_timezone: ^2.0.0
   url_launcher: ^6.0.3
-  share: ^0.6.5+4
-  flutter_funding_choices: ^0.2.0
+  share: ^2.0.4
+  flutter_funding_choices: ^0.3.0+2
   notification_permissions: ^0.6.1
   in_app_purchase: ^3.1.5
   in_app_purchase_storekit: ^0.3.6+2
   in_app_review: ^2.0.2
-  cloud_firestore: ^3.4.7
+  cloud_firestore: ^4.5.0
   cached_network_image: ^3.2.2
 
   # The following adds the Cupertino Icons font to your application.

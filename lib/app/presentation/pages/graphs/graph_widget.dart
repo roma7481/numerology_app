@@ -256,7 +256,7 @@ class _GraphWidgetState extends State<GraphWidget> {
       spots: spots,
       isCurved: true,
       colors: gradient,
-      barWidth: 5,
+      barWidth: 12,
       isStrokeCapRound: true,
       dotData: FlDotData(
         show: false,
