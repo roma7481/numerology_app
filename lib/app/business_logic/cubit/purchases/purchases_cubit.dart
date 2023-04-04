@@ -1,9 +1,7 @@
 import 'dart:async';
-import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
-import 'package:in_app_purchase/store_kit_wrappers.dart';
+import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 import 'package:meta/meta.dart';
 import 'package:numerology/app/business_logic/services/premium/premium_controller.dart';
 
@@ -23,73 +21,49 @@ const Set<String> _kIds = {
 
 class PurchasesCubit extends Cubit<PurchasesState> {
   StreamSubscription<List<PurchaseDetails>> _subscription;
-  InAppPurchaseConnection _connection = InAppPurchaseConnection.instance;
+  InAppPurchase _connection = InAppPurchase.instance;
   List<ProductDetails> _productDetails;
+  var numTries = 0;
 
-  PurchasesCubit() : super(PurchasesInitLoading()) {
+  var purchaseNotAvailable = Exception('InAppPurchaseConnection not available');
+  var productNotFound = Exception('no kIds found for products');
+
+  PurchasesCubit() : super(PurchasesLoading()) {
     emitInitPurchases();
   }
 
   List<ProductDetails> get productDetails => _productDetails;
 
   void emitInitPurchases() async {
-    Stream purchaseUpdates =
-        InAppPurchaseConnection.instance.purchaseUpdatedStream;
+    Stream purchaseUpdates = _connection.purchaseStream;
 
     _subscription = purchaseUpdates.listen((purchases) {
       _listenToPurchaseUpdated(purchases);
     }, onDone: () {
       _subscription.cancel();
     }, onError: (error) {
-      emit(PurchasesInitError(error));
+      emit(PurchasesInitFailed(error));
     });
 
     final bool available = await _connection.isAvailable();
     if (!available) {
-      emit(PurchasesInitError(
-          Exception('InAppPurchaseConnection not available')));
+      emit(PurchasesInitFailed(purchaseNotAvailable));
     }
 
     _productDetails = await _getProdDetails();
-    _checkPastPurchases();
-    emit(PurchasesInitSuccess(productDetails: _productDetails));
+    await _connection.restorePurchases();
+    emit(PurchasesReady(productDetails: _productDetails));
   }
 
-  Future<List<ProductDetails>> _getProdDetails() async {
-    final ProductDetailsResponse response =
-        await InAppPurchaseConnection.instance.queryProductDetails(_kIds);
-    if (response.notFoundIDs.isNotEmpty) {
-      emit(PurchasesInitError(Exception('no kIds found for products')));
+  void retryInitPurchase(){
+    if(numTries < 3){
+      emitInitPurchases();
+      numTries++;
     }
-    return response.productDetails;
   }
 
-  Future<void> restorePurchases() async {
-    await _checkPastPurchases();
-    emit(PurchasesRestored());
-  }
-
-  Future<void> _checkPastPurchases() async {
-    PremiumController.instance.disablePremium();
-    PremiumController.instance.disableCompat();
-    PremiumController.instance.disableProfiles();
-    PremiumController.instance.disableRemoveAds();
-
-    final QueryPurchaseDetailsResponse response =
-        await InAppPurchaseConnection.instance.queryPastPurchases();
-    if (response.error != null) {
-      emit(PurchasesInitError(Exception(response.error.message)));
-    }
-    for (PurchaseDetails purchase in response.pastPurchases) {
-      if (Platform.isIOS) {
-        InAppPurchaseConnection.instance.completePurchase(purchase);
-      }
-      if (purchase.status == PurchaseStatus.purchased) {
-        PremiumController.instance.enablePremium();
-      } else {
-        _disablePremium(purchase.productID);
-      }
-    }
+  void resetNumberPurchaseInitTries(){
+    numTries = 0;
   }
 
   Future<void> emitBuyPremium() async {
@@ -125,26 +99,60 @@ class PurchasesCubit extends Cubit<PurchasesState> {
     }
   }
 
-  Future<void> _listenToPurchaseUpdated(
-      List<PurchaseDetails> purchaseDetailsList) async {
+  Future<List<ProductDetails>> _getProdDetails() async {
+    final ProductDetailsResponse response = await _connection.queryProductDetails(_kIds);
+    if (response.notFoundIDs.isNotEmpty) {
+      emit(PurchasesInitFailed(productNotFound));
+    }
+    return response.productDetails;
+  }
+
+  Future<void> restorePurchases() async {
+    await _connection.restorePurchases();
+    emit(PurchasesRestored());
+  }
+
+
+  Future<void> _listenToPurchaseUpdated(List<PurchaseDetails> purchaseDetailsList) async {
     purchaseDetailsList.forEach((PurchaseDetails purchaseDetails) async {
       if (purchaseDetails.status == PurchaseStatus.pending) {
         emit(PurchasesLoading());
       } else {
         if (purchaseDetails.status == PurchaseStatus.error) {
-          InAppPurchaseConnection.instance.completePurchase(purchaseDetails);
+          _disablePremium(purchaseDetails.productID);
+          emit(PurchasesError());
+        } else if (purchaseDetails.status == PurchaseStatus.canceled) {
+          _disablePremium(purchaseDetails.productID);
           emit(PurchasesCanceled());
         } else if (purchaseDetails.status == PurchaseStatus.purchased) {
           _enablePremium(purchaseDetails.productID);
           emit(PurchasesSuccess());
+        }  else if (purchaseDetails.status == PurchaseStatus.restored) {
+          if (purchaseDetails.error != null) {
+            PremiumController.instance.disablePremium();
+            emit(PurchasesError());
+          }
+          _verifyPurchase(purchaseDetailsList);
         }
         if (purchaseDetails.pendingCompletePurchase) {
-          await InAppPurchaseConnection.instance
-              .completePurchase(purchaseDetails);
+          await _connection.completePurchase(purchaseDetails);
         }
       }
     });
   }
+
+  Future<void> _verifyPurchase(List<PurchaseDetails> purchaseDetails) async {
+    for (PurchaseDetails purchase in purchaseDetails) {
+      if(_kIds.contains(purchase.productID)){
+        _enablePremium(purchase.productID);
+        emit(PurchasesSuccess());
+      } else {
+        _disablePremium(purchase.productID);
+        emit(PurchasesError());
+      }
+    }
+  }
+
 
   void _enablePremium(String productID) {
     switch (productID) {

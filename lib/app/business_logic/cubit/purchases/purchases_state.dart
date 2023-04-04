@@ -3,21 +3,19 @@ part of 'purchases_cubit.dart';
 @immutable
 abstract class PurchasesState {}
 
-class PurchasesInitLoading extends PurchasesState {}
+class PurchasesLoading extends PurchasesState {}
 
-class PurchasesInitError extends PurchasesState {
+class PurchasesInitFailed extends PurchasesState {
   final Exception exception;
 
-  PurchasesInitError(this.exception);
+  PurchasesInitFailed(this.exception);
 }
 
-class PurchasesInitSuccess extends PurchasesState {
+class PurchasesReady extends PurchasesState {
   final List<ProductDetails> productDetails;
 
-  PurchasesInitSuccess({@required this.productDetails});
+  PurchasesReady({@required this.productDetails});
 }
-
-class PurchasesLoading extends PurchasesState {}
 
 class PurchasesError extends PurchasesState {}
 

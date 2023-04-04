@@ -47,7 +47,8 @@ dependencies:
   share: ^0.6.5+4
   flutter_funding_choices: ^0.2.0
   notification_permissions: ^0.6.1
-  in_app_purchase: ^0.5.2
+  in_app_purchase: ^3.1.5
+  in_app_purchase_storekit: ^0.3.6+2
   in_app_review: ^2.0.2
   cloud_firestore: ^3.4.7
   cached_network_image: ^3.2.2
