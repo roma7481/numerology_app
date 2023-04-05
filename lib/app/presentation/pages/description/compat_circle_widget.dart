@@ -13,8 +13,8 @@ class CompatCircle extends CustomPainter {
     double width = MediaQuery.of(context).size.width;
 
     var paint = Paint()
-      ..color = circleColor
-      ..strokeWidth = 3.0
+      ..shader = circleGradientSmall
+      ..strokeWidth = 8.0
       ..style = PaintingStyle.stroke;
     var radius = 30.0;
     var center = Offset((width) * 0.2, 40);

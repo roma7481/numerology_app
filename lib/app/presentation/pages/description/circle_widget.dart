@@ -13,8 +13,8 @@ class OpenPainter extends CustomPainter {
     double width = MediaQuery.of(context).size.width;
 
     var paint = Paint()
-      ..color = circleColor
-      ..strokeWidth = 4.0
+      ..shader = circleGradientBig      // ..color = circleColor
+      ..strokeWidth = 10.0
       ..style = PaintingStyle.stroke;
     var radius = 50.0;
     var center = Offset((width) * 0.5, 100);

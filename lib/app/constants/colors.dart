@@ -1,4 +1,4 @@
-import 'dart:ui';
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 
@@ -46,8 +46,27 @@ const Color activeProgress = Color.fromRGBO(128, 202, 255, 1);
 const Color inactiveProgress = Color.fromRGBO(0, 63, 115, 1);
 
 /// DESCRIPTION PAGE ///
-const Color circleColor = Color.fromRGBO(252, 186, 3, 1);
+const Color circleColor1 = Color.fromRGBO(255, 204, 0, 1.0);
+const Color circleColor2 = Color.fromRGBO(190, 83, 0, 1.0);
 const Color arrowColor = Color.fromRGBO(252, 186, 3, 1);
+ui.Gradient circleGradientBig = ui.Gradient.linear(
+  Offset(0, 0),
+  Offset(0, 160),
+  [
+    circleColor1,
+    circleColor2,
+  ],
+);
+
+ui.Gradient circleGradientSmall = ui.Gradient.linear(
+  Offset(0, 0),
+  Offset(0, 80),
+  [
+    circleColor1,
+    circleColor2,
+  ],
+);
+
 
 /// MATRIX TILE ///
 const Color unselectedTileColor = Color.fromRGBO(0, 63, 115, 1);
@@ -96,7 +115,7 @@ const LinearGradient spiritGradient = LinearGradient(colors: spiritColors);
 const LinearGradient awareGradient = LinearGradient(colors: awareColors);
 const LinearGradient intuitGradient = LinearGradient(colors: intuitColors);
 const LinearGradient aestheticGradient =
-    LinearGradient(colors: aestheticColors);
+LinearGradient(colors: aestheticColors);
 
 const List<Color> physicalColors = [
   bioPhysicalCircleStart,
