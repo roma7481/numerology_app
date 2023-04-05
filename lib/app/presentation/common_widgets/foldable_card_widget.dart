@@ -16,17 +16,12 @@ class ExpandableTile extends StatefulWidget {
   ExpandableTile(this.header, this.content, {this.iconPath, this.promotionLink = ''});
 
   @override
-  _ExpandableTileState createState() => _ExpandableTileState(header,content,iconPath,promotionLink);
+  _ExpandableTileState createState() => _ExpandableTileState();
 }
 
 class _ExpandableTileState extends State<ExpandableTile> {
   bool _isExpand = false;
-  final String _header;
-  final String _content;
-  final String _iconPath;
-  final String _promotionLink;
 
-  _ExpandableTileState(this._header, this._content, this._iconPath, this._promotionLink);
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +51,7 @@ class _ExpandableTileState extends State<ExpandableTile> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        buildHeader(_header, _iconPath),
+        buildHeader(widget.header, widget.iconPath),
         _isExpand ? Container() : _buildCardContent(),
         _buildReadMore(),
       ],
@@ -69,7 +64,7 @@ class _ExpandableTileState extends State<ExpandableTile> {
           top: 16.0, left: 16.0, right: 8.0, bottom: 16.0),
       child: Column(
         children: [
-          Text(_content,
+          Text(widget.content,
               maxLines: !_isExpand ? 4 : 2000,
               style: descriptionContentStyle(),
               overflow: !_isExpand ? TextOverflow.ellipsis : TextOverflow.visible),
@@ -80,13 +75,13 @@ class _ExpandableTileState extends State<ExpandableTile> {
   }
 
   Widget _buildHealingSoundsPromotion() {
-    if(!_isExpand || _promotionLink.isEmpty){
+    if(!_isExpand || widget.promotionLink.isEmpty){
       return Container();
     }
 
     return InkWell(
       onTap: () {
-        launchUrl(Uri.parse(_promotionLink),mode: LaunchMode.externalApplication);
+        launchUrl(Uri.parse(widget.promotionLink),mode: LaunchMode.externalApplication);
       },
       child: Padding(
         padding: const EdgeInsets.only(top: 12.0),
