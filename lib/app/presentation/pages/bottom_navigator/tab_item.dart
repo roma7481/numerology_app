@@ -25,7 +25,7 @@ class TabItemDataMap {
           TabItemData(title: language.forecastTabText, icon: Icons.date_range),
       TabItem.profile: TabItemData(title: language.profile, icon: Icons.person),
       TabItem.settings:
-          TabItemData(title: language.settingsTabText, icon: Icons.more_vert),
+          TabItemData(title: language.settingsTabText, icon: Icons.settings),
     };
   }
 }

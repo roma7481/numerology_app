@@ -33,8 +33,8 @@ const Color welcomeScreenTextColor = Colors.white;
 
 /// BOTTOM NAVIGATION ///
 const Color bottomNavBarColor = Color.fromRGBO(0, 21, 38, 1);
-const Color itemTapPressedColor = Color.fromRGBO(128, 202, 255, 1);
-const Color itemTapDefaultColor = Color.fromRGBO(65, 112, 150, 1);
+const Color itemTapPressedColor = Color.fromRGBO(86, 176, 255, 1.0);
+const Color itemTapDefaultColor = Color.fromRGBO(32, 84, 131, 1.0);
 
 /// HOME PAGE ///
 const Color categoryTileText = Colors.white;
