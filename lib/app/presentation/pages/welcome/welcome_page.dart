@@ -62,6 +62,7 @@ class _WelcomePageState extends State<WelcomePage> {
         padding: const EdgeInsets.only(left: 16.0, top: 16.0, bottom: 16.0),
         child: Text(
           Globals.instance.getLanguage().welcomeToNumerology,
+          textAlign: TextAlign.center,
           style: headerTextStyle,
         ),
       ),
@@ -71,7 +72,7 @@ class _WelcomePageState extends State<WelcomePage> {
   _buildWelcomeText() {
     return SliverToBoxAdapter(
       child: Padding(
-        padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+        padding: const EdgeInsets.only(left: 32.0, right: 32.0),
         child: Text(
           Globals.instance.getLanguage().welcomeText,
           style: contentTextStyle,
@@ -123,7 +124,7 @@ class _WelcomePageState extends State<WelcomePage> {
   _buildContinueButton(BuildContext context) {
     return SliverToBoxAdapter(
       child: Padding(
-        padding: const EdgeInsets.only(top: 8.0),
+        padding: const EdgeInsets.only(top: 28.0),
         child: buildStandardButton(
           text: Globals.instance.getLanguage().continueText,
           color: yellowButtonColor,

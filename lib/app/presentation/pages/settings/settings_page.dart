@@ -214,8 +214,7 @@ class SettingsPage extends StatelessWidget {
               bloc: otherAppCubit,
               builder: (context, state) {
                 if (state is OtherAppsLoading) {
-                  return const Center(
-                      child: CircularProgressIndicator(color: Colors.white));
+                  return progressBar();
                 } else if (state is OtherAppsLoaded) {
                   return Row(
                       crossAxisAlignment: CrossAxisAlignment.start,

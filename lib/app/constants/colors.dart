@@ -76,7 +76,7 @@ const Color selectedTileColor2 = Color.fromRGBO(0, 152, 199, 1.0);
 /// SETTINGS ///
 const Color settingsIconColor = Color.fromRGBO(66, 142, 235, 1);
 const Color payWallIconColor = Color.fromRGBO(252, 186, 3, 1);
-const Color cardUrlLinkColor = Color.fromRGBO(201, 222, 255, 1);
+const Color cardUrlLinkColor = Color.fromRGBO(252, 186, 3, 1);
 const Color cardLineColor = Color.fromRGBO(66, 142, 235, 1);
 const Color cupertinoSwitchActive = Color.fromRGBO(128, 202, 255, 1);
 const Color datePickerColor = Colors.white;

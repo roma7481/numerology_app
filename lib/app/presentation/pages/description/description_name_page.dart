@@ -145,8 +145,9 @@ class _DescriptionNameBasedPageState extends State<DescriptionNameBasedPage> {
   }
 
   Widget _buildNameSettingsText() {
+    double screenHeight = MediaQuery.of(context).size.height;
     return Padding(
-      padding: const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
+      padding: EdgeInsets.only(top: screenHeight * 0.15, left: 16.0, right: 16.0),
       child: Text(
         Globals.instance.getLanguage().categoryRequiresName,
         textAlign: TextAlign.center,
@@ -160,7 +161,7 @@ class _DescriptionNameBasedPageState extends State<DescriptionNameBasedPage> {
       child: Align(
         alignment: Alignment.bottomCenter,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
               padding: const EdgeInsets.only(bottom: 8.0),
@@ -204,7 +205,7 @@ class _DescriptionNameBasedPageState extends State<DescriptionNameBasedPage> {
 
   Widget _buildNotice() {
     return Padding(
-      padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+      padding: const EdgeInsets.only(top: 28.0, left: 32.0, right: 32.0),
       child: Text(
         Globals.instance.language.nameSettingsNotice,
         style: noticeTextStyle,

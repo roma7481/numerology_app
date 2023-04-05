@@ -78,8 +78,9 @@ class _NameSettingsPageState extends State<NameSettingsPage> {
   }
 
   Widget _buildHeader() {
+    var height = MediaQuery.of(context).size.height;
     return Padding(
-      padding: const EdgeInsets.only(top: 32.0, bottom: 16.0),
+      padding: EdgeInsets.only(top: height * 0.1, bottom: 16.0),
       child: Text(
         Globals.instance.getLanguage().nameSettings,
         style: headerTextStyle,
@@ -89,7 +90,7 @@ class _NameSettingsPageState extends State<NameSettingsPage> {
 
   Widget _buildNameSettingsText() {
     return Padding(
-      padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+      padding: const EdgeInsets.only(left: 32.0, right: 32.0),
       child: Text(
         Globals.instance.getLanguage().nameSettingsText,
         style: contentTextStyle,
@@ -102,10 +103,10 @@ class _NameSettingsPageState extends State<NameSettingsPage> {
       child: Align(
         alignment: Alignment.bottomCenter,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
+              padding: const EdgeInsets.only(top: 32.0, bottom: 8.0),
               child: Container(
                 child: buildCustomButton(
                   Globals.instance.getLanguage().continueText,
@@ -146,7 +147,7 @@ class _NameSettingsPageState extends State<NameSettingsPage> {
 
   Widget _buildNotice() {
     return Padding(
-      padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+      padding: const EdgeInsets.only(top: 16.0, left: 32.0, right: 32.0),
       child: Text(
         Globals.instance.language.nameSettingsNotice,
         style: noticeTextStyle,

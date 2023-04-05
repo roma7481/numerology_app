@@ -78,8 +78,18 @@ class _DescriptionPartnerDobBasedPageState
   Widget _showForm(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          title: _buildHeader(),
+        ),
         body: _buildContent(context),
       ),
+    );
+  }
+
+  Widget _buildHeader() {
+    return Text(
+      Globals.instance.getLanguage().compatibility,
+      style: headerTextStyle,
     );
   }
 
@@ -98,25 +108,22 @@ class _DescriptionPartnerDobBasedPageState
 
   Widget _buildContinueButton(BuildContext context) {
     return Expanded(
-      child: Align(
-        alignment: Alignment.bottomCenter,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: Container(
-                child: buildCustomButton(
-                  Globals.instance.getLanguage().continueText,
-                  yellowButtonColor,
-                  () => _onNextPressed(context),
-                  continueButtonTextStyle,
-                  padding: 32.0,
-                ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 56.0, bottom: 8.0),
+            child: Container(
+              child: buildCustomButton(
+                Globals.instance.getLanguage().continueText,
+                yellowButtonColor,
+                    () => _onNextPressed(context),
+                continueButtonTextStyle,
+                padding: 32.0,
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -138,7 +145,7 @@ class _DescriptionPartnerDobBasedPageState
       children: [
         Padding(
           padding:
-              EdgeInsets.only(left: 16.0, top: height * 0.15, bottom: 16.0),
+              EdgeInsets.only(left: 16.0, top: height * 0.25, bottom: 48.0),
           child: Text(
             Globals.instance.getLanguage().enterPartnerDob,
             style: radioButtonTextStyle,
