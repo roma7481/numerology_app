@@ -16,7 +16,6 @@ Widget buildMatrixTileButton(
       child: Container(
         height: sideLength,
         width: sideLength,
-        // color: isSelected ? selectedTileColor : unselectedTileColor,
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
