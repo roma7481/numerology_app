@@ -16,7 +16,17 @@ Widget buildMatrixTileButton(
       child: Container(
         height: sideLength,
         width: sideLength,
-        color: isSelected ? selectedTileColor : unselectedTileColor,
+        // color: isSelected ? selectedTileColor : unselectedTileColor,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              isSelected ? selectedTileColor2 : unselectedTileColor,
+              isSelected ? selectedTileColor1 : unselectedTileColor,
+            ],
+          ),
+        ),
         child: TextButton(
             child: Text(
               text,

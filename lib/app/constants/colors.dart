@@ -70,7 +70,8 @@ ui.Gradient circleGradientSmall = ui.Gradient.linear(
 
 /// MATRIX TILE ///
 const Color unselectedTileColor = Color.fromRGBO(0, 63, 115, 1);
-const Color selectedTileColor = Color.fromRGBO(40, 77, 181, 1);
+const Color selectedTileColor1 = Color.fromRGBO(40, 77, 181, 1);
+const Color selectedTileColor2 = Color.fromRGBO(0, 152, 199, 1.0);
 
 /// SETTINGS ///
 const Color settingsIconColor = Color.fromRGBO(66, 142, 235, 1);
