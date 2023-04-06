@@ -36,7 +36,7 @@ BannerAd getBanner() {
 
 Widget showBanner(AdWidget adWidget, BannerAd banner, bool isPremium) {
   if (adWidget == null || banner == null){
-    return Container();
+    return Container(width: 0,height: 0,);
   }
   return isPremium
       ? null
