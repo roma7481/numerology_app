@@ -36,7 +36,7 @@ const String ourWebsite = 'Наш сайт';
 const String privacyPolicyURL =
     'https://cbeeapps.wixsite.com/numerologyprivacy';
 const String linkToApp = 'https://apps.apple.com/us/app/numerology-biorhythm/id1564315932';
-const String healingSoundsLink = 'https://healing.page.link/Tqvv';
+const String healingSoundsLink = 'https://apps.apple.com/us/app/healing-sounds-sound-therapy/id1625569788';
 
 const String email = 'cbeeapps@gmail.com';
 const String emailSubject = 'Numerology_iOS';
