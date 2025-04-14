@@ -7,9 +7,9 @@ import 'package:numerology/app/presentation/navigators/navigator.dart';
 
 Widget buildPremiumCard(
   BuildContext context,
-  String header,
+  String? header,
   String description,
-  String iconPath,
+  String? iconPath,
 ) {
   return CustomCard(
     child: _customButton(
@@ -35,7 +35,7 @@ Widget buildPremiumCard(
   );
 }
 
-Widget _customButton({Widget child, VoidCallback onPressed}) {
+Widget _customButton({Widget? child, VoidCallback? onPressed}) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: GestureDetector(

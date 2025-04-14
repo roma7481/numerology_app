@@ -1,14 +1,14 @@
 class Profile {
-  final int profileId;
+  final int? profileId;
 
-  final String profileName;
-  final String firstName;
-  final String lastName;
-  final String middleName;
-  final int dob;
-  final int weddingDate;
-  final int partnerDob;
-  final int isSelected;
+  final String? profileName;
+  final String? firstName;
+  final String? lastName;
+  final String? middleName;
+  final int? dob;
+  final int? weddingDate;
+  final int? partnerDob;
+  final int? isSelected;
 
   Profile({
     this.profileId,
@@ -24,15 +24,15 @@ class Profile {
 
   factory Profile.fromMap(Map<String, dynamic> map) {
     return new Profile(
-      profileId: map['profileId'] as int,
-      profileName: map['profileName'] as String,
-      firstName: map['firstName'] as String,
-      lastName: map['lastName'] as String,
-      middleName: map['middleName'] as String,
-      dob: map['dob'] as int,
-      weddingDate: map['weddingDate'] as int,
-      partnerDob: map['partnerDob'] as int,
-      isSelected: map['isSelected'] as int,
+      profileId: map['profileId'] as int?,
+      profileName: map['profileName'] as String?,
+      firstName: map['firstName'] as String?,
+      lastName: map['lastName'] as String?,
+      middleName: map['middleName'] as String?,
+      dob: map['dob'] as int?,
+      weddingDate: map['weddingDate'] as int?,
+      partnerDob: map['partnerDob'] as int?,
+      isSelected: map['isSelected'] as int?,
     );
   }
 
@@ -52,15 +52,15 @@ class Profile {
   }
 
   Profile copyWith({
-    int profileId,
-    String profileName,
-    String firstName,
-    String lastName,
-    String middleName,
-    int dob,
-    int weddingDate,
-    int partnerDob,
-    int isSelected,
+    int? profileId,
+    String? profileName,
+    String? firstName,
+    String? lastName,
+    String? middleName,
+    int? dob,
+    int? weddingDate,
+    int? partnerDob,
+    int? isSelected,
   }) {
     if ((profileId == null || identical(profileId, this.profileId)) &&
         (profileName == null || identical(profileName, this.profileName)) &&

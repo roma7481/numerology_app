@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/data/models/profile.dart';
 
-Future<bool> deleteProfileDialog(BuildContext context, Profile profile) async {
+Future<bool?> deleteProfileDialog(BuildContext context, Profile profile) async {
   var language = Globals.instance.getLanguage();
   return showDialog(
     context: context,

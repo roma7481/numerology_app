@@ -11,17 +11,17 @@ class UserDataReady extends UserDataState {
   final CategoryModel dayCategory;
 
   UserDataReady({
-    @required this.dayCategory,
-    @required this.profile,
-    @required this.categories,
-    @required this.bio,
+    required this.dayCategory,
+    required this.profile,
+    required this.categories,
+    required this.bio,
   });
 }
 
 class UserDataInit extends UserDataState {}
 
 class UserDataError extends UserDataState {
-  final Exception exception;
+  final Object exception;
 
-  UserDataError({@required this.exception});
+  UserDataError({required this.exception});
 }

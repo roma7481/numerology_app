@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:numerology/app/constants/colors.dart';
 
 class CustomCard extends StatelessWidget {
-  const CustomCard({Key key, @required this.child}) : super(key: key);
+  const CustomCard({Key? key, required this.child}) : super(key: key);
 
   final Widget child;
 

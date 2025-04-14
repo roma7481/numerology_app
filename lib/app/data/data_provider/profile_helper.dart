@@ -10,10 +10,10 @@ class ProfileDBProvider {
   static final ProfileDBProvider instance =
       ProfileDBProvider._privateConstructor();
 
-  Future<void> insertProfile(Profile profile) async {
+  Future<void> insertProfile(Profile? profile) async {
     return _lock.synchronized(() async {
       var db = ProfileDBRepository.instance;
-      await db.insertEntity(profile, (profile) => profile.toMap());
+      await db.insertEntity(profile, (dynamic profile) => profile.toMap());
       await db.closeDB();
     });
   }
@@ -27,7 +27,7 @@ class ProfileDBProvider {
     });
   }
 
-  Future<Profile> getProfile(int profileId) async {
+  Future<Profile?> getProfile(int profileId) async {
     return _lock.synchronized(() async {
       var db = ProfileDBRepository.instance;
       var retrievedProfile =
@@ -37,11 +37,11 @@ class ProfileDBProvider {
     });
   }
 
-  Future<void> updateProfile(Profile profile) async {
+  Future<void> updateProfile(Profile? profile) async {
     return _lock.synchronized(() async {
       var db = ProfileDBRepository.instance;
       var profiles = await db.updateEntity(
-          profile, profile.profileId, (profile) => profile.toMap());
+          profile, profile!.profileId, (dynamic profile) => profile.toMap());
       await db.closeDB();
       return profiles;
     });

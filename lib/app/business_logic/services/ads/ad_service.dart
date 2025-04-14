@@ -16,11 +16,11 @@ String realNativeAppId = 'ca-app-pub-1763151471947181/5330725218';
 
 class AdManager {
   static int _loadNativeAdAttempts = 0;
-  static final Queue<NativeAd> _admobAdQueue = Queue<NativeAd>();
-  static NativeAd _admobNativeIntermediateAd;
+  static final Queue<NativeAd?> _admobAdQueue = Queue<NativeAd?>();
+  static NativeAd? _admobNativeIntermediateAd;
   static int _loadInterstitialAttempts = 0;
   static bool _loaded = false;
-  static InterstitialAd _admobInterstitialAd;
+  static InterstitialAd? _admobInterstitialAd;
 
   static String get nativeAdUnitId {
     if (Platform.isAndroid) {
@@ -119,7 +119,7 @@ class AdManager {
     }
   }
 
-  static NativeAd getNativeAd() {
+  static NativeAd? getNativeAd() {
     if (_admobAdQueue.isNotEmpty) {
       _loadNativeAd();
       final ad = _admobAdQueue.first;

@@ -16,9 +16,9 @@ import 'input_text_tile.dart';
 import 'name_utils.dart';
 
 class NameSettingsPage extends StatefulWidget {
-  final int dob;
+  final int? dob;
 
-  const NameSettingsPage({Key key, this.dob}) : super(key: key);
+  const NameSettingsPage({Key? key, this.dob}) : super(key: key);
 
   @override
   _NameSettingsPageState createState() => _NameSettingsPageState();

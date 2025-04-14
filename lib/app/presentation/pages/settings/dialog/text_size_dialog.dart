@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:numerology/app/business_logic/cubit/text_size_cubit/text_size_cubit.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/constants/strings.dart';
@@ -57,7 +56,7 @@ class TextSizeDialogState extends State<TextSizeDialog> {
     );
   }
 
-  Widget _getButtonText(String buttonText) {
+  Widget _getButtonText(String? buttonText) {
     var language = Globals.instance.getLanguage();
     if (buttonText == small) {
       return Text(language.small);
@@ -66,45 +65,4 @@ class TextSizeDialogState extends State<TextSizeDialog> {
     }
     return Text(language.medium);
   }
-
-  ///uncomment when platform dependent dialog is required
-/*
-  Widget _materialDialog(BuildContext context) {
-    var language = globals.Globals.instance.getLanguage();
-    var _selectedRadio = context.watch<TextSizeCubit>().state.buttonId;
-    return AlertDialog(
-      title: Text(
-        language.textSize,
-        style: dialogHeaderTextStyle,
-      ),
-      content: StatefulBuilder(
-        builder: (BuildContext context, StateSetter setState) {
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            children: List<Widget>.generate(allButtons.length, (int index) {
-              var button = allButtons[index];
-              return Row(
-                children: [
-                  Radio<int>(
-                    value: index,
-                    groupValue: _selectedRadio,
-                    onChanged: (int textSizeMode) async {
-                      setState(() {
-                        _selectedRadio = textSizeMode;
-                        context
-                            .read<TextSizeCubit>()
-                            .emitTextSize(textSizeMode);
-                      });
-                    },
-                  ),
-                  _getButtonText(button),
-                ],
-              );
-            }),
-          );
-        },
-      ),
-    );
-  }
-*/
 }

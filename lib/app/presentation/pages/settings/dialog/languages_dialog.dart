@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:numerology/app/business_logic/cubit/language/language_cubit.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
@@ -47,7 +46,7 @@ class _LanguageDialogState extends State<LanguageDialog> {
         style: dialogContentTextStyle,
       ),
       actions: List<Widget>.generate(allButtons.length, (int index) {
-        var languageItem = allButtons[index];
+        var languageItem = allButtons[index]!;
         return CupertinoActionSheetAction(
           onPressed: () {
             setState(() {

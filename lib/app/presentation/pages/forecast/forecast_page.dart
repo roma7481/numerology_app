@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:numerology/app/business_logic/cubit/forecast/forecast.dart';
 import 'package:numerology/app/business_logic/cubit/forecast/forecast_cubit.dart';
@@ -29,10 +30,10 @@ class _ForecastPageState extends State<ForecastPage> {
   var _lucky;
   var _monthly;
   var _annual;
-  var _dailyBtnIndex = 0;
-  var _luckyBtnIndex = 0;
-  var _monthlyBtnIndex = 0;
-  var _yearBtnIndex = 0;
+  int? _dailyBtnIndex = 0;
+  int? _luckyBtnIndex = 0;
+  int? _monthlyBtnIndex = 0;
+  int? _yearBtnIndex = 0;
   bool isAdsFree = false;
 
   @override
@@ -93,8 +94,7 @@ class _ForecastPageState extends State<ForecastPage> {
                 return Scaffold(
                   appBar: AppBar(
                     centerTitle: true,
-                    brightness: Brightness.dark,
-                    title: Text(Globals.instance.language.forecast),
+                    title: Text(Globals.instance.language.forecast), systemOverlayStyle: SystemUiOverlayStyle.light,
                   ),
                   body: _buildPageBody(isPremium),
                 );
@@ -103,18 +103,15 @@ class _ForecastPageState extends State<ForecastPage> {
         });
   }
 
-  Widget _buildPageBody(bool isPremium) {
+  Widget _buildPageBody(bool? isPremium) {
     return Container(
       color: backgroundColor,
       child: CustomScrollView(
         slivers: [
           _categoryDayBuilder(_daily, _onDailyPressed, isPremium),
-          _buildLine(),
           _showAd(isPremium),
           _categoryLuckyBuilder(_lucky, _onLuckyPressed, isPremium),
-          _buildLine(),
           _categoryMonthBuilder(_monthly, _onMonthlyPressed, isPremium),
-          _buildLine(),
           _showAd(isPremium),
           _categoryYearBuilder(_annual, _onYearPressed, isPremium),
         ],
@@ -122,7 +119,7 @@ class _ForecastPageState extends State<ForecastPage> {
     );
   }
 
-  Widget _showAd(bool isPremium){
+  Widget _showAd(bool? isPremium){
     return FutureBuilder<bool>(
         future: fetchIsAdsFree(),
         builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
@@ -137,7 +134,7 @@ class _ForecastPageState extends State<ForecastPage> {
               } else {
                 var isAddFree = snapshot.data;
                 return SliverToBoxAdapter(
-                  child: showNativeAd(context, isPremium: isPremium || isAddFree),
+                  child: showNativeAd(context, isPremium: isPremium! || isAddFree!),
                 );
               }
           }
@@ -150,69 +147,69 @@ class _ForecastPageState extends State<ForecastPage> {
   });
 
   Widget _categoryLuckyBuilder(
-      Forecast forecast, Function onPressed, bool isPremium) {
+      Forecast? forecast, Function onPressed, bool? isPremium) {
     return BlocBuilder<ForecastIndexCubit, ForecastIndexState>(
         builder: (context, state) {
       if (state is ForecastLuckyClicked) {
         _luckyBtnIndex = state.index;
-        return _buildCategory(forecast, onPressed, state.index, isPremium);
+        return _buildCategory(forecast!, onPressed, state.index, isPremium);
       } else if (state is ForecastLoading) {
         return SliverToBoxAdapter(child: progressBar());
       }
-      return _buildCategory(forecast, onPressed, _luckyBtnIndex, isPremium);
+      return _buildCategory(forecast!, onPressed, _luckyBtnIndex!, isPremium);
     });
   }
 
   Widget _categoryMonthBuilder(
-      Forecast forecast, Function onPressed, bool isPremium) {
+      Forecast? forecast, Function onPressed, bool? isPremium) {
     return BlocBuilder<ForecastIndexCubit, ForecastIndexState>(
         builder: (context, state) {
       if (state is ForecastMonthClicked) {
         _monthlyBtnIndex = state.index;
-        return _buildCategory(forecast, onPressed, state.index, isPremium);
+        return _buildCategory(forecast!, onPressed, state.index, isPremium);
       } else if (state is ForecastLoading) {
         return SliverToBoxAdapter(child: progressBar());
       }
-      return _buildCategory(forecast, onPressed, _monthlyBtnIndex, isPremium);
+      return _buildCategory(forecast!, onPressed, _monthlyBtnIndex!, isPremium);
     });
   }
 
   Widget _categoryYearBuilder(
-      Forecast forecast, Function onPressed, bool isPremium) {
+      Forecast? forecast, Function onPressed, bool? isPremium) {
     return BlocBuilder<ForecastIndexCubit, ForecastIndexState>(
         builder: (context, state) {
       if (state is ForecastYearClicked) {
         _yearBtnIndex = state.index;
-        return _buildCategory(forecast, onPressed, state.index, isPremium);
+        return _buildCategory(forecast!, onPressed, state.index, isPremium);
       } else if (state is ForecastLoading) {
         return SliverToBoxAdapter(child: progressBar());
       }
-      return _buildCategory(forecast, onPressed, _yearBtnIndex, isPremium);
+      return _buildCategory(forecast!, onPressed, _yearBtnIndex!, isPremium);
     });
   }
 
-  Widget _categoryDayBuilder(Forecast forecast, Function onPressed, bool isPremium) {
+  Widget _categoryDayBuilder(Forecast? forecast, Function onPressed, bool? isPremium) {
     return BlocBuilder<ForecastIndexCubit, ForecastIndexState>(
         builder: (context, state) {
       if (state is ForecastDayClicked) {
         _dailyBtnIndex = state.index;
-        return _buildCategory(forecast, onPressed, state.index, isPremium);
+        return _buildCategory(forecast!, onPressed, state.index, isPremium);
       } else if (state is ForecastLoading) {
         return SliverToBoxAdapter(child: progressBar());
       }
-      return _buildCategory(forecast, onPressed, _dailyBtnIndex, isPremium);
+      return _buildCategory(forecast!, onPressed, _dailyBtnIndex!, isPremium);
     });
   }
 
   Widget _buildCategory(Forecast forecast, Function onPressed,
-      int selectedButton, bool isPremium) {
+      int selectedButton, bool? isPremium) {
     return SliverToBoxAdapter(
       child: Column(
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 16.0, bottom: 8.0),
             child: Text(
-              forecast.title,
+              forecast.title!,
               style: forecastCardHeader,
             ),
           ),
@@ -224,21 +221,21 @@ class _ForecastPageState extends State<ForecastPage> {
                 ForecastButton(
                     isSelected: selectedButton == 0,
                     child: Text(
-                      forecast.btnTitles[0],
+                      forecast.btnTitles![0],
                       style: buttonTextStyle,
                     ),
                     onPressed: () => onPressed(0,isPremium)),
                 ForecastButton(
                     isSelected: selectedButton == 1,
                     child: Text(
-                      forecast.btnTitles[1],
+                      forecast.btnTitles![1],
                       style: buttonTextStyle,
                     ),
                     onPressed: () => onPressed(1,isPremium)),
                 ForecastButton(
                     isSelected: selectedButton == 2,
                     child: Text(
-                      forecast.btnTitles[2],
+                      forecast.btnTitles![2],
                       style: buttonTextStyle,
                     ),
                     onPressed: () => onPressed(2,isPremium)),
@@ -283,25 +280,13 @@ class _ForecastPageState extends State<ForecastPage> {
     }
   }
 
-  Widget _buildLine() {
-    return SliverToBoxAdapter(
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Container(
-          height: 1.0,
-          width: MediaQuery.of(context).size.width * 0.90,
-          color: Colors.white,
-        ),
-      ),
-    );
-  }
 
   Widget _buildCategoryCard(Forecast forecast, int selectedBtn) {
     List<CardData> description = [];
 
     description.add(CardData(
         header: forecast.cardTitle,
-        description: forecast.contents[selectedBtn],
+        description: forecast.contents![selectedBtn],
         promotionAppLink: forecast.promotionAppLink));
 
     description.add(CardData(
@@ -309,15 +294,15 @@ class _ForecastPageState extends State<ForecastPage> {
         description: forecast.info));
 
     return buildDayCategory(
-      header: forecast.cardTitle,
-      content: forecast.contents[selectedBtn],
+      header: forecast.cardTitle!,
+      content: forecast.contents![selectedBtn],
       onPressed: () => navigateToDescriptionPage(
         context,
-        forecast.cardTitle,
-        forecast.calc[selectedBtn].toString(),
+        forecast.cardTitle!,
+        forecast.calc![selectedBtn].toString(),
         description,
       ),
-      imagePath: forecast.iconPath,
+      imagePath: forecast.iconPath!,
     );
   }
 }

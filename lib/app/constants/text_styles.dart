@@ -16,7 +16,7 @@ var headerTextStyle = GoogleFonts.philosopher(
   ),
 );
 
-var contentTextStyle = GoogleFonts.sourceSansPro(
+var contentTextStyle = GoogleFonts.notoSans(
     textStyle: TextStyle(
   fontSize: 18.0,
   color: Colors.white,
@@ -52,8 +52,8 @@ var radioButtonColor = MaterialStateColor.resolveWith((states) => Colors.white);
 /// TIME PICKER ///
 
 TextStyle datePickerTextStyle() {
-  double textSize = Globals.instance.getTextSize();
-  return GoogleFonts.sourceSansPro(
+  double? textSize = Globals.instance.getTextSize();
+  return GoogleFonts.notoSans(
       textStyle: TextStyle(
     fontSize: textSize,
     color: Colors.black,
@@ -62,7 +62,7 @@ TextStyle datePickerTextStyle() {
 
 /// NAME SETTINGS PAGE ///
 
-var noticeTextStyle = GoogleFonts.sourceSansPro(
+var noticeTextStyle = GoogleFonts.notoSans(
     textStyle: TextStyle(
   fontSize: 16.0,
   color: pickerHeaderColor,
@@ -78,8 +78,8 @@ var categoryTileHeader = GoogleFonts.philosopher(
 );
 
 TextStyle personalDayText() {
-  double textSize = Globals.instance.getTextSize();
-  return GoogleFonts.sourceSansPro(
+  double? textSize = Globals.instance.getTextSize();
+  return GoogleFonts.notoSans(
       textStyle: TextStyle(
     fontSize: textSize,
     color: categoryTileText,
@@ -97,8 +97,8 @@ var calcNumber = GoogleFonts.arefRuqaa(
 );
 
 TextStyle descriptionContentStyle() {
-  double textSize = Globals.instance.getTextSize();
-  return GoogleFonts.sourceSansPro(
+  double? textSize = Globals.instance.getTextSize();
+  return GoogleFonts.notoSans(
       textStyle: TextStyle(
     fontSize: textSize,
     color: Colors.white,
@@ -112,20 +112,20 @@ var descriptionHeaderStyle = GoogleFonts.philosopher(
   color: Colors.white,
 ));
 
-var readMoreStyle = GoogleFonts.sourceSansPro(
+var readMoreStyle = GoogleFonts.notoSans(
     textStyle: TextStyle(
   fontSize: 17.0,
   color: itemTapPressedColor,
 ));
 
 /// MATRIX ///
-var matrixTileStyle = GoogleFonts.sourceSansPro(
+var matrixTileStyle = GoogleFonts.notoSans(
     textStyle: TextStyle(
   fontSize: 18.0,
   color: Colors.white,
 ));
 
-var matrixNotice = GoogleFonts.sourceSansPro(
+var matrixNotice = GoogleFonts.notoSans(
     textStyle: TextStyle(
   fontSize: 16.0,
   color: pickerHeaderColor,
@@ -141,7 +141,7 @@ var calcNumberCompat = GoogleFonts.arefRuqaa(
   ),
 );
 
-var lifePathCompat = GoogleFonts.sourceSansPro(
+var lifePathCompat = GoogleFonts.notoSans(
     textStyle: TextStyle(
   fontSize: 16.0,
   color: pickerHeaderColor,
@@ -149,25 +149,25 @@ var lifePathCompat = GoogleFonts.sourceSansPro(
 
 /// BIO ///
 
-var bioPercentage = GoogleFonts.sourceSansPro(
+var bioPercentage = GoogleFonts.notoSans(
     textStyle: TextStyle(
   fontSize: 16.0,
   color: Colors.white,
 ));
 
-var bioNamePhis = GoogleFonts.sourceSansPro(
+var bioNamePhis = GoogleFonts.notoSans(
     textStyle: TextStyle(
   fontSize: 16.0,
   color: bioPhysicalCircleStart,
 ));
 
-var bioNameEmotion = GoogleFonts.sourceSansPro(
+var bioNameEmotion = GoogleFonts.notoSans(
     textStyle: TextStyle(
   fontSize: 16.0,
   color: bioEmotionCircleEnd,
 ));
 
-var bioNameIntel = GoogleFonts.sourceSansPro(
+var bioNameIntel = GoogleFonts.notoSans(
     textStyle: TextStyle(
   fontSize: 16.0,
   color: intellectEmotionCircleStart,
@@ -176,7 +176,7 @@ var bioNameIntel = GoogleFonts.sourceSansPro(
 var bioNameSpirit = bioNamePhis;
 var bioNameIntuit = bioNameIntel;
 var bioNameAware = bioNameEmotion;
-var bioNameAesthetic = GoogleFonts.sourceSansPro(
+var bioNameAesthetic = GoogleFonts.notoSans(
     textStyle: TextStyle(
   fontSize: 16.0,
   color: aestheticEmotionCircleStart,
@@ -184,14 +184,14 @@ var bioNameAesthetic = GoogleFonts.sourceSansPro(
 
 /// FORECAST ///
 
-var forecastCardHeader = GoogleFonts.sourceSansPro(
+var forecastCardHeader = GoogleFonts.notoSans(
   textStyle: TextStyle(
     fontSize: 19.0,
     color: categoryTileText,
   ),
 );
 
-var buttonTextStyle = GoogleFonts.sourceSansPro(
+var buttonTextStyle = GoogleFonts.notoSans(
     textStyle: TextStyle(
   fontSize: 15.0,
   color: Colors.white,
@@ -199,13 +199,13 @@ var buttonTextStyle = GoogleFonts.sourceSansPro(
 
 /// PROFILES ///
 
-var profilesWhiteText = GoogleFonts.sourceSansPro(
+var profilesWhiteText = GoogleFonts.notoSans(
     textStyle: TextStyle(
   fontSize: 15.0,
   color: Colors.white,
 ));
 
-var profilesBlueText = GoogleFonts.sourceSansPro(
+var profilesBlueText = GoogleFonts.notoSans(
     textStyle: TextStyle(
   fontSize: 15.0,
   color: itemTapPressedColor,
@@ -221,41 +221,41 @@ TextStyle dialogHeaderTextStyle =
 TextStyle dialogContentTextStyle =
     TextStyle(fontSize: 17.0, color: Colors.blueAccent.shade700);
 
-TextStyle urlLinkStyle = GoogleFonts.sourceSansPro(
+TextStyle urlLinkStyle = GoogleFonts.notoSans(
     textStyle: TextStyle(
   fontSize: 18.0,
   color: cardUrlLinkColor,
   decoration: TextDecoration.underline,
 ));
 
-var priceStyle = GoogleFonts.sourceSansPro(
+var priceStyle = GoogleFonts.notoSans(
     textStyle: TextStyle(
   fontSize: 21.0,
   color: Colors.white,
   fontWeight: FontWeight.bold,
 ));
 
-var oneTimePaymentStyle = GoogleFonts.sourceSansPro(
+var oneTimePaymentStyle = GoogleFonts.notoSans(
     textStyle: TextStyle(
   fontSize: 17.0,
   color: Colors.white,
 ));
 
-var settingsTextStyle = GoogleFonts.sourceSansPro(
+var settingsTextStyle = GoogleFonts.notoSans(
   textStyle: TextStyle(
     fontSize: 17.0,
     color: welcomeScreenTextColor,
   ),
 );
 
-var moreAppsTextStyle = GoogleFonts.sourceSansPro(
+var moreAppsTextStyle = GoogleFonts.notoSans(
   textStyle: TextStyle(
     fontSize: 14.0,
     color: welcomeScreenTextColor,
   ),
 );
 
-var discountTextStyle = GoogleFonts.sourceSansPro(
+var discountTextStyle = GoogleFonts.notoSans(
     textStyle: TextStyle(
   fontSize: 15.0,
   color: Colors.black,

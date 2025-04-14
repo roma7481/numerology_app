@@ -16,7 +16,7 @@ class _LanguagePickerState extends State<LanguagePicker> {
 
   @override
   Widget build(BuildContext context) {
-    _selected = context.watch<LanguageCubit>().state.buttonId;
+    _selected = context.watch<LanguageCubit>().state.buttonId?? 0;
     return new Column(
       children: [
         _buildHeader(),

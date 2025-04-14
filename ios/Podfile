@@ -1,5 +1,5 @@
 # Uncomment this line to define a global platform for your project
-platform :ios, '11.0'
+platform :ios, '15.0'
 
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
@@ -31,11 +31,70 @@ target 'Runner' do
   use_frameworks!
   use_modular_headers!
 
+  # ✅ Force Firebase SDK version (you can bump this if needed)
+  $FirebaseSDKVersion = '11.11.0'
+
+  # ✅ Only include pods you need (Firebase/Core is optional now)
+  pod 'Firebase/Auth', $FirebaseSDKVersion
+  pod 'Firebase/Firestore', $FirebaseSDKVersion
+  pod 'Firebase/Core', $FirebaseSDKVersion # Optional unless explicitly needed
+
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
 end
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
+
+    # Force minimum iOS deployment target
+    target.build_configurations.each do |config|
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
+    end
+
+    target.build_configurations.each do |config|
+      config.build_settings['EXCLUDED_SOURCE_FILE_NAMES'] = 'PrivacyInfo.xcprivacy'
+    end
+
+    if target.name == 'BoringSSL-GRPC'
+      target.source_build_phase.files.each do |file|
+        if file.settings && file.settings['COMPILER_FLAGS']
+          flags = file.settings['COMPILER_FLAGS'].split
+          flags.reject! { |flag| flag == '-GCC_WARN_INHIBIT_ALL_WARNINGS' }
+          file.settings['COMPILER_FLAGS'] = flags.join(' ')
+        end
+      end
+    end
   end
+
+  # ✅ PATCH FIRFirestoreSettings.mm TO FIX BUILD ERROR
+  puts "🔧 Patching FIRFirestoreSettings.mm..."
+
+  firestore_settings = File.expand_path('Pods/FirebaseFirestore/Firestore/Source/API/FIRFirestoreSettings.mm', __dir__)
+  if File.exist?(firestore_settings)
+    puts "🔐 Updating permissions to allow patching..."
+    FileUtils.chmod("+w", firestore_settings)
+
+    text = File.read(firestore_settings)
+    new_contents = text.gsub(/ABSL_CONST_INIT /, '')
+    File.open(firestore_settings, "w") { |file| file.puts new_contents }
+
+    puts "✅ Patched FIRFirestoreSettings.mm"
+  else
+    puts "⚠️ Could not find FIRFirestoreSettings.mm"
+  end
+
+  # ✅ Ensure Manifest.lock is created to avoid sandbox errors in Xcode
+  puts "📎 Ensuring Manifest.lock is in sync..."
+
+  manifest_path = File.join(__dir__, 'Pods', 'Manifest.lock')
+  lockfile_path = File.join(__dir__, 'Podfile.lock')
+
+  if File.exist?(lockfile_path)
+    FileUtils.cp(lockfile_path, manifest_path)
+    puts "✅ Manifest.lock restored from Podfile.lock"
+  else
+    puts "⚠️ Podfile.lock not found – cannot restore Manifest.lock"
+  end
+
 end
+

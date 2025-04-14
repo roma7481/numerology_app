@@ -253,7 +253,7 @@ class LanguageRu extends Languages {
   String get numerology => 'Нумерология';
 
   @override
-  String get getDailyForecast => 'Получать ежедневный прогноз';
+  String get getDailyForecast => 'Получить ежедневный прогноз';
 
   @override
   String get moreApps => 'Другие приложения';

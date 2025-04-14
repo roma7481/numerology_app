@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:numerology/app/constants/colors.dart';
 
 class NativeTextStyle {
-  final double fontSize;
-  final Color color;
-  final Color backgroundColor;
+  final double? fontSize;
+  final Color? color;
+  final Color? backgroundColor;
   final bool isVisible;
 
   const NativeTextStyle({
@@ -16,10 +16,10 @@ class NativeTextStyle {
 
   Map<String, dynamic> toJson() => {
         "backgroundColor": backgroundColor != null
-            ? "#${backgroundColor.value.toRadixString(16)}"
+            ? "#${backgroundColor!.value.toRadixString(16)}"
             : null,
         "fontSize": fontSize,
-        "color": color != null ? "#${color.value.toRadixString(16)}" : null,
+        "color": color != null ? "#${color!.value.toRadixString(16)}" : null,
         "isVisible": isVisible,
       };
 }
@@ -27,7 +27,7 @@ class NativeTextStyle {
 class NativeAdmobOptions {
   final bool showMediaContent;
   final Color ratingColor;
-  final Color backgroundColor;
+  final Color? backgroundColor;
   final NativeTextStyle adLabelTextStyle;
   final NativeTextStyle headlineTextStyle;
   final NativeTextStyle advertiserTextStyle;
@@ -70,7 +70,7 @@ class NativeAdmobOptions {
         "showMediaContent": this.showMediaContent,
         "ratingColor": "#${ratingColor.value.toRadixString(16)}",
         "backgroundColor": backgroundColor != null
-            ? "#${backgroundColor.value.toRadixString(16)}"
+            ? "#${backgroundColor!.value.toRadixString(16)}"
             : null,
         "adLabelTextStyle": adLabelTextStyle.toJson(),
         "headlineTextStyle": headlineTextStyle.toJson(),

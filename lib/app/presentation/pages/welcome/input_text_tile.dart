@@ -4,7 +4,7 @@ import 'package:numerology/app/localization/locale_utils.dart';
 
 Center buildTextInputTile(
     BuildContext context, String hintText, TextEditingController textController,
-    {Function onChanged, bool canInputNumbers = false}) {
+    {Function? onChanged, bool canInputNumbers = false}) {
   var padding = MediaQuery.of(context).size.width * 0.2;
 
   return Center(

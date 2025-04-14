@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:numerology/app/business_logic/cubit/bio/bio_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/language/language_cubit.dart';
@@ -45,8 +46,7 @@ class _HomePageState extends State<HomePage> {
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            brightness: Brightness.dark,
-            title: _buildHeader(),
+            title: _buildHeader(), systemOverlayStyle: SystemUiOverlayStyle.light,
           ),
           body: _buildContent(
             context,

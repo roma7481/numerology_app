@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:numerology/app/business_logic/cubit/bio/bio_cubit.dart';
@@ -19,7 +20,7 @@ import 'bio_pi_charts.dart';
 import 'graph_widget.dart';
 
 class BioGraphsPage extends StatefulWidget {
-  const BioGraphsPage({Key key}) : super(key: key);
+  const BioGraphsPage({Key? key}) : super(key: key);
 
   @override
   _BioGraphsPageState createState() => _BioGraphsPageState();
@@ -27,16 +28,16 @@ class BioGraphsPage extends StatefulWidget {
 
 class _BioGraphsPageState extends State<BioGraphsPage> {
 
-  BannerAd _banner;
-  AdWidget _adWidget;
+  BannerAd? _banner;
+  AdWidget? _adWidget;
 
-  Profile profile;
+  Profile? profile;
   var header = DateService.getFormattedDate(DateTime.now());
 
   @override
   Widget build(BuildContext context) {
     _banner = getBanner();
-    _adWidget = _banner == null ? null : AdWidget(ad: _banner);
+    _adWidget = _banner == null ? null : AdWidget(ad: _banner!);
 
     return BlocBuilder<UserDataCubit, UserDataState>(builder: (context, state) {
       if (state is UserDataReady) {
@@ -61,12 +62,11 @@ class _BioGraphsPageState extends State<BioGraphsPage> {
                   child: errorDialog(),
                 );
               } else {
-                var isPremium = snapshot.data;
+                var isPremium = snapshot.data!;
                 return Scaffold(
                   appBar: AppBar(
                     centerTitle: true,
-                    brightness: Brightness.dark,
-                    title: _buildHeader(),
+                    title: _buildHeader(), systemOverlayStyle: SystemUiOverlayStyle.light,
                   ),
                   body: _buildContent(context, isPremium),
                   bottomNavigationBar:
@@ -80,7 +80,7 @@ class _BioGraphsPageState extends State<BioGraphsPage> {
   Widget _buildHeader() {
     return BlocBuilder<BioCubit, BioState>(builder: (context, state) {
       header =
-          DateService.getFormattedDate(DateService.fromTimestamp(state.date));
+          DateService.getFormattedDate(DateService.fromTimestamp(state.date!));
       return Text(header);
     });
   }

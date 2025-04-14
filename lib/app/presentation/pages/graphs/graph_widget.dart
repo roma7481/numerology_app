@@ -11,10 +11,10 @@ import 'package:numerology/app/data/models/profile.dart';
 import 'package:provider/provider.dart';
 
 class GraphWidget extends StatefulWidget {
-  final Profile profile;
+  final Profile? profile;
   final bool isPrimaryBioGraph;
 
-  const GraphWidget({Key key, this.profile, this.isPrimaryBioGraph = true})
+  const GraphWidget({Key? key, this.profile, this.isPrimaryBioGraph = true})
       : super(key: key);
 
   @override
@@ -22,11 +22,11 @@ class GraphWidget extends StatefulWidget {
 }
 
 class _GraphWidgetState extends State<GraphWidget> {
-  double minX;
-  double maxX;
+  late double minX;
+  late double maxX;
   final _scrollDelta = 0.4;
   bool _isTapEnabled = true;
-  LineTouchResponse _touchResponse;
+  LineTouchResponse? _touchResponse;
 
   @override
   void initState() {
@@ -51,12 +51,13 @@ class _GraphWidgetState extends State<GraphWidget> {
                   color: tileColor),
               child: Padding(
                 padding: const EdgeInsets.only(
-                    right: 18.0, left: 12.0, top: 24, bottom: 12),
+                    right: 4.0, left: 4.0, top: 24, bottom: 8),
                 child: Listener(
                   child: GestureDetector(
                     onHorizontalDragUpdate: (dragUpdDet) {
                       setState(() {
                         _isTapEnabled = false;
+                        _touchResponse = null;
                         print(dragUpdDet.primaryDelta);
                         double primDelta = dragUpdDet.primaryDelta ?? 0.0;
                         if (primDelta != 0) {
@@ -73,7 +74,6 @@ class _GraphWidgetState extends State<GraphWidget> {
                     onTap: () {
                       setState(() {
                         _isTapEnabled = true;
-                        updatePiCharts();
                       });
                     },
                     child: LineChart(
@@ -91,10 +91,10 @@ class _GraphWidgetState extends State<GraphWidget> {
 
   List<FlSpot> _generateSpots(double daysInterval) {
     var numDaysSinceBorn =
-        CategoryCalc.instance.calcDaysAfterBorn(widget.profile.dob);
+        CategoryCalc.instance.calcDaysAfterBorn(widget.profile!.dob!);
 
     return List.generate(365 * 11, (i) => (i - 365 * 2) / 5)
-        .where((element) => element > minX && element < maxX)
+        .where((element) => element >= minX && element <= maxX)
         .map((x) => FlSpot(x, _calcY(numDaysSinceBorn, x, daysInterval)))
         .toList();
   }
@@ -109,11 +109,16 @@ class _GraphWidgetState extends State<GraphWidget> {
     return LineChartData(
       lineTouchData: LineTouchData(
           enabled: _isTapEnabled,
-          touchCallback: (LineTouchResponse touchResponse) {
+          touchCallback: (event, touchResponse) {
             setState(() {
               _touchResponse = touchResponse;
+              updatePiCharts();
             });
-          }),
+          },
+          touchTooltipData: LineTouchTooltipData(
+            tooltipBgColor: Colors.white,
+          ),
+      ),
       gridData: FlGridData(
         show: true,
         verticalInterval: 1.0,
@@ -122,16 +127,35 @@ class _GraphWidgetState extends State<GraphWidget> {
       ),
       titlesData: FlTitlesData(
         show: true,
-        bottomTitles: SideTitles(
-          rotateAngle: -50.0,
-          showTitles: true,
-          reservedSize: 22,
-          getTextStyles: (value) => const TextStyle(
-              color: graphDates, fontWeight: FontWeight.bold, fontSize: 12),
-          getTitles: (value) {
-            return _getDateRange(value);
-          },
-          margin: 20,
+        topTitles: AxisTitles(
+          sideTitles: SideTitles(showTitles: false),
+        ),
+        bottomTitles: AxisTitles(
+          sideTitles: SideTitles(
+            interval: 1,
+            showTitles: true,
+            reservedSize: 44,
+              getTitlesWidget: (value, meta) {
+                return SideTitleWidget(
+                  axisSide: meta.axisSide,
+                  space: 6,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 12), // move text downward
+                    child: Transform.rotate(
+                      angle: -45 * pi / 180, // rotate 45 degrees
+                      child: Text(
+                        _getDateRange(value),
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              }
+          ),
         ),
         leftTitles: _buildSideTiles(),
         rightTitles: _buildSideTiles(),
@@ -163,34 +187,34 @@ class _GraphWidgetState extends State<GraphWidget> {
     ];
   }
 
-  SideTitles _buildSideTiles() {
-    return SideTitles(
-      showTitles: true,
-      getTextStyles: (value) => const TextStyle(
-        color: graphDates,
-        fontSize: 15,
+  AxisTitles _buildSideTiles() {
+    return AxisTitles(
+      sideTitles: SideTitles(
+        showTitles: true,
+        interval: 30, // <-- Show every 30%
+        reservedSize: 44,
+        getTitlesWidget: (value, meta) {
+          final int rounded = value.round();
+
+          if (rounded % 30 != 0 || rounded.abs() > 90) {
+            return const SizedBox.shrink();
+          }
+
+          return SideTitleWidget(
+            axisSide: meta.axisSide,
+            space: 8,
+            child: Text(
+              "$rounded%",
+              style: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                color: graphDates,
+              ),
+            ),
+          );
+
+        },
       ),
-      getTitles: (value) {
-        switch (value.toInt()) {
-          case 90:
-            return '90%';
-          case 60:
-            return '60%';
-          case 30:
-            return '30%';
-          case 0:
-            return '0%';
-          case -90:
-            return '-90%';
-          case -60:
-            return '-60%';
-          case -30:
-            return '-30%';
-        }
-        return '';
-      },
-      reservedSize: 28,
-      margin: 12,
     );
   }
 
@@ -200,15 +224,15 @@ class _GraphWidgetState extends State<GraphWidget> {
 
   void _updateForPrim() {
     if (_touchResponse != null) {
-      if (_touchResponse.lineBarSpots != null &&
-          _touchResponse.lineBarSpots.isNotEmpty) {
+      if (_touchResponse!.lineBarSpots != null &&
+          _touchResponse!.lineBarSpots!.isNotEmpty) {
         context.read<BioCubit>().emitBioUpdate(
           [
-            _touchResponse.lineBarSpots[0].y,
-            _touchResponse.lineBarSpots[1].y,
-            _touchResponse.lineBarSpots[2].y,
+            _touchResponse!.lineBarSpots![0].y,
+            _touchResponse!.lineBarSpots![1].y,
+            _touchResponse!.lineBarSpots![2].y,
           ],
-          date: _getSelectedDate(_touchResponse.lineBarSpots[0].x),
+          date: _getSelectedDate(_touchResponse!.lineBarSpots![0].x),
         );
       }
     }
@@ -216,16 +240,16 @@ class _GraphWidgetState extends State<GraphWidget> {
 
   void _updateForSecond() {
     if (_touchResponse != null) {
-      if (_touchResponse.lineBarSpots != null &&
-          _touchResponse.lineBarSpots.isNotEmpty) {
+      if (_touchResponse!.lineBarSpots != null &&
+          _touchResponse!.lineBarSpots!.isNotEmpty) {
         context.read<BioSecondCubit>().emitBioUpdate(
           [
-            _touchResponse.lineBarSpots[0].y,
-            _touchResponse.lineBarSpots[1].y,
-            _touchResponse.lineBarSpots[2].y,
-            _touchResponse.lineBarSpots[3].y,
+            _touchResponse!.lineBarSpots![0].y,
+            _touchResponse!.lineBarSpots![1].y,
+            _touchResponse!.lineBarSpots![2].y,
+            _touchResponse!.lineBarSpots![3].y,
           ],
-          date: _getSelectedDate(_touchResponse.lineBarSpots[0].x),
+          date: _getSelectedDate(_touchResponse!.lineBarSpots![0].x),
         );
       }
     }
@@ -255,7 +279,7 @@ class _GraphWidgetState extends State<GraphWidget> {
     return LineChartBarData(
       spots: spots,
       isCurved: true,
-      colors: gradient,
+      gradient: LinearGradient(colors: gradient),
       barWidth: 12,
       isStrokeCapRound: true,
       dotData: FlDotData(

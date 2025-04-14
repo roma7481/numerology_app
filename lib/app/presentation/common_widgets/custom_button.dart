@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 Widget buildCustomButton(
-    String text, Color buttonColor, Function onPressed, TextStyle textStyle,
+    String text, Color? buttonColor, Function? onPressed, TextStyle textStyle,
     {double padding = 8.0}) {
   return ClipRRect(
     borderRadius: BorderRadius.circular(24.0),
@@ -15,7 +15,7 @@ Widget buildCustomButton(
               text,
               style: textStyle,
             ),
-            onPressed: onPressed),
+            onPressed: onPressed as void Function()?),
       ),
     ),
   );

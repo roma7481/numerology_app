@@ -1,8 +1,8 @@
 class CardData {
   final int calculation;
-  final String header;
-  final String description;
-  final String iconPath;
+  final String? header;
+  final String? description;
+  final String? iconPath;
   final String promotionAppLink;
 
   CardData({

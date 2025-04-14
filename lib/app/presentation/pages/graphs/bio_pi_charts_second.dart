@@ -67,8 +67,8 @@ Widget _buildProgressChart(
     BuildContext context, LinearGradient gradient, double value) {
   var percent = value.toStringAsFixed(0);
   return CircularPercentIndicator(
-      radius: MediaQuery.of(context).size.width * 0.12,
-      lineWidth: 17.0,
+      radius: MediaQuery.of(context).size.width * 0.25,
+      lineWidth: 16.0,
       reverse: value.isNegative,
       percent: double.parse((value.abs() * 0.01).toStringAsFixed(1)),
       animation: true,

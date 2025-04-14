@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/constants/colors.dart';
@@ -12,8 +13,7 @@ class AttributionPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        brightness: Brightness.dark,
-        title: _buildAppBarContent(),
+        title: _buildAppBarContent(), systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
       body: _buildContent(context),
     );

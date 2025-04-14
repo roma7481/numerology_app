@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 
-Widget buildHeader(String header, String iconPath) {
+Widget buildHeader(String? header, String? iconPath) {
   return Center(
     child: Padding(
       padding: const EdgeInsets.only(
@@ -17,7 +17,7 @@ Widget buildHeader(String header, String iconPath) {
               : Container(),
           Flexible(
             child: Text(
-              header,
+              header?? '',
               overflow: TextOverflow.ellipsis,
               style: descriptionHeaderStyle,
             ),

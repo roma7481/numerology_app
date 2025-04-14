@@ -1,5 +1,4 @@
 import 'package:flutter/services.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:numerology/app/business_logic/cubit/forecast/calc_utils.dart';
 import 'package:numerology/app/business_logic/cubit/forecast/calc_utils_de.dart';
 import 'package:numerology/app/business_logic/cubit/forecast/calc_utils_en.dart';
@@ -17,6 +16,7 @@ import 'package:numerology/app/data/language/data_parser_fr.dart';
 import 'package:numerology/app/data/language/data_parser_it.dart';
 import 'package:numerology/app/data/language/data_parser_pt.dart';
 import 'package:numerology/app/data/language/data_parser_ru.dart';
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 
 import 'language/language_de.dart';
 import 'language/language_en.dart';
@@ -142,25 +142,18 @@ class LocaleUtils {
     switch (localeCode) {
       case en:
         return LocaleType.en;
-        break;
       case ru:
         return LocaleType.ru;
-        break;
       case es:
         return LocaleType.es;
-        break;
       case pt:
         return LocaleType.pt;
-        break;
       case fr:
         return LocaleType.fr;
-        break;
       case de:
         return LocaleType.de;
-        break;
       case it:
         return LocaleType.it;
-        break;
       default:
         return LocaleType.en;
     }
@@ -170,25 +163,18 @@ class LocaleUtils {
     switch (localeCode) {
       case en:
         return DataParserEn();
-        break;
       case ru:
         return DataParserRu();
-        break;
       case es:
         return DataParserEs();
-        break;
       case pt:
         return DataParserPt();
-        break;
       case fr:
         return DataParserFr();
-        break;
       case de:
         return DataParserDe();
-        break;
       case it:
         return DataParserIt();
-        break;
       default:
         return DataParserEn();
     }

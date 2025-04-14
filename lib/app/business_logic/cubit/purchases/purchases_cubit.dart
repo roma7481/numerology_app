@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 import 'package:meta/meta.dart';
@@ -20,9 +21,9 @@ const Set<String> _kIds = {
 };
 
 class PurchasesCubit extends Cubit<PurchasesState> {
-  StreamSubscription<List<PurchaseDetails>> _subscription;
+  late StreamSubscription<List<PurchaseDetails>> _subscription;
   InAppPurchase _connection = InAppPurchase.instance;
-  List<ProductDetails> _productDetails;
+  List<ProductDetails>? _productDetails;
   var numTries = 0;
 
   var purchaseNotAvailable = Exception('InAppPurchaseConnection not available');
@@ -32,7 +33,7 @@ class PurchasesCubit extends Cubit<PurchasesState> {
     emitInitPurchases();
   }
 
-  List<ProductDetails> get productDetails => _productDetails;
+  List<ProductDetails>? get productDetails => _productDetails;
 
   void emitInitPurchases() async {
     Stream purchaseUpdates = _connection.purchaseStream;
@@ -43,7 +44,7 @@ class PurchasesCubit extends Cubit<PurchasesState> {
       _subscription.cancel();
     }, onError: (error) {
       emit(PurchasesInitFailed(error));
-    });
+    }) as StreamSubscription<List<PurchaseDetails>>;
 
     final bool available = await _connection.isAvailable();
     if (!available) {
@@ -86,7 +87,7 @@ class PurchasesCubit extends Cubit<PurchasesState> {
     try{
       PurchaseParam purchaseParam = PurchaseParam(
         productDetails:
-        _productDetails.where((product) => product.id == kId).first,
+        _productDetails!.where((product) => product.id == kId).first,
         applicationUserName: null,
       );
 

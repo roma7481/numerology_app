@@ -16,10 +16,10 @@ import 'package:numerology/app/presentation/pages/welcome/input_text_tile.dart';
 import 'package:numerology/app/presentation/pages/welcome/name_utils.dart';
 
 class DescriptionNameBasedPage extends StatefulWidget {
-  final String categoryName;
-  final Function getPage;
+  final String? categoryName;
+  final Function? getPage;
 
-  const DescriptionNameBasedPage({Key key, this.categoryName, this.getPage})
+  const DescriptionNameBasedPage({Key? key, this.categoryName, this.getPage})
       : super(key: key);
 
   @override
@@ -31,8 +31,8 @@ class _DescriptionNameBasedPageState extends State<DescriptionNameBasedPage> {
   final controllerFirstName = TextEditingController();
   final controllerLastName = TextEditingController();
   final controllerMiddleName = TextEditingController();
-  Profile currentProfile;
-  bool _shouldInitName;
+  late Profile currentProfile;
+  late bool _shouldInitName;
 
   @override
   void initState() {
@@ -84,14 +84,14 @@ class _DescriptionNameBasedPageState extends State<DescriptionNameBasedPage> {
 
   bool isValidName(Profile profile) {
     return _isValidName(
-        profile.firstName, profile.lastName, profile.middleName);
+        profile.firstName!, profile.lastName, profile.middleName);
   }
 
-  bool _isValidName(String firstName, String lastName, String middleName) {
-    if (firstName.isEmpty || lastName.isEmpty) {
+  bool _isValidName(String firstName, String? lastName, String? middleName) {
+    if (firstName.isEmpty || lastName!.isEmpty) {
       return false;
     }
-    if (Globals.instance.language is LanguageRu && middleName.isEmpty) {
+    if (Globals.instance.language is LanguageRu && middleName!.isEmpty) {
       return false;
     }
     return true;
@@ -99,10 +99,12 @@ class _DescriptionNameBasedPageState extends State<DescriptionNameBasedPage> {
 
   FutureBuilder _showDescriptionPage(UserDataReady state) {
     return FutureBuilder(
-      future: widget.getPage(state.profile, widget.categoryName),
+      future: widget.getPage!(state.profile, widget.categoryName),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return snapshot.data;
+        } else if (snapshot.hasError) {
+          return errorDialog();
         } else {
           return progressBar();
         }

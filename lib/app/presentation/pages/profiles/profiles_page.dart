@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:numerology/app/business_logic/cubit/profiles/profiles_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.dart';
@@ -22,6 +23,7 @@ import 'edit_profile.dart';
 
 class ProfilesPage extends StatefulWidget {
   @override
+
   _ProfilesPageState createState() => _ProfilesPageState();
 }
 
@@ -48,8 +50,7 @@ class _ProfilesPageState extends State<ProfilesPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        brightness: Brightness.dark,
-        title: Text(Globals.instance.language.profiles),
+        title: Text(Globals.instance.language.profiles), systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
       body: _buildPageBody(),
       floatingActionButton: FloatingActionButton(
@@ -101,10 +102,27 @@ class _ProfilesPageState extends State<ProfilesPage> {
 
   Widget _buildProfile(Profile profile) {
     return CustomCard(
-      child: ExpansionTile(
-        initiallyExpanded: profile.isSelected == 1,
-        title: _collapsedContent(profile),
-        children: _expandedContent(profile),
+      child: Theme(
+        data: Theme.of(context).copyWith(
+          dividerColor: Colors.transparent, // removes unwanted lines
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          cardColor: Colors.transparent,
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(12), // ⬅️ Adjust for "slight" rounding
+          child: ExpansionTile(
+            tilePadding: const EdgeInsets.symmetric(horizontal: 12),
+            childrenPadding: EdgeInsets.zero,
+            collapsedBackgroundColor: tileColor,
+            backgroundColor: tileColor,
+            initiallyExpanded: profile.isSelected == 1,
+            iconColor: Colors.white,
+            collapsedIconColor: Colors.white,
+            title: _collapsedContent(profile),
+            children: _expandedContent(profile),
+          ),
+        ),
       ),
     );
   }
@@ -126,10 +144,14 @@ class _ProfilesPageState extends State<ProfilesPage> {
 
   Padding _collapsedContent(Profile profile) {
     return Padding(
-      padding: const EdgeInsets.only(left: 12.0, bottom: 8.0),
-      child: Column(
+      padding: const EdgeInsets.only(left: 8.0, bottom: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Stack(children: [_buildPrimInfo(profile), _buildCheckbox(profile)]),
+          // Left side info
+          Expanded(child: _buildPrimInfo(profile)),
+          // Right side checkbox
+          _buildCheckbox(profile),
         ],
       ),
     );
@@ -152,9 +174,9 @@ class _ProfilesPageState extends State<ProfilesPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSecondary('${language.firstName} - ', profile.firstName),
-        _buildSecondary('${language.lastName} - ', profile.lastName),
-        _buildSecondary('${language.middleName} - ', profile.middleName),
+        _buildSecondary('${language.firstName} - ', profile.firstName?? ''),
+        _buildSecondary('${language.lastName} - ', profile.lastName?? ''),
+        _buildSecondary('${language.middleName} - ', profile.middleName?? ''),
       ],
     );
   }
@@ -228,8 +250,9 @@ class _ProfilesPageState extends State<ProfilesPage> {
 
   Column _buildPrimInfo(Profile profile) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildPrimeInfo(Icons.person, profile.profileName),
+        _buildPrimeInfo(Icons.person, profile.profileName ?? ''),
         _buildPrimeInfo(
             Icons.event, DateService.fromTimestampToString(profile.dob))
       ],
@@ -275,13 +298,11 @@ class _ProfilesPageState extends State<ProfilesPage> {
   }
 
   Widget _buildLine() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 8.0),
-      child: Container(
-        height: 1.0,
-        width: MediaQuery.of(context).size.width * 0.9,
-        color: Colors.white,
-      ),
+    return Divider(
+      color: Colors.blue,
+      thickness: 1.5,
+      indent: 4.0,
+      endIndent: 16.0,
     );
   }
 
@@ -309,16 +330,21 @@ class _ProfilesPageState extends State<ProfilesPage> {
   }
 
   Widget _buildCheckbox(Profile profile) {
-    var width = MediaQuery.of(context).size.width;
-    var height = MediaQuery.of(context).size.height;
-    return Padding(
-      padding: EdgeInsets.only(left: width * 0.60, top: height * 0.005),
+    return Align(
+      alignment: Alignment.topRight,
       child: Checkbox(
-          value: profile.isSelected == 1,
-          onChanged: (value) async {
-            await context.read<ProfilesCubit>().emitSetPrimProfile(profile);
-            await context.read<UserDataCubit>().emitPrimaryUserUpdate(profile);
-          }),
+        value: profile.isSelected == 1,
+        activeColor: Colors.white,
+        checkColor: Colors.black,
+        onChanged: (value) async {
+          await context.read<ProfilesCubit>().emitSetPrimProfile(profile);
+          await context.read<UserDataCubit>().emitPrimaryUserUpdate(profile);
+        },
+        side: BorderSide(
+          color: Colors.grey.shade100, // 👈 outline/border color
+          width: 2,            // optional: thickness of border
+        ),
+      ),
     );
   }
 
@@ -328,13 +354,15 @@ class _ProfilesPageState extends State<ProfilesPage> {
     }
     return CustomButton(
       onPressed: () async {
-        bool shouldDelete = await deleteProfileDialog(context, profile);
+        bool shouldDelete = await deleteProfileDialog(context, profile)?? false;
         if (shouldDelete) {
           if (profile.isSelected == 1) {
             var newPrim = await context
                 .read<ProfilesCubit>()
                 .emitDeletePrimProfile(profile);
-            context.read<UserDataCubit>().emitPrimaryUserUpdate(newPrim);
+            if (newPrim != null) {
+              context.read<UserDataCubit>().emitPrimaryUserUpdate(newPrim);
+            }
           } else {
             context.read<ProfilesCubit>().emitDeleteProfile(profile);
           }

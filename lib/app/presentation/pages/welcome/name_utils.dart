@@ -13,7 +13,7 @@ bool containsNonVowels(Profile profile) {
       _containsNonVowels(profile.middleName));
 }
 
-bool shouldContainVowels(String fName, String lName, String mName) {
+bool shouldContainVowels(String? fName, String? lName, String? mName) {
   if ((fName == null || fName.isEmpty) &&
       (lName == null || lName.isEmpty) &&
       (mName == null || mName.isEmpty)) {
@@ -25,7 +25,7 @@ bool shouldContainVowels(String fName, String lName, String mName) {
       _containsVowels(mName));
 }
 
-bool _containsVowels(String str) {
+bool _containsVowels(String? str) {
   if (str != null && str.isNotEmpty) {
     if (LocaleUtils.containsVowels(str)) {
       return true;
@@ -34,7 +34,7 @@ bool _containsVowels(String str) {
   return false;
 }
 
-bool _containsNonVowels(String str) {
+bool _containsNonVowels(String? str) {
   if (str != null && str.isNotEmpty) {
     if (LocaleUtils.containsNonVowels(str)) {
       return true;

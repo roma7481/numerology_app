@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:numerology/app/business_logic/cubit/purchases/purchases_cubit.dart';
@@ -11,6 +12,8 @@ import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
 import 'package:numerology/app/presentation/common_widgets/error_dialog.dart';
 import 'package:numerology/app/presentation/common_widgets/progress_bar.dart';
 import 'package:numerology/app/presentation/common_widgets/toast.dart';
+
+import 'info_button.dart';
 
 class PayWall extends StatefulWidget {
   @override
@@ -70,8 +73,7 @@ class _PayWallState extends State<PayWall> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        brightness: Brightness.dark,
-        title: _buildAppBarContent(),
+        title: _buildAppBarContent(), systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
       body: _buildContent(context),
     );
@@ -87,6 +89,11 @@ class _PayWallState extends State<PayWall> {
   Widget _buildContent(BuildContext context) {
     var language = Globals.instance.getLanguage();
     var productDetails = context.read<PurchasesCubit>().productDetails;
+
+    if (productDetails == null || productDetails.isEmpty) {
+      return Center(child: Text("No products available"));
+    }
+
     var premiumPrice =
         productDetails.where((element) => element.id == premiumKid).first.price;
     var compatPrice =
@@ -107,6 +114,7 @@ class _PayWallState extends State<PayWall> {
             //To make container wrap parent you can wrap it in align
             alignment: Alignment.topCenter,
             child: CustomScrollView(slivers: [
+              SliverToBoxAdapter(child: InfoButton()),
               _fullyPremium(context, language, premiumPrice, discount),
               _compatibility(context, language, compatPrice),
               _profiles(context, language, profilePrice),

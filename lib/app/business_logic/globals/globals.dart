@@ -1,7 +1,6 @@
 library app.globals;
 
-import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:numerology/app/business_logic/cubit/forecast/calc_utils.dart';
 import 'package:numerology/app/business_logic/cubit/forecast/calc_utils_en.dart';
 import 'package:numerology/app/data/language/data_parser.dart';
@@ -21,14 +20,14 @@ class Globals {
 
   static final instance = Globals._();
 
-  double textSize;
+  double? textSize;
   Languages language;
   LocaleType localeType;
   DataParser dataParser;
   ForecastCalcUtils forecastCalcUtils;
   String localeCode;
 
-  void setLocale({@required String localeCode}) {
+  void setLocale({required String localeCode}) {
     this.localeCode = localeCode;
     this.language = LocaleUtils.selectLanguage(localeCode);
     this.localeType = LocaleUtils.getTimePickerLocale(localeCode);
@@ -56,11 +55,11 @@ class Globals {
     return this.dataParser;
   }
 
-  void setTextSize({@required double textSize}) {
+  void setTextSize({required double? textSize}) {
     this.textSize = textSize;
   }
 
-  double getTextSize() {
+  double? getTextSize() {
     return textSize;
   }
 }

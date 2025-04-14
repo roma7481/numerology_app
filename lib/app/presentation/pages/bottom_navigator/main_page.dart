@@ -43,14 +43,14 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return BlocListener<RateUsCubit, RateUsState>(
       listener: (context, state) {
-        if (state.shouldShowDialog) {
+        if (state.shouldShowDialog!) {
           RateApp.showYesNoDialog(context);
           context.read<RateUsCubit>().emitStopShowing();
         }
       },
       child: WillPopScope(
         onWillPop: () async =>
-            !await navigatorKeys[_currentTab].currentState.maybePop(),
+            !await navigatorKeys[_currentTab]!.currentState!.maybePop(),
         child: CupertinoHomeScaffold(
           currentTab: _currentTab,
           onSelectTab: _select,
@@ -63,7 +63,7 @@ class _MainPageState extends State<MainPage> {
 
   void _select(TabItem tabItem) {
     if (tabItem == _currentTab) {
-      navigatorKeys[tabItem].currentState.popUntil((route) => route.isFirst);
+      navigatorKeys[tabItem]!.currentState!.popUntil((route) => route.isFirst);
     }
     setState(() => _currentTab = tabItem);
   }

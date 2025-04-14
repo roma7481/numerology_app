@@ -47,7 +47,7 @@ class DateService {
     return new DateTime.fromMillisecondsSinceEpoch(timestamp);
   }
 
-  static String fromTimestampToString(int timestamp) {
+  static String fromTimestampToString(int? timestamp) {
     return timestamp != null
         ? getFormattedDate(DateTime.fromMillisecondsSinceEpoch(timestamp))
         : '';

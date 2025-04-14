@@ -1,3 +1,6 @@
+
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
@@ -311,7 +314,7 @@ class CategoryProvider {
     var tableLove = 'LOVE_NUMBER_RUS';
 
     var partnerDob = DateService.getFormattedDate(
-        DateService.fromTimestamp(profile.partnerDob));
+        DateService.fromTimestamp(profile.partnerDob!));
 
     return await _getLoveDescriptionPage(
       context: context,
@@ -545,7 +548,7 @@ class CategoryProvider {
     return await _getDescriptionPage(context, tableName, calc, header, promotionLink: healingSoundsLink);
   }
 
-  Future<String> getDayContent(Profile profile) async {
+  Future<String?> getDayContent(Profile profile) async {
     var calc = CategoryCalc.instance.calcPersonalDay(profile);
     var tableName = 'PERSONAL_DAY_ENG';
     if (Globals.instance.getLanguage() is LanguageRu) {
@@ -584,16 +587,16 @@ class CategoryProvider {
       BuildContext context, Profile profile, String header) async {
     var bioCompat = CategoryCalc.instance.calcBioCompat(profile);
     var yourLifePath =
-        CategoryCalc.instance.calcLifePathNumberMethod(profile.dob);
+        CategoryCalc.instance.calcLifePathNumberMethod(profile.dob!);
     var partnerLifePath =
-        CategoryCalc.instance.calcLifePathNumberMethod(profile.partnerDob);
+        CategoryCalc.instance.calcLifePathNumberMethod(profile.partnerDob!);
     var yourMatrixLines =
-        CategoryCalc.instance.calcMatrixLinesByDob(profile.dob);
-    var yourMatrix = CategoryCalc.instance.calcMatrixByDob(profile.dob);
+        CategoryCalc.instance.calcMatrixLinesByDob(profile.dob!);
+    var yourMatrix = CategoryCalc.instance.calcMatrixByDob(profile.dob!);
     var partnerMatrixLines =
-        CategoryCalc.instance.calcMatrixLinesByDob(profile.partnerDob);
+        CategoryCalc.instance.calcMatrixLinesByDob(profile.partnerDob!);
     var partnerMatrix =
-        CategoryCalc.instance.calcMatrixByDob(profile.partnerDob);
+        CategoryCalc.instance.calcMatrixByDob(profile.partnerDob!);
     var coupleNum;
 
     List<CardData> bioCompatData =
@@ -601,8 +604,8 @@ class CategoryProvider {
     List<CardData> lifePathData =
         await _getPathCompat(context, yourLifePath, partnerLifePath);
 
-    List<CardData> matrixCompData;
-    List<CardData> coupleCompData;
+    List<CardData>? matrixCompData;
+    List<CardData>? coupleCompData;
     if (language is LanguageEs ||
         language is LanguagePt ||
         language is LanguageFr) {
@@ -760,7 +763,7 @@ class CategoryProvider {
 
   Future<List<CardData>> _getPathCompat(
       BuildContext context, int yourLifePath, int partnerLifePath) async {
-    var lifePathCompat = '';
+    String? lifePathCompat = '';
     var path1 = yourLifePath < partnerLifePath ? yourLifePath : partnerLifePath;
     var path2 = yourLifePath < partnerLifePath ? partnerLifePath : yourLifePath;
 
@@ -780,8 +783,12 @@ class CategoryProvider {
       table = 'LIFE_PATH_NUMBER_COMPAT_IT';
     }
 
-    lifePathCompat = await runQuery(context,
-        'select description from "$table" where number1 = "$path1" and number2 = "$path2"');
+    final result = await runQuery(
+      context,
+      'select description from "$table" where number1 = "$path1" and number2 = "$path2"',
+    );
+
+    lifePathCompat = result is String ? result : (result?.toString() ?? '');
 
     var lifePathInfo = await runQuery(context,
         'select description from "TABLE_DESCRIPTION" where table_name = "$table"');
@@ -1365,40 +1372,40 @@ class CategoryProvider {
     Map<String, String> _fromMapLifePath(Map<String, dynamic> map) {
       if (Globals.instance.getLanguage() is LanguageRu) {
         return {
-          'Описание': map['description'] as String,
-          'Любовь': map['love'] as String,
-          'Мужчина': map['man'] as String,
-          'Женщина': map['women'] as String,
+          'Описание': map['description']?.toString() ?? '',
+          'Любовь': map['love']?.toString() ?? '',
+          'Мужчина': map['man']?.toString() ?? '',
+          'Женщина': map['women']?.toString() ?? '',
         };
       } else if (language is LanguageEs) {
         return {
-          'Descripción': map['description'] as String,
+          'Descripción': map['description']?.toString() ?? '',
         };
       } else if (language is LanguagePt) {
         return {
-          'Descrição': map['description'] as String,
+          'Descrição': map['description']?.toString() ?? '',
         };
       } else if (language is LanguageFr) {
         return {
-          'Description': map['description'] as String,
+          'Description': map['description']?.toString() ?? '',
         };
       } else if (language is LanguageDe) {
         return {
-          'Beschreibung': map['description'] as String,
+          'Beschreibung': map['description']?.toString() ?? '',
         };
       } else if (language is LanguageIt) {
         return {
-          'Descrizione': map['description'] as String,
+          'Descrizione': map['description']?.toString() ?? '',
         };
       }
 
       return {
-        'Description': map['description'] as String,
-        'Profession': map['profession'] as String,
-        'Finances': map['finances'] as String,
-        'Relationship': map['relationships'] as String,
-        'Health': map['health'] as String,
-        'Negative': map['negative'] as String,
+        'Description': map['description']?.toString() ?? '',
+        'Profession': map['profession']?.toString() ?? '',
+        'Finances': map['finances']?.toString() ?? '',
+        'Relationship': map['relationships']?.toString() ?? '',
+        'Health': map['health']?.toString() ?? '',
+        'Negative': map['negative']?.toString() ?? '',
       };
     }
 
@@ -1420,9 +1427,9 @@ class CategoryProvider {
     var calc = CategoryCalc.instance.calcLifePathNumberMethod1(profile);
 
     Map<String, String> descriptions =
-        await NumerologyDBProvider.instance.getEntity(
-      'select * from "$tableName"  where  number = $calc',
-      (map) => _fromMapLifePath(map),
+    await NumerologyDBProvider.instance.getEntity(
+      'select * from "$tableName" where number = $calc',
+          (map) => _fromMapLifePath(map),
     );
 
     var info = await runQuery(context,
@@ -1496,7 +1503,7 @@ class CategoryProvider {
 
   Future<Widget> getBirthdayNumPage(
       BuildContext context, Profile profile, String header) async {
-    var calc = DateService.fromTimestamp(profile.dob).day;
+    var calc = DateService.fromTimestamp(profile.dob!).day;
     var tableName = 'BIRTHDAY_NUMBER_ENG';
     if (language is LanguageRu) {
       tableName = 'BIRTHDAY_NUMBER_RUS';
@@ -1586,11 +1593,11 @@ class CategoryProvider {
     );
   }
 
-  Future<dynamic> runQuery(BuildContext context, String query) async {
+  Future<dynamic> runQuery(BuildContext? context, String query) async {
     try {
       return await getEntityRawQuery(query);
     } catch (e) {
-      context.read<UserDataCubit>().emitPrimaryUserError(e);
+      context!.read<UserDataCubit>().emitPrimaryUserError(e as Exception);
     }
   }
 
@@ -1598,8 +1605,8 @@ class CategoryProvider {
       BuildContext context, String tableName, int calc, String header) async {
     Map<String, String> _fromMapLifePath(Map<String, dynamic> map) {
       return {
-        'Описание': map['description'] as String,
-        'Ваша Характеристика': map['person_characteristic'] as String,
+        'Описание': map['description'] as String? ?? '',
+        'Ваша Характеристика': map['person_characteristic'] as String? ?? '',
       };
     }
 
@@ -1629,8 +1636,8 @@ class CategoryProvider {
       BuildContext context, String tableName, int calc, String header) async {
     Map<String, String> _fromMapLifePath(Map<String, dynamic> map) {
       return {
-        'Женщина': map['woman'] as String,
-        'Мужчина': map['man'] as String,
+        'Женщина': map['woman'] as String? ?? '',
+        'Мужчина': map['man'] as String? ?? '',
       };
     }
 
@@ -1660,8 +1667,8 @@ class CategoryProvider {
       BuildContext context, String tableName, int calc, String header) async {
     Map<String, String> _fromMapLifePath(Map<String, dynamic> map) {
       return {
-        'Описание': map['description'] as String,
-        'Подробное описание': map['detailedDescription'] as String,
+        'Описание': map['description'] as String? ?? '',
+        'Подробное описание': map['detailedDescription'] as String? ?? '',
       };
     }
 
@@ -1691,9 +1698,9 @@ class CategoryProvider {
       BuildContext context, String tableName, int calc, String header) async {
     Map<String, String> _fromMapLifePath(Map<String, dynamic> map) {
       return {
-        'Описание': map['description'] as String,
-        'Карьера': map['carear'] as String,
-        'Любовь': map['love'] as String,
+        'Описание': map['description'] as String? ?? '',
+        'Карьера': map['carear'] as String? ?? '',
+        'Любовь': map['love'] as String? ?? '',
       };
     }
 
@@ -1720,20 +1727,20 @@ class CategoryProvider {
   }
 
   Future<DescriptionPage> _getLoveDescriptionPage({
-    BuildContext context,
-    String tableCompat,
-    String tableLove,
-    int calcCompat,
-    int calcLove,
-    String header,
-    String partnerDob,
+    BuildContext? context,
+    String? tableCompat,
+    String? tableLove,
+    int? calcCompat,
+    int? calcLove,
+    String? header,
+    String? partnerDob,
   }) async {
     Map<String, String> _fromMapLifePath(Map<String, dynamic> map) {
       return {
-        'Описание': map['description'] as String,
-        'Подробное описание': map['detailedDescription'] as String,
-        'Мужчина': map['man'] as String,
-        'Женщина': map['woman'] as String,
+        'Описание': map['description'] as String? ?? '',
+        'Подробное описание': map['detailedDescription'] as String? ?? '',
+        'Мужчина': map['man'] as String? ?? '',
+        'Женщина': map['woman'] as String? ?? '',
       };
     }
 
@@ -1768,7 +1775,7 @@ class CategoryProvider {
 
   Future<DescriptionPage> _getKarmaDescriptionPage(BuildContext context,
       String tableName, List<int> calc, String header) async {
-    List<String> descriptions = [];
+    List<String?> descriptions = [];
     var headers = [];
 
     for (int i = 1; i < calc.length; i++) {

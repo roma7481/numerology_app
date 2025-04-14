@@ -1,5 +1,5 @@
+import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/constants/strings.dart';
@@ -17,24 +17,29 @@ class UserDataCubit extends Cubit<UserDataState> {
 
   Future<void> _updateUserData() async {
     try {
-      var primaryProfileId =
-          await SharedPref.instance.getValue(key: primaryUserKey);
+      final primaryProfileId = await SharedPref.instance.getValue(key: primaryUserKey);
       if (primaryProfileId == null) {
         emit(UserDataInit());
-      } else {
-        var profile =
-            await ProfileDBProvider.instance.getProfile(primaryProfileId);
-        emitPrimaryUserUpdate(profile);
+        return;
       }
+
+      final profile = await ProfileDBProvider.instance.getProfile(primaryProfileId);
+      if (profile == null) {
+        emitPrimaryUserError(Exception('Profile not found'));
+        return;
+      }
+
+      emitPrimaryUserUpdate(profile);
     } catch (e) {
       emitPrimaryUserError(e);
     }
   }
 
+
   Future<void> emitPrimaryUserUpdate(Profile profile) async {
     try {
       await SharedPref.instance
-          .setValue(key: primaryUserKey, value: profile.profileId);
+          .setValue(key: primaryUserKey, value: profile.profileId!);
       var dataParser = Globals.instance.getDataParser();
       var categories = await dataParser.getCategories(profile);
 
@@ -55,16 +60,20 @@ class UserDataCubit extends Cubit<UserDataState> {
       var primaryProfileId =
           await SharedPref.instance.getValue(key: primaryUserKey);
       if (primaryProfileId != null) {
-        var profile =
-            await ProfileDBProvider.instance.getProfile(primaryProfileId);
-        emitPrimaryUserUpdate(profile);
+        Profile? profile = await ProfileDBProvider.instance.getProfile(primaryProfileId);
+
+        if (profile != null) {
+          emitPrimaryUserUpdate(profile);
+        } else {
+          throw Exception("No profile found for ID: $primaryProfileId");
+        }
       }
     } catch (e) {
       emitPrimaryUserError(e);
     }
   }
 
-  emitPrimaryUserError(Exception e) {
+  emitPrimaryUserError(Object e) {
     emit(UserDataError(exception: e));
   }
 }

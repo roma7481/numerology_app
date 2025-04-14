@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_funding_choices/flutter_funding_choices.dart';
 import 'package:numerology/app/business_logic/cubit/other_app_cubit/OtherAppCubit.dart';
@@ -45,8 +46,7 @@ class SettingsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        brightness: Brightness.dark,
-        title: Text(Globals.instance.language.settings),
+        title: Text(Globals.instance.language.settings), systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
       body: _buildPageBody(context),
     );
@@ -127,7 +127,7 @@ class SettingsPage extends StatelessWidget {
               if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               } else {
-                var isPremium = snapshot.data;
+                var isPremium = snapshot.data!;
                 if (isPremium) {
                   return Container();
                 } else {
@@ -328,7 +328,7 @@ class SettingsPage extends StatelessWidget {
               if (snapshot.hasError) {
                 return errorDialog();
               } else {
-                var shodShowConsent = snapshot.data;
+                var shodShowConsent = snapshot.data!;
                 if (!shodShowConsent) {
                   return Container();
                 }
@@ -363,7 +363,7 @@ class SettingsPage extends StatelessWidget {
     ConsentInformation consentInfo =
         await FlutterFundingChoices.requestConsentInformation();
     if (consentInfo.isConsentFormAvailable &&
-        consentInfo.consentStatus == ConsentStatus.OBTAINED) {
+        consentInfo.consentStatus == ConsentStatus.obtained) {
       return true;
     }
     return false;
@@ -371,7 +371,7 @@ class SettingsPage extends StatelessWidget {
 
   void _shareApp(BuildContext context) {
     final String url = linkToApp;
-    final RenderBox box = context.findRenderObject();
+    final RenderBox box = context.findRenderObject() as RenderBox;
     Share.share(url,
         sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
   }

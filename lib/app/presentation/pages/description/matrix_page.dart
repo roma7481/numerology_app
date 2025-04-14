@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:numerology/app/business_logic/services/ads/show_banner.dart';
 import 'package:numerology/app/business_logic/services/ads/show_native_ad.dart';
@@ -13,15 +14,15 @@ import 'package:numerology/app/presentation/common_widgets/list_space_tile.dart'
 import 'matrix_data.dart';
 
 class MatrixPage extends StatefulWidget {
-  final String header;
-  final String guideText;
-  final List<int> matrix;
-  final List<MatrixData> data;
+  final String? header;
+  final String? guideText;
+  final List<int>? matrix;
+  final List<MatrixData>? data;
   final bool isPremium;
 
   const MatrixPage(
     this.isPremium, {
-    Key key,
+    Key? key,
     this.matrix,
     this.header,
     this.guideText,
@@ -33,25 +34,25 @@ class MatrixPage extends StatefulWidget {
 }
 
 class _MatrixPageState extends State<MatrixPage> {
-  List<int> get matrix => widget.matrix;
+  List<int>? get matrix => widget.matrix;
   var _indexSelected = 0;
-  var _descriptionCard = {};
-  var _infoCard = {};
+  Map<dynamic, dynamic>? _descriptionCard = {};
+  Map<dynamic, dynamic>? _infoCard = {};
 
-  BannerAd _banner;
-  AdWidget _adWidget;
+  BannerAd? _banner;
+  AdWidget? _adWidget;
 
   @override
   void initState() {
     super.initState();
-    _descriptionCard = widget.data[0].description;
-    _infoCard = widget.data[0].info;
+    _descriptionCard = widget.data![0].description;
+    _infoCard = widget.data![0].info;
   }
 
   @override
   Widget build(BuildContext context) {
     _banner = getBanner();
-    _adWidget = _banner == null ? null : AdWidget(ad: _banner);
+    _adWidget = _banner == null ? null : AdWidget(ad: _banner!);
 
     return _buildPageContent(context);
   }
@@ -60,8 +61,7 @@ class _MatrixPageState extends State<MatrixPage> {
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
-          title: Text(widget.header),
-          brightness: Brightness.dark),
+          title: Text(widget.header!), systemOverlayStyle: SystemUiOverlayStyle.light),
       body: _buildContext(context, widget.isPremium),
       bottomNavigationBar: showBanner(_adWidget, _banner, widget.isPremium),
     );
@@ -105,25 +105,25 @@ class _MatrixPageState extends State<MatrixPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildMatrixTile(context, matrix[0], 0),
-                _buildMatrixTile(context, matrix[3], 3),
-                _buildMatrixTile(context, matrix[6], 6),
+                _buildMatrixTile(context, matrix![0], 0),
+                _buildMatrixTile(context, matrix![3], 3),
+                _buildMatrixTile(context, matrix![6], 6),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildMatrixTile(context, matrix[1], 1),
-                _buildMatrixTile(context, matrix[4], 4),
-                _buildMatrixTile(context, matrix[7], 7),
+                _buildMatrixTile(context, matrix![1], 1),
+                _buildMatrixTile(context, matrix![4], 4),
+                _buildMatrixTile(context, matrix![7], 7),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildMatrixTile(context, matrix[2], 2),
-                _buildMatrixTile(context, matrix[5], 5),
-                _buildMatrixTile(context, matrix[8], 8),
+                _buildMatrixTile(context, matrix![2], 2),
+                _buildMatrixTile(context, matrix![5], 5),
+                _buildMatrixTile(context, matrix![8], 8),
               ],
             )
           ],
@@ -139,8 +139,8 @@ class _MatrixPageState extends State<MatrixPage> {
         () {
       setState(() {
         _indexSelected = index;
-        _descriptionCard = widget.data[index].description;
-        _infoCard = widget.data[index].info;
+        _descriptionCard = widget.data![index].description;
+        _infoCard = widget.data![index].info;
       });
     }, sideLength, isSelected: index == _indexSelected);
   }
@@ -152,7 +152,7 @@ class _MatrixPageState extends State<MatrixPage> {
         child: Padding(
           padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 20.0),
           child: Text(
-            widget.guideText,
+            widget.guideText!,
             style: matrixNotice,
           ),
         ),
@@ -163,7 +163,7 @@ class _MatrixPageState extends State<MatrixPage> {
   Widget _buildDescription() {
     return SliverToBoxAdapter(
         child: _buildCard(
-            _descriptionCard.keys.first, _descriptionCard.values.first));
+            _descriptionCard!.keys.first, _descriptionCard!.values.first));
   }
 
   Widget _buildCard(String header, String content) {
@@ -183,7 +183,7 @@ class _MatrixPageState extends State<MatrixPage> {
         child: Column(
       children: [
         showNativeAd(context, isPremium: isPremium),
-        _buildCard(_infoCard.keys.first, _infoCard.values.first),
+        _buildCard(_infoCard!.keys.first, _infoCard!.values.first),
       ],
     ));
   }

@@ -1,9 +1,11 @@
+
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:numerology/app/business_logic/cubit/language/language_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/profiles/profiles_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.dart';
@@ -23,11 +25,11 @@ import 'package:numerology/app/presentation/pages/welcome/input_text_tile.dart';
 import 'package:numerology/app/presentation/pages/welcome/name_utils.dart';
 
 class EditProfile extends StatefulWidget {
-  final Profile profile;
+  final Profile? profile;
   final bool isNewProfile;
 
   const EditProfile({
-    Key key,
+    Key? key,
     this.profile,
     this.isNewProfile = false,
   }) : super(key: key);
@@ -50,28 +52,28 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   void initState() {
-    _updatedProfile = widget.profile.copyWith();
-    if (widget.profile.dob != null) {
-      _dob = DateService.fromTimestamp(widget.profile.dob);
+    _updatedProfile = widget.profile!.copyWith();
+    if (widget.profile!.dob != null) {
+      _dob = DateService.fromTimestamp(widget.profile!.dob!);
     }
-    if (widget.profile.partnerDob != null) {
-      _partnerDob = DateService.fromTimestamp(widget.profile.partnerDob);
+    if (widget.profile!.partnerDob != null) {
+      _partnerDob = DateService.fromTimestamp(widget.profile!.partnerDob!);
     }
-    if (widget.profile.weddingDate != null) {
-      _weddingDate = DateService.fromTimestamp(widget.profile.weddingDate);
+    if (widget.profile!.weddingDate != null) {
+      _weddingDate = DateService.fromTimestamp(widget.profile!.weddingDate!);
     }
 
     controllerProfileName.value = controllerProfileName.value.copyWith(
-      text: widget.profile.profileName.isEmpty
+      text: widget.profile!.profileName!.isEmpty
           ? getDefaultProfileName()
-          : widget.profile.profileName,
+          : widget.profile!.profileName,
     );
     controllerFirstName.value = controllerProfileName.value
-        .copyWith(text: widget.profile.firstName ?? '');
+        .copyWith(text: widget.profile!.firstName ?? '');
     controllerLastName.value = controllerProfileName.value
-        .copyWith(text: widget.profile.lastName ?? '');
+        .copyWith(text: widget.profile!.lastName ?? '');
     controllerMiddleName.value = controllerProfileName.value
-        .copyWith(text: widget.profile.middleName ?? '');
+        .copyWith(text: widget.profile!.middleName ?? '');
     super.initState();
   }
 
@@ -168,7 +170,7 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   Center _buildInputField(
-      String text, TextEditingController controller, String hint,
+      String? text, TextEditingController controller, String hint,
       {bool canInputNumbers = false}) {
     return buildTextInputTile(context, hint, controller, onChanged: () {
       setState(() {
@@ -205,10 +207,10 @@ class _EditProfileState extends State<EditProfile> {
       children: [
         _buildHeader(Globals.instance.language.usersName),
         _buildInputField(
-            widget.profile.firstName, controllerFirstName, language.firstName),
+            widget.profile!.firstName, controllerFirstName, language.firstName),
         _buildInputField(
-            widget.profile.lastName, controllerLastName, language.lastName),
-        _buildInputField(widget.profile.middleName, controllerMiddleName,
+            widget.profile!.lastName, controllerLastName, language.lastName),
+        _buildInputField(widget.profile!.middleName, controllerMiddleName,
             language.middleName),
       ],
     );
@@ -350,13 +352,15 @@ class _EditProfileState extends State<EditProfile> {
     _wasUpdated = false;
   }
 
-  Future<void> _addNewProfile(Profile profile) async {
-    bool setAsPrim = await showProfileDialog(context);
-    if (setAsPrim) {
-      var prim =
-          await context.read<ProfilesCubit>().emitAddPrimProfile(profile);
-      await context.read<UserDataCubit>().emitPrimaryUserUpdate(prim);
-    } else {
+  Future<void> _addNewProfile(Profile? profile) async {
+    final setAsPrim = await showProfileDialog(context);
+
+    if (setAsPrim == true) {
+      var prim = await context.read<ProfilesCubit>().emitAddPrimProfile(profile!);
+      if (prim != null) {
+        await context.read<UserDataCubit>().emitPrimaryUserUpdate(prim);
+      }
+    } else if (setAsPrim == false) {
       await context.read<ProfilesCubit>().emitAddProfile(profile);
     }
   }

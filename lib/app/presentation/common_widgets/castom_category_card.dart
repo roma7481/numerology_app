@@ -4,14 +4,14 @@ import 'package:numerology/app/constants/text_styles.dart';
 
 class CustomCategoryCard extends StatelessWidget {
   CustomCategoryCard({
-    @required this.header,
-    @required this.content,
+    required this.header,
+    required this.content,
     this.iconPath,
   });
 
   final String header;
-  final String content;
-  final String iconPath;
+  final String? content;
+  final String? iconPath;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class CustomCategoryCard extends StatelessWidget {
 
   Widget _buildCardContent(BuildContext context) {
     return Text(
-      content,
+      content!,
       style: descriptionContentStyle(),
     );
   }
@@ -61,7 +61,7 @@ class CustomCategoryCard extends StatelessWidget {
 
   Widget _buildIcon() {
     return iconPath != null
-        ? SvgPicture.asset(iconPath, height: 20.0)
+        ? SvgPicture.asset(iconPath!, height: 20.0)
         : Container();
   }
 }

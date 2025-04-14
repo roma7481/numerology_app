@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
@@ -16,9 +17,9 @@ class NumerologyDBRepository {
   static final NumerologyDBRepository instance =
       NumerologyDBRepository._privateConstructor();
 
-  static Database _database;
+  static Database? _database;
 
-  Future<Database> get database async {
+  Future<Database?> get database async {
     return (_database != null) ? _database : await _initiateDatabase();
   }
 
@@ -54,9 +55,10 @@ class NumerologyDBRepository {
     return await openDatabase(path, readOnly: true);
   }
 
-  Future<T> getEntity<T>(String query, Function fromMap) async {
-    Database db =
-        await instance.database; // this command calls get database async method
+  Future<T?> getEntity<T>(String query, Function fromMap) async {
+    final dbNullable = await instance.database;
+    if (dbNullable == null) throw Exception('Database is not initialized');
+    final db = dbNullable;
 
     final List<Map<String, dynamic>> maps = await db.rawQuery(query);
 
@@ -64,7 +66,9 @@ class NumerologyDBRepository {
   }
 
   Future closeDB() async {
-    Database db = await instance.database;
+    final dbNullable = await instance.database;
+    if (dbNullable == null) throw Exception('Database is not initialized');
+    final db = dbNullable;
     debugPrint("Closing database");
     await db.close();
   }

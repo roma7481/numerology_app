@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
 
-Future<bool> showProfileDialog(BuildContext context) async {
+Future<bool?> showProfileDialog(BuildContext context) async {
   var language = Globals.instance.getLanguage();
   return showDialog(
     context: context,

@@ -4,9 +4,9 @@ import 'package:numerology/app/constants/text_styles.dart';
 import 'custom_button.dart';
 
 Widget buildStandardButton({
-  String text,
-  Color color,
-  Function onPressed,
+  required String text,
+  Color? color,
+  Function? onPressed,
 }) {
   return Align(
     alignment: Alignment.bottomCenter,

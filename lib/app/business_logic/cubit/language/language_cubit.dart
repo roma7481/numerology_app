@@ -1,5 +1,3 @@
-import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:numerology/app/business_logic/globals/globals.dart';
@@ -14,7 +12,7 @@ class LanguageCubit extends Cubit<LanguageState> with HydratedMixin {
           buttonId: 0,
           firsTimeAppVisit: true,
         )) {
-    Globals.instance.setLocale(localeCode: this.state.locale);
+    Globals.instance.setLocale(localeCode: this.state.locale!);
     initializeDateFormatting(this.state.locale);
   }
 

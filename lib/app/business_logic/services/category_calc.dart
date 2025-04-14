@@ -18,8 +18,8 @@ class CategoryCalc {
   static final instance = CategoryCalc._();
 
   int calcCoupleNum(Profile profile) {
-    var birthday = DateService.fromTimestamp(profile.dob);
-    var pBirthday = DateService.fromTimestamp(profile.partnerDob);
+    var birthday = DateService.fromTimestamp(profile.dob!);
+    var pBirthday = DateService.fromTimestamp(profile.partnerDob!);
     var coupleNum1 =
         _calcToSingleDigit(birthday.day + birthday.month + birthday.year);
     var coupleNum2 =
@@ -28,9 +28,9 @@ class CategoryCalc {
   }
 
   List<int> calcKarmicNum(Profile profile) {
-    var fName = profile.firstName.toLowerCase();
-    var mName = profile.middleName.toLowerCase();
-    var lName = profile.lastName.toLowerCase();
+    var fName = profile.firstName!.toLowerCase();
+    var mName = profile.middleName!.toLowerCase();
+    var lName = profile.lastName!.toLowerCase();
     var fullName = fName + mName + lName;
 
     var lettersNum = '';
@@ -59,9 +59,9 @@ class CategoryCalc {
   int _calcDestinyNumber(Profile profile) {
     var isStop = false;
 
-    var fName = profile.firstName.toLowerCase();
-    var mName = profile.middleName.toLowerCase();
-    var lName = profile.lastName.toLowerCase();
+    var fName = profile.firstName!.toLowerCase();
+    var mName = profile.middleName!.toLowerCase();
+    var lName = profile.lastName!.toLowerCase();
     var fNameNum = _calcToSingleDigit(_convertConCharsAndSum(fName));
     var mNameNum = _calcToSingleDigit(_convertConCharsAndSum(mName));
     var lNameNum = _calcToSingleDigit(_convertConCharsAndSum(lName));
@@ -84,7 +84,7 @@ class CategoryCalc {
   }
 
   int calcLoveCompatNumberRu(Profile profile) {
-    var birthday = DateService.fromTimestamp(profile.partnerDob);
+    var birthday = DateService.fromTimestamp(profile.partnerDob!);
     var day = _calcToSingleDigitWithMagicNums(birthday.day);
     var month = _calcToSingleDigitWithMagicNums(birthday.month);
     var year = _calcToSingleDigitWithMagicNums(birthday.year);
@@ -95,7 +95,7 @@ class CategoryCalc {
   }
 
   int calcLoveNumberRu(Profile profile) {
-    var birthday = DateService.fromTimestamp(profile.partnerDob);
+    var birthday = DateService.fromTimestamp(profile.partnerDob!);
     return _calcToSingleDigit(
         _calcToSingleDigit(birthday.day) + _calcToSingleDigit(birthday.month));
   }
@@ -106,15 +106,15 @@ class CategoryCalc {
   }
 
   int calcBalanceNumber(Profile profile) {
-    var fName = profile.firstName.toLowerCase().trim();
-    var lName = profile.lastName.toLowerCase().trim();
-    var mName = profile.middleName.toLowerCase().trim();
+    var fName = profile.firstName!.toLowerCase().trim();
+    var lName = profile.lastName!.toLowerCase().trim();
+    var mName = profile.middleName!.toLowerCase().trim();
     var balanceNumber = (fName + mName + lName).length;
     return _calcToSingleDigitWithMagicNums(balanceNumber);
   }
 
   int calcMoneyNumber(Profile profile) {
-    var birthday = DateService.fromTimestamp(profile.dob);
+    var birthday = DateService.fromTimestamp(profile.dob!);
     var day = _calcToSingleDigit(birthday.day);
     var month = _calcToSingleDigit(birthday.month);
 
@@ -122,16 +122,16 @@ class CategoryCalc {
   }
 
   int calcIntelligenceNumber(Profile profile) {
-    var birthday = DateService.fromTimestamp(profile.dob);
+    var birthday = DateService.fromTimestamp(profile.dob!);
     var day = _calcToSingleDigit(birthday.day);
-    var name = profile.firstName.toLowerCase();
+    var name = profile.firstName!.toLowerCase();
 
     var nameNum = _calcToSingleDigit(_convertCharsAndSum(name));
     return _calcToSingleDigit(day + nameNum);
   }
 
   int calcCharacterNumber(Profile profile) {
-    var birthday = DateService.fromTimestamp(profile.dob);
+    var birthday = DateService.fromTimestamp(profile.dob!);
     var day = _calcToSingleDigit(birthday.day);
     return _calcToSingleDigit(day);
   }
@@ -231,14 +231,14 @@ class CategoryCalc {
   }
 
   int calcAchievementNum1(Profile profile) {
-    var birthday = DateService.fromTimestamp(profile.dob);
+    var birthday = DateService.fromTimestamp(profile.dob!);
     var month = _calcToSingleDigit(birthday.month);
     var day = _calcToSingleDigit(birthday.day);
     return _calcToSingleDigit(day + month);
   }
 
   int calcAchievementNum2(Profile profile) {
-    var birthday = DateService.fromTimestamp(profile.dob);
+    var birthday = DateService.fromTimestamp(profile.dob!);
     var day = _calcToSingleDigit(birthday.day);
     var year = _calcToSingleDigit(birthday.year);
     return _calcToSingleDigit(day + year);
@@ -250,14 +250,14 @@ class CategoryCalc {
   }
 
   int calcAchievementNum4(Profile profile) {
-    var birthday = DateService.fromTimestamp(profile.dob);
+    var birthday = DateService.fromTimestamp(profile.dob!);
     var year = _calcToSingleDigit(birthday.year);
     var month = _calcToSingleDigit(birthday.month);
     return _calcToSingleDigit(year + month);
   }
 
   List<double> calcBio(Profile profile) {
-    return calcBioPrimByDate(profile.dob);
+    return calcBioPrimByDate(profile.dob!);
   }
 
   List<String> calcBioPrimLevel(List<double> bio) {
@@ -326,7 +326,7 @@ class CategoryCalc {
   }
 
   int _calcDaysBetweenCouples(Profile profile) {
-    var millisecondsDiff = (profile.dob - profile.partnerDob).abs();
+    var millisecondsDiff = (profile.dob! - profile.partnerDob!).abs();
     return Duration(milliseconds: millisecondsDiff).inDays;
   }
 
@@ -382,14 +382,14 @@ class CategoryCalc {
   }
 
   List<String> calcMatrixCompat(
-      {List<int> yourMatrixLines, List<int> partnerMatrixLines}) {
+      {required List<int> yourMatrixLines, List<int>? partnerMatrixLines}) {
     List<String> categories = ['', '', '', '', '', '', '', ''];
     for (int i = 0; i < yourMatrixLines.length; i++) {
-      if (yourMatrixLines[i] < 3 && partnerMatrixLines[i] < 3) {
+      if (yourMatrixLines[i] < 3 && partnerMatrixLines![i] < 3) {
         categories[i] = "weak";
-      } else if (yourMatrixLines[i] == 3 && partnerMatrixLines[i] == 3) {
+      } else if (yourMatrixLines[i] == 3 && partnerMatrixLines![i] == 3) {
         categories[i] = "moderate";
-      } else if (yourMatrixLines[i] > 3 && partnerMatrixLines[i] > 3) {
+      } else if (yourMatrixLines[i] > 3 && partnerMatrixLines![i] > 3) {
         if ((yourMatrixLines[i] - partnerMatrixLines[i]).abs() >= 2) {
           categories[i] = (yourMatrixLines[i] > partnerMatrixLines[i])
               ? "you_stronger"
@@ -398,7 +398,7 @@ class CategoryCalc {
           categories[i] = "strong";
         }
       } else {
-        categories[i] = (yourMatrixLines[i] > partnerMatrixLines[i])
+        categories[i] = (yourMatrixLines[i] > partnerMatrixLines![i])
             ? "you_stronger"
             : "partner_stronger";
       }
@@ -408,7 +408,7 @@ class CategoryCalc {
   }
 
   List<int> calcMatrixLines(Profile profile) {
-    return calcMatrixLinesByDob(profile.dob);
+    return calcMatrixLinesByDob(profile.dob!);
   }
 
   List<int> calcMatrixLinesByDob(int dob) {
@@ -443,7 +443,7 @@ class CategoryCalc {
     return linesArray;
   }
 
-  int _calcMatrixLine({List<int> array, int index0, int index1, int index2}) {
+  int _calcMatrixLine({required List<int> array, required int index0, required int index1, required int index2}) {
     return array[index0] + array[index1] + array[index2] == 0
         ? 0
         : ('' +
@@ -455,7 +455,7 @@ class CategoryCalc {
   }
 
   List<int> calcMatrix(Profile profile) {
-    return calcMatrixByDob(profile.dob);
+    return calcMatrixByDob(profile.dob!);
   }
 
   List<int> calcMatrixByDob(int dob) {
@@ -501,7 +501,7 @@ class CategoryCalc {
   }
 
   int calcWeddingNumber(Profile profile) {
-    var weddingDate = DateService.fromTimestamp(profile.weddingDate);
+    var weddingDate = DateService.fromTimestamp(profile.weddingDate!);
     var year = _charToNumber(weddingDate.year.toString());
     var month = _charToNumber(weddingDate.month.toString());
     var day = _charToNumber(weddingDate.day.toString());
@@ -532,8 +532,8 @@ class CategoryCalc {
   }
 
   int calcDesireNumber(Profile profile) {
-    var firstName = profile.firstName.toLowerCase();
-    var lastName = profile.lastName.toLowerCase();
+    var firstName = profile.firstName!.toLowerCase();
+    var lastName = profile.lastName!.toLowerCase();
 
     var firstNameNumber =
         _calcToSingleDigitWithMagicNums(_convertConCharsAndSum(firstName));
@@ -547,9 +547,9 @@ class CategoryCalc {
     var personalityNumber = 0;
     bool isStop = false;
 
-    var firstName = profile.firstName.toLowerCase();
-    var lastName = profile.lastName.toLowerCase();
-    var middleName = profile.middleName.toLowerCase();
+    var firstName = profile.firstName!.toLowerCase();
+    var lastName = profile.lastName!.toLowerCase();
+    var middleName = profile.middleName!.toLowerCase();
 
     var firstNameNumber = _calcToSingleDigit(_convertConCharsAndSum(firstName));
     var lastNameNumber = _calcToSingleDigit(_convertConCharsAndSum(lastName));
@@ -574,9 +574,9 @@ class CategoryCalc {
   int calcExpressionNumber(Profile profile) {
     var expressionNumber = 0;
 
-    var firstName = profile.firstName.toLowerCase();
-    var lastName = profile.lastName.toLowerCase();
-    var middleName = profile.middleName.toLowerCase();
+    var firstName = profile.firstName!.toLowerCase();
+    var lastName = profile.lastName!.toLowerCase();
+    var middleName = profile.middleName!.toLowerCase();
 
     var firstNameNumber = _calcNumToDigits(_convertCharsAndSum(firstName));
     var lastNameNumber = _calcNumToDigits(_convertCharsAndSum(lastName));
@@ -598,9 +598,9 @@ class CategoryCalc {
     var nameNumber = 0;
     bool isStop = false;
 
-    var firstName = profile.firstName.toLowerCase();
-    var lastName = profile.lastName.toLowerCase();
-    var middleName = profile.middleName.toLowerCase();
+    var firstName = profile.firstName!.toLowerCase();
+    var lastName = profile.lastName!.toLowerCase();
+    var middleName = profile.middleName!.toLowerCase();
 
     if (Globals.instance.language is LanguageRu) {
       var nameNum = _convertCharsAndSum(firstName + lastName + middleName);
@@ -645,14 +645,14 @@ class CategoryCalc {
   }
 
   int calcSoulNumberRu(Profile profile) {
-    var birthday = DateService.fromTimestamp(profile.dob);
+    var birthday = DateService.fromTimestamp(profile.dob!);
     return _calcToSingleDigitWithMagicNums(birthday.day);
   }
 
   int calcSoulNumber(Profile profile) {
-    var firstName = profile.firstName.toLowerCase();
-    var lastName = profile.lastName.toLowerCase();
-    var middleName = profile.middleName.toLowerCase();
+    var firstName = profile.firstName!.toLowerCase();
+    var lastName = profile.lastName!.toLowerCase();
+    var middleName = profile.middleName!.toLowerCase();
     var firstNameNum = _calcToSingleDigit(_convertVowCharsAndSum(firstName));
     var lastNameNum = _calcToSingleDigit(_convertVowCharsAndSum(lastName));
     var middleNameNum = middleName.isEmpty
@@ -691,14 +691,14 @@ class CategoryCalc {
   }
 
   int calcChallengeNum1(Profile profile) {
-    var birthday = DateService.fromTimestamp(profile.dob);
+    var birthday = DateService.fromTimestamp(profile.dob!);
     var challengeMonth = _calcToSingleDigit(birthday.month);
     var challengeDay = _calcToSingleDigit(birthday.day);
     return (challengeMonth - challengeDay).abs();
   }
 
   int calcChallengeNum2(Profile profile) {
-    var birthday = DateService.fromTimestamp(profile.dob);
+    var birthday = DateService.fromTimestamp(profile.dob!);
     var challengeYear = _calcToSingleDigit(birthday.year);
     var challengeDay = _calcToSingleDigit(birthday.day);
     return (challengeYear - challengeDay).abs();
@@ -709,14 +709,14 @@ class CategoryCalc {
   }
 
   int calcChallengeNum4(Profile profile) {
-    var birthday = DateService.fromTimestamp(profile.dob);
+    var birthday = DateService.fromTimestamp(profile.dob!);
     var challengeYear = _calcToSingleDigit(birthday.year);
     var challengeMonth = _calcToSingleDigit(birthday.month);
     return (challengeYear - challengeMonth).abs();
   }
 
   int calcLifePathNumberMethod1(Profile profile) {
-    return calcLifePathNumberMethod(profile.dob);
+    return calcLifePathNumberMethod(profile.dob!);
   }
 
   int calcLifePathNumberMethod(int dob) {
@@ -729,7 +729,7 @@ class CategoryCalc {
   }
 
   int calcBirthdayCode(Profile profile) {
-    var birthday = DateService.fromTimestamp(profile.dob);
+    var birthday = DateService.fromTimestamp(profile.dob!);
     var birthCodeNumber = birthday.day + birthday.month + birthday.year;
 
     if (Globals.instance.language is LanguageRu) {
@@ -739,7 +739,7 @@ class CategoryCalc {
   }
 
   int calcLuckGem(Profile profile) {
-    var birthday = DateService.fromTimestamp(profile.dob);
+    var birthday = DateService.fromTimestamp(profile.dob!);
     return _calcToSingleDigit(birthday.day);
   }
 
@@ -762,7 +762,7 @@ class CategoryCalc {
   }
 
   int calcYearNum(Profile profile, DateTime date) {
-    var birthday = DateService.fromTimestamp(profile.dob);
+    var birthday = DateService.fromTimestamp(profile.dob!);
 
     var currentYear = _calcToSingleDigitWithMagicNums(date.year);
     var day = _calcToSingleDigitWithMagicNums(birthday.day);
@@ -783,7 +783,7 @@ class CategoryCalc {
   }
 
   int calcPersonalYear(Profile profile) {
-    var birthday = DateService.fromTimestamp(profile.dob);
+    var birthday = DateService.fromTimestamp(profile.dob!);
     var currentYear = DateService.getCurrentDate().year;
 
     var year = _calcToSingleDigitWithMagicNums(currentYear);

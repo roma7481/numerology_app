@@ -6,14 +6,14 @@ import 'package:numerology/app/constants/text_styles.dart';
 import 'custom_raised_button.dart';
 
 Widget buildCategoryTile({
-  @required BuildContext context,
-  @required String text,
-  @required Function onPressed,
-  @required String imagePath,
+  required BuildContext context,
+  required String text,
+  required Function onPressed,
+  required String imagePath,
 }) {
   var width = MediaQuery.of(context).size.width;
   return CustomButton(
-    onPressed: onPressed,
+    onPressed: onPressed as void Function(),
     child: Stack(
       alignment: Alignment.bottomRight,
       children: [

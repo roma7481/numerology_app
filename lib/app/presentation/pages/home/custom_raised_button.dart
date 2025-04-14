@@ -4,8 +4,8 @@ import 'package:numerology/app/constants/colors.dart';
 
 class CustomButton extends StatelessWidget {
   CustomButton({
-    @required this.child,
-    @required this.onPressed,
+    required this.child,
+    required this.onPressed,
   });
 
   final Widget child;

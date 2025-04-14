@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:numerology/app/business_logic/services/ads/show_banner.dart';
 import 'package:numerology/app/business_logic/services/ads/show_native_ad.dart';
@@ -19,14 +20,14 @@ class MatrixLinesPage extends StatelessWidget {
   final String calculation;
   final List<CardData> data;
   final List<int> matrix;
-  final Map<String, String> info;
+  final Map<String, String?>? info;
 
-  BannerAd _banner;
-  AdWidget _adWidget;
+  BannerAd? _banner;
+  AdWidget? _adWidget;
 
   MatrixLinesPage(
     {
-    Key key,
+    Key? key,
     this.header = '',
     this.calculation = '',
     this.data = const [],
@@ -48,7 +49,7 @@ class MatrixLinesPage extends StatelessWidget {
                   child: errorDialog(),
                 );
               } else {
-                var isPremium = snapshot.data;
+                var isPremium = snapshot.data!;
                 _loadBanner(isPremium);
                 return _buildPageContent(context, isPremium);
               }
@@ -61,13 +62,13 @@ class MatrixLinesPage extends StatelessWidget {
       return;
     }
     _banner = getBanner();
-    _adWidget = _banner == null ? null : AdWidget(ad: _banner);
+    _adWidget = _banner == null ? null : AdWidget(ad: _banner!);
   }
 
   Widget _buildPageContent(BuildContext context, bool isPremium) {
     return Scaffold(
       appBar: AppBar(
-          centerTitle: true, title: Text(header), brightness: Brightness.dark),
+          centerTitle: true, title: Text(header), systemOverlayStyle: SystemUiOverlayStyle.light),
       body: _buildContext(context, isPremium),
       bottomNavigationBar: showBanner(_adWidget, _banner, isPremium),
     );
@@ -122,8 +123,8 @@ class MatrixLinesPage extends StatelessWidget {
     return SliverToBoxAdapter(
       child: CustomCard(
         child: CustomCategoryCard(
-          header: info.keys.first,
-          content: info.values.first,
+          header: info!.keys.first,
+          content: info!.values.first,
         ),
       ),
     );

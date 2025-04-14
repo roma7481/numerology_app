@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:numerology/app/business_logic/cubit/language/language_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/profiles/profiles_cubit.dart';
 import 'package:numerology/app/business_logic/cubit/user_data/user_data_cubit.dart';
@@ -17,11 +17,11 @@ import 'package:numerology/app/presentation/common_widgets/toast.dart';
 
 class DescriptionPartnerDobBasedPage extends StatefulWidget {
   final String categoryName;
-  final Function getPage;
+  final Function? getPage;
 
   const DescriptionPartnerDobBasedPage({
-    Key key,
-    @required this.categoryName,
+    Key? key,
+    required this.categoryName,
     this.getPage,
   }) : super(key: key);
 
@@ -32,7 +32,7 @@ class DescriptionPartnerDobBasedPage extends StatefulWidget {
 
 class _DescriptionPartnerDobBasedPageState
     extends State<DescriptionPartnerDobBasedPage> {
-  var _currentProfile;
+  late var _currentProfile;
   var _selectedDate;
   var _partnerDob;
   var _isPartnerDobSet = false;
@@ -62,10 +62,10 @@ class _DescriptionPartnerDobBasedPageState
 
   Widget _sowDescriptionPage(UserDataReady state) {
     return FutureBuilder(
-      future: widget.getPage(state.profile, widget.categoryName),
+      future: widget.getPage!(state.profile, widget.categoryName),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return snapshot.data;
+          return snapshot.data as Widget;
         } else if (snapshot.hasError) {
           return errorDialog();
         } else {

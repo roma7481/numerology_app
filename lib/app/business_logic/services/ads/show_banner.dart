@@ -4,7 +4,7 @@ import 'package:numerology/app/constants/colors.dart';
 
 import 'ad_service.dart';
 
-BannerAd getBanner() {
+BannerAd? getBanner() {
   try {
     return BannerAd(
       adUnitId: realBannerAppId,
@@ -34,7 +34,7 @@ BannerAd getBanner() {
   }
 }
 
-Widget showBanner(AdWidget adWidget, BannerAd banner, bool isPremium) {
+Widget? showBanner(AdWidget? adWidget, BannerAd? banner, bool isPremium) {
   if (adWidget == null || banner == null){
     return Container(width: 0,height: 0,);
   }
@@ -49,7 +49,7 @@ Widget showBanner(AdWidget adWidget, BannerAd banner, bool isPremium) {
   );
 }
 
-double calcListHeight(BuildContext context, BannerAd banner, bool isPremium) {
+double calcListHeight(BuildContext context, BannerAd? banner, bool isPremium) {
   var bannerHeight = isPremium || banner == null ? 0 : banner.size.height;
   return MediaQuery.of(context).size.height - bannerHeight;
 }

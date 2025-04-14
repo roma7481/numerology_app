@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:numerology/app/business_logic/services/ads/show_banner.dart';
 import 'package:numerology/app/business_logic/services/ads/show_native_ad.dart';
@@ -13,7 +14,7 @@ import 'circle_widget.dart';
 import 'matrix_line_data.dart';
 
 class DescriptionPage extends StatelessWidget {
-  final String header;
+  final String? header;
   final String calculation;
   final List<CardData> data;
 
@@ -40,7 +41,7 @@ class DescriptionPage extends StatelessWidget {
                   child: errorDialog(),
                 );
               } else {
-                var isPremium = snapshot.data;
+                var isPremium = snapshot.data!;
                 return _buildPageContent(
                   context,
                   banner,
@@ -54,13 +55,13 @@ class DescriptionPage extends StatelessWidget {
 
   Widget _buildPageContent(
     BuildContext context,
-    BannerAd banner,
-    AdWidget adWidget,
+    BannerAd? banner,
+    AdWidget? adWidget,
     bool isPremium,
   ) {
     return Scaffold(
       appBar: AppBar(
-          centerTitle: true, title: Text(header), brightness: Brightness.dark),
+          centerTitle: true, title: Text(header!), systemOverlayStyle: SystemUiOverlayStyle.light),
       body: _buildContext(
         context,
         banner,
@@ -73,8 +74,8 @@ class DescriptionPage extends StatelessWidget {
 
   Widget _buildContext(
     BuildContext context,
-    BannerAd banner,
-    AdWidget adWidget,
+    BannerAd? banner,
+    AdWidget? adWidget,
     bool isPremium,
   ) {
     var listHeight = calcListHeight(context, banner, isPremium);

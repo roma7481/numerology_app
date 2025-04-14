@@ -31,7 +31,7 @@ Widget buildMatrixTileButton(
               text,
               style: matrixTileStyle,
             ),
-            onPressed: onPressed),
+            onPressed: onPressed as void Function()?),
       ),
     ),
   );

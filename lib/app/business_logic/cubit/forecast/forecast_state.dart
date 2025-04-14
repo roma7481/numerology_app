@@ -6,10 +6,10 @@ abstract class ForecastState {}
 class ForecastLoading extends ForecastState {}
 
 class ForecastReady extends ForecastState {
-  final Forecast daily;
-  final Forecast lucky;
-  final Forecast monthly;
-  final Forecast annual;
+  final Forecast? daily;
+  final Forecast? lucky;
+  final Forecast? monthly;
+  final Forecast? annual;
 
   ForecastReady({
     this.daily,

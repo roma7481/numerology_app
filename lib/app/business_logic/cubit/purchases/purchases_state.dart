@@ -12,9 +12,9 @@ class PurchasesInitFailed extends PurchasesState {
 }
 
 class PurchasesReady extends PurchasesState {
-  final List<ProductDetails> productDetails;
+  final List<ProductDetails>? productDetails;
 
-  PurchasesReady({@required this.productDetails});
+  PurchasesReady({required this.productDetails});
 }
 
 class PurchasesError extends PurchasesState {}

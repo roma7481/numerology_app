@@ -4,11 +4,11 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:numerology/app/business_logic/services/ads/ad_service.dart';
 
 class NativeAdItem extends StatelessWidget {
-  const NativeAdItem({Key key}) : super(key: key);
+  const NativeAdItem({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    NativeAd nativeAd = AdManager.getNativeAd();
+    NativeAd? nativeAd = AdManager.getNativeAd();
     if (nativeAd == null) {
       return Container();
     }

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:numerology/app/business_logic/globals/globals.dart';
-import 'package:numerology/app/constants/text_styles.dart';
-import 'package:numerology/app/presentation/common_widgets/card_header.dart';
-import 'package:numerology/app/presentation/common_widgets/custom_card.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../business_logic/globals/globals.dart';
+import '../../constants/text_styles.dart';
 import 'ad_widget_tag.dart';
+import 'card_header.dart';
+import 'custom_card.dart';
 
 class ExpandableTile extends StatefulWidget {
-  final String header;
-  final String content;
-  final String iconPath;
+  final String? header;
+  final String? content;
+  final String? iconPath;
   final String promotionLink;
 
   ExpandableTile(this.header, this.content, {this.iconPath, this.promotionLink = ''});
@@ -22,97 +22,106 @@ class ExpandableTile extends StatefulWidget {
 class _ExpandableTileState extends State<ExpandableTile> {
   bool _isExpand = false;
 
-
   @override
   Widget build(BuildContext context) {
     return CustomCard(
-      child: ExpansionTile(
-        tilePadding: EdgeInsets.only(left: 0.0, right: 8.0),
-        title:
-            _collapsedContent(),
-        children:
-            _expandedContent(),
-        onExpansionChanged: (isExpanded) {
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () {
           setState(() {
-            _isExpand = isExpanded;
+            _isExpand = !_isExpand;
           });
         },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildHeaderWithToggle(), // includes the header + top-right icon
+            _buildCardContent(),      // includes preview or full content
+          ],
+        ),
       ),
     );
   }
 
-  List<Widget> _expandedContent() {
-    return [_buildCardContent()];
-
-    /// nothing here, header is already colapsable expandable
-  }
-
-  Widget _collapsedContent() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        buildHeader(widget.header, widget.iconPath),
-        _isExpand ? Container() : _buildCardContent(),
-        _buildReadMore(),
-      ],
-    );
-  }
-
-  Widget _buildCardContent() {
+  Widget _buildHeaderWithToggle() {
     return Padding(
-      padding: const EdgeInsets.only(
-          top: 16.0, left: 16.0, right: 8.0, bottom: 16.0),
-      child: Column(
+      padding: const EdgeInsets.only(right: 8.0, left: 0.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(widget.content,
-              maxLines: !_isExpand ? 4 : 2000,
-              style: descriptionContentStyle(),
-              overflow: !_isExpand ? TextOverflow.ellipsis : TextOverflow.visible),
-          _buildHealingSoundsPromotion()
+          Expanded(child: buildHeader(widget.header, widget.iconPath)),
         ],
       ),
     );
   }
 
+  Widget _buildCardContent() {
+    final isContentEmpty = widget.content == null || widget.content!.isEmpty;
+
+    if (isContentEmpty) return SizedBox();
+
+    return Padding(
+      padding: const EdgeInsets.only(top: 8.0, left: 16.0, right: 8.0, bottom: 16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            widget.content!,
+            maxLines: _isExpand ? 2000 : 6,
+            overflow: _isExpand ? TextOverflow.visible : TextOverflow.ellipsis,
+            style: descriptionContentStyle(),
+          ),
+          if (!_isExpand) _buildReadMore(),
+          if (_isExpand) _buildHealingSoundsPromotion(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildReadMore() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 8.0),
+      child: Text(
+        Globals.instance.language.readMore,
+        style: readMoreStyle,
+        textAlign: TextAlign.start,
+      ),
+    );
+  }
+
   Widget _buildHealingSoundsPromotion() {
-    if(!_isExpand || widget.promotionLink.isEmpty){
-      return Container();
-    }
+    if (widget.promotionLink.isEmpty) return SizedBox();
 
     return InkWell(
       onTap: () {
-        launchUrl(Uri.parse(widget.promotionLink),mode: LaunchMode.externalApplication);
+        launchUrl(Uri.parse(widget.promotionLink), mode: LaunchMode.externalApplication);
       },
       child: Padding(
         padding: const EdgeInsets.only(top: 12.0),
-        child: new RichText(
-          text: new TextSpan(
-            // Note: Styles for TextSpans must be explicitly defined.
-            // Child text spans will inherit styles from parent
+        child: RichText(
+          text: TextSpan(
             children: [
-              WidgetSpan(child: Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: adWidgetTag(),
-              )),
-              new TextSpan(text: Globals.instance.getLanguage().healingSoundsPromotion1, style: descriptionContentStyle()),
-              new TextSpan(text: Globals.instance.getLanguage().healingSoundsPromotion2, style: urlLinkStyle),
-              new TextSpan(text: Globals.instance.getLanguage().healingSoundsPromotion3, style: descriptionContentStyle()),
-              new TextSpan(text: '\n'),
+              WidgetSpan(
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: adWidgetTag(),
+                ),
+              ),
+              TextSpan(
+                  text: Globals.instance.getLanguage().healingSoundsPromotion1,
+                  style: descriptionContentStyle()),
+              TextSpan(
+                  text: Globals.instance.getLanguage().healingSoundsPromotion2,
+                  style: urlLinkStyle),
+              TextSpan(
+                  text: Globals.instance.getLanguage().healingSoundsPromotion3,
+                  style: descriptionContentStyle()),
+              TextSpan(text: '\n'),
             ],
           ),
         ),
       ),
     );
   }
-
-  Widget _buildReadMore() {
-    if (_isExpand) {
-      return Container();
-    }
-    return Padding(
-      padding: const EdgeInsets.only(left: 16.0, top: 8.0, bottom: 16.0),
-      child: Text(Globals.instance.language.readMore,
-          textAlign: TextAlign.start, style: readMoreStyle),
-    );
-  }
 }
+

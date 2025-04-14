@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:numerology/app/business_logic/cubit/purchases/purchases_cubit.dart';
@@ -21,20 +22,20 @@ import 'matrix_line_data.dart';
 import 'matrix_utils.dart';
 
 class CompatInternalPage extends StatefulWidget {
-  final List<int> yourMatrix;
-  final List<int> partnerMatrix;
-  final List<CardData> matrixData;
-  final List<CardData> lifePathData;
-  final List<CardData> bioData;
-  final List<double> bioCompat;
-  final int yourLifePath;
-  final int partnersLifePath;
-  final int coupleNumSpanish;
-  final List<CardData> coupleNumData;
-  final Function getPage;
+  final List<int>? yourMatrix;
+  final List<int>? partnerMatrix;
+  final List<CardData>? matrixData;
+  final List<CardData>? lifePathData;
+  final List<CardData>? bioData;
+  final List<double>? bioCompat;
+  final int? yourLifePath;
+  final int? partnersLifePath;
+  final int? coupleNumSpanish;
+  final List<CardData>? coupleNumData;
+  final Function? getPage;
 
   const CompatInternalPage({
-    Key key,
+    Key? key,
     this.yourMatrix,
     this.partnerMatrix,
     this.matrixData,
@@ -54,7 +55,7 @@ class CompatInternalPage extends StatefulWidget {
 
 class _CompatInternalPageState extends State<CompatInternalPage> {
   var _language = Globals.instance.language;
-  var _isPremium = false;
+  bool? _isPremium = false;
   var _selectedIndex = 0;
   var _header = Globals.instance.language.matrixCompat;
 
@@ -80,8 +81,7 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
             child: Scaffold(
               appBar: AppBar(
                   centerTitle: true,
-                  title: Text(_header),
-                  brightness: Brightness.dark),
+                  title: Text(_header), systemOverlayStyle: SystemUiOverlayStyle.light),
               body: _buildContent(context),
             ),
           );
@@ -186,7 +186,7 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
     );
   }
 
-  Widget customButton({Widget child, VoidCallback onPressed}) {
+  Widget customButton({Widget? child, VoidCallback? onPressed}) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
@@ -206,7 +206,7 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
           height: 150.0,
         ),
       ),
-      _buildCoupleList(widget.coupleNumData),
+      _buildCoupleList(widget.coupleNumData!),
     ];
   }
 
@@ -235,7 +235,7 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
   List<Widget> _buildBioCompat() {
     return [
       _buildPiCharts(),
-      _buildList(widget.bioData),
+      _buildList(widget.bioData!),
     ];
   }
 
@@ -246,14 +246,14 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
       _buildNumberIcon(context, widget.partnersLifePath.toString(),
           _language.partnerLifePathNum),
       _buildPadding(),
-      _buildList(widget.lifePathData),
+      _buildList(widget.lifePathData!),
     ];
   }
 
   List<Widget> _buildMatrixCompat() {
     return [
       _buildMatrixContent(),
-      _buildList(widget.matrixData),
+      _buildList(widget.matrixData!),
     ];
   }
 
@@ -264,12 +264,12 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
           _language.yourMatrix,
           style: matrixNotice,
         ),
-        buildMatrix(context, widget.yourMatrix),
+        buildMatrix(context, widget.yourMatrix!),
         Text(
           _language.partnerMatrix,
           style: matrixNotice,
         ),
-        buildMatrix(context, widget.partnerMatrix),
+        buildMatrix(context, widget.partnerMatrix!),
       ]),
     );
   }
@@ -318,7 +318,7 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
   }
 
   Widget buildTile(CardData data) {
-    if (_isPremium) {
+    if (_isPremium!) {
       return ExpandableTile(
         data.header,
         data.description,
@@ -326,7 +326,7 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
       );
     }
     return buildPremiumCard(
-        context, data.header, data.description, data.iconPath);
+        context, data.header, data.description!, data.iconPath);
   }
 
   Widget _buildPiCharts() {
@@ -334,7 +334,7 @@ class _CompatInternalPageState extends State<CompatInternalPage> {
       child: CustomCard(
         child: buildBioPiCharts(
           context,
-          widget.bioCompat,
+          widget.bioCompat!,
           isHeaderVisible: false,
         ),
       ),

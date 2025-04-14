@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:numerology/app/business_logic/cubit/bio_second/bio_second_cubit.dart';
@@ -25,21 +26,21 @@ class BioGraphsSecondPage extends StatefulWidget {
 
 class _BioGraphsSecondPageState extends State<BioGraphsSecondPage> {
 
-  Profile profile;
+  Profile? profile;
   var header = DateService.getFormattedDate(DateTime.now());
 
-  BannerAd _banner;
-  AdWidget _adWidget;
+  BannerAd? _banner;
+  AdWidget? _adWidget;
 
   @override
   Widget build(BuildContext context) {
     _banner = getBanner();
-    _adWidget = _banner == null ? null : AdWidget(ad: _banner);
+    _adWidget = _banner == null ? null : AdWidget(ad: _banner!);
 
     return BlocBuilder<UserDataCubit, UserDataState>(builder: (context, state) {
       if (state is UserDataReady) {
         profile = state.profile;
-        context.read<BioSecondCubit>().emitBioInit(profile);
+        context.read<BioSecondCubit>().emitBioInit(profile!);
       } else if (state is UserDataLoading) {
         progressBar();
       }
@@ -60,12 +61,11 @@ class _BioGraphsSecondPageState extends State<BioGraphsSecondPage> {
                   child: errorDialog(),
                 );
               } else {
-                var isPremium = snapshot.data;
+                var isPremium = snapshot.data!;
                 return Scaffold(
                   appBar: AppBar(
                     centerTitle: true,
-                    brightness: Brightness.dark,
-                    title: _buildHeader(),
+                    title: _buildHeader(), systemOverlayStyle: SystemUiOverlayStyle.light,
                   ),
                   body: _buildContent(context, isPremium),
                   bottomNavigationBar:
@@ -80,7 +80,7 @@ class _BioGraphsSecondPageState extends State<BioGraphsSecondPage> {
     return BlocBuilder<BioSecondCubit, BioSecondState>(
         builder: (context, state) {
       header =
-          DateService.getFormattedDate(DateService.fromTimestamp(state.date));
+          DateService.getFormattedDate(DateService.fromTimestamp(state.date!));
       return Text(header);
     });
   }

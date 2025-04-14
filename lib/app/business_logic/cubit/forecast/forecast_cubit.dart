@@ -31,7 +31,7 @@ class ForecastCubit extends Cubit<ForecastState> {
         annual: annual,
       ));
     } catch (e) {
-      emit(ForecastError(e));
+      emit(ForecastError(e as Exception));
     }
   }
 

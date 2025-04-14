@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart' as picker;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:numerology/app/business_logic/cubit/notifications_cubit/notifications_cubit.dart';
@@ -12,7 +13,6 @@ import 'package:numerology/app/constants/strings.dart';
 import 'package:numerology/app/constants/text_styles.dart';
 import 'package:numerology/app/localization/language/language_en.dart';
 import 'package:numerology/main.dart';
-import 'package:provider/provider.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -33,7 +33,7 @@ class _NotificationDialogState extends State<NotificationDialog> {
       hoursInit = hoursInit ?? state.hours;
       minutesInit = minutesInit ?? state.minutes;
       isAlarmSetInit = isAlarmSetInit ?? state.isAlarmSet;
-      var isAlarmSet = state.isAlarmSet;
+      var isAlarmSet = state.isAlarmSet!;
       var hours = state.hours;
       var minutes = state.minutes;
       return _buildDialog(context, isAlarmSet, hours, minutes);
@@ -43,8 +43,8 @@ class _NotificationDialogState extends State<NotificationDialog> {
   CupertinoAlertDialog _buildDialog(
     BuildContext context,
     bool isAlarmSet,
-    int hours,
-    int minutes,
+    int? hours,
+    int? minutes,
   ) {
     var language = Globals.instance.getLanguage();
 
@@ -82,8 +82,8 @@ class _NotificationDialogState extends State<NotificationDialog> {
   Widget _buildDialogContent(
     BuildContext context,
     bool isAlarmSet,
-    int hours,
-    int minutes,
+    int? hours,
+    int? minutes,
   ) {
     return Column(
       children: [
@@ -112,7 +112,7 @@ class _NotificationDialogState extends State<NotificationDialog> {
     );
   }
 
-  Widget _buildTimeDropdown(BuildContext context, int hours, int minutes) {
+  Widget _buildTimeDropdown(BuildContext context, int? hours, int? minutes) {
     return CupertinoDialogAction(
       onPressed: () {
         _buildBottomPicker(context);
@@ -168,8 +168,8 @@ class _NotificationDialogState extends State<NotificationDialog> {
     );
   }
 
-  DatePickerTheme _dialogTheme() {
-    return DatePickerTheme(
+  picker.DatePickerTheme _dialogTheme() {
+    return picker.DatePickerTheme(
       backgroundColor: datePickerColor,
       doneStyle: TextStyle(color: datePickerItem),
       itemStyle: TextStyle(color: datePickerItem),
@@ -185,11 +185,11 @@ class _NotificationDialogState extends State<NotificationDialog> {
         );
   }
 
-  String _getFormattedDate(int hours, int minutes) {
+  String _getFormattedDate(int? hours, int? minutes) {
     String formattedHours = hours.toString();
     String formattedMinutes = minutes.toString();
     if (Globals.instance.getLanguage() is LanguageEn) {
-      TimeOfDay timeOfTheDay = TimeOfDay(hour: hours, minute: minutes);
+      TimeOfDay timeOfTheDay = TimeOfDay(hour: hours!, minute: minutes!);
       String isAmPm = timeOfTheDay.period == DayPeriod.am ? 'AM' : 'PM';
       String formattedHours = timeOfTheDay.hourOfPeriod.toString();
       formattedHours =
@@ -208,7 +208,7 @@ class _NotificationDialogState extends State<NotificationDialog> {
     return '$formattedHours : $formattedMinutes';
   }
 
-  void scheduleAlarm(bool isAlarmSet, int hours, int minutes) async {
+  void scheduleAlarm(bool isAlarmSet, int? hours, int? minutes) async {
     if (!isAlarmSet) {
       flutterLocalNotificationsPlugin.cancelAll();
       return;
@@ -223,7 +223,8 @@ class _NotificationDialogState extends State<NotificationDialog> {
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
       'alarm_notif',
       'alarm_notif',
-      'Channel for Alarm notification',
+      'Channel for Alarm notification', //TODO
+      // channelDescription: 'Channel for Alarm notification',
       icon: 'ic_launcher',
       largeIcon: DrawableResourceAndroidBitmap(androidAppIcon),
     );
@@ -243,8 +244,8 @@ class _NotificationDialogState extends State<NotificationDialog> {
       dateTime.year,
       dateTime.month,
       dateTime.day,
-      hours,
-      minutes,
+      hours!,
+      minutes!,
       dateTime.second,
       dateTime.millisecond,
       dateTime.microsecond,

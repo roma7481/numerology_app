@@ -23,7 +23,7 @@ class ProfilesCubit extends Cubit<ProfilesState> {
         exception: exception,
       ));
 
-  Future<void> emitAddProfile(Profile profile) async {
+  Future<void> emitAddProfile(Profile? profile) async {
     try {
       await ProfileDBProvider.instance.insertProfile(profile);
       var profiles = await ProfileDBProvider.instance.getAllProfiles();
@@ -33,12 +33,13 @@ class ProfilesCubit extends Cubit<ProfilesState> {
     }
   }
 
-  Future<Profile> emitAddPrimProfile(Profile profile) async {
+  Future<Profile?> emitAddPrimProfile(Profile profile) async {
     var newPrim;
     try {
       var profiles = await ProfileDBProvider.instance.getAllProfiles();
+
       var currentPrim =
-          profiles.firstWhere((element) => element.isSelected == 1);
+          profiles.firstWhere((element) => element.isSelected == 1, orElse: () => profiles.first.copyWith(isSelected: 0));
 
       currentPrim = currentPrim.copyWith(isSelected: 0);
       newPrim = profile.copyWith(isSelected: 1);
@@ -67,7 +68,7 @@ class ProfilesCubit extends Cubit<ProfilesState> {
     }
   }
 
-  Future<Profile> emitDeletePrimProfile(Profile profile) async {
+  Future<Profile?> emitDeletePrimProfile(Profile profile) async {
     var newPrim;
     try {
       await ProfileDBProvider.instance.deleteProfile(profile);

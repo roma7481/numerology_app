@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -28,26 +30,31 @@ import 'app/constants/strings.dart';
 import 'app/presentation/common_widgets/progress_bar.dart';
 import 'app/presentation/pages/page_decider.dart';
 
+
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp();
-
-  await _setupNotifications();
-
+  // ✅ Set up HydratedBloc manually
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: await getApplicationDocumentsDirectory(),
   );
 
+  // ✅ Set up Firebase
+  await Firebase.initializeApp();
+
+  // ✅ Notifications, Ads, etc.
+  await _setupNotifications();
   await AdManager.setup();
 
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
-      .then((_) {
-    runApp(new MyApp());
-  });
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
+
+  runApp(MyApp()); // ✅ All safe and zone-free
 }
 
 Future<void> _setupNotifications() async {
@@ -59,11 +66,11 @@ Future<void> _setupNotifications() async {
       requestBadgePermission: true,
       requestSoundPermission: true,
       onDidReceiveLocalNotification:
-          (int id, String title, String body, String payload) async {});
+          (int id, String? title, String? body, String? payload) async {});
   var initializationSettings = InitializationSettings(
       android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
   await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-      onSelectNotification: (String payload) async {
+      onSelectNotification: (String? payload) async {
     if (payload != null) {
       debugPrint('notification payload: ' + payload);
     }
@@ -75,7 +82,7 @@ Future<void> _displayFundingDialog() async {
     ConsentInformation consentInfo =
         await FlutterFundingChoices.requestConsentInformation();
     if (consentInfo.isConsentFormAvailable &&
-        consentInfo.consentStatus == ConsentStatus.REQUIRED_IOS) {
+        consentInfo.consentStatus == ConsentStatus.required) {
       await FlutterFundingChoices.showConsentForm();
       // You can check the result by calling `FlutterFundingChoices.requestConsentInformation()` again !
     }
@@ -136,6 +143,16 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           unselectedWidgetColor: Colors.white,
           primarySwatch: MaterialColor(appBarColor, appBarColorMap),
+          appBarTheme: AppBarTheme(
+            backgroundColor: Color(appBarColor), // Or Colors.blue
+            systemOverlayStyle: SystemUiOverlayStyle.light,
+            iconTheme: IconThemeData(color: Colors.white),
+            titleTextStyle: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
         home: _displayHomePage(),
       ),

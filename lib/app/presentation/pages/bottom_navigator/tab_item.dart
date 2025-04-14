@@ -9,7 +9,7 @@ enum TabItem {
 }
 
 class TabItemData {
-  TabItemData({@required this.title, @required this.icon});
+  TabItemData({required this.title, required this.icon});
 
   final String title;
   final IconData icon;
