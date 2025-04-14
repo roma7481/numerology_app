@@ -223,8 +223,7 @@ class _NotificationDialogState extends State<NotificationDialog> {
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
       'alarm_notif',
       'alarm_notif',
-      'Channel for Alarm notification', //TODO
-      // channelDescription: 'Channel for Alarm notification',
+      'Channel for Alarm notification',
       icon: 'ic_launcher',
       largeIcon: DrawableResourceAndroidBitmap(androidAppIcon),
     );
