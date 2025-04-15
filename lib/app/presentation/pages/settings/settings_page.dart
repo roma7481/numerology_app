@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -21,8 +22,10 @@ import 'package:numerology/app/presentation/common_widgets/toast.dart';
 import 'package:numerology/app/presentation/navigators/navigator.dart';
 import 'package:numerology/app/presentation/pages/settings/open_link.dart';
 import 'package:numerology/app/presentation/pages/settings/settings_with_icon.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'dart:io';
 
 import '../../../business_logic/cubit/social_media_cubit/social_media_cubit.dart';
 import 'attribution/attribution_page.dart';
@@ -201,14 +204,40 @@ class SettingsPage extends StatelessWidget {
   }
 
   void _openCommunication() async {
-    final Uri emailLaunchUri = Uri(
-        scheme: 'mailto',
-        path: email,
-        queryParameters: {
-          'subject': emailSubject
-        }
+    final String emailBody = await createEmailBody();
+
+    final Uri emailLaunchUri = Uri.parse(
+      'mailto:$email?subject=${Uri.encodeComponent(emailSubject)}&body=${Uri.encodeComponent(emailBody)}',
     );
-    await launchUrl(Uri.parse(emailLaunchUri.toString()));
+
+    if (await canLaunchUrl(emailLaunchUri)) {
+      await launchUrl(emailLaunchUri);
+    } else {
+      throw 'Could not launch email client.';
+    }
+  }
+
+  static Future<String> createEmailBody() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+
+    String deviceInfo = '';
+    if (Platform.isIOS) {
+      IosDeviceInfo iosInfo = await deviceInfoPlugin.iosInfo;
+      deviceInfo = 'Device: ${iosInfo.utsname.machine}\n'
+          'iOS Version: ${iosInfo.systemVersion}\n'; // systemVersion is more readable
+    }
+
+    String appVersion = packageInfo.version;
+    String platform = Platform.isAndroid ? "Android" : "iOS";
+    String body = Globals.instance.getLanguage().support_ticket_body;
+
+    String emailBody = 'App Version: $appVersion\n'
+        'Platform: $platform\n\n'
+        '$deviceInfo\n'
+        '$body';
+
+    return emailBody;
   }
 
   Widget _buildSocialLinks(BuildContext context) {

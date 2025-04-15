@@ -371,4 +371,7 @@ class LanguageEn extends Languages {
 
   @override
   String get medias => 'Social medias';
+
+  @override
+  String get support_ticket_body => 'Please describe the issue, steps to reproduce, and attach relevant screenshots.';
 }

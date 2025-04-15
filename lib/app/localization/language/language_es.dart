@@ -3,6 +3,9 @@ import 'languages.dart';
 class LanguageEs extends Languages {
 
   @override
+  String get support_ticket_body => 'Por favor, describa el problema, los pasos para reproducirlo y adjunte capturas de pantalla relevantes.';
+
+  @override
   String get medias => 'Redes sociales';
 
   @override

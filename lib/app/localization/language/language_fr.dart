@@ -3,6 +3,10 @@ import 'languages.dart';
 class LanguageFr extends Languages {
 
   @override
+  String get support_ticket_body =>
+      "Veuillez décrire le problème, les étapes pour le reproduire et joindre les captures d'écran pertinentes.";
+
+  @override
   String get medias => 'Réseaux sociaux';
 
   @override

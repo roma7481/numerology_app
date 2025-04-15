@@ -367,4 +367,6 @@ class LanguageDe extends Languages {
   @override
   String get discount => 'Rabatt';
 
+  @override
+  String get support_ticket_body => 'support_ticket_body": "Bitte beschreiben Sie das Problem, die Schritte zur Reproduktion und fügen Sie relevante Screenshots bei.';
 }

@@ -42,6 +42,8 @@ dependencies:
   flutter_datetime_picker_plus: ^2.2.0
   json_serializable: ^6.9.4
   json_annotation: ^4.9.0
+  package_info_plus: ^8.3.0
+  device_info_plus: ^11.3.3
 
 flutter_icons:
   android: "launcher_icon"
