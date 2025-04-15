@@ -12,7 +12,7 @@ Widget adWidgetTag() {
         child: Text(
           'AD',
           style: TextStyle(
-            fontSize: 10,
+            fontSize: 8,
             color: Colors.white,
           ),
         )),

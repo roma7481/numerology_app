@@ -73,6 +73,7 @@ class SettingsPage extends StatelessWidget {
         children: [
           _buildFirstSetting1(language, context),
           _buildMoreApps(context),
+          _buildSocialLinks(context),
           _buildFirstSetting2(language, context),
         ],
       ),
@@ -191,14 +192,6 @@ class SettingsPage extends StatelessWidget {
           ),
         ),
         _getMoreApps(context),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 20.0),
-          child: Text(
-            Globals.instance.getLanguage().medias,
-            style: headerTextStyle,
-          ),
-        ),
-        _buildSocialLinks(context),
       ],
     );
   }
@@ -245,63 +238,53 @@ class SettingsPage extends StatelessWidget {
     final SocialLinksCubit socialLinksCubit = SocialLinksCubit();
     socialLinksCubit.load(langCode);
 
-    return CustomCard(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12.0),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        child: BlocBuilder<SocialLinksCubit, SocialLinksState>(
-          bloc: socialLinksCubit,
-          builder: (context, state) {
-            if (state is SocialLinksLoading) {
-              return progressBar();
-            } else if (state is SocialLinksLoaded) {
-              return Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: state.links.map((link) {
-                  return GestureDetector(
-                    onTap: () {
-                      launchUrl(
-                        Uri.parse(link.url),
-                        mode: LaunchMode.externalApplication,
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Column(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(18.0),
-                            child: CachedNetworkImage(
-                              fadeInDuration: Duration.zero,
-                              fadeOutDuration: Duration.zero,
-                              height: 44,
-                              width: 44,
-                              imageUrl: link.iconUrl,
-                              fit: BoxFit.cover,
-                            ),
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            minWidth: MediaQuery.of(context).size.width - 24,
+          ),
+          child: BlocBuilder<SocialLinksCubit, SocialLinksState>(
+            bloc: socialLinksCubit,
+            builder: (context, state) {
+              if (state is SocialLinksLoading) {
+                return progressBar();
+              } else if (state is SocialLinksLoaded) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: state.links.map((link) {
+                    return GestureDetector(
+                      onTap: () {
+                        launchUrl(
+                          Uri.parse(link.url),
+                          mode: LaunchMode.externalApplication,
+                        );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 8.0, right: 12.0, bottom: 12.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(18.0),
+                          child: CachedNetworkImage(
+                            fadeInDuration: Duration.zero,
+                            fadeOutDuration: Duration.zero,
+                            height: 44,
+                            width: 44,
+                            imageUrl: link.iconUrl,
+                            fit: BoxFit.cover,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 14),
-                            child: SizedBox(
-                              width: 90,
-                              child: Text(
-                                link.name,
-                                style: moreAppsTextStyle,
-                                textAlign: TextAlign.center,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 2,
-                              ),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
-                  );
-                }).toList(),
-              );
-            } else {
-              return errorDialog();
-            }
-          },
+                    );
+                  }).toList(),
+                );
+              } else {
+                return errorDialog();
+              }
+            },
+          ),
         ),
       ),
     );
@@ -311,57 +294,76 @@ class SettingsPage extends StatelessWidget {
     OtherAppCubit otherAppCubit = OtherAppCubit();
     otherAppCubit.loadOtherApps(context);
 
-
-    return CustomCard(
-      child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: BlocBuilder<OtherAppCubit, OtherAppsState>(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: CustomCard(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: BlocBuilder<OtherAppCubit, OtherAppsState>(
               bloc: otherAppCubit,
               builder: (context, state) {
                 if (state is OtherAppsLoading) {
                   return progressBar();
                 } else if (state is OtherAppsLoaded) {
-                  return Row(
+                  return SizedBox(
+                    width: MediaQuery.of(context).size.width - 16, // full width minus padding
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: state.otherApps
-                          .map((e) => GestureDetector(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top: 8.0),
-                                  child: Column(children: [
-                                    Stack(
-                                      children: [
-                                        ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(18.0),
-                                          child: CachedNetworkImage(
-                                              fadeInDuration: Duration.zero,
-                                              fadeOutDuration: Duration.zero,
-                                              height: 66,
-                                              width: 66,
-                                              imageUrl: e.imageLink,
-                                              fit: BoxFit.cover),
-                                        ),
-                                        adWidgetTag()
-                                      ],
+                      children: state.otherApps.map((e) {
+                        return GestureDetector(
+                          onTap: () {
+                            launchUrl(Uri.parse(e.link),
+                                mode: LaunchMode.externalApplication);
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 8.0),
+                            child: Column(
+                              children: [
+                                Stack(
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(18.0),
+                                      child: CachedNetworkImage(
+                                        fadeInDuration: Duration.zero,
+                                        fadeOutDuration: Duration.zero,
+                                        height: 66,
+                                        width: 66,
+                                        imageUrl: e.imageLink,
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
-                                    Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 14),
-                                        child: SizedBox(
-                                            width: 90,
-                                            child: Text(e.name, style: moreAppsTextStyle, textAlign: TextAlign.center,)))
-                                  ]),
+                                    adWidgetTag(),
+                                  ],
                                 ),
-                                onTap: () {
-                                  launchUrl(Uri.parse(e.link),
-                                      mode: LaunchMode.externalApplication);
-                                },
-                              ))
-                          .toList());
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 14),
+                                  child: SizedBox(
+                                    width: 90,
+                                    child: Text(
+                                      e.name,
+                                      style: moreAppsTextStyle,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  );
                 } else {
                   return errorDialog();
                 }
-              })),
+              },
+            ),
+          ),
+        ),
+      ),
     );
   }
 
