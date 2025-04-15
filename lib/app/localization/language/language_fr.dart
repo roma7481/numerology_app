@@ -3,6 +3,9 @@ import 'languages.dart';
 class LanguageFr extends Languages {
 
   @override
+  String get medias => 'Réseaux sociaux';
+
+  @override
   String get contactUs => 'Contactez-nous';
 
   @override

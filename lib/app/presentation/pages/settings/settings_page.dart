@@ -24,6 +24,7 @@ import 'package:numerology/app/presentation/pages/settings/settings_with_icon.da
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../business_logic/cubit/social_media_cubit/social_media_cubit.dart';
 import 'attribution/attribution_page.dart';
 import 'dialog/languages_dialog.dart';
 import 'dialog/notification_dialog.dart';
@@ -167,7 +168,7 @@ class SettingsPage extends StatelessWidget {
 
   Padding _buildLine(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 4.0, bottom: 0.0),
+      padding: const EdgeInsets.only(top: 4.0),
       child: Container(
         height: 1.0,
         width: MediaQuery.of(context).size.width * 0.68,
@@ -186,7 +187,15 @@ class SettingsPage extends StatelessWidget {
             style: headerTextStyle,
           ),
         ),
-        _getMoreApps(context)
+        _getMoreApps(context),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 20.0),
+          child: Text(
+            Globals.instance.getLanguage().medias,
+            style: headerTextStyle,
+          ),
+        ),
+        _buildSocialLinks(context),
       ],
     );
   }
@@ -200,6 +209,73 @@ class SettingsPage extends StatelessWidget {
         }
     );
     await launchUrl(Uri.parse(emailLaunchUri.toString()));
+  }
+
+  Widget _buildSocialLinks(BuildContext context) {
+    final langCode = Localizations.localeOf(context).languageCode;
+    final SocialLinksCubit socialLinksCubit = SocialLinksCubit();
+    socialLinksCubit.load(langCode);
+
+    return CustomCard(
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: BlocBuilder<SocialLinksCubit, SocialLinksState>(
+          bloc: socialLinksCubit,
+          builder: (context, state) {
+            if (state is SocialLinksLoading) {
+              return progressBar();
+            } else if (state is SocialLinksLoaded) {
+              return Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: state.links.map((link) {
+                  return GestureDetector(
+                    onTap: () {
+                      launchUrl(
+                        Uri.parse(link.url),
+                        mode: LaunchMode.externalApplication,
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Column(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(18.0),
+                            child: CachedNetworkImage(
+                              fadeInDuration: Duration.zero,
+                              fadeOutDuration: Duration.zero,
+                              height: 44,
+                              width: 44,
+                              imageUrl: link.iconUrl,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            child: SizedBox(
+                              width: 90,
+                              child: Text(
+                                link.name,
+                                style: moreAppsTextStyle,
+                                textAlign: TextAlign.center,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 2,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                }).toList(),
+              );
+            } else {
+              return errorDialog();
+            }
+          },
+        ),
+      ),
+    );
   }
 
   Widget _getMoreApps(BuildContext context) {

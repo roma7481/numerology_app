@@ -73,6 +73,8 @@ abstract class Languages {
 
   String get moreApps;
 
+  String get medias;
+
   String get tarotApp;
 
   String get runeApp;

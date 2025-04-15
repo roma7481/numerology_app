@@ -368,4 +368,7 @@ class LanguageEn extends Languages {
 
   @override
   String get addProfiles => 'Add multiple Profiles';
+
+  @override
+  String get medias => 'Social medias';
 }

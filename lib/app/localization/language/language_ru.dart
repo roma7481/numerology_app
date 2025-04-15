@@ -3,6 +3,9 @@ import 'languages.dart';
 class LanguageRu extends Languages {
 
   @override
+  String get medias => 'Соц. сети';
+
+  @override
   String get contactUs => 'Напиши нам';
 
   @override
