@@ -13,6 +13,7 @@
 		7016DAB2263898440095B039 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7016DAB4263898440095B039 /* InfoPlist.strings */; };
 		7096AEDC28D422B90084B9B3 /* HealingGADView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7096AEDB28D422B80084B9B3 /* HealingGADView.xib */; };
 		7096AEDE28D4239E0084B9B3 /* HealingNativeAdFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7096AEDD28D4239E0084B9B3 /* HealingNativeAdFactory.swift */; };
+		70EC56972DB6B1A2007E786A /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 70EC56962DB6B1A2007E786A /* PrivacyInfo.xcprivacy */; };
 		70F8360D26349A9A00ADDE9C /* AppTrackingTransparency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70F8360C26349A9A00ADDE9C /* AppTrackingTransparency.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		70F8360F2634E7E000ADDE9C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 70F8360E2634E7E000ADDE9C /* GoogleService-Info.plist */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
@@ -70,6 +71,7 @@
 		70E6ABAB266EB06B0099E01F /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Main.strings"; sourceTree = "<group>"; };
 		70E6ABAC266EB06B0099E01F /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		70E6ABAD266EB06B0099E01F /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		70EC56962DB6B1A2007E786A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		70F8360C26349A9A00ADDE9C /* AppTrackingTransparency.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppTrackingTransparency.framework; path = System/Library/Frameworks/AppTrackingTransparency.framework; sourceTree = SDKROOT; };
 		70F8360E2634E7E000ADDE9C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 				74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */,
 				7096AEDB28D422B80084B9B3 /* HealingGADView.xib */,
 				7096AEDD28D4239E0084B9B3 /* HealingNativeAdFactory.swift */,
+				70EC56962DB6B1A2007E786A /* PrivacyInfo.xcprivacy */,
 			);
 			path = Runner;
 			sourceTree = "<group>";
@@ -246,6 +249,7 @@
 				3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */,
 				70F8360F2634E7E000ADDE9C /* GoogleService-Info.plist in Resources */,
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
+				70EC56972DB6B1A2007E786A /* PrivacyInfo.xcprivacy in Resources */,
 				97C146FC1CF9000F007C117D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -261,9 +265,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -316,9 +324,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -471,7 +483,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_TEAM = K3HX3D6XCX;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -481,7 +493,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.19;
+				MARKETING_VERSION = 1.0.20;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.dailymistika.numerology;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -610,7 +622,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_TEAM = K3HX3D6XCX;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -620,7 +632,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.19;
+				MARKETING_VERSION = 1.0.20;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.dailymistika.numerology;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -636,7 +648,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_TEAM = K3HX3D6XCX;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -646,7 +658,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.19;
+				MARKETING_VERSION = 1.0.20;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.dailymistika.numerology;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";

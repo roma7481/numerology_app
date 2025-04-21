@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PrivacyAccessedAPITypes</key>
+	<array>
+		<dict>
+			<key>APIType</key>
+			<string>DeviceInfo</string>
+			<key>Reason</key>
+			<string>Auto-fills device name and OS version in support emails. User-editable and optional.</string>
+		</dict>
+		<dict>
+			<key>APIType</key>
+			<string>AppInfo</string>
+			<key>Reason</key>
+			<string>Auto-fills app version in support emails. User-editable and optional.</string>
+		</dict>
+	</array>
+	<key>PrivacyNutritionLabelTypes</key>
+	<array>
+		<dict>
+			<key>DataType</key>
+			<string>DeviceDiagnostics</string>
+			<key>AccessType</key>
+			<string>Collected</string>
+			<key>Purpose</key>
+			<array>
+				<string>AppFunctionality</string>
+				<string>Analytics</string>
+			</array>
+			<key>IsUserData</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>DataType</key>
+			<string>AppVersion</string>
+			<key>AccessType</key>
+			<string>Collected</string>
+			<key>Purpose</key>
+			<array>
+				<string>AppFunctionality</string>
+			</array>
+			<key>IsUserData</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>DataType</key>
+			<string>ProductInteraction</string>
+			<key>AccessType</key>
+			<string>Collected</string>
+			<key>Purpose</key>
+			<array>
+				<string>Analytics</string>
+			</array>
+			<key>IsUserData</key>
+			<false/>
+		</dict>
+	</array>
+	<key>ThirdPartySDKs</key>
+	<array>
+		<dict>
+			<key>Name</key>
+			<string>FirebaseAuth</string>
+			<key>Description</key>
+			<string>Used internally by Firebase services, indirectly included by firebase_core.</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>FirebaseCoreExtension</string>
+			<key>Description</key>
+			<string>Required by Firebase Analytics to support app measurement.</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>GTMSessionFetcher</string>
+			<key>Description</key>
+			<string>Used for networking by FirebaseAuth.</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>webview_flutter_wkwebview</string>
+			<key>Description</key>
+			<string>Indirect dependency from google_mobile_ads; may open ad-related webviews.</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>device_info_plus</string>
+			<key>Description</key>
+			<string>Used to auto-fill iOS version and device name in support emails. Optional and user-editable.</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>package_info_plus</string>
+			<key>Description</key>
+			<string>Used to auto-fill app version in support emails. Optional and user-editable.</string>
+		</dict>
+	</array>
+</dict>
+</plist>
