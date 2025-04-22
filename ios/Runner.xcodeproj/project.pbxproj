@@ -13,7 +13,7 @@
 		7016DAB2263898440095B039 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7016DAB4263898440095B039 /* InfoPlist.strings */; };
 		7096AEDC28D422B90084B9B3 /* HealingGADView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7096AEDB28D422B80084B9B3 /* HealingGADView.xib */; };
 		7096AEDE28D4239E0084B9B3 /* HealingNativeAdFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7096AEDD28D4239E0084B9B3 /* HealingNativeAdFactory.swift */; };
-		70EC56972DB6B1A2007E786A /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 70EC56962DB6B1A2007E786A /* PrivacyInfo.xcprivacy */; };
+		70EC56982DB6D2FF007E786A /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 70EC56962DB6B1A2007E786A /* PrivacyInfo.xcprivacy */; };
 		70F8360D26349A9A00ADDE9C /* AppTrackingTransparency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70F8360C26349A9A00ADDE9C /* AppTrackingTransparency.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		70F8360F2634E7E000ADDE9C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 70F8360E2634E7E000ADDE9C /* GoogleService-Info.plist */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
@@ -243,13 +243,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				70EC56982DB6D2FF007E786A /* PrivacyInfo.xcprivacy in Resources */,
 				97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */,
 				7016DAB2263898440095B039 /* InfoPlist.strings in Resources */,
 				7096AEDC28D422B90084B9B3 /* HealingGADView.xib in Resources */,
 				3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */,
 				70F8360F2634E7E000ADDE9C /* GoogleService-Info.plist in Resources */,
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
-				70EC56972DB6B1A2007E786A /* PrivacyInfo.xcprivacy in Resources */,
 				97C146FC1CF9000F007C117D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -483,7 +483,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 38;
+				CURRENT_PROJECT_VERSION = 39;
 				DEVELOPMENT_TEAM = K3HX3D6XCX;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -622,7 +622,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 38;
+				CURRENT_PROJECT_VERSION = 39;
 				DEVELOPMENT_TEAM = K3HX3D6XCX;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -648,7 +648,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 38;
+				CURRENT_PROJECT_VERSION = 39;
 				DEVELOPMENT_TEAM = K3HX3D6XCX;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
