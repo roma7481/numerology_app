@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:device_info_plus/device_info_plus.dart';
+// import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -22,7 +22,7 @@ import 'package:numerology/app/presentation/common_widgets/toast.dart';
 import 'package:numerology/app/presentation/navigators/navigator.dart';
 import 'package:numerology/app/presentation/pages/settings/open_link.dart';
 import 'package:numerology/app/presentation/pages/settings/settings_with_icon.dart';
-import 'package:package_info_plus/package_info_plus.dart';
+// import 'package:package_info_plus/package_info_plus.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:io';
@@ -210,27 +210,41 @@ class SettingsPage extends StatelessWidget {
     }
   }
 
+  // TODO uncomment once can resolve privacy policy for package_info_plus: 8.3.0, device_info_plus: 11.4.0
+  // static Future<String> createEmailBody() async {
+  //   PackageInfo packageInfo = await PackageInfo.fromPlatform();
+  //   DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+  //
+  //   String deviceInfo = '';
+  //   if (Platform.isIOS) {
+  //     IosDeviceInfo iosInfo = await deviceInfoPlugin.iosInfo;
+  //     deviceInfo = 'Device: ${iosInfo.utsname.machine}\n'
+  //         'iOS Version: ${iosInfo.systemVersion}\n'; // systemVersion is more readable
+  //   }
+  //
+  //   String appVersion = packageInfo.version;
+  //   String platform = Platform.isAndroid ? "Android" : "iOS";
+  //   String body = Globals.instance.getLanguage().support_ticket_body;
+  //
+  //   String emailBody = 'App Version: $appVersion\n'
+  //       'Platform: $platform\n\n'
+  //       '$deviceInfo\n'
+  //       '$body';
+  //
+  //   return emailBody;
+  // }
+
   static Future<String> createEmailBody() async {
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
-
     String deviceInfo = '';
-    if (Platform.isIOS) {
-      IosDeviceInfo iosInfo = await deviceInfoPlugin.iosInfo;
-      deviceInfo = 'Device: ${iosInfo.utsname.machine}\n'
-          'iOS Version: ${iosInfo.systemVersion}\n'; // systemVersion is more readable
-    }
-
-    String appVersion = packageInfo.version;
+    String appVersion = const String.fromEnvironment('APP_VERSION', defaultValue: 'unknown');
     String platform = Platform.isAndroid ? "Android" : "iOS";
+
     String body = Globals.instance.getLanguage().support_ticket_body;
 
-    String emailBody = 'App Version: $appVersion\n'
+    return 'App Version: $appVersion\n'
         'Platform: $platform\n\n'
         '$deviceInfo\n'
         '$body';
-
-    return emailBody;
   }
 
   Widget _buildSocialLinks(BuildContext context) {

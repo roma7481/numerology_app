@@ -28,7 +28,7 @@ require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelpe
 flutter_ios_podfile_setup
 
 target 'Runner' do
-  use_frameworks!
+  use_frameworks! :linkage => :static
   use_modular_headers!
 
   # ✅ Force Firebase SDK version (you can bump this if needed)
@@ -37,7 +37,9 @@ target 'Runner' do
   # ✅ Only include pods you need (Firebase/Core is optional now)
   pod 'Firebase/Auth', $FirebaseSDKVersion
   pod 'Firebase/Firestore', $FirebaseSDKVersion
-  pod 'Firebase/Core', $FirebaseSDKVersion # Optional unless explicitly needed
+  pod 'Firebase/Core', $FirebaseSDKVersion
+
+  ENV['FLUTTER_TARGET'] ||= 'lib/main.dart'
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
 end
