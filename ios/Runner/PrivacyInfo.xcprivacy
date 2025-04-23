@@ -49,34 +49,5 @@
       </array>
     </dict>
   </array>
-
-  <!-- Accessed API Types -->
-  <key>NSPrivacyAccessedAPITypes</key>
-  <array>
-    <dict>
-      <key>NSPrivacyAccessedAPIType</key>
-      <string>NSPrivacyAccessedAPICategoryDeviceInfo</string>
-      <key>NSPrivacyAccessedAPITypeReasons</key>
-      <array>
-        <string>C617.1</string> <!-- Replace with the correct Apple reason code if known -->
-      </array>
-    </dict>
-    <dict>
-      <key>NSPrivacyAccessedAPIType</key>
-      <string>NSPrivacyAccessedAPICategoryAppInfo</string>
-      <key>NSPrivacyAccessedAPITypeReasons</key>
-      <array>
-        <string>C617.2</string> <!-- Replace with the correct Apple reason code if known -->
-      </array>
-    </dict>
-    <dict>
-      <key>NSPrivacyAccessedAPIType</key>
-      <string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
-      <key>NSPrivacyAccessedAPITypeReasons</key>
-      <array>
-        <string>C617.3</string> <!-- Replace with actual codes when available -->
-      </array>
-    </dict>
-  </array>
 </dict>
 </plist>
