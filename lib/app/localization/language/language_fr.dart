@@ -363,5 +363,18 @@ class LanguageFr extends Languages {
   @override
   String get yourMatrix => '';
 
+  @override
+  String get runePromotion1 => 'Obtenez des conseils quotidiens avec l\'app ';
+  @override
+  String get runePromotion2 => 'Runes';
+  @override
+  String get runePromotion3 => '';
+
+  @override
+  String get tarotPromotion1 => 'Obtenez des conseils quotidiens avec l\'app ';
+  @override
+  String get tarotPromotion2 => 'Carte du jour du tarot';
+  @override
+  String get tarotPromotion3 => '';
 
 }

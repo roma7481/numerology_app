@@ -28,6 +28,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'dart:io';
 
 import '../../../business_logic/cubit/social_media_cubit/social_media_cubit.dart';
+import '../../../business_logic/services/app_links_service.dart';
 import 'attribution/attribution_page.dart';
 import 'dialog/languages_dialog.dart';
 import 'dialog/notification_dialog.dart';
@@ -491,7 +492,7 @@ class SettingsPage extends StatelessWidget {
   }
 
   void _shareApp(BuildContext context) {
-    final String url = linkToApp;
+    final String url = AppLinksService.instance.numerologyUrl;
     final RenderBox box = context.findRenderObject() as RenderBox;
     Share.share(url,
         sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);

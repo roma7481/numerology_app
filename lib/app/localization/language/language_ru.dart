@@ -373,4 +373,18 @@ class LanguageRu extends Languages {
 
   @override
   String get addProfiles => 'Добавить несколько профилей пользователей';
+
+  @override
+  String get runePromotion1 => 'Получайте ежедневные советы в приложении ';
+  @override
+  String get runePromotion2 => 'Руны';
+  @override
+  String get runePromotion3 => '';
+
+  @override
+  String get tarotPromotion1 => 'Получайте ежедневные советы в приложении ';
+  @override
+  String get tarotPromotion2 => 'Карта дня Таро';
+  @override
+  String get tarotPromotion3 => '';
 }

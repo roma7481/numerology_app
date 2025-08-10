@@ -376,4 +376,19 @@ class LanguagePt extends Languages {
 
   @override
   String get addProfiles => 'Adicionar vários perfis';
+
+  @override
+  String get runePromotion1 => 'Obtenha conselhos diários com o app ';
+  @override
+  String get runePromotion2 => 'Runas';
+  @override
+  String get runePromotion3 => '';
+
+  @override
+  String get tarotPromotion1 => 'Obtenha conselhos diários com o app ';
+  @override
+  String get tarotPromotion2 => 'Carta do dia do Tarot';
+  @override
+  String get tarotPromotion3 => '';
+
 }

@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../business_logic/globals/globals.dart';
+import '../../business_logic/services/app_links_service.dart';
 import '../../constants/text_styles.dart';
 import 'ad_widget_tag.dart';
 import 'card_header.dart';
@@ -55,10 +58,28 @@ class _ExpandableTileState extends State<ExpandableTile> {
     );
   }
 
+  int? _promoIndex;
+
+
+  late final List<Widget Function()> _promoBuilders; // declare only
+
+  @override
+  void initState() {
+    super.initState();
+    _promoBuilders = [
+      _buildHealingSoundsPromotion,
+      _buildHTarotCardOfDayPromotion,
+      _buildRunePromotion,
+    ];
+  }
+
   Widget _buildCardContent() {
     final isContentEmpty = widget.content == null || widget.content!.isEmpty;
+    if (isContentEmpty) return const SizedBox();
 
-    if (isContentEmpty) return SizedBox();
+    if (_isExpand && _promoIndex == null) {
+      _promoIndex = Random().nextInt(_promoBuilders.length);
+    }
 
     return Padding(
       padding: const EdgeInsets.only(top: 8.0, left: 16.0, right: 8.0, bottom: 16.0),
@@ -72,7 +93,8 @@ class _ExpandableTileState extends State<ExpandableTile> {
             style: descriptionContentStyle(),
           ),
           if (!_isExpand) _buildReadMore(),
-          if (_isExpand) _buildHealingSoundsPromotion(),
+          if (_isExpand && _promoIndex != null)
+            _promoBuilders[_promoIndex!](),
         ],
       ),
     );
@@ -89,12 +111,33 @@ class _ExpandableTileState extends State<ExpandableTile> {
     );
   }
 
-  Widget _buildHealingSoundsPromotion() {
-    if (widget.promotionLink.isEmpty) return SizedBox();
+    Widget _buildHealingSoundsPromotion() {
+    return _buildPromotion(AppLinksService.instance.healingSoundsUrl,
+        Globals.instance.getLanguage().healingSoundsPromotion1,
+        Globals.instance.getLanguage().healingSoundsPromotion2,
+        Globals.instance.getLanguage().healingSoundsPromotion3);
+  }
+
+  Widget _buildHTarotCardOfDayPromotion() {
+    return _buildPromotion(AppLinksService.instance.tarotUrl,
+        Globals.instance.getLanguage().tarotPromotion1,
+        Globals.instance.getLanguage().tarotPromotion2,
+        Globals.instance.getLanguage().tarotPromotion3);
+  }
+
+  Widget _buildRunePromotion() {
+    return _buildPromotion(AppLinksService.instance.runesUrl,
+        Globals.instance.getLanguage().runePromotion1,
+        Globals.instance.getLanguage().runePromotion2,
+        Globals.instance.getLanguage().runePromotion3);
+  }
+
+  Widget _buildPromotion(url,text1,text2,text3) {
+    if (url == null || url.isEmpty) return SizedBox();
 
     return InkWell(
       onTap: () {
-        launchUrl(Uri.parse(widget.promotionLink), mode: LaunchMode.externalApplication);
+        launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
       },
       child: Padding(
         padding: const EdgeInsets.only(top: 12.0),
@@ -108,13 +151,13 @@ class _ExpandableTileState extends State<ExpandableTile> {
                 ),
               ),
               TextSpan(
-                  text: Globals.instance.getLanguage().healingSoundsPromotion1,
+                  text: text1,
                   style: descriptionContentStyle()),
               TextSpan(
-                  text: Globals.instance.getLanguage().healingSoundsPromotion2,
+                  text: text2,
                   style: urlLinkStyle),
               TextSpan(
-                  text: Globals.instance.getLanguage().healingSoundsPromotion3,
+                  text: text3,
                   style: descriptionContentStyle()),
               TextSpan(text: '\n'),
             ],

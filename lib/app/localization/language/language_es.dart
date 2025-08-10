@@ -373,4 +373,19 @@ class LanguageEs extends Languages {
 
   @override
   String get addProfiles => 'Agregar múltiples perfiles de usuario';
+
+  @override
+  String get runePromotion1 => 'Obtén consejos diarios con la app ';
+  @override
+  String get runePromotion2 => 'Runas';
+  @override
+  String get runePromotion3 => '';
+
+  @override
+  String get tarotPromotion1 => 'Obtén consejos diarios con la app ';
+  @override
+  String get tarotPromotion2 => 'Carta del día del tarot';
+  @override
+  String get tarotPromotion3 => '';
+
 }

@@ -11,6 +11,18 @@ abstract class Languages {
 
   String get healingSoundsPromotion3;
 
+  String get runePromotion1;
+
+  String get runePromotion2;
+
+  String get runePromotion3;
+
+  String get tarotPromotion1;
+
+  String get tarotPromotion2;
+
+  String get tarotPromotion3;
+
   String get purchaseError;
 
   String get infoWarning;

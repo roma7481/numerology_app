@@ -34,6 +34,8 @@ import 'package:numerology/app/presentation/pages/graphs/bio_graphs_second_page.
 import 'package:numerology/app/presentation/pages/pay_wall/pay_wall.dart';
 import 'package:provider/provider.dart';
 
+import '../../business_logic/services/app_links_service.dart';
+
 enum CategoryType {
   luckyGemCategory,
   birthdayNumCategory,
@@ -545,7 +547,7 @@ class CategoryProvider {
       tableName = 'PERSONAL_DAY_IT';
     }
 
-    return await _getDescriptionPage(context, tableName, calc, header, promotionLink: healingSoundsLink);
+    return await _getDescriptionPage(context, tableName, calc, header, promotionLink: AppLinksService.instance.healingSoundsUrl);
   }
 
   Future<String?> getDayContent(Profile profile) async {

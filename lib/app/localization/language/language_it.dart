@@ -370,4 +370,19 @@ class LanguageIt extends Languages {
 
   @override
   String get addProfiles => 'Aggiungi più profili';
+
+  @override
+  String get runePromotion1 => 'Ottieni consigli quotidiani con l\'app ';
+  @override
+  String get runePromotion2 => 'Rune';
+  @override
+  String get runePromotion3 => '';
+
+  @override
+  String get tarotPromotion1 => 'Ottieni consigli quotidiani con l\'app ';
+  @override
+  String get tarotPromotion2 => 'Carta del giorno dei tarocchi';
+  @override
+  String get tarotPromotion3 => '';
+
 }

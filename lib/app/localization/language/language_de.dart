@@ -369,4 +369,23 @@ class LanguageDe extends Languages {
 
   @override
   String get support_ticket_body => 'support_ticket_body": "Bitte beschreiben Sie das Problem, die Schritte zur Reproduktion und fügen Sie relevante Screenshots bei.';
+
+  @override
+  String get runePromotion1 => 'Erhalte tägliche Ratschläge mit der ';
+
+  @override
+  String get runePromotion2 => 'Runen';
+
+  @override
+  String get runePromotion3 => ' app';
+
+  @override
+  String get tarotPromotion1 => 'Erhalte tägliche Ratschläge mit der ';
+
+  @override
+  String get tarotPromotion2 => 'Tarotkarte des Tages';
+
+  @override
+  String get tarotPromotion3 => ' app';
+
 }

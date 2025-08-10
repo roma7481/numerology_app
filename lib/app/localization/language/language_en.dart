@@ -10,10 +10,10 @@ class LanguageEn extends Languages {
   String get healingSoundsPromotion1 => 'Focus on daily tasks with ';
 
   @override
-  String get healingSoundsPromotion2 => '“Healing Sounds" ';
+  String get healingSoundsPromotion2 => '“Healing Sounds"';
 
   @override
-  String get healingSoundsPromotion3 => 'app';
+  String get healingSoundsPromotion3 => ' app';
 
   @override
   String get selectLanguage => 'Please select language';
@@ -374,4 +374,22 @@ class LanguageEn extends Languages {
 
   @override
   String get support_ticket_body => 'Please describe the issue, steps to reproduce, and attach relevant screenshots.';
+
+  @override
+  String get runePromotion1 => 'Get daily advice with ';
+
+  @override
+  String get runePromotion2 => 'Runes';
+
+  @override
+  String get runePromotion3 => ' app';
+
+  @override
+  String get tarotPromotion1 => 'Get daily advice with ';
+
+  @override
+  String get tarotPromotion2 => 'Tarot Card of the day';
+
+  @override
+  String get tarotPromotion3 => ' app';
 }

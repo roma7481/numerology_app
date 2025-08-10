@@ -8,6 +8,8 @@ import 'package:numerology/app/business_logic/globals/globals.dart';
 import 'package:numerology/app/constants/strings.dart';
 import 'package:numerology/app/data/models/profile.dart';
 
+import '../../services/app_links_service.dart';
+
 part 'forecast_state.dart';
 
 class ForecastCubit extends Cubit<ForecastState> {
@@ -18,7 +20,7 @@ class ForecastCubit extends Cubit<ForecastState> {
 
     try {
       Forecast daily = await forecastUtils.getDailyForecast(profile);
-      daily.promotionAppLink = healingSoundsLink;
+      daily.promotionAppLink = AppLinksService.instance.healingSoundsUrl;
 
       Forecast lucky = await forecastUtils.getLuckyForecast(profile);
       Forecast monthly = await forecastUtils.getMonthForecast(profile);

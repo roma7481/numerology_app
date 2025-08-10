@@ -24,19 +24,12 @@ const String primaryUserKey = 'primaryUserKey';
 
 const String androidAppIcon = 'ic_launcher';
 
-const String tarotAppURL =
-    'https://apps.apple.com/us/app/tarot-card-of-the-day/id1556452544';
-const String runeAppURL =
-    'https://apps.apple.com/us/app/runes_daily_reading/id1558378053';
-
 const String telegramURL = 'https://t.me/dailymistika';
 const String telegram = 'Телеграм';
 const String websiteURL = 'https://dailymistika.ru';
 const String ourWebsite = 'Наш сайт';
 const String privacyPolicyURL =
     'https://cbeeapps.wixsite.com/numerologyprivacy';
-const String linkToApp = 'https://apps.apple.com/us/app/numerology-biorhythm/id1564315932';
-const String healingSoundsLink = 'https://apps.apple.com/us/app/healing-sounds-sound-therapy/id1625569788';
 
 const String email = 'cbeeapps@gmail.com';
 const String emailSubject = 'Numerology_iOS';
